@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css">
+  <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; }
+  </style>
+</helmet>
+
+<div style="background:var(--color-bg); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
+
+  <header style="background:linear-gradient(120deg, var(--color-accent-200), var(--color-accent-2-100) 55%, var(--color-accent-2-200)); padding:var(--space-8) var(--space-4) var(--space-6);">
+    <div style="max-width:1120px; margin:0 auto; display:flex; align-items:center; justify-content:center; gap:var(--space-6); flex-wrap:wrap;">
+      <img src="assets/mascot.png" alt="鈺聆玩家政吉祥物" style="width:200px; height:200px; object-fit:contain; flex:none;">
+      <div style="text-align:left; max-width:480px;">
+        <h1 style="margin:0;">鈺聆玩家政</h1>
+        <p style="font-size:16px; opacity:0.75; margin-top:var(--space-3);">一起用生活化學習，玩出理財力</p>
+      </div>
+    </div>
+  </header>
+
+  <section id="hub" style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
+    <div style="display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:var(--space-4);">
+      <sc-for list="{{ hubItems }}" as="hub" hint-placeholder-count="7">
+        <a href="{{ hub.href }}" style="{{ hub.cardStyle }}">
+          <div style="{{ hub.headerStyle }}">
+            <span style="{{ hub.iconStyle }}">{{ hub.icon }}</span>
+            <span style="{{ hub.titleStyle }}">{{ hub.title }}</span>
+          </div>
+          <div style="{{ hub.bodyStyle }}">
+            <p style="{{ hub.descStyle }}">{{ hub.desc }}</p>
+            <span style="{{ hub.btnStyle }}">前往學習</span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  </div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const hubRaw = [
+      { href: '飲食與營養.dc.html', icon: '🍳', title: '飲食與營養', desc: '健康飲食、食品安全、烹飪實作' },
+      { href: '服裝與織品.dc.html', icon: '🧵', title: '服裝與織品', desc: '縫紉技巧、衣物保養、美感穿搭' },
+      { href: '家庭與生活.dc.html', icon: '👨‍👩‍👧', title: '家庭與生活', desc: '溝通合作、家庭關係、生活照顧' },
+      { href: '消費與管理.dc.html', icon: '💰', title: '消費與管理', desc: '理財規劃、理性消費、永續生活' },
+      { href: '教學百寶箱.dc.html', icon: '🎁', title: '教學百寶箱', desc: '課堂教學小工具' },
+      { href: '主題互動學習.dc.html', icon: '🎲', title: '主題互動學習', desc: '依不同主題設計互動教材、遊戲及任務活動。' }
+    ];
+    const rainbowHues = [22, 45, 95, 155, 205, 265];
+    const hubItems = hubRaw.map((h, i) => {
+      const hue = `oklch(62% 0.15 ${rainbowHues[i % rainbowHues.length]})`;
+      return {
+        ...h,
+        cardStyle: `display:flex; flex-direction:column; text-align:left; text-decoration:none; border-radius:var(--radius-lg); overflow:hidden; background:var(--color-surface); box-shadow:var(--shadow-sm);`,
+        headerStyle: `display:flex; align-items:center; gap:8px; padding:10px 14px; background:${hue};`,
+        iconStyle: `font-size:17px; flex:none;`,
+        titleStyle: `font-family:var(--font-heading); font-size:20px; font-weight:700; color:var(--color-bg); white-space:nowrap;`,
+        bodyStyle: `display:flex; flex-direction:column; gap:12px; padding:14px; flex:1;`,
+        descStyle: `font-size:13px; opacity:0.8; margin:0; flex:1; color:var(--color-text);`,
+        btnStyle: `display:inline-flex; align-items:center; justify-content:center; align-self:flex-start; padding:7px 16px; border-radius:999px; font-family:var(--font-heading); font-size:12px; white-space:nowrap; background:${hue}; color:var(--color-bg);`
+      };
+    });
+
+    return { hubItems };
+  }
+}
+
+</script>
+</body>
+</html>

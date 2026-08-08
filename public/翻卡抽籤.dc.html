@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css">
+  <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
+  <style>
+    @keyframes cardPop { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  </style>
+</helmet>
+<div style="background:var(--color-bg); min-height:100vh; font-family:var(--font-body); color:var(--color-text); padding-bottom:var(--space-8);">
+  <div style="max-width:1120px; margin:0 auto; padding:var(--space-6) var(--space-4) 0;">
+    <a href="教學百寶箱.dc.html" style="font-size:14px; color:var(--color-accent-700); text-decoration:none;">← 回教學百寶箱</a>
+  </div>
+
+  <header style="max-width:1120px; margin:0 auto; padding:var(--space-4) var(--space-4) var(--space-6); display:flex; align-items:center; gap:var(--space-3); flex-wrap:wrap;">
+    <span style="font-size:36px; flex:none;">♠</span>
+    <div>
+      <h1 style="margin:0;">翻卡抽籤</h1>
+      <p style="opacity:0.75; margin-top:4px;">輸入卡片內容，洗牌後隨機抽出任務、事件或題目。</p>
+    </div>
+  </header>
+
+  <div style="max-width:1120px; margin:0 auto; padding:0 var(--space-4); display:grid; grid-template-columns: minmax(260px,330px) 1fr; gap:var(--space-4);">
+
+    <aside class="card elev-sm" style="gap:var(--space-4);">
+      <div>
+        <label style="display:block; font-weight:700; margin-bottom:4px; font-size:15px;">卡片內容</label>
+        <p style="margin:0 0 8px; opacity:0.6; font-size:12px;">一行代表一張卡片</p>
+        <textarea value="{{ cardText }}" onChange="{{ onCardTextChange }}" placeholder="例如：&#10;朋友生日，花費 300 元&#10;手機突然故障&#10;獲得額外零用錢 500 元&#10;投資獲利 10%&#10;遇到網路詐騙" class="input" style="min-height:200px; resize:vertical; line-height:1.7; font-size:14px;"></textarea>
+        <div style="margin-top:8px; text-align:right; font-size:12px; opacity:0.6;">已輸入 <strong>{{ inputCount }}</strong> 張卡片</div>
+      </div>
+
+      <div>
+        <label style="display:block; font-weight:700; margin-bottom:8px; font-size:15px;">一次抽幾張？</label>
+        <div style="display:grid; grid-template-columns: repeat(5,1fr); gap:7px;">
+          <sc-for list="{{ countOptions }}" as="opt" hint-placeholder-count="5">
+            <button onClick="{{ opt.onSelect }}" style="{{ opt.style }}">{{ opt.value }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div>
+        <label style="display:flex; align-items:center; justify-content:space-between; gap:14px; cursor:pointer;">
+          <span>
+            <span style="display:block; font-size:14px; font-weight:600;">抽過的卡片不再出現</span>
+            <span style="display:block; opacity:0.6; font-size:11px; line-height:1.5;">適合事件卡、任務卡及不重複抽籤</span>
+          </span>
+          <input type="checkbox" checked="{{ removeDrawn }}" onChange="{{ onToggleRemoveDrawn }}" style="width:20px; height:20px; accent-color:var(--color-accent-600); flex:none;">
+        </label>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:9px;">
+        <button onClick="{{ loadSample }}" class="btn btn-secondary">載入範例</button>
+        <button onClick="{{ clearCards }}" class="btn btn-secondary">清空</button>
+      </div>
+    </aside>
+
+    <main class="card elev-sm" style="min-height:520px;">
+      <div style="display:flex; justify-content:center; gap:45px; padding-bottom:21px; border-bottom:1px solid var(--color-divider); flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <span style="display:block; opacity:0.6; font-size:11px; margin-bottom:4px;">卡片總數</span>
+          <strong style="font-size:20px; font-weight:600;">{{ totalCards }}</strong>
+        </div>
+        <div style="text-align:center;">
+          <span style="display:block; opacity:0.6; font-size:11px; margin-bottom:4px;">剩餘卡片</span>
+          <strong style="font-size:20px; font-weight:600;">{{ remainingCount }}</strong>
+        </div>
+        <div style="text-align:center;">
+          <span style="display:block; opacity:0.6; font-size:11px; margin-bottom:4px;">已抽出</span>
+          <strong style="font-size:20px; font-weight:600;">{{ drawnTotal }}</strong>
+        </div>
+      </div>
+
+      <div style="min-height:320px; display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; padding:32px 0;">
+        <sc-if value="{{ hasDrawnCards }}" hint-placeholder-val="{{ false }}">
+          <sc-for list="{{ drawnCards }}" as="c" hint-placeholder-count="0">
+            <div style="width:165px; height:225px; border-radius:17px; background:var(--color-bg); border:1px solid var(--color-divider); box-shadow:var(--shadow-md); display:flex; align-items:center; justify-content:center; padding:18px; box-sizing:border-box; position:relative; animation:cardPop 0.4s ease-out;">
+              <span style="position:absolute; top:10px; left:12px; color:var(--color-accent-600); font-size:12px;">✦</span>
+              <span style="text-align:center; font-size:15px; line-height:1.65; overflow-wrap:anywhere;">{{ c.text }}</span>
+              <span style="position:absolute; right:12px; bottom:10px; color:var(--color-accent-600); font-size:12px;">✦</span>
+            </div>
+          </sc-for>
+        </sc-if>
+        <sc-if value="{{ !hasDrawnCards }}" hint-placeholder-val="{{ true }}">
+          <div style="text-align:center; opacity:0.6;">
+            <div style="width:105px; height:145px; display:flex; align-items:center; justify-content:center; margin:0 auto 18px; border-radius:15px; background:var(--color-accent-200); color:var(--color-bg); font-size:34px;">?</div>
+            <h2 style="margin:0 0 7px; font-size:17px; font-weight:600;">準備開始抽卡</h2>
+            <p style="margin:0; font-size:13px; line-height:1.7;">在左側輸入卡片內容，再按下「開始抽卡」。</p>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="display:flex; align-items:center; justify-content:center; gap:11px; flex-wrap:wrap;">
+        <button onClick="{{ drawCards }}" class="btn btn-primary" style="min-width:180px;">✦ 開始抽卡</button>
+        <button onClick="{{ resetDeck }}" class="btn btn-ghost">↻ 重新洗牌</button>
+      </div>
+      <p style="min-height:21px; margin:13px 0 0; text-align:center; opacity:0.7; font-size:12px;">{{ message }}</p>
+    </main>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    cardText: '',
+    drawCount: 1,
+    removeDrawn: true,
+    originalCards: [],
+    remainingCards: [],
+    drawnTotal: 0,
+    drawnCards: [],
+    message: ''
+  };
+
+  getCardsFromInput() {
+    return this.state.cardText.split('\n').map(c => c.trim()).filter(Boolean);
+  }
+
+  shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  initialiseDeck() {
+    const cards = this.getCardsFromInput();
+    this.setState({ originalCards: cards, remainingCards: [...cards], drawnTotal: 0 });
+    return cards;
+  }
+
+  onCardTextChange = (e) => this.setState({ cardText: e.target.value });
+  onToggleRemoveDrawn = () => {
+    this.setState(s => ({ removeDrawn: !s.removeDrawn }), () => {
+      this.initialiseDeck();
+      this.setState({ message: this.state.removeDrawn ? '已開啟不重複抽卡。' : '已開啟可重複抽卡。' });
+    });
+  };
+
+  drawCards = () => {
+    const currentInput = this.getCardsFromInput();
+    let original = this.state.originalCards;
+    let remaining = this.state.remainingCards;
+    if (JSON.stringify(currentInput) !== JSON.stringify(original)) {
+      original = currentInput;
+      remaining = [...currentInput];
+    }
+    if (original.length === 0) { this.setState({ message: '請先輸入至少一張卡片內容。' }); return; }
+    const requested = this.state.drawCount;
+    const sourceDeck = this.state.removeDrawn ? remaining : original;
+    if (sourceDeck.length === 0) { this.setState({ message: '所有卡片都已抽完，請按「重新洗牌」。', originalCards: original, remainingCards: remaining }); return; }
+    const actualCount = Math.min(requested, sourceDeck.length);
+    const shuffled = this.shuffle(sourceDeck);
+    const selected = shuffled.slice(0, actualCount);
+    if (this.state.removeDrawn) {
+      selected.forEach(card => {
+        const idx = remaining.indexOf(card);
+        if (idx > -1) remaining.splice(idx, 1);
+      });
+    }
+    this.setState({
+      originalCards: original,
+      remainingCards: remaining,
+      drawnTotal: this.state.drawnTotal + selected.length,
+      drawnCards: selected.map(text => ({ text })),
+      message: actualCount < requested ? `剩餘卡片不足，本次抽出 ${actualCount} 張。` : `本次抽出 ${actualCount} 張卡片。`
+    });
+  };
+
+  resetDeck = () => {
+    this.initialiseDeck();
+    this.setState({ drawnCards: [], message: '牌庫已重置。' });
+  };
+
+  loadSample = () => {
+    const sample = ['朋友生日，需要準備一份禮物', '手機突然故障，需要支付維修費', '獲得額外零用錢 500 元', '看到限時優惠商品，你會購買嗎？', '朋友推薦一項高報酬投資', '收到「帳戶異常」的陌生簡訊', '投資市場突然大幅下跌', '本月比預期多存下 300 元', '家中臨時需要一筆支出', '發現自己想買的商品正在特價'].join('\n');
+    this.setState({ cardText: sample }, () => {
+      this.initialiseDeck();
+      this.setState({ message: '已載入 10 張示範卡片。' });
+    });
+  };
+
+  clearCards = () => {
+    this.setState({ cardText: '', originalCards: [], remainingCards: [], drawnTotal: 0, drawnCards: [], message: '' });
+  };
+
+  renderVals() {
+    const countOptions = [1, 2, 3, 4, 5].map(n => ({
+      value: n,
+      onSelect: () => this.setState({ drawCount: n }),
+      style: `padding:10px 0; border-radius:10px; border:none; cursor:pointer; font-family:var(--font-heading); font-size:14px; background:${this.state.drawCount === n ? 'var(--color-accent-600)' : 'var(--color-surface)'}; color:${this.state.drawCount === n ? 'var(--color-bg)' : 'var(--color-text)'};`
+    }));
+    return {
+      cardText: this.state.cardText,
+      inputCount: this.getCardsFromInput().length,
+      onCardTextChange: this.onCardTextChange,
+      countOptions,
+      removeDrawn: this.state.removeDrawn,
+      onToggleRemoveDrawn: this.onToggleRemoveDrawn,
+      loadSample: this.loadSample,
+      clearCards: this.clearCards,
+      totalCards: this.state.originalCards.length,
+      remainingCount: this.state.removeDrawn ? this.state.remainingCards.length : this.state.originalCards.length,
+      drawnTotal: this.state.drawnTotal,
+      hasDrawnCards: this.state.drawnCards.length > 0,
+      drawnCards: this.state.drawnCards,
+      drawCards: this.drawCards,
+      resetDeck: this.resetDeck,
+      message: this.state.message
+    };
+  }
+}
+
+</script>
+</body>
+</html>

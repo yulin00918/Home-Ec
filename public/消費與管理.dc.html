@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css">
+  <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
+</helmet>
+<div style="background:var(--color-bg); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
+  <div style="max-width:1120px; margin:0 auto; padding:var(--space-6) var(--space-4);">
+    <a href="家政金融網頁.dc.html" style="font-size:14px; color:var(--color-accent-700); text-decoration:none;">← 回首頁</a>
+  </div>
+  <header style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
+    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4); flex-wrap:wrap;">
+      <span style="font-size:36px; flex:none;">💰</span>
+      <h1 style="margin:0; min-width:0; white-space:nowrap;">消費與管理</h1>
+    </div>
+    <p style="max-width:560px; opacity:0.8; font-size:17px;">理財規劃、理性消費、永續生活</p>
+  </header>
+
+  <section style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
+    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-3); flex-wrap:wrap;">
+      <span style="font-size:26px; flex:none;">📊</span>
+      <h2 style="margin:0; min-width:0; white-space:nowrap;">金融教育</h2>
+    </div>
+    <p style="max-width:560px; opacity:0.8; font-size:15px; margin-bottom:var(--space-4);">點選下方主題，瀏覽對應的金融教育課程。</p>
+
+    <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-4);">
+      <sc-for list="{{ topics }}" as="topic" hint-placeholder-count="5">
+        <button onClick="{{ topic.onSelect }}" style="{{ topic.style }}">{{ topic.label }}</button>
+      </sc-for>
+    </div>
+
+    <div class="card elev-sm" style="padding:var(--space-6) var(--space-4);">
+      <span class="card-kicker">{{ activeTopic.label }}</span>
+      <h3 class="card-title" style="margin-top:4px;">{{ activeTopic.title }}</h3>
+      <p class="card-body" style="opacity:0.7;">{{ activeTopic.desc }}</p>
+      <sc-if value="{{ activeTopic.hasResources }}">
+        <div style="display:flex; flex-direction:column; gap:var(--space-2); margin-top:var(--space-3);">
+          <sc-for list="{{ activeTopic.resources }}" as="res" hint-placeholder-count="2">
+            <a href="{{ res.link }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="justify-content:space-between; white-space:nowrap;">{{ res.label }} <span>↗</span></a>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { active: 'planning' };
+
+  renderVals() {
+    const raw = [
+      { id: 'planning', label: '金錢規劃', title: '金錢規劃', desc: '金融知識養成資源，提供教師與學生使用的教材。', hasResources: true,
+        resources: [
+          { label: '【金錢規劃】教材_教師手冊', link: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250200000000000&type=Doc&PKID=93c94548-81f2-4d5b-823e-37f314601d8e' },
+          { label: '【金錢規劃】教材_學生手冊', link: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250200000000000&type=Doc&PKID=93c94548-81f2-4d5b-823e-37f314601d8e' }
+        ] },
+      { id: 'credit', label: '借貸與信用', title: '借貸與信用', desc: '金融知識養成資源，提供教師與學生使用的教材。', hasResources: true,
+        resources: [
+          { label: '【借貸與信用】教材_教師手冊', link: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250300000000000' },
+          { label: '【借貸與信用】教材_學生手冊', link: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250300000000000' }
+        ] },
+      { id: 'insurance', label: '保險與風險管理', title: '保險與風險管理', desc: '金融知識養成資源，提供教師與學生使用的教材。', hasResources: true,
+        resources: [
+          { label: '【保險與風險管理】教材_教師手冊', link: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250400000000000' },
+          { label: '【保險與風險管理】教材_學生手冊', link: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250400000000000' }
+        ] },
+      { id: 'invest', label: '理財投資', title: '理財投資', desc: '金融知識養成資源，提供教師與學生使用的教材。', hasResources: true,
+        resources: [
+          { label: '【理財投資】教材_教師手冊', link: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250500000000000' },
+          { label: '【理財投資】教材_學生手冊', link: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250500000000000' }
+        ] },
+      { id: 'protection', label: '金融消費保護', title: '金融消費保護', desc: '金融知識養成資源，提供教師與學生使用的教材。', hasResources: true,
+        resources: [
+          { label: '【金融消費保護】教材_教師手冊', link: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250600000000000&type=Doc&PKID=963bd33d-71bb-4788-aab5-9c0c8cf0f60d' },
+          { label: '【金融消費保護】教材_學生手冊', link: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250600000000000&type=Doc&PKID=963bd33d-71bb-4788-aab5-9c0c8cf0f60d' }
+        ] },
+      { id: 'fraud', label: '金融防詐', title: '金融防詐', desc: '金融知識養成資源，提供教師與學生使用的教材。', hasResources: true,
+        resources: [
+          { label: '【金融防詐】教材_教師手冊', link: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010270101000000000' },
+          { label: '【金融防詐】教材_學生手冊', link: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010270101000000000' }
+        ] }
+    ];
+    const active = this.state.active;
+    const topics = raw.map(t => {
+      const isActive = t.id === active;
+      return {
+        ...t,
+        onSelect: () => this.setState({ active: t.id }),
+        style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:14px; cursor:pointer; white-space:nowrap; background:${isActive ? 'var(--color-accent-600)' : 'var(--color-surface)'}; color:${isActive ? 'var(--color-bg)' : 'var(--color-text)'};`
+      };
+    });
+    const activeTopic = raw.find(t => t.id === active);
+    return { topics, activeTopic };
+  }
+}
+
+</script>
+</body>
+</html>

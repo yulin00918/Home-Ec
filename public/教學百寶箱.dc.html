@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css">
+  <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
+</helmet>
+<div style="background:var(--color-bg); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
+  <div style="max-width:1120px; margin:0 auto; padding:var(--space-6) var(--space-4);">
+    <a href="家政金融網頁.dc.html" style="font-size:14px; color:var(--color-accent-700); text-decoration:none;">← 回首頁</a>
+  </div>
+  <header style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-6);">
+    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4); flex-wrap:wrap;">
+      <span style="font-size:36px; flex:none;">🎁</span>
+      <h1 style="margin:0; min-width:0; white-space:nowrap;">教學百寶箱</h1>
+    </div>
+    <p style="max-width:560px; opacity:0.8; font-size:17px;">課堂教學小工具</p>
+  </header>
+
+  <div style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
+    <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-6);">
+      <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="4">
+        <button onClick="{{ tab.onSelect }}" style="{{ tab.style }}">{{ tab.label }}</button>
+      </sc-for>
+    </div>
+
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-md);">
+      <sc-if value="{{ isLottery }}" hint-placeholder-val="{{ true }}">
+        <dc-import name="抽獎活動" hint-size="100%,760px"></dc-import>
+      </sc-if>
+      <sc-if value="{{ isGrouping }}">
+        <dc-import name="隨機分組小幫手" hint-size="100%,760px"></dc-import>
+      </sc-if>
+      <sc-if value="{{ isScoreboard }}">
+        <dc-import name="小組競賽計分板" hint-size="100%,760px"></dc-import>
+      </sc-if>
+      <sc-if value="{{ isTimer }}">
+        <dc-import name="自由設定倒數計時器" hint-size="100%,760px"></dc-import>
+      </sc-if>
+      <sc-if value="{{ isWheel }}">
+        <dc-import name="自由抽籤轉盤" hint-size="100%,760px"></dc-import>
+      </sc-if>
+      <sc-if value="{{ isSeating }}">
+        <dc-import name="分組座位圖產生器" hint-size="100%,760px"></dc-import>
+      </sc-if>
+      <sc-if value="{{ isGroupTask }}">
+        <dc-import name="組內分工" hint-size="100%,760px"></dc-import>
+      </sc-if>
+      <sc-if value="{{ isCardDraw }}">
+        <dc-import name="翻卡抽籤" hint-size="100%,760px"></dc-import>
+      </sc-if>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { active: 'lottery' };
+
+  renderVals() {
+    const raw = [
+      { id: 'lottery', label: '🎁 抽獎活動', dc: '抽獎活動', enabled: true },
+      { id: 'grouping', label: '🎲 隨機分組小幫手', dc: '隨機分組小幫手', enabled: true },
+      { id: 'scoreboard', label: '🏆 小組競賽計分板', dc: '小組競賽計分板', enabled: true },
+      { id: 'timer', label: '⏳ 自由設定倒數計時器', dc: '自由設定倒數計時器', enabled: true },
+      { id: 'wheel', label: '🎡 自由抽籤轉盤', dc: '自由抽籤轉盤', enabled: true },
+      { id: 'seating', label: '🪑 分組座位圖產生器', dc: '分組座位圖產生器', enabled: true },
+      { id: 'groupTask', label: '👥 組內分工', dc: '組內分工', enabled: true },
+      { id: 'cardDraw', label: '♠ 翻卡抽籤', dc: '翻卡抽籤', enabled: true }
+    ];
+    const active = this.state.active;
+    const tabs = raw.map(t => {
+      const isActive = t.id === active;
+      return {
+        ...t,
+        onSelect: () => { if (t.enabled) this.setState({ active: t.id }); },
+        style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:14px; cursor:${t.enabled ? 'pointer' : 'not-allowed'}; white-space:nowrap; background:${isActive ? 'var(--color-accent-600)' : 'var(--color-surface)'}; color:${isActive ? 'var(--color-bg)' : 'var(--color-text)'}; opacity:${t.enabled ? 1 : 0.5};`
+      };
+    });
+    return {
+      tabs,
+      isLottery: active === 'lottery',
+      isGrouping: active === 'grouping',
+      isScoreboard: active === 'scoreboard',
+      isTimer: active === 'timer',
+      isWheel: active === 'wheel',
+      isSeating: active === 'seating',
+      isGroupTask: active === 'groupTask',
+      isCardDraw: active === 'cardDraw'
+    };
+  }
+}
+
+</script>
+</body>
+</html>

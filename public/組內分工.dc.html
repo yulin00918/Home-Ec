@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css">
+  <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
+</helmet>
+<div style="background:linear-gradient(135deg, var(--color-accent-100), var(--color-bg) 50%, var(--color-accent-2-100)); min-height:100vh; font-family:var(--font-body); color:var(--color-text); padding-bottom:var(--space-8);">
+  <div style="max-width:1120px; margin:0 auto; padding:var(--space-6) var(--space-4) 0;">
+    <a href="教學百寶箱.dc.html" style="font-size:14px; color:var(--color-accent-700); text-decoration:none;">← 回教學百寶箱</a>
+  </div>
+
+  <header style="max-width:1120px; margin:0 auto; padding:var(--space-4) var(--space-4) var(--space-6); text-align:center;">
+    <h1 style="margin:0;">👥 小組任務分工器</h1>
+    <p style="opacity:0.75; margin-top:8px;">隨機分組 × 角色分工 × 任務清楚</p>
+  </header>
+
+  <div style="max-width:1120px; margin:0 auto; padding:0 var(--space-4);">
+    <sc-if value="{{ presentationMode }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center; margin-bottom:var(--space-4);">
+        <button onClick="{{ togglePresentation }}" class="btn btn-secondary">⬅ 返回設定</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ !presentationMode }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; flex-direction:column; gap:var(--space-4);">
+
+        <div class="card elev-sm">
+          <span class="card-title" style="margin-bottom:var(--space-3);">① 輸入學生名單</span>
+          <textarea value="{{ studentsText }}" onChange="{{ onStudentsChange }}" placeholder="每行輸入一位學生，例如：&#10;王小明&#10;陳小華&#10;林小美&#10;張小安" class="input" style="height:160px; resize:vertical; line-height:1.6;"></textarea>
+          <div style="margin-top:8px; font-size:14px; opacity:0.7;">目前 {{ studentCount }} 位學生</div>
+        </div>
+
+        <div class="card elev-sm">
+          <span class="card-title" style="margin-bottom:var(--space-3);">② 設定分組方式</span>
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:var(--space-3);">
+            <div class="field">
+              <label>每組人數</label>
+              <select value="{{ groupSize }}" onChange="{{ onGroupSizeChange }}" class="input">
+                <option value="2">2 人</option>
+                <option value="3">3 人</option>
+                <option value="4">4 人</option>
+                <option value="5">5 人</option>
+                <option value="6">6 人</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>角色分配</label>
+              <select value="{{ roleMode }}" onChange="{{ onRoleModeChange }}" class="input">
+                <option value="order">依角色順序分配</option>
+                <option value="random">隨機分配角色</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-top:var(--space-4);">
+            <button onClick="{{ makeGroups }}" class="btn btn-primary">🎲 隨機分組＋分工</button>
+            <button onClick="{{ rerollRoles }}" class="btn btn-secondary">🔄 保留分組，只換角色</button>
+            <button onClick="{{ togglePresentation }}" class="btn btn-ghost">🖥️ 投影模式</button>
+          </div>
+        </div>
+
+        <div class="card elev-sm">
+          <span class="card-title" style="margin-bottom:8px;">③ 小組角色設定</span>
+          <p style="opacity:0.7; font-size:14px; line-height:1.7; margin:0 0 var(--space-3);">角色名稱與工作都可以修改。4 人組使用前 4 個角色，5 人組使用前 5 個，6 人組使用全部角色。</p>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <sc-for list="{{ roles }}" as="role" hint-placeholder-count="6">
+              <div style="display:grid; grid-template-columns: 46px 1fr 1.4fr 44px; gap:8px; align-items:center;">
+                <input value="{{ role.icon }}" onChange="{{ role.onIconChange }}" maxlength="4" class="input" style="text-align:center; padding:8px;">
+                <input value="{{ role.name }}" onChange="{{ role.onNameChange }}" placeholder="角色名稱" class="input" style="padding:8px;">
+                <input value="{{ role.job }}" onChange="{{ role.onJobChange }}" placeholder="角色工作內容" class="input" style="padding:8px;">
+                <button onClick="{{ role.onRemove }}" class="btn btn-ghost" style="color:var(--color-accent-700); padding:8px;" title="刪除角色">×</button>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-top:var(--space-3);">
+            <button onClick="{{ addRole }}" class="btn btn-secondary">＋ 新增角色</button>
+            <button onClick="{{ resetRoles }}" class="btn btn-ghost">↺ 恢復預設角色</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <div class="card elev-sm" style="margin-top:var(--space-4);">
+      <span class="card-title" style="margin-bottom:var(--space-3);">小組分工結果</span>
+      <sc-if value="{{ hasGroups }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:var(--space-4);">
+          <sc-for list="{{ groups }}" as="group" hint-placeholder-count="0">
+            <div style="background:var(--color-surface); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-sm);">
+              <div style="padding:12px 18px; font-size:18px; font-weight:800; background:var(--color-accent-100); color:var(--color-accent-800); font-family:var(--font-heading);">第 {{ group.index }} 組</div>
+              <sc-for list="{{ group.members }}" as="m" hint-placeholder-count="0">
+                <div style="padding:14px 18px; border-top:1px solid var(--color-divider);">
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:22px;">{{ m.icon }}</span>
+                    <span style="font-size:17px; font-weight:800;">{{ m.name }}</span>
+                    <span style="margin-left:auto; background:var(--color-neutral-100); border-radius:20px; padding:4px 10px; font-size:13px; font-weight:700; white-space:nowrap;">{{ m.roleName }}</span>
+                  </div>
+                  <div style="color:var(--color-text); opacity:0.65; font-size:14px; line-height:1.6; margin-top:6px;">{{ m.roleJob }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ !hasGroups }}" hint-placeholder-val="{{ true }}">
+        <div style="text-align:center; padding:40px 20px; opacity:0.5;">輸入學生名單後，按下「隨機分組＋分工」</div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DEFAULT_ROLES = [
+  { icon: '📋', name: '任務召集員', job: '確認任務內容、邀請每位組員參與，整合意見並確認工作完成。' },
+  { icon: '🔍', name: '討論分析員', job: '閱讀資料、找出重點、分析問題，提出理由與可能的解決方法。' },
+  { icon: '📝', name: '紀錄整理員', job: '記錄小組討論、答案、數據與重要決定，整理小組成果。' },
+  { icon: '🗣️', name: '成果報告員', job: '代表小組說明成果、回答問題，清楚表達小組的想法與理由。' },
+  { icon: '⏱️', name: '時間進度員', job: '掌握活動時間、提醒剩餘時間與進度，協助小組準時完成任務。' },
+  { icon: '📦', name: '器材材料員', job: '負責領取、管理、整理與歸還學習單、器材、材料、卡牌或設備。' }
+];
+
+class Component extends DCLogic {
+  state = {
+    studentsText: localStorage.getItem('groupToolStudents') || '',
+    roles: JSON.parse(localStorage.getItem('groupToolRoles') || 'null') || JSON.parse(JSON.stringify(DEFAULT_ROLES)),
+    groupSize: 4,
+    roleMode: 'order',
+    currentGroups: [],
+    presentationMode: false
+  };
+
+  getStudents() {
+    return [...new Set(this.state.studentsText.split(/\n|,|，/).map(x => x.trim()).filter(Boolean))];
+  }
+
+  shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  saveRoles(roles) {
+    localStorage.setItem('groupToolRoles', JSON.stringify(roles));
+  }
+
+  makeGroups = () => {
+    const students = this.getStudents();
+    if (students.length < 2) { alert('請至少輸入 2 位學生。'); return; }
+    const groupSize = this.state.groupSize;
+    const shuffled = this.shuffle(students);
+    const groupCount = Math.ceil(shuffled.length / groupSize);
+    const groups = Array.from({ length: groupCount }, () => []);
+    shuffled.forEach((student, i) => groups[i % groupCount].push(student));
+    this.setState({ currentGroups: groups }, () => this.assignRoles(false));
+  };
+
+  rerollRoles = () => {
+    if (!this.state.currentGroups.length) { alert('請先完成分組。'); return; }
+    this.assignRoles(true);
+  };
+
+  assignRoles(forceRandom) {
+    const roles = this.state.roles;
+    if (!roles.length) { alert('請至少設定一個角色。'); return; }
+    const mode = this.state.roleMode;
+    this.setState({
+      resultGroups: this.state.currentGroups.map((group, gi) => {
+        let avail = roles.slice(0, Math.max(group.length, 1));
+        while (avail.length < group.length) avail = avail.concat(roles);
+        avail = avail.slice(0, group.length);
+        if (mode === 'random' || forceRandom) avail = this.shuffle(avail);
+        return {
+          index: gi + 1,
+          members: group.map((student, mi) => ({ name: student, icon: avail[mi].icon, roleName: avail[mi].name, roleJob: avail[mi].job }))
+        };
+      })
+    });
+  }
+
+  onStudentsChange = (e) => {
+    const val = e.target.value;
+    localStorage.setItem('groupToolStudents', val);
+    this.setState({ studentsText: val });
+  };
+  onGroupSizeChange = (e) => this.setState({ groupSize: Number(e.target.value) });
+  onRoleModeChange = (e) => this.setState({ roleMode: e.target.value });
+
+  updateRole(index, key, value) {
+    const roles = this.state.roles.map((r, i) => i === index ? { ...r, [key]: value } : r);
+    this.saveRoles(roles);
+    this.setState({ roles });
+  }
+
+  addRole = () => {
+    const roles = [...this.state.roles, { icon: '⭐', name: '自訂角色', job: '請輸入這個角色的工作內容。' }];
+    this.saveRoles(roles);
+    this.setState({ roles });
+  };
+
+  removeRole(index) {
+    if (this.state.roles.length <= 1) { alert('至少需要保留一個角色。'); return; }
+    const roles = this.state.roles.filter((_, i) => i !== index);
+    this.saveRoles(roles);
+    this.setState({ roles });
+  }
+
+  resetRoles = () => {
+    if (!confirm('確定恢復預設角色嗎？')) return;
+    const roles = JSON.parse(JSON.stringify(DEFAULT_ROLES));
+    this.saveRoles(roles);
+    this.setState({ roles });
+  };
+
+  togglePresentation = () => this.setState(s => ({ presentationMode: !s.presentationMode }));
+
+  renderVals() {
+    const roles = this.state.roles.map((r, i) => ({
+      ...r,
+      onIconChange: (e) => this.updateRole(i, 'icon', e.target.value),
+      onNameChange: (e) => this.updateRole(i, 'name', e.target.value),
+      onJobChange: (e) => this.updateRole(i, 'job', e.target.value),
+      onRemove: () => this.removeRole(i)
+    }));
+    const groups = this.state.resultGroups || [];
+    return {
+      studentsText: this.state.studentsText,
+      studentCount: this.getStudents().length,
+      groupSize: String(this.state.groupSize),
+      roleMode: this.state.roleMode,
+      roles,
+      onStudentsChange: this.onStudentsChange,
+      onGroupSizeChange: this.onGroupSizeChange,
+      onRoleModeChange: this.onRoleModeChange,
+      makeGroups: this.makeGroups,
+      rerollRoles: this.rerollRoles,
+      addRole: this.addRole,
+      resetRoles: this.resetRoles,
+      togglePresentation: this.togglePresentation,
+      presentationMode: this.state.presentationMode,
+      hasGroups: groups.length > 0,
+      groups
+    };
+  }
+}
+
+</script>
+</body>
+</html>

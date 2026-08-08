@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css">
+  <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
+</helmet>
+<div style="background:var(--color-bg); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
+  <div style="max-width:1120px; margin:0 auto; padding:var(--space-6) var(--space-4);">
+    <a href="家政金融網頁.dc.html" style="font-size:14px; color:var(--color-accent-700); text-decoration:none;">← 回首頁</a>
+  </div>
+  <header style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
+    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4); flex-wrap:wrap;">
+      <span style="font-size:36px; flex:none;">🧵</span>
+      <h1 style="margin:0; min-width:0; white-space:nowrap;">服裝與織品</h1>
+    </div>
+    <p style="max-width:560px; opacity:0.8; font-size:17px;">縫紉技巧、衣物保養、美感穿搭</p>
+  </header>
+
+  <section style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
+    <p style="max-width:560px; opacity:0.8; font-size:15px; margin-bottom:var(--space-4);">點選下方主題，瀏覽對應的課程內容。</p>
+
+    <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-4);">
+      <sc-for list="{{ topics }}" as="topic" hint-placeholder-count="3">
+        <button onClick="{{ topic.onSelect }}" style="{{ topic.style }}">{{ topic.label }}</button>
+      </sc-for>
+    </div>
+
+    <div class="card elev-sm" style="padding:var(--space-6) var(--space-4);">
+      <span class="card-kicker">{{ activeTopic.label }}</span>
+      <h3 class="card-title" style="margin-top:4px;">{{ activeTopic.title }}</h3>
+      <p class="card-body" style="opacity:0.7;">{{ activeTopic.desc }}</p>
+
+      <sc-if value="{{ showHandSewing }}">
+        <div style="margin-top:var(--space-4);">
+          <button onClick="{{ toggleHandSewing }}" class="btn btn-secondary" style="display:inline-flex; white-space:nowrap;">✋ 手縫</button>
+          <sc-if value="{{ handSewingOpen }}">
+            <div style="display:flex; flex-direction:column; gap:var(--space-2); margin-top:var(--space-3);">
+              <sc-for list="{{ stitches }}" as="st" hint-placeholder-count="4">
+                <a href="{{ st.link }}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="justify-content:space-between; white-space:nowrap;">{{ st.label }} <span>↗</span></a>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { active: 'sewing', handSewingOpen: false };
+
+  renderVals() {
+    const raw = [
+      { id: 'sewing', label: '縫紉技巧', title: '縫紉技巧', desc: '課程準備中，之後會放上縫紉技巧相關的課程內容。' },
+      { id: 'care', label: '衣物保養', title: '衣物保養', desc: '課程準備中，之後會放上衣物保養相關的課程內容。' },
+      { id: 'style', label: '美感穿搭', title: '美感穿搭', desc: '課程準備中，之後會放上美感穿搭相關的課程內容。' }
+    ];
+    const active = this.state.active;
+    const topics = raw.map(t => {
+      const isActive = t.id === active;
+      return {
+        ...t,
+        onSelect: () => this.setState({ active: t.id }),
+        style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:14px; cursor:pointer; white-space:nowrap; background:${isActive ? 'var(--color-accent-600)' : 'var(--color-surface)'}; color:${isActive ? 'var(--color-bg)' : 'var(--color-text)'};`
+      };
+    });
+    const activeTopic = raw.find(t => t.id === active);
+
+    const stitches = [
+      { label: '穿線器用法', link: 'https://www.youtube.com/watch?v=ULU11ibF-U8' },
+      { label: '起針打結', link: 'https://www.youtube.com/watch?v=ADWUQR4DPY4' },
+      { label: '平針縫', link: 'https://www.youtube.com/watch?v=VN-Cuwa_Tjc' },
+      { label: '半回針縫', link: 'https://www.youtube.com/watch?v=lgAvkX8QzU0' },
+      { label: '回針縫', link: 'https://www.youtube.com/watch?v=RB7jzlnPSSo' },
+      { label: '斜針縫', link: 'https://www.youtube.com/watch?v=MRRwYHszPxc' },
+      { label: '結尾打結', link: 'https://www.youtube.com/watch?v=65cFcVmo0ec' },
+      { label: '藏針縫／對針縫', link: 'https://www.youtube.com/watch?v=5uLk9nl9nuc' },
+      { label: '隱形針法', link: 'https://www.youtube.com/shorts/QtTGKIwPZZ4' },
+      { label: '捲邊（針）縫', link: 'https://www.youtube.com/watch?v=ergoJIuDZ0I' },
+      { label: '兩孔／四孔鈕扣縫法', link: 'https://www.youtube.com/watch?v=vYqTRT_LfWo' }
+    ];
+
+    return {
+      topics,
+      activeTopic,
+      showHandSewing: active === 'sewing',
+      handSewingOpen: this.state.handSewingOpen,
+      toggleHandSewing: () => this.setState(s => ({ handSewingOpen: !s.handSewingOpen })),
+      stitches
+    };
+  }
+}
+
+</script>
+</body>
+</html>
