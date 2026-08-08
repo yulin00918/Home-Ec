@@ -11,7 +11,8 @@
   <link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css">
   <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
   <style>
-    @keyframes cardPop { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes cardPop { from { transform: scale(0.85) rotate(-4deg); opacity: 0; } to { transform: scale(1) rotate(0deg); opacity: 1; } }
+    @keyframes cardSpin { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(1080deg); } }
   </style>
 </helmet>
 <div style="background:var(--color-bg); min-height:100vh; font-family:var(--font-body); color:var(--color-text); padding-bottom:var(--space-8);">
@@ -20,7 +21,7 @@
   </div>
 
   <header style="max-width:1120px; margin:0 auto; padding:var(--space-4) var(--space-4) var(--space-6); display:flex; align-items:center; gap:var(--space-3); flex-wrap:wrap;">
-    <span style="font-size:36px; flex:none;">♠</span>
+    <div style="width:56px; height:56px; border-radius:50%; background:var(--color-accent-500); color:var(--color-bg); display:flex; align-items:center; justify-content:center; font-size:26px; flex:none;">♠</div>
     <div>
       <h1 style="margin:0;">翻卡抽籤</h1>
       <p style="opacity:0.75; margin-top:4px;">輸入卡片內容，洗牌後隨機抽出任務、事件或題目。</p>
@@ -31,16 +32,15 @@
 
     <aside class="card elev-sm" style="gap:var(--space-4);">
       <div>
-        <label style="display:block; font-weight:700; margin-bottom:4px; font-size:15px;">卡片內容</label>
-        <p style="margin:0 0 8px; opacity:0.6; font-size:12px;">一行代表一張卡片</p>
-        <textarea value="{{ cardText }}" onChange="{{ onCardTextChange }}" placeholder="例如：&#10;朋友生日，花費 300 元&#10;手機突然故障&#10;獲得額外零用錢 500 元&#10;投資獲利 10%&#10;遇到網路詐騙" class="input" style="min-height:200px; resize:vertical; line-height:1.7; font-size:14px;"></textarea>
+        <label style="display:block; font-weight:700; margin-bottom:4px; font-size:15px;">卡片內容（一行一張）</label>
+        <textarea value="{{ cardText }}" onChange="{{ onCardTextChange }}" placeholder="例如：&#10;朋友生日，花費 300 元&#10;手機突然故障&#10;獲得額外零用錢 500 元&#10;投資獲利 10%&#10;遇到網路詐騙" class="input" style="min-height:190px; resize:vertical; line-height:1.7; font-size:14px; border-radius:var(--radius-sm);"></textarea>
         <div style="margin-top:8px; text-align:right; font-size:12px; opacity:0.6;">已輸入 <strong>{{ inputCount }}</strong> 張卡片</div>
       </div>
 
       <div>
         <label style="display:block; font-weight:700; margin-bottom:8px; font-size:15px;">一次抽幾張？</label>
-        <div style="display:grid; grid-template-columns: repeat(5,1fr); gap:7px;">
-          <sc-for list="{{ countOptions }}" as="opt" hint-placeholder-count="5">
+        <div style="display:grid; grid-template-columns: repeat(4,1fr); gap:7px;">
+          <sc-for list="{{ countOptions }}" as="opt" hint-placeholder-count="4">
             <button onClick="{{ opt.onSelect }}" style="{{ opt.style }}">{{ opt.value }}</button>
           </sc-for>
         </div>
@@ -48,10 +48,7 @@
 
       <div>
         <label style="display:flex; align-items:center; justify-content:space-between; gap:14px; cursor:pointer;">
-          <span>
-            <span style="display:block; font-size:14px; font-weight:600;">抽過的卡片不再出現</span>
-            <span style="display:block; opacity:0.6; font-size:11px; line-height:1.5;">適合事件卡、任務卡及不重複抽籤</span>
-          </span>
+          <span style="font-size:14px; font-weight:600;">抽過的卡片不再出現</span>
           <input type="checkbox" checked="{{ removeDrawn }}" onChange="{{ onToggleRemoveDrawn }}" style="width:20px; height:20px; accent-color:var(--color-accent-600); flex:none;">
         </label>
       </div>
@@ -62,43 +59,43 @@
       </div>
     </aside>
 
-    <main class="card elev-sm" style="min-height:520px;">
-      <div style="display:flex; justify-content:center; gap:45px; padding-bottom:21px; border-bottom:1px solid var(--color-divider); flex-wrap:wrap;">
+    <main class="card elev-sm" style="min-height:520px; align-items:center;">
+      <div style="display:flex; justify-content:center; gap:60px; padding-bottom:21px; border-bottom:1px solid var(--color-divider); width:100%;">
         <div style="text-align:center;">
-          <span style="display:block; opacity:0.6; font-size:11px; margin-bottom:4px;">卡片總數</span>
-          <strong style="font-size:20px; font-weight:600;">{{ totalCards }}</strong>
+          <strong style="display:block; font-size:28px; font-weight:700; color:var(--color-accent-700);">{{ remainingCount }}</strong>
+          <span style="opacity:0.6; font-size:12px;">剩餘卡片</span>
         </div>
         <div style="text-align:center;">
-          <span style="display:block; opacity:0.6; font-size:11px; margin-bottom:4px;">剩餘卡片</span>
-          <strong style="font-size:20px; font-weight:600;">{{ remainingCount }}</strong>
-        </div>
-        <div style="text-align:center;">
-          <span style="display:block; opacity:0.6; font-size:11px; margin-bottom:4px;">已抽出</span>
-          <strong style="font-size:20px; font-weight:600;">{{ drawnTotal }}</strong>
+          <strong style="display:block; font-size:28px; font-weight:700; color:var(--color-accent-2-700);">{{ drawnTotal }}</strong>
+          <span style="opacity:0.6; font-size:12px;">已抽出</span>
         </div>
       </div>
 
-      <div style="min-height:320px; display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; padding:32px 0;">
+      <div style="min-height:300px; display:flex; align-items:center; justify-content:center; padding:32px 0; gap:16px; flex-wrap:wrap;">
+        <sc-if value="{{ isDrawing }}" hint-placeholder-val="{{ false }}">
+          <sc-for list="{{ spinnerSlots }}" as="slot" hint-placeholder-count="0">
+            <div style="width:150px; height:210px; display:flex; align-items:center; justify-content:center; border-radius:18px; background-image:radial-gradient(circle, color-mix(in srgb, var(--color-bg) 30%, transparent) 1.5px, transparent 1.6px), linear-gradient(150deg, var(--color-accent-600), var(--color-accent-2-600)); background-size:18px 18px, 100% 100%; color:var(--color-bg); font-size:44px; box-shadow:var(--shadow-md); animation:cardSpin 0.8s linear infinite;">♠</div>
+          </sc-for>
+        </sc-if>
         <sc-if value="{{ hasDrawnCards }}" hint-placeholder-val="{{ false }}">
           <sc-for list="{{ drawnCards }}" as="c" hint-placeholder-count="0">
-            <div style="width:165px; height:225px; border-radius:17px; background:var(--color-bg); border:1px solid var(--color-divider); box-shadow:var(--shadow-md); display:flex; align-items:center; justify-content:center; padding:18px; box-sizing:border-box; position:relative; animation:cardPop 0.4s ease-out;">
-              <span style="position:absolute; top:10px; left:12px; color:var(--color-accent-600); font-size:12px;">✦</span>
-              <span style="text-align:center; font-size:15px; line-height:1.65; overflow-wrap:anywhere;">{{ c.text }}</span>
-              <span style="position:absolute; right:12px; bottom:10px; color:var(--color-accent-600); font-size:12px;">✦</span>
+            <div style="width:190px; height:260px; border-radius:18px; background:{{ c.bg }}; border:2px solid {{ c.border }}; box-shadow:var(--shadow-md); display:flex; align-items:center; justify-content:center; padding:22px; box-sizing:border-box; text-align:center; position:relative; animation:cardPop 0.4s ease-out;">
+              <span style="position:absolute; top:10px; left:12px; font-size:14px; opacity:0.55;">✦</span>
+              <span style="font-size:20px; font-weight:700; line-height:1.6; overflow-wrap:anywhere; color:{{ c.text_color }};">{{ c.text }}</span>
+              <span style="position:absolute; bottom:10px; right:12px; font-size:14px; opacity:0.55;">✦</span>
             </div>
           </sc-for>
         </sc-if>
-        <sc-if value="{{ !hasDrawnCards }}" hint-placeholder-val="{{ true }}">
-          <div style="text-align:center; opacity:0.6;">
-            <div style="width:105px; height:145px; display:flex; align-items:center; justify-content:center; margin:0 auto 18px; border-radius:15px; background:var(--color-accent-200); color:var(--color-bg); font-size:34px;">?</div>
-            <h2 style="margin:0 0 7px; font-size:17px; font-weight:600;">準備開始抽卡</h2>
-            <p style="margin:0; font-size:13px; line-height:1.7;">在左側輸入卡片內容，再按下「開始抽卡」。</p>
+        <sc-if value="{{ isIdle }}" hint-placeholder-val="{{ true }}">
+          <div style="text-align:center; opacity:0.7;">
+            <div style="width:150px; height:210px; display:flex; align-items:center; justify-content:center; margin:0 auto 18px; border-radius:18px; background:linear-gradient(150deg, var(--color-accent-600), var(--color-accent-2-600)); background-image:radial-gradient(circle, color-mix(in srgb, var(--color-bg) 30%, transparent) 1.5px, transparent 1.6px), linear-gradient(150deg, var(--color-accent-600), var(--color-accent-2-600)); background-size:18px 18px, 100% 100%; color:var(--color-bg); font-size:44px; box-shadow:var(--shadow-md);">♠</div>
+            <p style="margin:0; font-size:13px;">尚未開始抽卡</p>
           </div>
         </sc-if>
       </div>
 
       <div style="display:flex; align-items:center; justify-content:center; gap:11px; flex-wrap:wrap;">
-        <button onClick="{{ drawCards }}" class="btn btn-primary" style="min-width:180px;">✦ 開始抽卡</button>
+        <button onClick="{{ drawCard }}" class="btn btn-primary" style="min-width:150px;" disabled="{{ isDrawing }}">＋ 開始抽卡</button>
         <button onClick="{{ resetDeck }}" class="btn btn-ghost">↻ 重新洗牌</button>
       </div>
       <p style="min-height:21px; margin:13px 0 0; text-align:center; opacity:0.7; font-size:12px;">{{ message }}</p>
@@ -117,7 +114,8 @@ class Component extends DCLogic {
     remainingCards: [],
     drawnTotal: 0,
     drawnCards: [],
-    message: ''
+    message: '',
+    isDrawing: false
   };
 
   getCardsFromInput() {
@@ -147,7 +145,8 @@ class Component extends DCLogic {
     });
   };
 
-  drawCards = () => {
+  drawCard = () => {
+    if (this.state.isDrawing) return;
     const currentInput = this.getCardsFromInput();
     let original = this.state.originalCards;
     let remaining = this.state.remainingCards;
@@ -156,25 +155,29 @@ class Component extends DCLogic {
       remaining = [...currentInput];
     }
     if (original.length === 0) { this.setState({ message: '請先輸入至少一張卡片內容。' }); return; }
-    const requested = this.state.drawCount;
     const sourceDeck = this.state.removeDrawn ? remaining : original;
     if (sourceDeck.length === 0) { this.setState({ message: '所有卡片都已抽完，請按「重新洗牌」。', originalCards: original, remainingCards: remaining }); return; }
-    const actualCount = Math.min(requested, sourceDeck.length);
-    const shuffled = this.shuffle(sourceDeck);
-    const selected = shuffled.slice(0, actualCount);
-    if (this.state.removeDrawn) {
-      selected.forEach(card => {
-        const idx = remaining.indexOf(card);
-        if (idx > -1) remaining.splice(idx, 1);
+    const requested = this.state.drawCount;
+    this.setState({ originalCards: original, remainingCards: remaining, isDrawing: true, drawnCards: [], message: '' });
+    setTimeout(() => {
+      const shuffled = this.shuffle(sourceDeck);
+      const actualCount = Math.min(requested, shuffled.length);
+      const selected = shuffled.slice(0, actualCount);
+      const newRemaining = [...remaining];
+      if (this.state.removeDrawn) {
+        selected.forEach(card => {
+          const idx = newRemaining.indexOf(card);
+          if (idx > -1) newRemaining.splice(idx, 1);
+        });
+      }
+      this.setState({
+        remainingCards: newRemaining,
+        drawnTotal: this.state.drawnTotal + selected.length,
+        drawnCards: selected.map(text => ({ text })),
+        isDrawing: false,
+        message: actualCount < requested ? `剩餘卡片不足，本次抽出 ${actualCount} 張。` : `本次抽出 ${actualCount} 張卡片！`
       });
-    }
-    this.setState({
-      originalCards: original,
-      remainingCards: remaining,
-      drawnTotal: this.state.drawnTotal + selected.length,
-      drawnCards: selected.map(text => ({ text })),
-      message: actualCount < requested ? `剩餘卡片不足，本次抽出 ${actualCount} 張。` : `本次抽出 ${actualCount} 張卡片。`
-    });
+    }, 800);
   };
 
   resetDeck = () => {
@@ -195,7 +198,7 @@ class Component extends DCLogic {
   };
 
   renderVals() {
-    const countOptions = [1, 2, 3, 4, 5].map(n => ({
+    const countOptions = [1, 2, 3, 4].map(n => ({
       value: n,
       onSelect: () => this.setState({ drawCount: n }),
       style: `padding:10px 0; border-radius:10px; border:none; cursor:pointer; font-family:var(--font-heading); font-size:14px; background:${this.state.drawCount === n ? 'var(--color-accent-600)' : 'var(--color-surface)'}; color:${this.state.drawCount === n ? 'var(--color-bg)' : 'var(--color-text)'};`
@@ -209,12 +212,20 @@ class Component extends DCLogic {
       onToggleRemoveDrawn: this.onToggleRemoveDrawn,
       loadSample: this.loadSample,
       clearCards: this.clearCards,
-      totalCards: this.state.originalCards.length,
       remainingCount: this.state.removeDrawn ? this.state.remainingCards.length : this.state.originalCards.length,
       drawnTotal: this.state.drawnTotal,
-      hasDrawnCards: this.state.drawnCards.length > 0,
-      drawnCards: this.state.drawnCards,
-      drawCards: this.drawCards,
+      isDrawing: this.state.isDrawing,
+      spinnerSlots: Array.from({ length: this.state.drawCount }, (_, i) => i),
+      hasDrawnCards: !this.state.isDrawing && this.state.drawnCards.length > 0,
+      isIdle: !this.state.isDrawing && this.state.drawnCards.length === 0,
+      drawnCards: this.state.drawnCards.map((c, i) => {
+        const palette = [
+          { bg: 'var(--color-accent-100)', border: 'var(--color-accent-300)', text_color: 'var(--color-accent-900)' },
+          { bg: 'var(--color-accent-2-100)', border: 'var(--color-accent-2-300)', text_color: 'var(--color-accent-2-900)' }
+        ];
+        return { ...c, ...palette[i % 2] };
+      }),
+      drawCard: this.drawCard,
       resetDeck: this.resetDeck,
       message: this.state.message
     };

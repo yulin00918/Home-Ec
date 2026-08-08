@@ -33,18 +33,93 @@
     </div>
 
     <div class="card elev-sm" style="padding:var(--space-6) var(--space-4);">
-      <span class="card-kicker">{{ activeTopic.label }}</span>
-      <h3 class="card-title" style="margin-top:4px;">{{ activeTopic.title }}</h3>
-      <p class="card-body" style="opacity:0.7;">{{ activeTopic.desc }}</p>
+      <sc-if value="{{ showPlainDesc }}">
+        <p class="card-body" style="opacity:0.7; margin:0;">{{ activeTopic.desc }}</p>
+      </sc-if>
 
       <sc-if value="{{ showHandSewing }}">
-        <div style="margin-top:var(--space-4);">
-          <button onClick="{{ toggleHandSewing }}" class="btn btn-secondary" style="display:inline-flex; white-space:nowrap;">✋ 手縫</button>
+        <div>
+          <button onClick="{{ toggleHandSewing }}" class="btn btn-secondary" style="display:inline-flex; white-space:nowrap;">手縫</button>
           <sc-if value="{{ handSewingOpen }}">
-            <div style="display:flex; flex-direction:column; gap:var(--space-2); margin-top:var(--space-3);">
+            <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-top:var(--space-3);">
               <sc-for list="{{ stitches }}" as="st" hint-placeholder-count="4">
-                <a href="{{ st.link }}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="justify-content:space-between; white-space:nowrap;">{{ st.label }} <span>↗</span></a>
+                <a href="{{ st.link }}" target="_blank" rel="noopener noreferrer" style="{{ st.style }}">{{ st.label }}</a>
               </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ showStyleTopics }}">
+        <div>
+          <div style="display:flex; gap:var(--space-2); flex-wrap:wrap;">
+            <sc-for list="{{ styleTopics }}" as="s" hint-placeholder-count="4">
+              <button onClick="{{ s.onSelect }}" style="{{ s.style }}">{{ s.label }}</button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ showPlainStyleDesc }}">
+            <p style="opacity:0.7; font-size:14px; margin-top:var(--space-3);">{{ openStyleTopicDesc }}</p>
+          </sc-if>
+
+          <sc-if value="{{ showFreshLookExtra }}">
+            <div style="margin-top:var(--space-3);">
+              <button onClick="{{ toggleWashFace }}" class="btn btn-secondary" style="display:inline-flex; white-space:nowrap;">洗臉</button>
+
+              <sc-if value="{{ washFaceOpen }}">
+                <div style="margin-top:var(--space-4); max-width:760px;">
+                  <div style="position:relative; width:100%;">
+                    <img src="assets/wash-face-base.png" alt="正確洗臉手技" style="width:100%; height:auto; display:block; border-radius:var(--radius-lg);">
+                    <img src="assets/wash-face-steps.png" alt="洗臉步驟示意" style="{{ overlayStyle }}">
+                  </div>
+                  <div style="text-align:center; margin-top:var(--space-4); display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+                    <button onClick="{{ toggleSteps }}" class="btn btn-primary" style="white-space:nowrap;">{{ stepsButtonLabel }}</button>
+                    <button onClick="{{ toggleAnimModal }}" class="btn btn-secondary" style="white-space:nowrap;">🎬 動畫版</button>
+                  </div>
+
+                  <sc-if value="{{ showAnimModal }}">
+                    <div style="margin-top:var(--space-5); max-width:900px; background:var(--color-surface); border-radius:var(--radius-lg); padding:var(--space-5);">
+                      <svg viewBox="0 0 2048 1597" style="width:100%; height:auto; display:block;">
+                        <defs>
+                          <clipPath id="leftStep1"><rect x="180" y="325" width="640" height="300" rx="20"></rect></clipPath>
+                          <clipPath id="leftStep2"><ellipse cx="345" cy="680" rx="155" ry="105"></ellipse><ellipse cx="690" cy="680" rx="155" ry="105"></ellipse><rect x="180" y="680" width="90" height="100"></rect></clipPath>
+                          <clipPath id="leftStep3"><rect x="470" y="555" width="95" height="335" rx="35"></rect></clipPath>
+                          <clipPath id="leftStep4"><rect x="180" y="745" width="310" height="250"></rect><rect x="550" y="745" width="275" height="250"></rect></clipPath>
+                          <clipPath id="leftStep5"><ellipse cx="515" cy="985" rx="235" ry="175"></ellipse></clipPath>
+                          <clipPath id="middleArrowMask"><rect x="975" y="610" width="120" height="330"></rect></clipPath>
+                          <clipPath id="rightStep1"><rect x="1235" y="320" width="610" height="310"></rect></clipPath>
+                          <clipPath id="rightStep2"><rect x="1490" y="560" width="135" height="330"></rect></clipPath>
+                          <clipPath id="rightStep3"><ellipse cx="1535" cy="980" rx="210" ry="125"></ellipse></clipPath>
+                        </defs>
+                        <image href="assets/wash-face-base.png" x="0" y="0" width="2048" height="1597" preserveAspectRatio="xMidYMid meet"></image>
+                        <image style="{{ animLayerStyle.l0 }}" href="assets/wash-face-steps.png" x="0" y="0" width="2048" height="1597" clip-path="url(#leftStep1)"></image>
+                        <image style="{{ animLayerStyle.l1 }}" href="assets/wash-face-steps.png" x="0" y="0" width="2048" height="1597" clip-path="url(#leftStep2)"></image>
+                        <image style="{{ animLayerStyle.l2 }}" href="assets/wash-face-steps.png" x="0" y="0" width="2048" height="1597" clip-path="url(#leftStep3)"></image>
+                        <image style="{{ animLayerStyle.l3 }}" href="assets/wash-face-steps.png" x="0" y="0" width="2048" height="1597" clip-path="url(#leftStep4)"></image>
+                        <image style="{{ animLayerStyle.l4 }}" href="assets/wash-face-steps.png" x="0" y="0" width="2048" height="1597" clip-path="url(#leftStep5)"></image>
+                        <image style="{{ animLayerStyle.l5 }}" href="assets/wash-face-steps.png" x="0" y="0" width="2048" height="1597" clip-path="url(#middleArrowMask)"></image>
+                        <image style="{{ animLayerStyle.l6 }}" href="assets/wash-face-steps.png" x="0" y="0" width="2048" height="1597" clip-path="url(#rightStep1)"></image>
+                        <image style="{{ animLayerStyle.l7 }}" href="assets/wash-face-steps.png" x="0" y="0" width="2048" height="1597" clip-path="url(#rightStep2)"></image>
+                        <image style="{{ animLayerStyle.l8 }}" href="assets/wash-face-steps.png" x="0" y="0" width="2048" height="1597" clip-path="url(#rightStep3)"></image>
+                      </svg>
+
+                      <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:var(--space-4);">
+                        <sc-for list="{{ animStepButtons }}" as="b" hint-placeholder-count="5">
+                          <button onClick="{{ b.onSelect }}" style="display:flex; flex-direction:column; align-items:center; gap:5px; border:none; background:transparent; cursor:pointer; font-family:var(--font-body);">
+                            <span style="{{ b.style }}">{{ b.number }}</span>
+                            <small style="font-size:12px; opacity:0.65;">{{ b.label }}</small>
+                          </button>
+                        </sc-for>
+                      </div>
+
+                      <div style="display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap; margin-top:var(--space-3);">
+                        <button onClick="{{ animAutoPlay }}" class="btn btn-primary" style="white-space:nowrap;" disabled="{{ animPlaying }}">▶ 自動示範</button>
+                        <button onClick="{{ animReset }}" class="btn btn-ghost" style="white-space:nowrap;">↻ 重新開始</button>
+                      </div>
+                      <p style="text-align:center; font-size:13px; opacity:0.6; margin-top:var(--space-3); margin-bottom:0;">點選步驟，依序看看正確的洗臉方向</p>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-if>
             </div>
           </sc-if>
         </div>
@@ -56,7 +131,67 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { active: 'sewing', handSewingOpen: false };
+  state = { active: 'sewing', handSewingOpen: false, openStyleTopic: null, washFaceOpen: false, showSteps: false, showAnimModal: false, animVisible: Array(9).fill(false), animPlaying: false };
+
+  wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  setAnimVisible(index, value) {
+    this.setState(s => {
+      const arr = [...s.animVisible];
+      arr[index] = value;
+      return { animVisible: arr };
+    });
+  }
+
+  selectAnimStep = (step) => {
+    if (this.state.animPlaying) return;
+    this.animToken = (this.animToken || 0) + 1;
+    const token = this.animToken;
+    const arr = Array(9).fill(false);
+    for (let i = 0; i < 5; i++) arr[i] = i < step;
+    this.setState({ animVisible: arr });
+    if (step === 5) this.finishRightSide(token);
+  };
+
+  finishRightSide = async (token) => {
+    await this.wait(800);
+    if (token !== this.animToken) return;
+    this.setAnimVisible(5, true);
+    await this.wait(850);
+    if (token !== this.animToken) return;
+    this.setAnimVisible(6, true);
+    await this.wait(850);
+    if (token !== this.animToken) return;
+    this.setAnimVisible(7, true);
+    await this.wait(850);
+    if (token !== this.animToken) return;
+    this.setAnimVisible(8, true);
+  };
+
+  animAutoPlay = async () => {
+    if (this.state.animPlaying) return;
+    this.animToken = (this.animToken || 0) + 1;
+    const token = this.animToken;
+    this.setState({ animVisible: Array(9).fill(false), animPlaying: true });
+    await this.wait(500);
+    for (let i = 0; i < 5; i++) {
+      if (token !== this.animToken) return;
+      this.setAnimVisible(i, true);
+      await this.wait(1050);
+    }
+    for (let i = 5; i < 9; i++) {
+      if (token !== this.animToken) return;
+      this.setAnimVisible(i, true);
+      await this.wait(1000);
+    }
+    if (token !== this.animToken) return;
+    this.setState({ animPlaying: false });
+  };
+
+  animReset = () => {
+    this.animToken = (this.animToken || 0) + 1;
+    this.setState({ animVisible: Array(9).fill(false), animPlaying: false });
+  };
 
   renderVals() {
     const raw = [
@@ -87,7 +222,27 @@ class Component extends DCLogic {
       { label: '隱形針法', link: 'https://www.youtube.com/shorts/QtTGKIwPZZ4' },
       { label: '捲邊（針）縫', link: 'https://www.youtube.com/watch?v=ergoJIuDZ0I' },
       { label: '兩孔／四孔鈕扣縫法', link: 'https://www.youtube.com/watch?v=vYqTRT_LfWo' }
+    ].map(st => ({
+      ...st,
+      style: `display:inline-flex; padding:9px 18px; border-radius:999px; font-family:var(--font-heading); font-size:14px; white-space:nowrap; text-decoration:none; background:var(--color-accent-2-100); color:var(--color-accent-2-800);`
+    }));
+
+    const styleTopicsRaw = [
+      { id: 'freshLook', label: '清爽好印象', desc: '課程準備中，之後會放上清爽好印象相關的課程內容。' },
+      { id: 'bodyShape', label: '認識我的身形', desc: '課程準備中，之後會放上認識我的身形相關的課程內容。' },
+      { id: 'colorMe', label: '找到我的色彩', desc: '課程準備中，之後會放上找到我的色彩相關的課程內容。' },
+      { id: 'visualMagic', label: '服裝的視覺魔法', desc: '課程準備中，之後會放上服裝的視覺魔法相關的課程內容。' }
     ];
+    const styleTopics = styleTopicsRaw.map(s => {
+      const open = this.state.openStyleTopic === s.id;
+      return {
+        ...s,
+        open,
+        onSelect: () => this.setState(st => ({ openStyleTopic: st.openStyleTopic === s.id ? null : s.id })),
+        style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:14px; cursor:pointer; white-space:nowrap; background:${open ? 'var(--color-accent-2-600)' : 'var(--color-surface)'}; color:${open ? 'var(--color-bg)' : 'var(--color-text)'};`
+      };
+    });
+    const openTopic = styleTopics.find(s => s.open);
 
     return {
       topics,
@@ -95,7 +250,40 @@ class Component extends DCLogic {
       showHandSewing: active === 'sewing',
       handSewingOpen: this.state.handSewingOpen,
       toggleHandSewing: () => this.setState(s => ({ handSewingOpen: !s.handSewingOpen })),
-      stitches
+      stitches,
+      showStyleTopics: active === 'style',
+      styleTopics,
+      hasOpenStyleTopic: !!openTopic,
+      openStyleTopicDesc: openTopic ? openTopic.desc : '',
+      openStyleTopicId: openTopic ? openTopic.id : null,
+      showPlainStyleDesc: !!openTopic && openTopic.id !== 'freshLook',
+      showPlainDesc: active !== 'sewing' && active !== 'style',
+      showFreshLookExtra: this.state.openStyleTopic === 'freshLook',
+      washFaceOpen: this.state.washFaceOpen,
+      toggleWashFace: () => this.setState(s => ({ washFaceOpen: !s.washFaceOpen, showSteps: false })),
+      toggleSteps: () => this.setState(s => ({ showSteps: !s.showSteps })),
+      stepsButtonLabel: this.state.showSteps ? '隱藏步驟' : '開始',
+      overlayStyle: `position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:${this.state.showSteps ? 1 : 0}; transition:opacity .4s ease;`,
+      toggleAnimModal: () => this.setState(s => ({ showAnimModal: !s.showAnimModal })),
+      showAnimModal: this.state.showAnimModal,
+      animPlaying: this.state.animPlaying,
+      animLayerStyle: Object.fromEntries(this.state.animVisible.map((v, i) => [
+        'l' + i,
+        `opacity:${v ? 1 : 0}; transition:opacity .55s ease;`
+      ])),
+      animStepButtons: [
+        { n: 1, label: '額頭' }, { n: 2, label: '眼周' }, { n: 3, label: '鼻部' }, { n: 4, label: '雙頰' }, { n: 5, label: '嘴周' }
+      ].map(({ n, label }) => {
+        const active = this.state.animVisible.slice(0, n).every(v => v) && this.state.animVisible[n - 1];
+        return {
+          number: n,
+          label,
+          onSelect: () => this.selectAnimStep(n),
+          style: `display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%; border:1.5px solid var(--color-accent-600); background:${active ? 'var(--color-accent-600)' : 'var(--color-bg)'}; color:${active ? 'var(--color-bg)' : 'var(--color-accent-600)'}; font-family:var(--font-heading); font-size:16px; font-weight:700;`
+        };
+      }),
+      animAutoPlay: this.animAutoPlay,
+      animReset: this.animReset
     };
   }
 }
