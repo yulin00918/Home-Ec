@@ -8,41 +8,41 @@
 <body>
 <x-dc>
 <helmet>
-  <link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css">
-  <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  .gt-input{box-sizing:border-box;}
+</style>
 </helmet>
-<div style="background:linear-gradient(135deg, var(--color-accent-100), var(--color-bg) 50%, var(--color-accent-2-100)); min-height:100vh; font-family:var(--font-body); color:var(--color-text); padding-bottom:var(--space-8);">
-  <div style="max-width:1120px; margin:0 auto; padding:var(--space-6) var(--space-4) 0;">
-    <a href="教學百寶箱.dc.html" style="font-size:14px; color:var(--color-accent-700); text-decoration:none;">← 回教學百寶箱</a>
-  </div>
+<div style="font-family:'Noto Sans TC',sans-serif;color:#26304a;background:radial-gradient(circle at 10% 10%, rgba(255,255,255,.95), transparent 28%),radial-gradient(circle at 90% 15%, rgba(200,180,250,.8), transparent 30%),linear-gradient(135deg, #ece3fb, #f5f0fd);min-height:100vh;padding:20px;">
+  <div style="width:min(1180px,100%);margin:0 auto;">
+    <a href="教學百寶箱.dc.html" style="display:inline-block;margin-bottom:14px;color:#6b4fc4;font-weight:700;text-decoration:none;white-space:nowrap;">← 回教學百寶箱</a>
 
-  <header style="max-width:1120px; margin:0 auto; padding:var(--space-4) var(--space-4) var(--space-6); text-align:center;">
-    <h1 style="margin:0;">👥 小組任務分工器</h1>
-    <p style="opacity:0.75; margin-top:8px;">隨機分組 × 角色分工 × 任務清楚</p>
-  </header>
+    <header style="text-align:center;margin-bottom:18px;">
+      <h1 style="margin:0 0 6px;font-size:clamp(28px,5vw,44px);">👥 小組任務分工器</h1>
+      <p style="margin:0;color:#6f7890;">隨機分組 × 角色分工 × 任務清楚</p>
+    </header>
 
-  <div style="max-width:1120px; margin:0 auto; padding:0 var(--space-4);">
     <sc-if value="{{ presentationMode }}" hint-placeholder-val="{{ false }}">
-      <div style="text-align:center; margin-bottom:var(--space-4);">
-        <button onClick="{{ togglePresentation }}" class="btn btn-secondary">⬅ 返回設定</button>
+      <div style="text-align:center;margin-bottom:16px;">
+        <button onClick="{{ togglePresentation }}" style="border:0;border-radius:12px;padding:11px 16px;font:inherit;font-weight:800;cursor:pointer;background:#eef0ff;color:#4650cc;">⬅ 返回設定</button>
       </div>
     </sc-if>
 
     <sc-if value="{{ !presentationMode }}" hint-placeholder-val="{{ true }}">
-      <div style="display:flex; flex-direction:column; gap:var(--space-4);">
+      <div style="display:flex;flex-direction:column;gap:16px;">
 
-        <div class="card elev-sm">
-          <span class="card-title" style="margin-bottom:var(--space-3);">① 輸入學生名單</span>
-          <textarea value="{{ studentsText }}" onChange="{{ onStudentsChange }}" placeholder="每行輸入一位學生，例如：&#10;王小明&#10;陳小華&#10;林小美&#10;張小安" class="input" style="height:160px; resize:vertical; line-height:1.6;"></textarea>
-          <div style="margin-top:8px; font-size:14px; opacity:0.7;">目前 {{ studentCount }} 位學生</div>
-        </div>
+        <section style="background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.9);border-radius:22px;box-shadow:0 18px 45px rgba(66,77,140,.16);backdrop-filter:blur(12px);padding:20px;">
+          <div style="font-weight:900;margin-bottom:10px;font-size:16px;">① 輸入學生名單</div>
+          <textarea class="gt-input" value="{{ studentsText }}" onChange="{{ onStudentsChange }}" placeholder="每行輸入一位學生，例如：&#10;王小明&#10;陳小華&#10;林小美&#10;張小安" style="width:100%;height:160px;padding:11px 12px;border:1px solid #dfe4f2;border-radius:12px;background:#fff;resize:vertical;line-height:1.6;font:inherit;font-size:14px;"></textarea>
+          <div style="margin-top:8px;font-size:13px;color:#6f7890;">目前 {{ studentCount }} 位學生</div>
+        </section>
 
-        <div class="card elev-sm">
-          <span class="card-title" style="margin-bottom:var(--space-3);">② 設定分組方式</span>
-          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:var(--space-3);">
-            <div class="field">
-              <label>每組人數</label>
-              <select value="{{ groupSize }}" onChange="{{ onGroupSizeChange }}" class="input">
+        <section style="background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.9);border-radius:22px;box-shadow:0 18px 45px rgba(66,77,140,.16);backdrop-filter:blur(12px);padding:20px;">
+          <div style="font-weight:900;margin-bottom:10px;font-size:16px;">② 設定分組方式</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
+            <div>
+              <label style="display:block;font-size:13px;color:#6f7890;margin-bottom:5px;">每組人數</label>
+              <select class="gt-input" value="{{ groupSize }}" onChange="{{ onGroupSizeChange }}" style="width:100%;padding:11px 12px;border:1px solid #dfe4f2;border-radius:12px;background:#fff;font:inherit;font-size:14px;">
                 <option value="2">2 人</option>
                 <option value="3">3 人</option>
                 <option value="4">4 人</option>
@@ -50,57 +50,57 @@
                 <option value="6">6 人</option>
               </select>
             </div>
-            <div class="field">
-              <label>角色分配</label>
-              <select value="{{ roleMode }}" onChange="{{ onRoleModeChange }}" class="input">
+            <div>
+              <label style="display:block;font-size:13px;color:#6f7890;margin-bottom:5px;">角色分配</label>
+              <select class="gt-input" value="{{ roleMode }}" onChange="{{ onRoleModeChange }}" style="width:100%;padding:11px 12px;border:1px solid #dfe4f2;border-radius:12px;background:#fff;font:inherit;font-size:14px;">
                 <option value="order">依角色順序分配</option>
                 <option value="random">隨機分配角色</option>
               </select>
             </div>
           </div>
-          <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-top:var(--space-4);">
-            <button onClick="{{ makeGroups }}" class="btn btn-primary">🎲 隨機分組＋分工</button>
-            <button onClick="{{ rerollRoles }}" class="btn btn-secondary">🔄 保留分組，只換角色</button>
-            <button onClick="{{ togglePresentation }}" class="btn btn-ghost">🖥️ 投影模式</button>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+            <button onClick="{{ makeGroups }}" style="border:0;border-radius:12px;padding:11px 16px;font:inherit;font-weight:800;cursor:pointer;background:linear-gradient(135deg, #8b5cf6, #a78bfa);color:#fff;">🎲 隨機分組＋分工</button>
+            <button onClick="{{ rerollRoles }}" style="border:0;border-radius:12px;padding:11px 16px;font:inherit;font-weight:800;cursor:pointer;background:#eef0ff;color:#4650cc;">🔄 保留分組，只換角色</button>
+            <button onClick="{{ togglePresentation }}" style="border:0;border-radius:12px;padding:11px 16px;font:inherit;font-weight:800;cursor:pointer;background:#f7f8fc;color:#6f7890;">🖥️ 投影模式</button>
           </div>
-        </div>
+        </section>
 
-        <div class="card elev-sm">
-          <span class="card-title" style="margin-bottom:8px;">③ 小組角色設定</span>
-          <p style="opacity:0.7; font-size:14px; line-height:1.7; margin:0 0 var(--space-3);">角色名稱與工作都可以修改。4 人組使用前 4 個角色，5 人組使用前 5 個，6 人組使用全部角色。</p>
-          <div style="display:flex; flex-direction:column; gap:10px;">
+        <section style="background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.9);border-radius:22px;box-shadow:0 18px 45px rgba(66,77,140,.16);backdrop-filter:blur(12px);padding:20px;">
+          <div style="font-weight:900;margin-bottom:6px;font-size:16px;">③ 小組角色設定</div>
+          <p style="color:#6f7890;font-size:13px;line-height:1.7;margin:0 0 12px;">角色名稱與工作都可以修改。4 人組使用前 4 個角色，5 人組使用前 5 個，6 人組使用全部角色。</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
             <sc-for list="{{ roles }}" as="role" hint-placeholder-count="6">
-              <div style="display:grid; grid-template-columns: 46px 1fr 1.4fr 44px; gap:8px; align-items:center;">
-                <input value="{{ role.icon }}" onChange="{{ role.onIconChange }}" maxlength="4" class="input" style="text-align:center; padding:8px;">
-                <input value="{{ role.name }}" onChange="{{ role.onNameChange }}" placeholder="角色名稱" class="input" style="padding:8px;">
-                <input value="{{ role.job }}" onChange="{{ role.onJobChange }}" placeholder="角色工作內容" class="input" style="padding:8px;">
-                <button onClick="{{ role.onRemove }}" class="btn btn-ghost" style="color:var(--color-accent-700); padding:8px;" title="刪除角色">×</button>
+              <div style="display:grid;grid-template-columns:46px 1fr 1.4fr 44px;gap:8px;align-items:center;">
+                <input class="gt-input" value="{{ role.icon }}" onChange="{{ role.onIconChange }}" maxlength="4" style="text-align:center;padding:8px;border:1px solid #dfe4f2;border-radius:12px;background:#fff;font:inherit;">
+                <input class="gt-input" value="{{ role.name }}" onChange="{{ role.onNameChange }}" placeholder="角色名稱" style="padding:8px;border:1px solid #dfe4f2;border-radius:12px;background:#fff;font:inherit;">
+                <input class="gt-input" value="{{ role.job }}" onChange="{{ role.onJobChange }}" placeholder="角色工作內容" style="padding:8px;border:1px solid #dfe4f2;border-radius:12px;background:#fff;font:inherit;">
+                <button onClick="{{ role.onRemove }}" style="border:0;border-radius:12px;padding:8px;font:inherit;font-weight:800;cursor:pointer;background:#ffe8eb;color:#e45d68;" title="刪除角色">×</button>
               </div>
             </sc-for>
           </div>
-          <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-top:var(--space-3);">
-            <button onClick="{{ addRole }}" class="btn btn-secondary">＋ 新增角色</button>
-            <button onClick="{{ resetRoles }}" class="btn btn-ghost">↺ 恢復預設角色</button>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+            <button onClick="{{ addRole }}" style="border:0;border-radius:12px;padding:11px 16px;font:inherit;font-weight:800;cursor:pointer;background:#eef0ff;color:#4650cc;">＋ 新增角色</button>
+            <button onClick="{{ resetRoles }}" style="border:0;border-radius:12px;padding:11px 16px;font:inherit;font-weight:800;cursor:pointer;background:#f7f8fc;color:#6f7890;">↺ 恢復預設角色</button>
           </div>
-        </div>
+        </section>
       </div>
     </sc-if>
 
-    <div class="card elev-sm" style="margin-top:var(--space-4);">
-      <span class="card-title" style="margin-bottom:var(--space-3);">小組分工結果</span>
+    <section style="background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.9);border-radius:22px;box-shadow:0 18px 45px rgba(66,77,140,.16);backdrop-filter:blur(12px);padding:20px;margin-top:16px;">
+      <div style="font-weight:900;margin-bottom:10px;font-size:16px;">小組分工結果</div>
       <sc-if value="{{ hasGroups }}" hint-placeholder-val="{{ false }}">
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:var(--space-4);">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;">
           <sc-for list="{{ groups }}" as="group" hint-placeholder-count="0">
-            <div style="background:var(--color-surface); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-sm);">
-              <div style="padding:12px 18px; font-size:18px; font-weight:800; background:var(--color-accent-100); color:var(--color-accent-800); font-family:var(--font-heading);">第 {{ group.index }} 組</div>
+            <div style="background:#f7f5fe;border-radius:16px;overflow:hidden;">
+              <div style="padding:11px 16px;font-size:16px;font-weight:900;background:#8b5cf6;color:#fff;">第 {{ group.index }} 組</div>
               <sc-for list="{{ group.members }}" as="m" hint-placeholder-count="0">
-                <div style="padding:14px 18px; border-top:1px solid var(--color-divider);">
-                  <div style="display:flex; align-items:center; gap:10px;">
-                    <span style="font-size:22px;">{{ m.icon }}</span>
-                    <span style="font-size:17px; font-weight:800;">{{ m.name }}</span>
-                    <span style="margin-left:auto; background:var(--color-neutral-100); border-radius:20px; padding:4px 10px; font-size:13px; font-weight:700; white-space:nowrap;">{{ m.roleName }}</span>
+                <div style="padding:12px 16px;border-top:1px solid #e6e1fa;">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <span style="font-size:20px;">{{ m.icon }}</span>
+                    <span style="font-size:15px;font-weight:800;">{{ m.name }}</span>
+                    <span style="margin-left:auto;background:#eef0ff;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;color:#4650cc;white-space:nowrap;">{{ m.roleName }}</span>
                   </div>
-                  <div style="color:var(--color-text); opacity:0.65; font-size:14px; line-height:1.6; margin-top:6px;">{{ m.roleJob }}</div>
+                  <div style="color:#6f7890;font-size:13px;line-height:1.6;margin-top:5px;">{{ m.roleJob }}</div>
                 </div>
               </sc-for>
             </div>
@@ -108,9 +108,9 @@
         </div>
       </sc-if>
       <sc-if value="{{ !hasGroups }}" hint-placeholder-val="{{ true }}">
-        <div style="text-align:center; padding:40px 20px; opacity:0.5;">輸入學生名單後，按下「隨機分組＋分工」</div>
+        <div style="text-align:center;padding:36px 16px;color:#a3abc2;">輸入學生名單後，按下「隨機分組＋分工」</div>
       </sc-if>
-    </div>
+    </section>
   </div>
 </div>
 
