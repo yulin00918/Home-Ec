@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>我的膚色 × 個人色彩探索 V3.5</title>
+<style>
+:root{
+  --bg1:#fff7f3;--bg2:#f3f0ff;--ink:#403840;--muted:#7b7078;--card:#ffffffdf;--line:#eadfe7;
+  --accent:#c96f88;--accent2:#7569b3;--shadow:0 20px 55px #654a5b17;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:linear-gradient(135deg,var(--bg1),var(--bg2));min-height:100vh}
+button,input{font:inherit}button{cursor:pointer}.wrap{width:min(1180px,92vw);margin:auto;padding:34px 0 64px}.hero{text-align:center;margin-bottom:24px}.hero h1{margin:0;font-size:clamp(30px,4.5vw,48px);letter-spacing:.03em}.hero p{max-width:820px;margin:10px auto 0;color:var(--muted);line-height:1.85}.badge{display:inline-flex;gap:7px;align-items:center;background:#ffffffb9;border:1px solid #fff;border-radius:999px;padding:8px 12px;margin-bottom:12px;font-size:13px;box-shadow:0 5px 16px #00000009}
+.progress{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 auto 24px;max-width:760px}.step{padding:11px 8px;border-radius:16px;background:#ffffff90;border:1px solid #ffffffaa;text-align:center;font-weight:800;color:#958795}.step.active{background:white;color:var(--accent);box-shadow:0 8px 24px #0000000c}.step.done{color:#557663;background:#f3fbf6}
+.grid{display:grid;grid-template-columns:1.04fr .96fr;gap:20px}.card{background:var(--card);border:1px solid #ffffffbd;box-shadow:var(--shadow);border-radius:26px;padding:20px;backdrop-filter:blur(10px)}.card h2{font-size:20px;margin:0 0 14px}.card h3{font-size:17px;margin:20px 0 10px}.drop{border:2px dashed #dacbd4;border-radius:20px;padding:20px;text-align:center;background:#fffafd;transition:.2s}.drop.drag{border-color:var(--accent);background:#fff4f7}.drop input{display:none}
+button,.fileBtn{border:none;border-radius:999px;padding:11px 18px;font-size:15px;font-weight:800}.fileBtn,.primary{background:linear-gradient(135deg,var(--accent),#dc8da1);color:white;display:inline-block;box-shadow:0 8px 20px #c96f8822}.secondary{background:#f0eaf4;color:#66566d}.ghost{background:white;color:#6d5b67;border:1px solid var(--line)}.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.previewWrap{position:relative;margin-top:16px;min-height:330px;background:#f4edf2;border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center}.previewWrap img{display:block;max-width:100%;max-height:520px}.empty{color:#9b8e97;padding:52px 16px;text-align:center}.sampleDots{position:absolute;inset:0;pointer-events:none}.dot{position:absolute;width:18px;height:18px;border:3px solid white;border-radius:50%;box-shadow:0 0 0 2px #9a5a70,0 2px 8px #0003;transform:translate(-50%,-50%)}
+.status{margin-top:12px;padding:10px 12px;border-radius:12px;background:#f7f1f5;color:#6f616a;font-size:14px;line-height:1.65}.status.ok{background:#eef8f2;color:#40684f}.status.warn{background:#fff5e5;color:#856328}.status.bad{background:#fff0f0;color:#8c4f4f}.tips{margin-top:16px;padding:13px 15px;border-radius:16px;background:#fffaf0;color:#785f36;line-height:1.75;font-size:14px}.small{font-size:12.5px;color:var(--muted);line-height:1.7}.hide{display:none!important}
+.resultTop{display:flex;align-items:center;gap:16px}.swatch{width:82px;height:82px;border-radius:24px;border:6px solid white;box-shadow:0 8px 22px #00000018;flex:none}.bigType{font-size:27px;font-weight:900}.sub{color:var(--muted);margin-top:3px}.chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}.chip{padding:8px 10px;border-radius:999px;background:#f6f0f5;font-size:13px}.meter{margin:16px 0 0}.meterRow{display:grid;grid-template-columns:86px 1fr 48px;gap:10px;align-items:center;margin:10px 0}.bar{height:12px;border-radius:99px;background:#eee7ed;overflow:hidden}.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#bca7cc,#d27a91)}
+.comparePanel{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}.compareIntro{background:#f7f4fb;border-radius:16px;padding:12px 14px;line-height:1.7;font-size:13px;color:#6b6170}.pairTitle{text-align:center;font-weight:900;margin:16px 0 12px}.pairGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.choice{border:3px solid transparent;background:white;border-radius:22px;padding:0;overflow:hidden;box-shadow:0 8px 22px #0000000c;transition:.18s;position:relative}.choice:hover{transform:translateY(-2px)}.choice.selected{border-color:#6f6076;box-shadow:0 0 0 4px #ffffff,0 10px 24px #00000017}.drape{height:300px;display:flex;align-items:flex-end;justify-content:center;padding:0 10px;position:relative;overflow:hidden}.drape::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,#ffffff12,#00000008 45%,#ffffff18 70%,#00000008);mix-blend-mode:overlay;pointer-events:none}.photoCut{display:block;width:auto;max-width:92%;height:285px;object-fit:contain;object-position:center bottom;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important;z-index:1;filter:none}.drape::after{content:none!important}.axisNote{font-size:12px;color:var(--muted);text-align:center;margin-top:2px}.splitNote{margin-top:12px;padding:11px 13px;border-radius:14px;background:#eef7ff;color:#526575;font-size:13px;line-height:1.65}.choiceLabel{padding:11px 8px 13px;font-weight:900;text-align:center;background:white}.choiceTag{font-size:12px;font-weight:600;color:var(--muted);margin-top:2px}.compareNav{display:flex;justify-content:space-between;gap:10px;margin-top:14px}.compareNav button{flex:1}.dotsProgress{display:flex;gap:6px;justify-content:center;margin-top:12px}.miniDot{width:9px;height:9px;border-radius:50%;background:#ddd2da}.miniDot.active{background:var(--accent)}.miniDot.done{background:#78a287}
+.summaryBox{margin-top:18px;padding:16px;border-radius:20px;background:linear-gradient(135deg,#fff8f4,#f5f2ff);border:1px solid #eee3e9}.scoreBars{display:grid;gap:8px;margin-top:10px}.scoreRow{display:grid;grid-template-columns:55px 1fr 36px;gap:8px;align-items:center;font-size:13px}.scoreTrack{height:9px;background:#ebe4e9;border-radius:99px;overflow:hidden}.scoreFill{height:100%;background:linear-gradient(90deg,#d09ab0,#7e70b4);border-radius:99px}.palette{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:12px}.color{aspect-ratio:1;border-radius:15px;border:3px solid #fff;box-shadow:0 4px 12px #00000010;cursor:pointer;position:relative}.color:hover::after{content:attr(data-name);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);white-space:nowrap;background:#3d343b;color:white;padding:5px 8px;border-radius:8px;font-size:12px;z-index:4}.tryBox{margin-top:16px;border-radius:18px;padding:14px;background:#faf6f9}.tryStrip{height:72px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;border:4px solid white;box-shadow:0 5px 16px #0000000d}
+.privacy{margin-top:16px;padding:12px 14px;border:1px solid #e7dfe5;background:#ffffff9c;border-radius:14px;color:#756a72;font-size:12.5px;line-height:1.7}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.progress{grid-template-columns:1fr}.palette{grid-template-columns:repeat(3,1fr)}.previewWrap{min-height:260px}.pairGrid{gap:8px}.drape{height:250px;padding:0 6px}.photoCut{height:238px;max-width:96%}}
+
+.previewFrame{background-color:#f8f8f8;background-image:linear-gradient(45deg,#e8e8e8 25%,transparent 25%),linear-gradient(-45deg,#e8e8e8 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e8e8e8 75%),linear-gradient(-45deg,transparent 75%,#e8e8e8 75%);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p style="text-align:center;margin:0 0 12px;"><a href="服裝與織品.dc.html" style="color:#c96f88;text-decoration:none;font-weight:700;">← 回服裝與織品</a></p>
+  <section class="hero">
+    <h1>🎨 我的膚色 × 個人色彩探索</h1>
+    <p>先把照片轉成冷暖、明度、彩度三條獨立座標，再用自己的照片做四組左右試色比較。最後以「照片分析 50%＋試色觀察 50%」綜合春／夏／秋／冬傾向，並顯示第二可能類型。</p>
+  </section>
+
+  <div class="progress">
+    <div class="step active" id="step1">① 照片分析</div>
+    <div class="step" id="step2">② 試色觀察</div>
+    <div class="step" id="step3">③ 綜合結果</div>
+  </div>
+
+  <div class="grid">
+    <section class="card">
+      <h2>① 上傳照片</h2>
+      <div id="drop" class="drop">
+        <label class="fileBtn" for="file">📷 選擇照片</label>
+        <input id="file" type="file" accept="image/*" />
+        <div class="actions"><button id="demoBtn" class="secondary">使用示範模式</button><button id="resetBtn" class="ghost">重新測驗</button></div>
+        <p class="small">建議使用窗邊自然光、正面照、少濾鏡；避免黃光、藍光、逆光與厚底妝。</p>
+      </div>
+      <div class="previewWrap previewFrame" id="previewWrap">
+        <div class="empty" id="empty">照片會顯示在這裡</div>
+        <img id="img" class="hide" alt="去背後的人像" />
+        <img id="sourceImg" class="hide" alt="原始分析照片" />
+        <div id="sampleDots" class="sampleDots"></div>
+      </div>
+      <div id="status" class="status">正在載入臉部辨識模型…</div>
+      <div class="actions"><button id="analyzeBtn" class="primary" disabled>✨ 開始照片分析</button></div>
+      <div class="privacy"><b>🔒 隱私設計：</b>照片會在目前瀏覽器中完成去背、轉成透明 PNG 圖片資料並供試色卡重複使用；這個網頁本身不會把學生照片送到你的伺服器保存。重新整理或關閉頁面後，照片不會留在此工具裡。</div>
+    </section>
+
+    <section class="card">
+      <h2>② 分析與試色</h2>
+      <div id="placeholder" class="empty">完成照片分析後，就會開啟試色觀察。</div>
+      <div id="result" class="hide">
+        <div class="resultTop"><div id="skinSwatch" class="swatch"></div><div><div id="photoType" class="bigType"></div><div id="hex" class="sub"></div></div></div>
+        <div class="chips"><span id="undertoneChip" class="chip"></span><span id="lightChip" class="chip"></span><span id="chromaChip" class="chip"></span></div>
+        <div class="meter">
+          <div class="meterRow"><span>暖色傾向</span><div class="bar"><div id="warmBar" class="fill"></div></div><b id="warmText"></b></div>
+          <div class="meterRow"><span>明亮程度</span><div class="bar"><div id="lightBar" class="fill"></div></div><b id="lightText"></b></div>
+          <div class="meterRow"><span>鮮明程度</span><div class="bar"><div id="chromaBar" class="fill"></div></div><b id="chromaText"></b></div>
+        </div>
+        <div class="splitNote"><b>V3 校正：</b>照片不會直接決定季型，而是先產生四季分數；最後照片分析與試色觀察各占 50%。若冷暖落在中性區，也不會被硬分成暖色型。</div>
+
+        <div class="comparePanel" id="comparePanel">
+          <h3>👀 自己也來觀察看看</h3>
+          <div class="compareIntro">每一題左右都會使用<b>同一張你剛才上傳並自動去背的人像</b>，人物會直接放在色布上，不加白底、不加照片框，只改變周圍色布的顏色。請觀察：<b>哪一邊讓臉看起來更有精神、膚色更均勻、黑眼圈／泛紅較不明顯？</b>不要選「比較喜歡的顏色」，選「比較襯臉的顏色」。</div>
+          <div id="pairTitle" class="pairTitle"></div>
+          <div id="pairGrid" class="pairGrid"></div>
+          <div class="dotsProgress" id="dotsProgress"></div>
+          <div class="compareNav"><button id="prevBtn" class="ghost">← 上一題</button><button id="nextBtn" class="primary">下一題 →</button></div>
+        </div>
+
+        <div id="summaryBox" class="summaryBox hide">
+          <div class="bigType" id="finalType"></div>
+          <p id="finalText" style="line-height:1.75;margin:8px 0 0"></p>
+          <div class="scoreBars" id="scoreBars"></div>
+          <h3>推薦試色色票</h3>
+          <div id="palette" class="palette"></div>
+          <div class="tryBox"><div class="small" style="margin-bottom:7px">點色票看看：</div><div id="tryStrip" class="tryStrip">選一個顏色試試看</div></div>
+          <p id="explain" class="small" style="margin-top:14px"></p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<canvas id="work" class="hide"></canvas>
+<script type="module">
+import { FaceLandmarker, ImageSegmenter, FilesetResolver } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/+esm";
+
+const $=s=>document.querySelector(s); const file=$('#file'),img=$('#img'),sourceImg=$('#sourceImg'),status=$('#status'),analyzeBtn=$('#analyzeBtn'),result=$('#result'),placeholder=$('#placeholder'),dots=$('#sampleDots'),work=$('#work');
+let faceLandmarker=null,imageSegmenter=null,imgReady=false,photoResult=null,currentPair=0,cutoutDataUrl=''; const answers=[null,null,null,null];
+const seasonNames={spring:'🌸 春季型 Spring',summer:'🌿 夏季型 Summer',autumn:'🍂 秋季型 Autumn',winter:'❄️ 冬季型 Winter'};
+const seasonShort={spring:'春',summer:'夏',autumn:'秋',winter:'冬'};
+const palettes={spring:[['珊瑚粉','#F58F8A'],['蜜桃橘','#F6A56F'],['暖黃','#F4CF62'],['嫩葉綠','#9BCB72'],['水藍綠','#63C7BE'],['象牙白','#FFF4D8']],summer:[['霧粉','#D9A7B7'],['薰衣草','#B6A6CF'],['灰藍','#8EA8C3'],['莓果粉','#C77D98'],['柔薄荷','#A8C8BD'],['柔白','#F6F3F1']],autumn:[['陶土橘','#C9754F'],['芥末黃','#C9A33D'],['橄欖綠','#7C843F'],['焦糖棕','#A56B46'],['磚紅','#A95145'],['奶油米','#E8D3A8']],winter:[['寶藍','#2855A6'],['莓紅','#B62B5C'],['冷紫','#6948A5'],['祖母綠','#168164'],['黑色','#222222'],['冰粉','#F2C9DA']]};
+const pairs=[
+ {title:'第 1 題｜暖粉 vs 冷粉',left:{name:'珊瑚粉',tag:'偏暖、帶黃感',color:'#F28F88',axis:{warm:1}},right:{name:'玫瑰粉',tag:'偏冷、帶藍感',color:'#C985A8',axis:{warm:-1}}},
+ {title:'第 2 題｜柔和 vs 鮮明',left:{name:'霧藍',tag:'柔和、低彩度',color:'#9EADC2',axis:{chroma:-1}},right:{name:'寶藍',tag:'鮮明、高對比',color:'#315AA7',axis:{chroma:1}}},
+ {title:'第 3 題｜明亮 vs 深沉',left:{name:'象牙白',tag:'明亮、輕盈',color:'#FFF0D1',axis:{light:1}},right:{name:'深橄欖',tag:'深沉、穩重',color:'#62683D',axis:{light:-1}}},
+ {title:'第 4 題｜暖大地 vs 冷高對比',left:{name:'陶土橘',tag:'暖、柔和、沉穩',color:'#C9754F',axis:{warm:1,chroma:-.5,light:-.35}},right:{name:'莓紅',tag:'冷、鮮明、清晰',color:'#B62B5C',axis:{warm:-1,chroma:.5,light:-.1}}}
+]
+
+async function init(){
+ try{
+  const vision=await FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm');
+  faceLandmarker=await FaceLandmarker.createFromOptions(vision,{baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task',delegate:'GPU'},runningMode:'IMAGE',numFaces:1,minFaceDetectionConfidence:.5,minFacePresenceConfidence:.5});
+  const segmenterOptions=(delegate)=>({baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-assets/deeplabv3.tflite?generation=1661875711618421',delegate},runningMode:'IMAGE',outputCategoryMask:true,outputConfidenceMasks:false});
+  try{imageSegmenter=await ImageSegmenter.createFromOptions(vision,segmenterOptions('GPU'));}
+  catch(gpuErr){console.warn('GPU Image Segmenter 初始化失敗，改用 CPU',gpuErr);imageSegmenter=await ImageSegmenter.createFromOptions(vision,segmenterOptions('CPU'));}
+  setStatus('✅ 模型已就緒：上傳照片後會自動辨識人物並產生透明 PNG。','ok');analyzeBtn.disabled=!imgReady;
+ }catch(e){console.error(e);setStatus('❌ Image Segmenter 載入失敗。請確認網路後重新整理；若是直接雙擊 HTML，也可改從 Cloudflare／GitHub 網址開啟。','bad')}
+}
+const modelsReadyPromise=init();
+
+file.addEventListener('change',e=>loadFile(e.target.files?.[0]));$('#drop').addEventListener('dragover',e=>{e.preventDefault();e.currentTarget.classList.add('drag')});$('#drop').addEventListener('dragleave',e=>e.currentTarget.classList.remove('drag'));$('#drop').addEventListener('drop',e=>{e.preventDefault();e.currentTarget.classList.remove('drag');loadFile(e.dataTransfer.files?.[0])});
+function readFileAsDataURL(f){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(f)})}
+function waitImage(el,src){return new Promise((resolve,reject)=>{el.onload=()=>resolve(el);el.onerror=reject;el.src=src})}
+function smoothstep(a,b,x){const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t)}
+async function removeBackground(el){
+ if(!imageSegmenter)throw new Error('Image Segmenter 尚未就緒');
+ return new Promise((resolve,reject)=>{
+  let settled=false;
+  const timer=setTimeout(()=>{if(!settled){settled=true;reject(new Error('去背處理逾時，請重新整理後再試'))}},20000);
+  try{
+   imageSegmenter.segment(el,result=>{
+    if(settled)return;
+    try{
+     const categoryMask=result.categoryMask||null;
+     if(!categoryMask)throw new Error('Image Segmenter 沒有回傳 category mask');
+     const mw=categoryMask.width||el.naturalWidth,mh=categoryMask.height||el.naturalHeight;
+     const categories=categoryMask.getAsUint8Array?.();
+     if(!categories)throw new Error('無法讀取人物分割遮罩');
+
+     const maxSide=1400,scale=Math.min(1,maxSide/Math.max(el.naturalWidth,el.naturalHeight));
+     const cw=Math.max(1,Math.round(el.naturalWidth*scale)),ch=Math.max(1,Math.round(el.naturalHeight*scale));
+     const c=document.createElement('canvas');c.width=cw;c.height=ch;
+     const cx=c.getContext('2d',{willReadFrequently:true});
+     cx.clearRect(0,0,cw,ch);cx.drawImage(el,0,0,cw,ch);
+     const im=cx.getImageData(0,0,cw,ch),d=im.data;
+
+     const alpha=new Uint8ClampedArray(cw*ch);
+     let personPixels=0;
+     for(let y=0;y<ch;y++)for(let x=0;x<cw;x++){
+      const mx=Math.min(mw-1,Math.floor((x+.5)/cw*mw));
+      const my=Math.min(mh-1,Math.floor((y+.5)/ch*mh));
+      const isPerson=categories[my*mw+mx]===15;
+      if(isPerson){alpha[y*cw+x]=255;personPixels++;}
+     }
+     if(personPixels<cw*ch*.01)throw new Error('模型沒有辨識到足夠的人像範圍');
+
+     const soft=new Uint8ClampedArray(alpha.length);
+     for(let y=0;y<ch;y++)for(let x=0;x<cw;x++){
+      let sum=0,n=0;
+      for(let yy=Math.max(0,y-1);yy<=Math.min(ch-1,y+1);yy++)for(let xx=Math.max(0,x-1);xx<=Math.min(cw-1,x+1);xx++){
+       sum+=alpha[yy*cw+xx];n++;
+      }
+      soft[y*cw+x]=Math.round(sum/n);
+     }
+     for(let i=0;i<soft.length;i++)d[i*4+3]=soft[i];
+     cx.putImageData(im,0,0);
+     const png=c.toDataURL('image/png');
+     if(!png.startsWith('data:image/png'))throw new Error('透明 PNG 建立失敗');
+     categoryMask.close?.();
+     settled=true;clearTimeout(timer);resolve(png);
+    }catch(err){
+     try{result.categoryMask?.close?.();result.confidenceMasks?.forEach(m=>m.close?.())}catch(_){}
+     settled=true;clearTimeout(timer);reject(err);
+    }
+   });
+  }catch(err){settled=true;clearTimeout(timer);reject(err)}
+ })
+}
+async function loadFile(f){
+ if(!f)return;if(!f.type.startsWith('image/'))return setStatus('請選擇圖片檔。','bad');
+ imgReady=false;analyzeBtn.disabled=true;dots.innerHTML='';resetResult();setStatus('照片已讀取，正在用 Image Segmenter 辨識人物並建立透明 PNG…','');
+ try{
+  const originalDataUrl=await readFileAsDataURL(f);await waitImage(sourceImg,originalDataUrl);await modelsReadyPromise;
+  try{
+   cutoutDataUrl=await removeBackground(sourceImg);
+   await waitImage(img,cutoutDataUrl);
+   imgReady=true;img.classList.remove('hide');$('#empty').classList.add('hide');analyzeBtn.disabled=!faceLandmarker;
+   setStatus('✅ 去背完成：已建立透明 PNG；主畫面與所有試色卡會共用這一張人像。','ok');
+  }catch(segErr){
+   console.error('去背失敗',segErr);cutoutDataUrl='';imgReady=false;img.classList.add('hide');$('#empty').classList.remove('hide');analyzeBtn.disabled=true;
+   setStatus('❌ 去背失敗：'+(segErr?.message||'無法建立人物遮罩')+'。請先確認網路，再試正面、人物完整、背景較單純的照片。','bad');
+  }
+ }catch(e){console.error(e);setStatus('照片處理失敗，請換一張 JPG／PNG 照片再試一次。','bad')}
+}
+$('#analyzeBtn').addEventListener('click',analyze);$('#demoBtn').addEventListener('click',()=>{photoResult=buildPhotoResult([213,164,139],'示範資料');showPhotoResult(photoResult)});$('#resetBtn').addEventListener('click',resetAll);
+function resetAll(){file.value='';img.removeAttribute('src');sourceImg.removeAttribute('src');cutoutDataUrl='';img.classList.add('hide');$('#empty').classList.remove('hide');imgReady=false;dots.innerHTML='';analyzeBtn.disabled=true;resetResult();setStatus(faceLandmarker?'請上傳照片。':'正在載入模型…','')}
+function resetResult(){photoResult=null;currentPair=0;answers.fill(null);result.classList.add('hide');placeholder.classList.remove('hide');$('#summaryBox').classList.add('hide');setSteps(1)}
+function setStatus(t,c=''){status.textContent=t;status.className='status'+(c?' '+c:'')}
+function setSteps(n){[1,2,3].forEach(i=>{const el=$('#step'+i);el.className='step'+(i<n?' done':i===n?' active':'')})}
+
+async function analyze(){if(!faceLandmarker||!imgReady)return;setStatus('正在辨識臉部與取樣膚色…','');analyzeBtn.disabled=true;try{const detection=faceLandmarker.detect(sourceImg),lm=detection.faceLandmarks?.[0];if(!lm)return setStatus('沒有清楚偵測到臉部。請換正面、亮度較足的照片。','warn');const samples=getSamplePoints(lm);drawDots(samples);const rgb=sampleSkin(samples);if(!rgb)return setStatus('膚色取樣不足，請改用光線較均勻的照片。','warn');photoResult=buildPhotoResult(rgb,'額頭＋雙頰取樣');showPhotoResult(photoResult);setStatus('照片分析完成。接著做四題試色觀察。','ok')}catch(e){console.error(e);setStatus('分析時發生問題，請換一張照片或重新整理。','bad')}finally{analyzeBtn.disabled=false}}
+function getSamplePoints(lm){const mix=(a,b,t=.5)=>({x:lm[a].x*(1-t)+lm[b].x*t,y:lm[a].y*(1-t)+lm[b].y*t});return[mix(10,151,.55),mix(234,1,.42),mix(454,1,.42),mix(93,168,.34),mix(323,168,.34)]}
+function sampleSkin(points){const iw=sourceImg.naturalWidth,ih=sourceImg.naturalHeight;work.width=iw;work.height=ih;const ctx=work.getContext('2d',{willReadFrequently:true});ctx.drawImage(sourceImg,0,0,iw,ih);let pixels=[];const radius=Math.max(4,Math.round(Math.min(iw,ih)*.012));for(const p of points){const x0=clamp(Math.round(p.x*iw)-radius,0,iw-1),y0=clamp(Math.round(p.y*ih)-radius,0,ih-1),w=Math.min(radius*2+1,iw-x0),h=Math.min(radius*2+1,ih-y0),d=ctx.getImageData(x0,y0,w,h).data;for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],max=Math.max(r,g,b),min=Math.min(r,g,b),lum=.2126*r+.7152*g+.0722*b;if(lum>45&&lum<245&&(max-min)<105&&r>g*.82&&r>b*.78)pixels.push([r,g,b])}}if(pixels.length<40)return null;const channel=k=>{const arr=pixels.map(v=>v[k]).sort((a,b)=>a-b),lo=Math.floor(arr.length*.15),hi=Math.ceil(arr.length*.85),cut=arr.slice(lo,hi);return Math.round(cut.reduce((a,b)=>a+b,0)/cut.length)};return[channel(0),channel(1),channel(2)]}
+function drawDots(points){dots.innerHTML='';points.forEach(p=>{const d=document.createElement('span');d.className='dot';d.style.left=(img.offsetLeft+p.x*img.clientWidth)+'px';d.style.top=(img.offsetTop+p.y*img.clientHeight)+'px';dots.appendChild(d)})}
+function axisScores(rgb){
+ const lab=rgbToLab(...rgb);
+ const warmRaw=(lab.b-18)*1.55 + (lab.a-14)*0.35;
+ const warm=clamp(Math.round(50+warmRaw),0,100);
+ const light=clamp(Math.round((lab.L-35)/45*100),0,100);
+ const c=Math.sqrt(lab.a*lab.a+lab.b*lab.b);
+ const chroma=clamp(Math.round((c-14)/25*100),0,100);
+ return {warm,light,chroma,lab};
+}
+function closeness(v,target,spread=34){return clamp(1-Math.abs(v-target)/spread,0,1)}
+function seasonScores(warm,light,chroma){
+ const centers={spring:[72,72,70],summer:[30,70,32],autumn:[72,32,34],winter:[28,34,76]};
+ const out={};
+ for(const [k,[w,l,c]] of Object.entries(centers)){
+   out[k]=100*(.34*closeness(warm,w,42)+.33*closeness(light,l,42)+.33*closeness(chroma,c,42));
+ }
+ return normalizeScores(out);
+}
+function normalizeScores(o){const vals=Object.values(o),sum=vals.reduce((a,b)=>a+b,0)||1;const r={};for(const [k,v] of Object.entries(o))r[k]=Math.round(v/sum*100);let diff=100-Object.values(r).reduce((a,b)=>a+b,0);if(diff){const k=Object.entries(r).sort((a,b)=>b[1]-a[1])[0][0];r[k]+=diff}return r}
+function buildPhotoResult(rgb,method){const a=axisScores(rgb),scores=seasonScores(a.warm,a.light,a.chroma),season=Object.entries(scores).sort((x,y)=>y[1]-x[1])[0][0];return{rgb,warm:a.warm,light:a.light,chroma:a.chroma,season,scores,method}}
+function axisLabel(v,low,high,lowText,midText,highText){return v<=low?lowText:v>=high?highText:midText}
+function showPhotoResult(o){photoResult=o;const hex=rgbToHex(...o.rgb);const ranked=Object.entries(o.scores).sort((a,b)=>b[1]-a[1]);
+$('#skinSwatch').style.background=hex;$('#photoType').textContent='照片初判：'+seasonNames[o.season];$('#hex').textContent=`取樣膚色 ${hex}｜${o.method}｜次高：${seasonShort[ranked[1][0]]}季 ${ranked[1][1]}%`;
+$('#undertoneChip').textContent='🌡️ '+axisLabel(o.warm,42,58,'偏冷','中性／中性附近','偏暖');
+$('#lightChip').textContent='☀️ '+axisLabel(o.light,42,62,'偏深','中等明度','偏明亮');
+$('#chromaChip').textContent='💎 '+axisLabel(o.chroma,42,62,'較柔和','中等彩度','較鮮明');
+setMeter('warm',o.warm);setMeter('light',o.light);setMeter('chroma',o.chroma);placeholder.classList.add('hide');result.classList.remove('hide');setSteps(2);renderPair();$('#comparePanel').scrollIntoView({behavior:'smooth',block:'nearest'})}
+function setMeter(id,v){$('#'+id+'Bar').style.width=v+'%';$('#'+id+'Text').textContent=v+'%'}
+
+function renderPair(){const p=pairs[currentPair];$('#pairTitle').textContent=p.title;const grid=$('#pairGrid');grid.innerHTML='';[['left',p.left],['right',p.right]].forEach(([side,o])=>{const b=document.createElement('button');b.className='choice'+(answers[currentPair]===side?' selected':'');const photoSrc=cutoutDataUrl||'';const visual=photoSrc?`<img class="photoCut" src="${photoSrc}" alt="試色照片">`:`<div class="photoCut" style="display:flex;align-items:center;justify-content:center;font-size:42px">🙂</div>`;b.innerHTML=`<div class="drape" style="background:${o.color}">${visual}</div><div class="choiceLabel">${o.name}<div class="choiceTag">${o.tag}</div><div style="margin-top:7px;font-size:12px;color:#6f6076">點這邊＝這個顏色比較襯我</div></div>`;b.addEventListener('click',()=>{answers[currentPair]=side;renderPair()});grid.appendChild(b)});$('#prevBtn').disabled=currentPair===0;$('#nextBtn').textContent=currentPair===pairs.length-1?'看綜合結果 →':'下一題 →';$('#dotsProgress').innerHTML=pairs.map((_,i)=>`<span class="miniDot ${i===currentPair?'active':answers[i]?'done':''}"></span>`).join('')}
+$('#prevBtn').addEventListener('click',()=>{if(currentPair>0){currentPair--;renderPair()}});$('#nextBtn').addEventListener('click',()=>{if(!answers[currentPair]){alert('請先選出這一題你覺得比較襯膚色的一邊。');return}if(currentPair<pairs.length-1){currentPair++;renderPair()}else showFinal()});
+function showFinal(){
+ let obs={warm:50,light:50,chroma:50};let counts={warm:0,light:0,chroma:0};
+ answers.forEach((side,i)=>{const ax=pairs[i][side].axis;for(const [k,v] of Object.entries(ax)){obs[k]+=v*18;counts[k]++}});
+ for(const k of Object.keys(obs))obs[k]=clamp(Math.round(obs[k]),0,100);
+ const trialScores=seasonScores(obs.warm,obs.light,obs.chroma);
+ const combined={};for(const k of Object.keys(photoResult.scores))combined[k]=Math.round((photoResult.scores[k]+trialScores[k])/2);
+ let d=100-Object.values(combined).reduce((a,b)=>a+b,0);if(d){const k=Object.entries(combined).sort((a,b)=>b[1]-a[1])[0][0];combined[k]+=d}
+ const ranked=Object.entries(combined).sort((a,b)=>b[1]-a[1]),final=ranked[0][0],second=ranked[1][0];
+ $('#finalType').textContent='綜合傾向：'+seasonNames[final];
+ const close=ranked[0][1]-ranked[1][1]<=8;
+ $('#finalText').innerHTML=`照片分析：<b>${seasonShort[photoResult.season]}季 ${photoResult.scores[photoResult.season]}%</b>；試色觀察換算後：<b>${seasonShort[Object.entries(trialScores).sort((a,b)=>b[1]-a[1])[0][0]]}季</b>。兩者各占 50%，目前最接近 <b>${seasonShort[final]}季型 ${ranked[0][1]}%</b>，第二可能是 <b>${seasonShort[second]}季型 ${ranked[1][1]}%</b>。${close?'兩者很接近，建議把結果視為「交界傾向」，再用實體布料確認。':''}`;
+ $('#scoreBars').innerHTML=ranked.map(([k,v])=>`<div class="scoreRow"><b>${seasonShort[k]}季</b><div class="scoreTrack"><div class="scoreFill" style="width:${v}%"></div></div><span>${v}%</span></div>`).join('');
+ renderPalette(final);$('#explain').textContent=`你的試色座標：冷暖 ${obs.warm}%｜明亮 ${obs.light}%｜鮮明 ${obs.chroma}%。課堂提醒：相機白平衡、光線、妝容與螢幕色差都會影響結果；個人色彩適合當作觀察顏色與膚色互動的工具，而不是固定標籤。`;$('#summaryBox').classList.remove('hide');setSteps(3);$('#summaryBox').scrollIntoView({behavior:'smooth',block:'start'})}
+function renderPalette(season){const pal=$('#palette');pal.innerHTML='';palettes[season].forEach(([n,c])=>{const b=document.createElement('button');b.className='color';b.style.background=c;b.dataset.name=n;b.title=n;b.addEventListener('click',()=>{$('#tryStrip').style.background=c;$('#tryStrip').textContent=n;$('#tryStrip').style.color=contrast(c)});pal.appendChild(b)})}
+function rgbToHex(r,g,b){return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('').toUpperCase()}function contrast(hex){const [r,g,b]=[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16));return(.299*r+.587*g+.114*b)>160?'#3d343b':'white'}function clamp(v,a,b){return Math.min(b,Math.max(a,v))}function rgbToLab(r,g,b){let[R,G,B]=[r,g,b].map(v=>{v/=255;return v>.04045?Math.pow((v+.055)/1.055,2.4):v/12.92});let X=(R*.4124+G*.3576+B*.1805)/.95047,Y=(R*.2126+G*.7152+B*.0722),Z=(R*.0193+G*.1192+B*.9505)/1.08883;[X,Y,Z]=[X,Y,Z].map(v=>v>.008856?Math.cbrt(v):(7.787*v+16/116));return{L:116*Y-16,a:500*(X-Y),b:200*(Y-Z)}}
+</script>
+</body>
+</html>

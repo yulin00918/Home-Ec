@@ -11,16 +11,16 @@
   <link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css">
   <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
 </helmet>
-<div style="background:var(--color-bg); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
+<div style="background:linear-gradient(180deg, #a9cbea 0%, #c9d5ef 24%, #e0cbe6 50%, #f0c9d8 75%, #ddc6e6 100%); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
   <div style="max-width:1120px; margin:0 auto; padding:var(--space-6) var(--space-4);">
     <a href="家政金融網頁.dc.html" style="font-size:14px; color:var(--color-accent-700); text-decoration:none;">← 回首頁</a>
   </div>
   <header style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
     <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4); flex-wrap:wrap;">
       <span style="font-size:36px; flex:none;">🧵</span>
-      <h1 style="margin:0; min-width:0; white-space:nowrap;">服裝與織品</h1>
+      <h1 style="margin:0; min-width:0; white-space:nowrap; font-size:38px; font-weight:800;">服裝與織品</h1>
     </div>
-    <p style="max-width:560px; opacity:0.8; font-size:17px;">縫紉技巧、衣物保養、美感穿搭</p>
+    <p style="max-width:560px; opacity:0.85; font-size:18px; font-weight:700;">縫紉技巧、衣物保養、美感穿搭</p>
   </header>
 
   <section style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
@@ -32,9 +32,9 @@
       </sc-for>
     </div>
 
-    <div class="card elev-sm" style="padding:var(--space-6) var(--space-4);">
+    <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:rgba(255,255,255,.85); border:1px solid rgba(255,255,255,.9); backdrop-filter:blur(6px);">
       <sc-if value="{{ showPlainDesc }}">
-        <p class="card-body" style="opacity:0.7; margin:0;">{{ activeTopic.desc }}</p>
+        <p class="card-body" style="opacity:0.85; margin:0; font-size:16px; font-weight:600;">{{ activeTopic.desc }}</p>
       </sc-if>
 
       <sc-if value="{{ showHandSewing }}">
@@ -50,7 +50,7 @@
         </div>
       </sc-if>
 
-      <sc-if value="{{ showStyleTopics }}">
+      <sc-if value="{{ showStyleTopics }}" hint-placeholder-val="{{ false }}">
         <div>
           <div style="display:flex; gap:var(--space-2); flex-wrap:wrap;">
             <sc-for list="{{ styleTopics }}" as="s" hint-placeholder-count="4">
@@ -59,6 +59,102 @@
           </div>
           <sc-if value="{{ showPlainStyleDesc }}">
             <p style="opacity:0.7; font-size:14px; margin-top:var(--space-3);">{{ openStyleTopicDesc }}</p>
+          </sc-if>
+
+          <sc-if value="{{ showColorMeExtra }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:var(--space-3); display:flex; gap:var(--space-2); flex-wrap:wrap;">
+              <sc-for list="{{ colorSubTopics }}" as="c" hint-placeholder-count="1">
+                <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.label }}</button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ hasOpenColorSubTopic }}">
+              <a href="我的膚色.html" class="btn btn-primary" style="display:inline-flex; white-space:nowrap; margin-top:var(--space-3);">🎨 開始分析我的膚色</a>
+            </sc-if>
+          </sc-if>
+
+          <sc-if value="{{ showBodyShapeExtra }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:var(--space-3); display:flex; gap:var(--space-2); flex-wrap:wrap;">
+              <sc-for list="{{ bodyShapeSubTopics }}" as="b" hint-placeholder-count="2">
+                <button onClick="{{ b.onSelect }}" style="{{ b.style }}">{{ b.label }}</button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ showFaceShapeQuiz }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:var(--space-4); background:var(--color-accent-100); border-radius:var(--radius-lg); padding:var(--space-5);">
+
+                <sc-if value="{{ showFaceIntro }}">
+                  <div style="text-align:center;">
+                    <span class="tag tag-accent">美感穿搭 × 認識自己</span>
+                    <h2 style="margin:12px 0 6px;">測測我的臉型 ✨</h2>
+                    <p style="max-width:460px; margin:0 auto 16px; opacity:0.75; font-size:14px; line-height:1.8;">觀察臉部的寬度、長度與下巴輪廓，完成 4 個小問題，找找看你的臉型比較接近哪一種。</p>
+                    <div style="display:flex; justify-content:center; margin-bottom:14px;">
+                      <img src="assets/face-intro.png" alt="臉型測驗示意" style="width:150px; border-radius:var(--radius-md);">
+                    </div>
+                    <p style="display:inline-block; background:var(--color-accent-2-100); color:var(--color-accent-2-800); padding:9px 16px; border-radius:999px; font-size:13px; margin-bottom:16px;">♡ 臉型沒有好壞，每一種輪廓都有自己的特色</p>
+                    <div>
+                      <button onClick="{{ startFaceQuiz }}" class="btn btn-primary" style="white-space:nowrap;">開始測驗 →</button>
+                    </div>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ showFaceQuizStep }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4);">
+                    <div style="flex:1; height:10px; background:var(--color-neutral-200); border-radius:999px; overflow:hidden;">
+                      <div style="height:100%; border-radius:999px; background:var(--color-accent-600); width:{{ faceProgressPercent }}%; transition:width .3s ease;"></div>
+                    </div>
+                    <span style="font-weight:700; font-size:13px; white-space:nowrap; opacity:0.7;">{{ faceStepText }}</span>
+                  </div>
+
+                  <span style="display:inline-block; background:var(--color-accent-2-100); color:var(--color-accent-2-800); border-radius:999px; padding:6px 12px; font-size:12px; font-weight:700;">{{ faceQuestion.step }}</span>
+                  <h3 style="margin:10px 0 4px; font-size:22px;">{{ faceQuestion.title }}</h3>
+                  <p style="opacity:0.7; font-size:13px; line-height:1.7; margin:0 0 var(--space-3);">{{ faceQuestion.hint }}</p>
+
+                  <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:var(--space-2);">
+                    <sc-for list="{{ faceQuestion.options }}" as="opt" hint-placeholder-count="0">
+                      <button onClick="{{ opt.onSelect }}" style="{{ opt.cardStyle }}">
+                        <img ref="{{ opt.setImgRef }}" alt="{{ opt.title }}" style="width:76px; margin:0 auto; display:block; border-radius:var(--radius-sm);">
+                        <div style="font-weight:700; font-size:14px; margin-top:6px;">{{ opt.title }}</div>
+                        <div style="font-size:12px; opacity:0.65; margin-top:2px; line-height:1.4;">{{ opt.desc }}</div>
+                      </button>
+                    </sc-for>
+                  </div>
+
+                  <div style="display:flex; justify-content:space-between; gap:10px; margin-top:var(--space-4);">
+                    <button onClick="{{ prevFaceStep }}" class="btn btn-ghost" style="visibility:{{ faceBackVisibility }}; white-space:nowrap;">← 上一題</button>
+                    <button onClick="{{ nextFaceStep }}" class="btn btn-primary" style="white-space:nowrap; opacity:{{ faceNextOpacity }};">{{ faceNextLabel }}</button>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ showFaceResult }}" hint-placeholder-val="{{ false }}">
+                  <div style="text-align:center;">
+                    <span class="tag tag-accent">測驗結果</span>
+                    <p style="margin:12px 0 2px; opacity:0.7; font-weight:700; font-size:14px;">你的臉部輪廓比較接近</p>
+                    <h2 style="margin:4px 0 12px;">{{ faceResult.name }}</h2>
+                    <div style="display:flex; justify-content:center; margin-bottom:14px;">
+<img ref="{{ faceResultImgRef }}" alt="{{ faceResult.name }}" style="width:170px; border-radius:var(--radius-md);">
+                    </div>
+                    <div style="max-width:460px; margin:0 auto; text-align:left; background:var(--color-bg); border-radius:var(--radius-md); padding:16px 18px; line-height:1.8; font-size:14px;">
+                      <strong>🔍 輪廓小觀察</strong>
+                      <p style="margin:8px 0 0;">{{ faceResult.desc }}</p>
+                    </div>
+                    <div style="max-width:460px; margin:12px auto 0; text-align:left; background:var(--color-accent-2-100); color:var(--color-accent-2-900); border-radius:var(--radius-md); padding:16px 18px; line-height:1.8; font-size:14px;">
+                      <strong>👗 美感穿搭小任務</strong>
+                      <p style="margin:8px 0 0;">接著觀察不同髮型、領型與耳飾，會如何改變臉部的視覺比例。</p>
+                    </div>
+                    <div style="margin-top:16px;">
+                      <button onClick="{{ restartFaceQuiz }}" class="btn btn-primary" style="white-space:nowrap;">↻ 再測一次</button>
+                    </div>
+                    <p style="opacity:0.55; font-size:12px; margin-top:14px;">真人臉型可能同時具有多種特徵，本測驗作為觀察與學習參考。</p>
+                  </div>
+                </sc-if>
+
+              </div>
+            </sc-if>
+            <sc-if value="{{ showBodyTypeDesc }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:var(--space-4); text-align:center;">
+                <p style="max-width:480px; margin:0 auto 16px; opacity:0.85; line-height:1.8;">透過肩寬、胸圍、腰圍、臀圍四個測量值，找出你的身形類型，並在互動遊戲中探索服裝如何改變視覺比例。</p>
+                <a href="體型判斷.html" class="btn btn-primary" style="white-space:nowrap;">開始體型判斷 →</a>
+              </div>
+            </sc-if>
           </sc-if>
 
           <sc-if value="{{ showFreshLookExtra }}">
@@ -77,7 +173,7 @@
                   </div>
 
                   <sc-if value="{{ showAnimModal }}">
-                    <div style="margin-top:var(--space-5); max-width:900px; background:var(--color-surface); border-radius:var(--radius-lg); padding:var(--space-5);">
+                    <div style="margin-top:var(--space-5); max-width:900px; background:var(--color-accent-2-100); border-radius:var(--radius-lg); padding:var(--space-5);">
                       <svg viewBox="0 0 2048 1597" style="width:100%; height:auto; display:block;">
                         <defs>
                           <clipPath id="leftStep1"><rect x="180" y="325" width="640" height="300" rx="20"></rect></clipPath>
@@ -131,7 +227,158 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { active: 'sewing', handSewingOpen: false, openStyleTopic: null, washFaceOpen: false, showSteps: false, showAnimModal: false, animVisible: Array(9).fill(false), animPlaying: false };
+  state = { active: 'sewing', handSewingOpen: false, openStyleTopic: null, openBodyShapeSubTopic: null, openColorSubTopic: null, washFaceOpen: false, showSteps: false, showAnimModal: false, animVisible: Array(9).fill(false), animPlaying: false, faceQuizStage: 'intro', faceStep: 0, faceAnswers: [null, null, null, null], bodyInputs: { shoulder: '', chest: '', waist: '', hip: '' }, bodyTypeError: '', bodyTypeResult: null };
+
+  FACE_IMAGES = {
+    oval: 'assets/face-oval.png',
+    round: 'assets/face-round.png',
+    square: 'assets/face-square.png',
+    long: 'assets/face-long.png',
+    heart: 'assets/face-heart.png'
+  };
+
+  FACE_OPTION_IMAGES = {
+    forehead: 'assets/q1-opt1-forehead.png',
+    cheek: 'assets/q1-opt2-cheek.png',
+    jaw: 'assets/q1-opt3-jaw.png',
+    long: 'assets/q2-opt1-long.png',
+    medium: 'assets/q2-opt2-medium.png',
+    same: 'assets/q2-opt3-same.png',
+    foreheadWider: 'assets/q3-opt1-foreheadwider.png',
+    similar: 'assets/q3-opt2-similar.png',
+    jawWider: 'assets/q3-opt3-jawwider.png',
+    pointed: 'assets/q4-opt1-pointed.png',
+    round: 'assets/q4-opt2-round.png',
+    square: 'assets/q4-opt3-square.png'
+  };
+
+  FACE_QUESTIONS = [
+    { step: 'STEP 1', title: '我的臉，哪個位置看起來最寬？', hint: '照鏡子觀察額頭、顴骨與下顎的寬度，選出最接近的一項。',
+      options: [
+        { value: 'forehead', title: '額頭附近', desc: '額頭或上半臉較寬', shape: 'heart' },
+        { value: 'cheek', title: '顴骨附近', desc: '臉部中間位置較寬', shape: 'round' },
+        { value: 'jaw', title: '下顎附近', desc: '下半臉寬度較明顯', shape: 'square' }
+      ] },
+    { step: 'STEP 2', title: '臉的長度和寬度相比呢？', hint: '從髮際線到下巴是臉長，左右最寬的位置則是臉寬。',
+      options: [
+        { value: 'long', title: '長度明顯較長', desc: '整體看起來較修長', shape: 'long' },
+        { value: 'medium', title: '稍微長一些', desc: '臉長略大於臉寬', shape: 'oval' },
+        { value: 'same', title: '長寬差不多', desc: '臉長與臉寬接近', shape: 'round' }
+      ] },
+    { step: 'STEP 3', title: '額頭和下顎相比，哪裡比較寬？', hint: '觀察臉部上下的輪廓，是往下縮、差不多，還是下半臉更寬？',
+      options: [
+        { value: 'foreheadWider', title: '額頭比較寬', desc: '輪廓往下逐漸縮窄', shape: 'heart' },
+        { value: 'similar', title: '差不多', desc: '額頭與下顎寬度接近', shape: 'oval' },
+        { value: 'jawWider', title: '下顎比較寬', desc: '下半臉存在感較明顯', shape: 'square' }
+      ] },
+    { step: 'STEP 4', title: '我的下巴輪廓比較接近哪一種？', hint: '觀察下巴最下方和左右下顎線條的形狀。',
+      options: [
+        { value: 'pointed', title: '偏尖', desc: '下巴往中央逐漸收窄', shape: 'heart' },
+        { value: 'round', title: '偏圓', desc: '下巴線條較柔和', shape: 'round' },
+        { value: 'square', title: '較方', desc: '下顎角度較明顯', shape: 'square' }
+      ] }
+  ];
+
+  FACE_RESULT_DATA = {
+    oval: { name: '橢圓形臉', desc: '臉部長度通常略大於寬度，額頭與下顎比例較均衡，整體線條柔和。' },
+    round: { name: '圓形臉', desc: '臉長與臉寬較接近，臉頰輪廓較明顯，下巴線條通常比較柔和。' },
+    square: { name: '方形臉', desc: '額頭、顴骨與下顎寬度可能較接近，下顎角度與輪廓比較明顯。' },
+    long: { name: '長形臉', desc: '臉部長度相較於寬度更明顯，整體視覺比例較修長。' },
+    heart: { name: '心形臉', desc: '額頭或上半臉較寬，輪廓往下巴方向逐漸縮窄，下巴較精巧。' }
+  };
+
+  startFaceQuiz = () => this.setState({ faceQuizStage: 'quiz', faceStep: 0, faceAnswers: [null, null, null, null] });
+
+  determineBodyType(shoulder, chest, waist, hip) {
+    const hipMinusChest = hip - chest;
+    const chestMinusWaist = chest - waist;
+    const hipMinusWaist = hip - waist;
+    const halfHipMinusShoulder = hip / 2 - shoulder;
+    const chestMinusHip = chest - hip;
+
+    if (hipMinusChest >= 2) {
+      if (hipMinusChest >= 9) {
+        if (halfHipMinusShoulder >= 2) return { type: '西洋梨型', emoji: '🍐', alias: '' };
+        if (hipMinusWaist <= 23) {
+          if (chestMinusHip >= 2) return { type: '花生型', emoji: '🥜', alias: '又名可樂型' };
+          if (waist >= 77) return { type: '奇異果型', emoji: '🥝', alias: '又名水蜜桃型' };
+          return { type: '魚板型', emoji: '🐟', alias: '' };
+        }
+        if (waist >= 77) return { type: '奇異果型', emoji: '🥝', alias: '又名水蜜桃型' };
+        return { type: '魚板型', emoji: '🐟', alias: '' };
+      }
+      if (hipMinusWaist >= 15 && hipMinusWaist <= 22) return { type: '絲瓜型', emoji: '🥒', alias: '' };
+    } else {
+      if (chestMinusWaist >= 10) return { type: '草莓型', emoji: '🍓', alias: '' };
+      if (hipMinusWaist >= 15 && hipMinusWaist <= 22) return { type: '絲瓜型', emoji: '🥒', alias: '' };
+    }
+    if (hipMinusWaist <= 23) {
+      if (chestMinusHip >= 2) return { type: '花生型', emoji: '🥜', alias: '又名可樂型' };
+      if (waist >= 77) return { type: '奇異果型', emoji: '🥝', alias: '又名水蜜桃型' };
+      return { type: '魚板型', emoji: '🐟', alias: '' };
+    }
+    if (waist >= 77) return { type: '奇異果型', emoji: '🥝', alias: '又名水蜜桃型' };
+    return { type: '魚板型', emoji: '🐟', alias: '' };
+  }
+
+  onBodyFieldChange(key, e) {
+    const bodyInputs = { ...this.state.bodyInputs, [key]: e.target.value };
+    this.setState({ bodyInputs, bodyTypeError: '', bodyTypeResult: null });
+  }
+
+  judgeBodyType = () => {
+    const { shoulder, chest, waist, hip } = this.state.bodyInputs;
+    const vals = [shoulder, chest, waist, hip].map(v => parseFloat(v));
+    if (vals.some(v => Number.isNaN(v) || v <= 0)) {
+      this.setState({ bodyTypeError: '請先把四個測量數值都正確填寫完成。', bodyTypeResult: null });
+      return;
+    }
+    const [s, c, w, h] = vals;
+    const answer = this.determineBodyType(s, c, w, h);
+    this.setState({
+      bodyTypeError: '',
+      bodyTypeResult: { ...answer, dataText: `肩寬 ${s.toFixed(1)} cm ｜ 胸圍 ${c.toFixed(1)} cm ｜ 腰圍 ${w.toFixed(1)} cm ｜ 臀圍 ${h.toFixed(1)} cm` }
+    });
+  };
+
+  resetBodyType = () => this.setState({ bodyInputs: { shoulder: '', chest: '', waist: '', hip: '' }, bodyTypeError: '', bodyTypeResult: null });
+
+  selectFaceOption(stepIndex, value) {
+    const faceAnswers = [...this.state.faceAnswers];
+    faceAnswers[stepIndex] = value;
+    this.setState({ faceAnswers });
+  }
+
+  nextFaceStep = () => {
+    if (this.state.faceAnswers[this.state.faceStep] == null) return;
+    if (this.state.faceStep < this.FACE_QUESTIONS.length - 1) {
+      this.setState({ faceStep: this.state.faceStep + 1 });
+    } else {
+      this.setState({ faceQuizStage: 'result' });
+    }
+  };
+
+  prevFaceStep = () => { if (this.state.faceStep > 0) this.setState({ faceStep: this.state.faceStep - 1 }); };
+
+  restartFaceQuiz = () => this.setState({ faceQuizStage: 'intro', faceStep: 0, faceAnswers: [null, null, null, null] });
+
+  calculateFaceResult() {
+    const [widest, ratio, upperLower, chin] = this.state.faceAnswers;
+    const s = { oval: 0, round: 0, square: 0, long: 0, heart: 0 };
+    if (widest === 'forehead') s.heart += 2;
+    if (widest === 'cheek') { s.round += 2; s.oval += 1; }
+    if (widest === 'jaw') s.square += 2;
+    if (ratio === 'long') { s.long += 3; s.oval += 1; }
+    if (ratio === 'medium') { s.oval += 3; s.heart += 1; }
+    if (ratio === 'same') { s.round += 3; s.square += 1; }
+    if (upperLower === 'foreheadWider') { s.heart += 3; s.oval += 1; }
+    if (upperLower === 'similar') { s.oval += 2; s.square += 2; s.long += 1; }
+    if (upperLower === 'jawWider') s.square += 3;
+    if (chin === 'pointed') { s.heart += 3; s.oval += 1; }
+    if (chin === 'round') { s.round += 2; s.oval += 2; }
+    if (chin === 'square') { s.square += 3; s.long += 1; }
+    return Object.keys(s).reduce((a, b) => s[a] >= s[b] ? a : b);
+  }
 
   wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
@@ -205,7 +452,7 @@ class Component extends DCLogic {
       return {
         ...t,
         onSelect: () => this.setState({ active: t.id }),
-        style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:14px; cursor:pointer; white-space:nowrap; background:${isActive ? 'var(--color-accent-600)' : 'var(--color-surface)'}; color:${isActive ? 'var(--color-bg)' : 'var(--color-text)'};`
+        style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:16px; font-weight:700; cursor:pointer; white-space:nowrap; background:${isActive ? 'var(--color-accent-600)' : 'var(--color-accent-2-100)'}; color:${isActive ? 'var(--color-bg)' : 'var(--color-text)'};`
       };
     });
     const activeTopic = raw.find(t => t.id === active);
@@ -239,12 +486,78 @@ class Component extends DCLogic {
         ...s,
         open,
         onSelect: () => this.setState(st => ({ openStyleTopic: st.openStyleTopic === s.id ? null : s.id })),
-        style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:14px; cursor:pointer; white-space:nowrap; background:${open ? 'var(--color-accent-2-600)' : 'var(--color-surface)'}; color:${open ? 'var(--color-bg)' : 'var(--color-text)'};`
+        style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:16px; font-weight:700; cursor:pointer; white-space:nowrap; background:${open ? 'var(--color-accent-2-600)' : 'var(--color-accent-2-100)'}; color:${open ? 'var(--color-bg)' : 'var(--color-text)'};`
       };
     });
     const openTopic = styleTopics.find(s => s.open);
 
+    const bodyShapeSubTopicsRaw = [
+      { id: 'faceShape', label: '臉型判斷', desc: '課程準備中，之後會放上臉型判斷相關的課程內容。' },
+      { id: 'bodyType', label: '體型判斷', desc: '課程準備中，之後會放上體型判斷相關的課程內容。' }
+    ];
+    const bodyShapeSubTopics = bodyShapeSubTopicsRaw.map(b => {
+      const open = this.state.openBodyShapeSubTopic === b.id;
+      return {
+        ...b,
+        open,
+        onSelect: () => this.setState(st => ({ openBodyShapeSubTopic: st.openBodyShapeSubTopic === b.id ? null : b.id })),
+        style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:16px; font-weight:700; cursor:pointer; white-space:nowrap; background:${open ? 'var(--color-accent-600)' : 'var(--color-accent-2-100)'}; color:${open ? 'var(--color-bg)' : 'var(--color-text)'};`
+      };
+    });
+    const openBodyShapeSubTopic = bodyShapeSubTopics.find(b => b.open);
+
+    const colorSubTopicsRaw = [
+      { id: 'skinTone', label: '我的膚色', desc: '課程準備中，之後會放上我的膚色相關的課程內容。' }
+    ];
+    const colorSubTopics = colorSubTopicsRaw.map(c => {
+      const open = this.state.openColorSubTopic === c.id;
+      return {
+        ...c,
+        open,
+        onSelect: () => this.setState(st => ({ openColorSubTopic: st.openColorSubTopic === c.id ? null : c.id })),
+        style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:16px; font-weight:700; cursor:pointer; white-space:nowrap; background:${open ? 'var(--color-accent-600)' : 'var(--color-accent-2-100)'}; color:${open ? 'var(--color-bg)' : 'var(--color-text)'};`
+      };
+    });
+    const openColorSubTopic = colorSubTopics.find(c => c.open);
+
+    const faceStep = this.state.faceStep;
+    const faceAnswers = this.state.faceAnswers;
+    const currentQ = this.FACE_QUESTIONS[faceStep];
+    const faceQuestion = currentQ ? {
+      step: currentQ.step,
+      title: currentQ.title,
+      hint: currentQ.hint,
+      options: currentQ.options.map(o => {
+        const selected = faceAnswers[faceStep] === o.value;
+        const imgPath = this.FACE_OPTION_IMAGES[o.value];
+        return {
+          ...o,
+          setImgRef: (el) => { if (el && el.src.indexOf(imgPath) === -1) el.src = imgPath; },
+          onSelect: () => this.selectFaceOption(faceStep, o.value),
+          cardStyle: `border:2px solid ${selected ? 'var(--color-accent-600)' : 'var(--color-neutral-200)'}; background:${selected ? 'var(--color-accent-100)' : 'var(--color-bg)'}; border-radius:var(--radius-md); padding:14px 8px; cursor:pointer; text-align:center;`
+        };
+      })
+    } : null;
+    const faceResultShape = this.state.faceQuizStage === 'result' ? this.calculateFaceResult() : null;
+    const faceResultImgPath = faceResultShape ? this.FACE_IMAGES[faceResultShape] : null;
+    const faceResult = faceResultShape ? { ...this.FACE_RESULT_DATA[faceResultShape] } : null;
+
     return {
+      showFaceIntro: this.state.faceQuizStage === 'intro',
+      showFaceQuizStep: this.state.faceQuizStage === 'quiz',
+      showFaceResult: this.state.faceQuizStage === 'result',
+      startFaceQuiz: this.startFaceQuiz,
+      faceQuestion,
+      faceProgressPercent: Math.round(((faceStep + 1) / this.FACE_QUESTIONS.length) * 100),
+      faceStepText: `${faceStep + 1} / ${this.FACE_QUESTIONS.length}`,
+      faceBackVisibility: faceStep === 0 ? 'hidden' : 'visible',
+      faceNextOpacity: (faceAnswers[faceStep] == null) ? 0.4 : 1,
+      faceNextLabel: faceStep === this.FACE_QUESTIONS.length - 1 ? '看結果 ✨' : '下一題 →',
+      nextFaceStep: this.nextFaceStep,
+      prevFaceStep: this.prevFaceStep,
+      faceResult,
+      faceResultImgRef: (el) => { if (el && faceResultImgPath && el.src.indexOf(faceResultImgPath) === -1) el.src = faceResultImgPath; },
+      restartFaceQuiz: this.restartFaceQuiz,
       topics,
       activeTopic,
       showHandSewing: active === 'sewing',
@@ -256,9 +569,29 @@ class Component extends DCLogic {
       hasOpenStyleTopic: !!openTopic,
       openStyleTopicDesc: openTopic ? openTopic.desc : '',
       openStyleTopicId: openTopic ? openTopic.id : null,
-      showPlainStyleDesc: !!openTopic && openTopic.id !== 'freshLook',
+      showPlainStyleDesc: !!openTopic && openTopic.id !== 'freshLook' && openTopic.id !== 'bodyShape' && openTopic.id !== 'colorMe',
+      showColorMeExtra: this.state.openStyleTopic === 'colorMe',
+      colorSubTopics,
+      hasOpenColorSubTopic: !!openColorSubTopic,
+      openColorSubTopicDesc: openColorSubTopic ? openColorSubTopic.desc : '',
       showPlainDesc: active !== 'sewing' && active !== 'style',
       showFreshLookExtra: this.state.openStyleTopic === 'freshLook',
+      showBodyShapeExtra: this.state.openStyleTopic === 'bodyShape',
+      bodyShapeSubTopics,
+      hasOpenBodyShapeSubTopic: !!openBodyShapeSubTopic,
+      openBodyShapeSubTopicDesc: openBodyShapeSubTopic ? openBodyShapeSubTopic.desc : '',
+      showFaceShapeQuiz: this.state.openBodyShapeSubTopic === 'faceShape',
+      showBodyTypeDesc: this.state.openBodyShapeSubTopic === 'bodyType',
+      bodyFields: [
+        { key: 'shoulder', label: '肩寬', hint: '背部左肩骨外端點到右肩骨外端點。', placeholder: '例如 38' },
+        { key: 'chest', label: '胸圍', hint: '水平繞過胸部最豐滿處一周。', placeholder: '例如 82' },
+        { key: 'waist', label: '腰圍', hint: '自然站立，水平繞過腰部最細處一周。', placeholder: '例如 68' },
+        { key: 'hip', label: '臀圍', hint: '水平繞過臀部最豐滿處一周。', placeholder: '例如 90' }
+      ].map(f => ({ ...f, value: this.state.bodyInputs[f.key], onChange: (e) => this.onBodyFieldChange(f.key, e) })),
+      judgeBodyType: this.judgeBodyType,
+      resetBodyType: this.resetBodyType,
+      bodyTypeError: this.state.bodyTypeError,
+      bodyTypeResult: this.state.bodyTypeResult,
       washFaceOpen: this.state.washFaceOpen,
       toggleWashFace: () => this.setState(s => ({ washFaceOpen: !s.washFaceOpen, showSteps: false })),
       toggleSteps: () => this.setState(s => ({ showSteps: !s.showSteps })),

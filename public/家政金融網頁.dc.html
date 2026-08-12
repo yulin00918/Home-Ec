@@ -16,14 +16,14 @@
   </style>
 </helmet>
 
-<div style="background:var(--color-bg); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
+<div style="background:linear-gradient(180deg, #a9cbea 0%, #c9d5ef 24%, #e0cbe6 50%, #f0c9d8 75%, #ddc6e6 100%); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
 
-  <header style="background:linear-gradient(120deg, var(--color-accent-200), var(--color-accent-2-100) 55%, var(--color-accent-2-200)); padding:var(--space-8) var(--space-4) var(--space-6);">
+  <header style="padding:var(--space-8) var(--space-4) var(--space-6);">
     <div style="max-width:1120px; margin:0 auto; display:flex; align-items:center; justify-content:center; gap:var(--space-6); flex-wrap:wrap;">
       <img src="assets/mascot.png" alt="鈺聆玩家政吉祥物" style="width:200px; height:200px; object-fit:contain; flex:none;">
       <div style="text-align:left; max-width:480px;">
-        <h1 style="margin:0;">鈺聆玩家政</h1>
-        <p style="font-size:16px; opacity:0.75; margin-top:var(--space-3);">一起用生活化學習，玩出理財力</p>
+        <h1 style="margin:0; font-size:46px; font-weight:800;">鈺聆玩家政</h1>
+        <p style="font-size:19px; font-weight:700; opacity:0.8; margin-top:var(--space-3); white-space:nowrap;">一起用生活化學習，玩出理財力</p>
       </div>
     </div>
   </header>
@@ -64,13 +64,13 @@ class Component extends DCLogic {
       const hue = `oklch(62% 0.15 ${rainbowHues[i % rainbowHues.length]})`;
       return {
         ...h,
-        cardStyle: `display:flex; flex-direction:column; text-align:left; text-decoration:none; border-radius:var(--radius-lg); overflow:hidden; background:var(--color-surface); box-shadow:var(--shadow-sm);`,
+        cardStyle: `display:flex; flex-direction:column; text-align:left; text-decoration:none; border-radius:var(--radius-lg); overflow:hidden; background:var(--color-accent-100); box-shadow:var(--shadow-sm);`,
         headerStyle: `display:flex; align-items:center; gap:8px; padding:10px 14px; background:${hue};`,
         iconStyle: `font-size:17px; flex:none;`,
-        titleStyle: `font-family:var(--font-heading); font-size:20px; font-weight:700; color:var(--color-bg); white-space:nowrap;`,
+        titleStyle: `font-family:var(--font-heading); font-size:23px; font-weight:800; color:var(--color-bg); white-space:nowrap;`,
         bodyStyle: `display:flex; flex-direction:column; gap:12px; padding:14px; flex:1;`,
-        descStyle: `font-size:13px; opacity:0.8; margin:0; flex:1; color:var(--color-text);`,
-        btnStyle: `display:inline-flex; align-items:center; justify-content:center; align-self:flex-start; padding:7px 16px; border-radius:999px; font-family:var(--font-heading); font-size:12px; white-space:nowrap; background:${hue}; color:var(--color-bg);`
+        descStyle: `font-size:15px; font-weight:600; opacity:0.85; margin:0; flex:1; color:var(--color-text);`,
+        btnStyle: `display:inline-flex; align-items:center; justify-content:center; align-self:flex-start; padding:8px 18px; border-radius:999px; font-family:var(--font-heading); font-size:16px; font-weight:700; white-space:nowrap; background:${hue}; color:var(--color-bg);`
       };
     });
 

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>認識我的身形 × 服裝的視覺魔法 × 我的穿搭指南</title>
+<style>
+:root{--bg1:#fff8f0;--bg2:#f6f0ff;--pink:#f0a8b8;--peach:#f8c68f;--sage:#9bbf9a;--ink:#4a3f3a;--muted:#8a7a72;--card:#ffffff;--line:#f0e3da;}
+*{box-sizing:border-box}body{margin:0;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:linear-gradient(160deg,var(--bg1),var(--bg2));min-height:100vh}
+.wrap{width:min(1000px,94vw);margin:auto;padding:28px 0 70px}
+button{font:inherit;cursor:pointer;border:none}
+h1,h2,h3{margin:0}
+.back{display:block;text-align:center;color:var(--pink);text-decoration:none;font-weight:700;margin-bottom:14px}
+.stepper{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:28px}
+.step{display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:#ffffffb0;font-weight:800;color:#b4a49c;font-size:14px;white-space:nowrap}
+.step.active{background:white;color:#c9607e;box-shadow:0 6px 18px #0000000f}
+.step.done{color:#6f9a72;background:#eef7ee}
+.stepline{width:26px;height:2px;background:#e3d5cd}
+.card{background:var(--card);border-radius:26px;box-shadow:0 16px 40px #7b5a4a12;padding:26px;margin-bottom:22px}
+.card h2{font-size:24px}
+.muted{color:var(--muted);line-height:1.8}
+.field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.field{background:#fbfaf8;border:1.5px solid var(--line);border-radius:18px;padding:14px}
+.field label{display:block;font-weight:700;margin-bottom:5px}
+.field small{color:#a4938b;line-height:1.6}
+.field .row{display:flex;margin-top:8px}
+.field input{width:100%;border:1px solid #d9ccc6;border-right:0;border-radius:12px 0 0 12px;padding:10px 12px;font-size:16px}
+.field .unit{display:flex;align-items:center;padding:0 12px;border:1px solid #d9ccc6;border-radius:0 12px 12px 0;background:#f0e9e6;font-weight:700}
+.btnrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.btn{padding:12px 22px;border-radius:999px;font-weight:800;font-size:15px}
+.btn-primary{background:linear-gradient(135deg,var(--pink),#e88fa4);color:white;box-shadow:0 8px 18px #e88fa444}
+.btn-ghost{background:#f2e9e6;color:#6d5a52}
+.btn-big{padding:16px 30px;font-size:17px;display:block;margin:24px auto 0}
+.result{margin-top:18px;padding:24px;border-radius:22px;text-align:center;background:linear-gradient(135deg,#fff6ef,#f5f3ff)}
+.result .emoji{font-size:52px}
+.result h3{font-size:26px;margin:6px 0}
+.unlock{margin-top:10px;padding:10px 14px;border-radius:14px;background:#fff3e0;color:#8a6a3a;font-weight:700;text-align:center}
+.err{color:#bb4f4f;text-align:center;font-weight:700;margin-top:12px}
+
+.dollbox{width:130px;height:300px;position:relative;margin:0 auto}
+.doll-head{position:absolute;top:0;left:50%;transform:translateX(-50%);width:44px;height:44px;border-radius:50%;background:#f6c9a0}
+.doll-hair{position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:50px;height:26px;border-radius:50% 50% 0 0;background:#6b4a37}
+.doll-eye{position:absolute;top:20px;width:4px;height:4px;border-radius:50%;background:#4a3f3a}
+.doll-smile{position:absolute;top:28px;left:50%;transform:translateX(-50%);width:12px;height:6px;border-bottom:2px solid #4a3f3a;border-radius:0 0 10px 10px}
+.doll-arm{position:absolute;top:60px;width:12px;height:70px;border-radius:8px;background:#f6c9a0}
+.doll-top{position:absolute;left:50%;transform:translateX(-50%);top:44px;width:78px;border-radius:14px 14px 6px 6px}
+.doll-bottom{position:absolute;left:50%;transform:translateX(-50%);bottom:8px;width:68px;border-radius:6px 6px 4px 4px}
+.doll-legs{position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:68px;height:10px;background:#f6c9a0;border-radius:0 0 6px 6px}
+.doll-waistmark{position:absolute;left:50%;transform:translateX(-50%);width:80px;height:4px;background:#c9607e;border-radius:4px}
+.doll-caption{text-align:center;font-weight:800;margin-top:10px}
+
+.exp{margin-top:16px}
+.exp-title{font-size:19px;font-weight:800;margin-bottom:6px}
+.doll-row{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.choice-btn{position:relative;background:#fbfaf8;border:3px solid transparent;border-radius:20px;padding:14px 10px 8px}
+.choice-btn.selected{border-color:#c9607e;box-shadow:0 0 0 4px #c9607e22}
+.optbtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.opt{padding:10px 18px;border-radius:999px;background:#f2e9e6;font-weight:700}
+.opt.selected{background:var(--pink);color:white}
+.reveal{margin-top:16px;padding:14px 16px;border-radius:16px;background:#eef7ee;color:#4d6b50;line-height:1.8}
+.slider-row{display:flex;align-items:center;gap:12px;margin-top:18px;justify-content:center}
+.slider-row input{width:220px}
+
+.goal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.goal-card{background:#fbfaf8;border:3px solid transparent;border-radius:18px;padding:16px 10px;text-align:center;font-weight:700}
+.goal-card.selected{border-color:var(--sage);background:#eef7ee}
+.goal-card .ic{font-size:26px;display:block;margin-bottom:6px}
+
+.lab-grid{display:grid;grid-template-columns:220px 1fr;gap:24px;margin-top:10px}
+.ctrl-group{margin-bottom:14px}
+.ctrl-group label{display:block;font-weight:800;margin-bottom:6px;font-size:13px;color:#7a675f}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{padding:7px 12px;border-radius:999px;background:#f2e9e6;font-size:13px;font-weight:700}
+.seg button.selected{background:var(--sage);color:white}
+.magic-list{margin-top:14px}
+.magic-item{background:#fff3e0;border-radius:14px;padding:10px 14px;margin-bottom:8px;line-height:1.7}
+.final{margin-top:18px;padding:18px;border-radius:18px;background:linear-gradient(135deg,#fff6ef,#f5f3ff);text-align:center;line-height:1.85}
+
+@media(max-width:760px){.field-grid{grid-template-columns:1fr}.lab-grid{grid-template-columns:1fr}.goal-grid{grid-template-columns:repeat(2,1fr)}}
+
+.figure-img{display:block;width:100%;max-width:260px;height:360px;object-fit:contain;margin:0 auto}
+.figure-img.compare{max-width:230px;height:330px}
+.figure-card{background:#fffaf7;border:1.5px solid var(--line);border-radius:20px;padding:12px;min-width:210px;text-align:center}
+.figure-label{text-align:center;font-weight:800;margin-top:8px}
+.figure-note{text-align:center;color:var(--muted);font-size:13px;font-weight:700;margin-top:6px;line-height:1.6}
+.body-preview{display:flex;justify-content:center;margin:12px auto 4px}
+.focus-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
+.focus-card{background:#fffaf7;border:3px solid transparent;border-radius:18px;padding:10px;text-align:center}
+.focus-card.selected{border-color:#c9607e;box-shadow:0 0 0 4px #c9607e22}
+.focus-card img{width:100%;height:250px;object-fit:contain}
+@media(max-width:900px){.focus-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.focus-grid{grid-template-columns:1fr}.figure-img,.figure-img.compare{height:300px}}
+
+
+.guide-wrap{max-width:920px;margin:18px auto 0;text-align:center}
+.guide-img{display:block;width:100%;height:auto;border-radius:22px;box-shadow:0 12px 32px #6f5a4d1a;background:white}
+.guide-kicker{display:inline-block;padding:7px 14px;border-radius:999px;background:#f5edf9;color:#8a65a0;font-weight:800;margin-bottom:12px}
+.guide-note{max-width:700px;margin:14px auto 0;color:var(--muted);line-height:1.8}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="服裝與織品.dc.html">← 回服裝與織品</a>
+
+  <div class="stepper" id="stepper"></div>
+
+  <div id="stage1" class="stagePane"></div>
+  <div id="stage2" class="stagePane" style="display:none"></div>
+  <div id="stage3" class="stagePane" style="display:none"></div>
+</div>
+
+<script>
+const studentState = { bodyType:'', bodyEmoji:'', bodyAlias:'', bodyMeasurements:{}, completedMagic:[], outfitGoal:'', outfitSelections:{ topLength:'regular', waist:'natural', line:'none', pattern:'none', focus:'平均' } };
+const IMAGE_ASSETS = {
+  "base": "images/base.webp",
+  "line_h": "images/line-horizontal.webp",
+  "line_v": "images/line-vertical.webp",
+  "color_light": "images/color-light.webp",
+  "color_dark": "images/color-dark.webp",
+  "waist_low": "images/waist-low.webp",
+  "waist_natural": "images/waist-natural.webp",
+  "waist_high": "images/waist-high.webp",
+  "pattern_big": "images/pattern-big.webp",
+  "pattern_small": "images/pattern-small.webp",
+  "focus_top_bright": "images/focus-top-bright.webp",
+  "focus_bottom_bright": "images/focus-bottom-bright.webp",
+  "focus_top_pattern": "images/focus-top-pattern.webp",
+  "focus_bottom_pattern": "images/focus-bottom-pattern.webp",
+  "西洋梨型": "images/body-pear.webp",
+  "草莓型": "images/body-strawberry.webp",
+  "絲瓜型": "images/body-cucumber.webp",
+  "花生型": "images/body-peanut.webp",
+  "奇異果型": "images/body-kiwi.webp",
+  "魚板型": "images/body-fishcake.webp"
+};
+const GUIDE_ASSETS = {"西洋梨型": "images/guide-pear.webp", "草莓型": "images/guide-strawberry.webp", "絲瓜型": "images/guide-cucumber.webp", "花生型": "images/guide-peanut.webp", "奇異果型": "images/guide-kiwi.webp", "魚板型": "images/guide-fishcake.webp"};
+let stage = 1;
+let expIndex = 0;
+const expAnswers = [null,null,null,null,null];
+let practiceWaist = 50;
+
+const $=s=>document.querySelector(s);
+
+/* ---------- 原本體型判斷邏輯（完整保留） ---------- */
+function determineBodyType(shoulder, chest, waist, hip) {
+  const hipMinusChest = hip - chest;
+  const chestMinusWaist = chest - waist;
+  const hipMinusWaist = hip - waist;
+  const halfHipMinusShoulder = hip / 2 - shoulder;
+  const chestMinusHip = chest - hip;
+  if (hipMinusChest >= 2) {
+    if (hipMinusChest >= 9) {
+      if (halfHipMinusShoulder >= 2) return { type: '西洋梨型', emoji: '🍐', alias: '' };
+      if (hipMinusWaist <= 23) {
+        if (chestMinusHip >= 2) return { type: '花生型', emoji: '🥜', alias: '又名可樂型' };
+        if (waist >= 77) return { type: '奇異果型', emoji: '🥝', alias: '又名水蜜桃型' };
+        return { type: '魚板型', emoji: '🐟', alias: '' };
+      }
+      if (waist >= 77) return { type: '奇異果型', emoji: '🥝', alias: '又名水蜜桃型' };
+      return { type: '魚板型', emoji: '🐟', alias: '' };
+    }
+    if (hipMinusWaist >= 15 && hipMinusWaist <= 22) return { type: '絲瓜型', emoji: '🥒', alias: '' };
+  } else {
+    if (chestMinusWaist >= 10) return { type: '草莓型', emoji: '🍓', alias: '' };
+    if (hipMinusWaist >= 15 && hipMinusWaist <= 22) return { type: '絲瓜型', emoji: '🥒', alias: '' };
+  }
+  if (hipMinusWaist <= 23) {
+    if (chestMinusHip >= 2) return { type: '花生型', emoji: '🥜', alias: '又名可樂型' };
+    if (waist >= 77) return { type: '奇異果型', emoji: '🥝', alias: '又名水蜜桃型' };
+    return { type: '魚板型', emoji: '🐟', alias: '' };
+  }
+  if (waist >= 77) return { type: '奇異果型', emoji: '🥝', alias: '又名水蜜桃型' };
+  return { type: '魚板型', emoji: '🐟', alias: '' };
+}
+
+/* ---------- 可愛人偶（純 CSS，身形永遠一致，只換衣服） ---------- */
+function garmentBg(color, pattern){
+  if(pattern==='stripesH') return `repeating-linear-gradient(0deg, ${color}, ${color} 7px, #ffffffdd 7px, #ffffffdd 14px)`;
+  if(pattern==='stripesV') return `repeating-linear-gradient(90deg, ${color}, ${color} 7px, #ffffffdd 7px, #ffffffdd 14px)`;
+  if(pattern==='dotsBig') return `radial-gradient(${color} 40%, transparent 42%) 0 0/26px 26px, #fff7ee`;
+  if(pattern==='dotsSmall') return `radial-gradient(${color} 30%, transparent 32%) 0 0/11px 11px, #fff7ee`;
+  return color;
+}
+const WAIST_Y = { low:190, natural:150, high:118 };
+function renderDoll(o){
+  o = Object.assign({ topColor:'#f0a8b8', topPattern:'none', bottomColor:'#8ea6c7', bottomPattern:'none', waist:'natural', topBottomOverride:null, hairColor:'#6b4a37', highlight:'' }, o);
+  const waistY = WAIST_Y[o.waist];
+  const topBottom = o.topBottomOverride!=null ? o.topBottomOverride : waistY;
+  const topHeight = topBottom - 44;
+  const bottomTop = waistY;
+  const bottomHeight = 292 - bottomTop;
+  const topGlow = o.highlight==='top' ? 'box-shadow:0 0 0 4px #f6c65f;' : '';
+  const bottomGlow = o.highlight==='bottom' ? 'box-shadow:0 0 0 4px #f6c65f;' : '';
+  return `<div class="dollbox">
+    <div class="doll-arm" style="left:8px;background:#f6c9a0"></div>
+    <div class="doll-arm" style="right:8px;background:#f6c9a0"></div>
+    <div class="doll-legs"></div>
+    <div class="doll-bottom" style="top:${bottomTop}px;height:${bottomHeight}px;background:${garmentBg(o.bottomColor,o.bottomPattern)};${bottomGlow}"></div>
+    <div class="doll-top" style="height:${topHeight}px;background:${garmentBg(o.topColor,o.topPattern)};${topGlow}"></div>
+    <div class="doll-waistmark" style="top:${waistY}px;opacity:.55"></div>
+    <div class="doll-hair"></div>
+    <div class="doll-head"></div>
+    <div class="doll-eye" style="left:44px"></div>
+    <div class="doll-eye" style="right:44px"></div>
+    <div class="doll-smile"></div>
+  </div>`;
+}
+
+/* ---------- Stepper ---------- */
+function renderStepper(){
+  const labels=['① 認識身形','② 視覺魔法','③ 我的穿搭指南'];
+  $('#stepper').innerHTML = labels.map((l,i)=>{
+    const n=i+1, cls = n<stage?'step done':n===stage?'step active':'step';
+    return `<div class="${cls}">${l}</div>` + (i<2?'<div class="stepline"></div>':'');
+  }).join('');
+}
+function goStage(n){
+  stage=n;
+  ['stage1','stage2','stage3'].forEach((id,i)=>$('#'+id).style.display = (i+1===n?'block':'none'));
+  renderStepper();
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(n===2) renderStage2();
+  if(n===3) renderStage3();
+}
+
+/* ================= STAGE 1 ================= */
+function renderStage1(){
+  const inputs = studentState.bodyMeasurements;
+  const fields=[
+    {key:'shoulder',label:'肩寬',hint:'背部左肩骨外端點到右肩骨外端點。',ph:'例如 38'},
+    {key:'chest',label:'胸圍',hint:'水平繞過胸部最豐滿處一周。',ph:'例如 84'},
+    {key:'waist',label:'腰圍',hint:'水平繞過腰部最細處一周。',ph:'例如 68'},
+    {key:'hip',label:'臀圍',hint:'水平繞過臀部最豐滿處一周。',ph:'例如 90'}
+  ];
+  $('#stage1').innerHTML = `
+  <div class="card">
+    <h2>① 認識我的身形</h2>
+    <p class="muted">📏 請以公分（cm）輸入。測量時自然站立，不刻意縮小腹。</p>
+    <div class="field-grid">
+      ${fields.map(f=>`
+        <div class="field">
+          <label>${f.label}</label>
+          <small>${f.hint}</small>
+          <div class="row">
+            <input type="number" min="1" step="0.1" placeholder="${f.ph}" id="bf-${f.key}" value="${inputs[f.key]||''}">
+            <span class="unit">cm</span>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="btnrow">
+      <button class="btn btn-primary" onclick="judgeBodyType()">判斷我的體型</button>
+      <button class="btn btn-ghost" onclick="resetBodyInputs()">重新輸入</button>
+    </div>
+    <div id="bodyErr"></div>
+    <div id="bodyResultBox"></div>
+  </div>`;
+  if(studentState.bodyType) showBodyResult();
+}
+function readBodyInputs(){
+  const ks=['shoulder','chest','waist','hip']; const vals={};
+  ks.forEach(k=>{ const el=$('#bf-'+k); if(el) vals[k]=el.value; });
+  return vals;
+}
+function resetBodyInputs(){
+  studentState.bodyMeasurements={}; studentState.bodyType=''; renderStage1();
+}
+function judgeBodyType(){
+  const vals = readBodyInputs();
+  studentState.bodyMeasurements = vals;
+  const nums = ['shoulder','chest','waist','hip'].map(k=>parseFloat(vals[k]));
+  if(nums.some(v=>Number.isNaN(v)||v<=0)){
+    $('#bodyErr').innerHTML = `<p class="err">請先把四個測量數值都正確填寫完成。</p>`;
+    $('#bodyResultBox').innerHTML='';
+    return;
+  }
+  $('#bodyErr').innerHTML='';
+  const [s,c,w,h]=nums;
+  const answer = determineBodyType(s,c,w,h);
+  studentState.bodyType = answer.type;
+  studentState.bodyEmoji = answer.emoji;
+  studentState.bodyAlias = answer.alias;
+  studentState.bodyDataText = `肩寬 ${s.toFixed(1)} cm ｜ 胸圍 ${c.toFixed(1)} cm ｜ 腰圍 ${w.toFixed(1)} cm ｜ 臀圍 ${h.toFixed(1)} cm`;
+  showBodyResult();
+}
+function showBodyResult(){
+  $('#bodyResultBox').innerHTML = `
+    <div class="result">
+      <div class="emoji">${studentState.bodyEmoji}</div>
+      <div class="muted">你的身形比較接近</div>
+      <h3>${studentState.bodyType}</h3>
+    <div class="body-preview"><img class="figure-img compare" src="${IMAGE_ASSETS[studentState.bodyType]}" alt="${studentState.bodyType}"></div>
+      <p class="muted">${studentState.bodyAlias||''}</p>
+      <div style="margin:14px auto 0;max-width:460px;background:#ffffffc0;border-radius:14px;padding:10px 14px;color:#74645f;font-size:13px;">${studentState.bodyDataText}</div>
+      <div style="margin-top:18px;font-weight:800;color:#c9607e;">✨ 你已經完成第一個任務！</div>
+      <p class="muted" style="max-width:480px;margin:8px auto 0;">知道自己的身形之後，接下來看看服裝怎麼偷偷改變我們看到的比例吧！</p>
+      <button class="btn btn-primary btn-big" onclick="goStage(2)">開始探索服裝的視覺魔法 →</button>
+    </div>`;
+}
+
+/* ================= STAGE 2：五個視覺魔法實驗 ================= */
+const EXPERIMENTS = [
+  { key:'line', title:'魔法實驗 1｜線條會騙眼睛？', icon:'↕' },
+  { key:'color', title:'魔法實驗 2｜顏色也有大小感？', icon:'🎨' },
+  { key:'waist', title:'魔法實驗 3｜腰線跑去哪裡了？', icon:'📐' },
+  { key:'pattern', title:'魔法實驗 4｜圖案放大術', icon:'✦' },
+  { key:'focus', title:'魔法實驗 5｜你的眼睛先看哪裡？', icon:'👀' }
+];
+function renderStage2(){
+  expIndex = expAnswers.findIndex(a=>a==null);
+  if(expIndex===-1) return renderStage2Complete();
+  const exp = EXPERIMENTS[expIndex];
+  let body='';
+  if(exp.key==='line') body = expLineHtml();
+  if(exp.key==='color') body = expColorHtml();
+  if(exp.key==='waist') body = expWaistHtml();
+  if(exp.key==='pattern') body = expPatternHtml();
+  if(exp.key==='focus') body = expFocusHtml();
+  $('#stage2').innerHTML = `
+  <div class="card">
+    <h2>✨ 服裝的視覺魔法</h2>
+    <p class="muted">明明是同一個人，換件衣服，看起來竟然不一樣？</p>
+    <p class="muted" style="background:#fff3e0;border-radius:14px;padding:10px 14px;">👀 這一關先不要管自己是哪一種體型。我們先來觀察「眼睛看到的比例」會怎麼被衣服改變。</p><div class="body-preview"><div class="figure-card" style="max-width:250px;"><img class="figure-img compare" src="${IMAGE_ASSETS.base}" alt="基礎角色"><div class="figure-note">接下來所有實驗都使用同一位基礎角色，只改變服裝。</div></div></div>
+    <div class="exp">
+      <div class="exp-title">${exp.title}</div>
+      ${body}
+    </div>
+  </div>`;
+}
+function expLineHtml(){
+  return `
+    <div class="doll-row">
+      <div class="figure-card"><img class="figure-img compare" src="${IMAGE_ASSETS.line_h}" alt="橫條紋"><div class="figure-label">A｜橫條紋</div></div>
+      <div class="figure-card"><img class="figure-img compare" src="${IMAGE_ASSETS.line_v}" alt="直條紋"><div class="figure-label">B｜直條紋</div></div>
+    </div>
+    <p style="text-align:center;font-weight:700;margin-top:14px;">👀 第一眼看過去，哪一個人看起來比較修長？</p>
+    <div class="optbtns"><button class="opt" onclick="answerExp('line','A')">A</button><button class="opt" onclick="answerExp('line','B')">B</button><button class="opt" onclick="answerExp('line','same')">看起來差不多</button></div>
+    <div id="lineReveal"></div>`;
+}
+function expColorHtml(){
+  return `
+    <div class="doll-row">
+      <div class="figure-card"><img class="figure-img compare" src="${IMAGE_ASSETS.color_light}" alt="淺色"><div class="figure-label">A｜淺色</div></div>
+      <div class="figure-card"><img class="figure-img compare" src="${IMAGE_ASSETS.color_dark}" alt="深色"><div class="figure-label">B｜深色</div></div>
+    </div>
+    <p style="text-align:center;font-weight:700;margin-top:14px;">🎨 哪一邊看起來比較有「膨脹感」？</p>
+    <div class="optbtns"><button class="opt" onclick="answerExp('color','A')">A</button><button class="opt" onclick="answerExp('color','B')">B</button><button class="opt" onclick="answerExp('color','same')">差不多</button></div>
+    <div id="colorReveal"></div>`;
+}
+function expWaistHtml(){
+  return `
+    <div class="doll-row">
+      <div class="figure-card"><img class="figure-img compare" src="${IMAGE_ASSETS.waist_low}" alt="低腰"><div class="figure-label">A｜低腰線</div></div>
+      <div class="figure-card"><img class="figure-img compare" src="${IMAGE_ASSETS.waist_natural}" alt="自然腰"><div class="figure-label">B｜自然腰線</div></div>
+      <div class="figure-card"><img class="figure-img compare" src="${IMAGE_ASSETS.waist_high}" alt="高腰"><div class="figure-label">C｜高腰線</div></div>
+    </div>
+    <p style="text-align:center;font-weight:700;margin-top:14px;">📏 哪一種穿法，讓腿看起來比較長？</p>
+    <div class="optbtns"><button class="opt" onclick="answerExp('waist','A')">A</button><button class="opt" onclick="answerExp('waist','B')">B</button><button class="opt" onclick="answerExp('waist','C')">C</button></div>
+    <div id="waistReveal"></div>`;
+}
+function expPatternHtml(){
+  return `
+    <div class="doll-row">
+      <div class="figure-card"><img class="figure-img compare" src="${IMAGE_ASSETS.pattern_big}" alt="大圖案"><div class="figure-label">A｜大圖案</div></div>
+      <div class="figure-card"><img class="figure-img compare" src="${IMAGE_ASSETS.pattern_small}" alt="小圖案"><div class="figure-label">B｜小圖案</div></div>
+    </div>
+    <p style="text-align:center;font-weight:700;margin-top:14px;">🔍 哪一件衣服最先吸引你的注意？</p>
+    <div class="optbtns"><button class="opt" onclick="answerExp('pattern','A')">A</button><button class="opt" onclick="answerExp('pattern','B')">B</button></div>
+    <div id="patternReveal"></div>`;
+}
+const FOCUS_STYLES = [
+  {img:IMAGE_ASSETS.focus_top_bright,label:'亮色上身'},
+  {img:IMAGE_ASSETS.focus_bottom_bright,label:'亮色下身'},
+  {img:IMAGE_ASSETS.focus_top_pattern,label:'上身明顯圖案'},
+  {img:IMAGE_ASSETS.focus_bottom_pattern,label:'下身明顯圖案'}
+];
+let focusStyleIdx = 0;
+function expFocusHtml(){
+  return `
+    <div class="focus-grid">
+      ${FOCUS_STYLES.map((s,i)=>`<button class="focus-card ${focusStyleIdx===i?'selected':''}" onclick="setFocusStyle(${i})"><img src="${s.img}" alt="${s.label}"><div class="figure-label">${i+1}｜${s.label}</div></button>`).join('')}
+    </div>
+    <p style="text-align:center;font-weight:700;margin-top:14px;">👀 你第一眼先看到哪裡？</p>
+    <div class="optbtns"><button class="opt" onclick="answerExp('focus','top')">上半身</button><button class="opt" onclick="answerExp('focus','bottom')">下半身</button><button class="opt" onclick="answerExp('focus','all')">整體</button></div>
+    <div id="focusReveal"></div>`;
+}
+function setFocusStyle(i){ focusStyleIdx=i; renderStage2(); }
+const REVEALS = {
+  line: '✨ 視線小秘密：衣服上的線條會引導我們的視線。不同方向、粗細與排列方式，可能讓同一個身形產生不同的視覺感受。',
+  color: '✨ 色彩小秘密：明度、彩度與色彩對比，都可能影響我們對面積與重量感的感受。不是「深色一定比較好」，而是不同顏色能創造不同的視覺效果。',
+  waist: '✨ 比例小秘密：腰線的位置會重新分割我們看到的上下身比例。腰線提高時，視覺上的腿部起點也跟著提高，因此可能產生腿部比例較長的感覺。',
+  pattern: '✨ 圖案小秘密：圖案的大小、密度與對比，會影響視覺焦點。越明顯的圖案，通常越容易成為我們第一眼注意的位置。',
+  focus: '✨ 焦點小秘密：顏色、圖案、配件與對比，都可以成為視覺焦點。穿搭不是只能「遮住哪裡」，也可以主動決定：我想讓別人先看到哪裡？'
+};
+function answerExp(key, val){
+  const idx = EXPERIMENTS.findIndex(e=>e.key===key);
+  expAnswers[idx] = val;
+  if(!studentState.completedMagic.includes(key)) studentState.completedMagic.push(key);
+  let extra = '';
+  if(key==='waist'){
+    extra = `<div class="reveal" style="margin-top:12px;">人物身形沒有改變，只有腰線位置不同。請再比較低腰、自然腰與高腰的視覺比例。</div>`;
+  }
+  const revealId = key+'Reveal';
+  document.getElementById(revealId).innerHTML = `
+    <div class="reveal">${REVEALS[key]}</div>
+    ${extra}
+    <button class="btn btn-primary btn-big" onclick="renderStage2()">下一個魔法 →</button>`;
+}
+function practiceWaistKey(){ return practiceWaist<33?'low':practiceWaist>66?'high':'natural'; }
+function dragWaist(v){ practiceWaist=+v; document.getElementById('waistPractice').innerHTML = renderDoll({waist:practiceWaistKey(),topColor:'#9bbf9a',bottomColor:'#8ea6c7'}); }
+
+function renderStage2Complete(){
+  $('#stage2').innerHTML = `
+  <div class="card" style="text-align:center;">
+    <h2>🎉 你已解鎖 5 個穿搭魔法！</h2>
+    <div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:16px;font-size:15px;font-weight:700;">
+      <span>↕ 線條</span><span>🎨 色彩</span><span>📐 比例</span><span>✦ 圖案</span><span>👀 焦點</span>
+    </div>
+    <p class="muted" style="max-width:480px;margin:16px auto 0;">衣服沒有改變你的身體，改變的是我們「看到比例的方式」。</p>
+    <button class="btn btn-primary btn-big" onclick="goStage(3)">看看我的穿搭指南 →</button>
+  </div>`;
+}
+
+/* ================= STAGE 3：我的穿搭指南 ================= */
+function renderStage3(){
+  const type = studentState.bodyType;
+  const guide = GUIDE_ASSETS[type];
+  $('#stage3').innerHTML = `
+    <div class="card">
+      <div style="text-align:center;">
+        <span class="guide-kicker">第 3 關｜我的穿搭指南</span>
+        <h2>你的個人穿搭指南</h2>
+        <p class="muted">根據第 1 關的判斷結果，你的身形比較接近：</p>
+        <div style="font-size:42px;margin-top:6px;">${studentState.bodyEmoji||'🙂'}</div>
+        <h3 style="font-size:26px;margin:4px 0 10px;">${type||'（尚未測量）'}</h3>
+        <p class="guide-note">把第 2 關發現的「線條、色彩、腰線、圖案與視覺焦點」放進穿搭裡看看。這些是視覺效果的參考，不是限制你只能這樣穿。</p>
+      </div>
+      <div class="guide-wrap">
+        ${guide ? `<img class="guide-img" src="${guide}" alt="${type}穿搭指南">` : `<div class="result">尚未取得體型結果，請先回到第 1 關完成測量。</div>`}
+      </div>
+      <div class="final">
+        🌷 穿搭沒有標準答案。認識自己的身形，是為了更了解服裝如何影響視覺，找到自己喜歡、自在又有自信的穿搭方式。
+      </div>
+      <div class="btnrow">
+        <button class="btn btn-ghost" onclick="goStage(2)">← 回第 2 關</button>
+        <button class="btn btn-primary" onclick="backToStage1()">重新測量一次</button>
+      </div>
+    </div>`;
+}
+function backToStage1(){
+  studentState.bodyType=''; studentState.bodyEmoji=''; studentState.bodyAlias=''; studentState.bodyMeasurements={};
+  expAnswers.fill(null); studentState.completedMagic=[];
+  goStage(1);
+  renderStage1();
+}
+
+renderStepper();
+renderStage1();
+</script>
+</body>
+</html>

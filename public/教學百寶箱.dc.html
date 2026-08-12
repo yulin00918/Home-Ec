@@ -11,16 +11,16 @@
   <link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css">
   <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
 </helmet>
-<div style="background:var(--color-bg); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
+<div style="background:linear-gradient(180deg, #a9cbea 0%, #c9d5ef 24%, #e0cbe6 50%, #f0c9d8 75%, #ddc6e6 100%); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
   <div style="max-width:1120px; margin:0 auto; padding:var(--space-6) var(--space-4);">
     <a href="家政金融網頁.dc.html" style="font-size:14px; color:var(--color-accent-700); text-decoration:none;">← 回首頁</a>
   </div>
   <header style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-6);">
     <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4); flex-wrap:wrap;">
       <span style="font-size:36px; flex:none;">🎁</span>
-      <h1 style="margin:0; min-width:0; white-space:nowrap;">教學百寶箱</h1>
+      <h1 style="margin:0; min-width:0; white-space:nowrap; font-size:38px; font-weight:800;">教學百寶箱</h1>
     </div>
-    <p style="max-width:560px; opacity:0.8; font-size:17px;">課堂教學小工具</p>
+    <p style="max-width:560px; opacity:0.85; font-size:18px; font-weight:700;">課堂教學小工具</p>
   </header>
 
   <div style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
@@ -81,7 +81,7 @@ class Component extends DCLogic {
       return {
         ...t,
         onSelect: () => { if (t.enabled) this.setState({ active: t.id }); },
-        style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:14px; cursor:${t.enabled ? 'pointer' : 'not-allowed'}; white-space:nowrap; background:${isActive ? 'var(--color-accent-600)' : 'var(--color-surface)'}; color:${isActive ? 'var(--color-bg)' : 'var(--color-text)'}; opacity:${t.enabled ? 1 : 0.5};`
+        style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:16px; font-weight:700; cursor:${t.enabled ? 'pointer' : 'not-allowed'}; white-space:nowrap; background:${isActive ? 'var(--color-accent-600)' : 'var(--color-accent-2-100)'}; color:${isActive ? 'var(--color-bg)' : 'var(--color-text)'}; opacity:${t.enabled ? 1 : 0.5};`
       };
     });
     return {

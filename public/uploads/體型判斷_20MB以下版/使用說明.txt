@@ -1,0 +1,7 @@
+體型判斷｜20MB 以下輕量版
+
+• HTML 與 images 資料夾必須放在一起。
+• 圖片已轉為 WebP 並縮至適合網頁顯示的解析度。
+• HTML 本身仍只有約數十 KB。
+• 解壓縮後可整個資料夾上傳 GitHub / Cloudflare。
+• 若 Claude Design 限制「單次上傳 ZIP 20MB」，可直接使用這個 ZIP。
