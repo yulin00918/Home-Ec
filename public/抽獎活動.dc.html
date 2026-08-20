@@ -58,7 +58,10 @@
         </sc-if>
         <sc-if value="{{isNameMode}}">
           <div style="margin-bottom:6px;">
-            <label style="display:block;font-size:0.85rem;font-weight:600;margin-bottom:4px;color:rgba(38,48,74,0.75);">貼上號碼及姓名資料(最多300筆)</label>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <label style="display:block;font-size:0.85rem;font-weight:600;color:rgba(38,48,74,0.75);">貼上號碼及姓名資料(最多300筆)</label>
+              <button onClick="{{loadFromRoster}}" style="border:1px solid #5b67f1;background:#fff;color:#5b67f1;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;">📥 從學生名單載入</button>
+            </div>
             <textarea placeholder="01 方大同&#10;02 王曉明&#10;03 李小花" value="{{nameDataText}}" onChange="{{onNameDataChange}}" style="width:100%;height:80px;padding:10px;border:2px solid #dfe4f2;background:#fff;color:#26304a;border-radius:12px;font-family:inherit;font-size:0.9rem;resize:none;outline:none;"></textarea>
             <div style="font-size:0.8rem;color:rgba(38,48,74,0.75);margin-top:4px;display:flex;justify-content:space-between;align-items:center;">
               <span>已輸入:{{participantCount}} / 300 筆</span>
@@ -132,6 +135,14 @@ class Component extends DCLogic {
   componentWillUnmount() { this.stopFloatingAnimation(); }
 
   preventContext(e) { e.preventDefault(); return false; }
+
+  loadRosterInfo() {
+    try {
+      const cd = JSON.parse(localStorage.getItem('teacherToolboxClassData') || 'null');
+      if (cd && cd.students && cd.students.length) return cd;
+    } catch (e) {}
+    return null;
+  }
 
   parseNameData(text) {
     const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
@@ -314,6 +325,12 @@ class Component extends DCLogic {
       onMinChange: (e) => this.setState({ minNumber: e.target.value }, () => this.generateBalls()),
       onMaxChange: (e) => this.setState({ maxNumber: e.target.value }, () => this.generateBalls()),
       nameDataText: s.nameDataText,
+      loadFromRoster: () => {
+        const cd = this.loadRosterInfo();
+        if (!cd) { this.setState({ modalShow: true, modalTitle: '提示', modalMessage: '尚未建立學生名單，請先至教學百寶箱的「學生名單」匯入' }); return; }
+        const text = cd.students.map((st, i) => `${st.seatNumber || (i + 1)}\t${st.name}`).join('\n');
+        this.setState({ nameDataText: text, participants: this.parseNameData(text), mode: 'name' }, () => this.generateBalls());
+      },
       onNameDataChange: (e) => {
         const text = e.target.value;
         this.setState({ nameDataText: text, participants: this.parseNameData(text) }, () => this.generateBalls());

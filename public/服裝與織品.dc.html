@@ -478,14 +478,14 @@ class Component extends DCLogic {
       { id: 'freshLook', label: '清爽好印象', desc: '課程準備中，之後會放上清爽好印象相關的課程內容。' },
       { id: 'bodyShape', label: '認識我的身形', desc: '課程準備中，之後會放上認識我的身形相關的課程內容。' },
       { id: 'colorMe', label: '找到我的色彩', desc: '課程準備中，之後會放上找到我的色彩相關的課程內容。' },
-      { id: 'visualMagic', label: '服裝的視覺魔法', desc: '課程準備中，之後會放上服裝的視覺魔法相關的課程內容。' }
+      { id: 'visualMagic', label: '服裝的視覺魔法', href: '服裝的視覺魔法.html', desc: '透過五個小實驗，觀察線條、顏色、腰線、圖案與焦點如何改變視覺比例，最後進入穿搭實驗室。' }
     ];
     const styleTopics = styleTopicsRaw.map(s => {
       const open = this.state.openStyleTopic === s.id;
       return {
         ...s,
         open,
-        onSelect: () => this.setState(st => ({ openStyleTopic: st.openStyleTopic === s.id ? null : s.id })),
+        onSelect: () => { if (s.href) { window.location.href = s.href; } else { this.setState(st => ({ openStyleTopic: st.openStyleTopic === s.id ? null : s.id })); } },
         style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:16px; font-weight:700; cursor:pointer; white-space:nowrap; background:${open ? 'var(--color-accent-2-600)' : 'var(--color-accent-2-100)'}; color:${open ? 'var(--color-bg)' : 'var(--color-text)'};`
       };
     });

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>服裝的視覺魔法</title>
+<style>
+:root{--bg1:#fff8f0;--bg2:#f6f0ff;--pink:#f0a8b8;--pink2:#e88fa4;--sage:#9bbf9a;--ink:#4a3f3a;--muted:#8a7a72;--card:#fff;--line:#f0e3da}
+*{box-sizing:border-box}body{margin:0;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:linear-gradient(160deg,var(--bg1),var(--bg2));min-height:100vh}
+.wrap{width:min(1050px,94vw);margin:auto;padding:28px 0 70px}button{font:inherit;cursor:pointer;border:0}h2,h3{margin:0}
+.back{display:block;text-align:center;color:#c9607e;text-decoration:none;font-weight:700;margin-bottom:14px}
+.stepper{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:28px;flex-wrap:wrap}
+.step{padding:9px 16px;border-radius:999px;background:#ffffffb0;font-weight:800;color:#b4a49c;font-size:14px}.step.active{background:#fff;color:#c9607e;box-shadow:0 6px 18px #0001}.step.done{color:#6f9a72;background:#eef7ee}.line{width:26px;height:2px;background:#e3d5cd}
+.card{background:#fff;border-radius:26px;box-shadow:0 16px 40px #7b5a4a12;padding:26px;margin-bottom:22px}.muted{color:var(--muted);line-height:1.8}
+.type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}.type-card{background:#fffaf7;border:3px solid transparent;border-radius:22px;padding:14px;text-align:center;transition:.18s}.type-card:hover{transform:translateY(-3px)}.type-card.selected{border-color:var(--pink2);background:#fff3f6}.type-card img{width:100%;height:250px;object-fit:contain}.type-card strong{display:block;font-size:17px}
+.figure-row{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-top:18px}.figure-card{background:#fffaf7;border:1.5px solid var(--line);border-radius:20px;padding:12px;min-width:210px;text-align:center}.figure-card img{width:100%;max-width:230px;height:330px;object-fit:contain}.label{font-weight:800;margin-top:8px}
+.btnrow,.opts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}.btn,.opt{padding:11px 20px;border-radius:999px;font-weight:800}.primary{background:linear-gradient(135deg,var(--pink),var(--pink2));color:#fff}.ghost,.opt{background:#f2e9e6;color:#6d5a52}
+.notice{background:#fff3e0;border-radius:14px;padding:12px 16px;color:#8a6a3a;font-weight:650;text-align:center;margin-top:12px}.reveal{margin-top:16px;padding:14px 16px;border-radius:16px;background:#eef7ee;color:#4d6b50;line-height:1.8}
+.guide{text-align:center}.guide img{display:block;width:100%;max-width:900px;max-height:1100px;object-fit:contain;margin:20px auto;border-radius:20px}
+@media(max-width:760px){.type-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.type-grid{grid-template-columns:1fr}.line{width:12px}}
+</style></head>
+<body><div class="wrap"><a class="back" href="服裝與織品.dc.html">← 回服裝與織品</a><div id="stepper" class="stepper"></div><main id="app"></main></div>
+<script>
+const I={lineH:"images/line-horizontal.webp",lineV:"images/line-vertical.webp",light:"images/color-light.webp",dark:"images/color-dark.webp",low:"images/waist-low.webp",natural:"images/waist-natural.webp",high:"images/waist-high.webp",big:"images/pattern-big.webp",small:"images/pattern-small.webp",ftb:"images/focus-top-bright.webp",fbb:"images/focus-bottom-bright.webp",ftp:"images/focus-top-pattern.webp",fbp:"images/focus-bottom-pattern.webp",
+body:{"西洋梨型":"images/body-pear.webp","草莓型":"images/body-strawberry.webp","絲瓜型":"images/body-cucumber.webp","花生型":"images/body-peanut.webp","奇異果型":"images/body-kiwi.webp","魚板型":"images/body-fishcake.webp"},
+guide:{"西洋梨型":"images/guide-pear.webp","草莓型":"images/guide-strawberry.webp","絲瓜型":"images/guide-cucumber.webp","花生型":"images/guide-peanut.webp","奇異果型":"images/guide-kiwi.webp","魚板型":"images/guide-fishcake.webp"}};
+const TYPES=["西洋梨型","草莓型","絲瓜型","花生型","奇異果型","魚板型"];let type="",stage=1,idx=0;
+const E=[
+["魔法實驗 1｜線條會騙眼睛？","第一眼看過去，哪一個人看起來比較修長？",[[I.lineH,"A｜橫條紋"],[I.lineV,"B｜直條紋"]],["A","B","看起來差不多"],"✨ 視線小秘密：衣服上的線條會引導我們的視線。不同方向、粗細與排列方式，可能讓同一個身形產生不同的視覺感受。"],
+["魔法實驗 2｜顏色也有大小感？","哪一邊看起來比較有「膨脹感」？",[[I.light,"A｜淺色"],[I.dark,"B｜深色"]],["A","B","差不多"],"✨ 色彩小秘密：明度、彩度與色彩對比，都可能影響我們對面積與重量感的感受。不是「深色一定比較好」，而是不同顏色能創造不同的視覺效果。"],
+["魔法實驗 3｜腰線跑去哪裡了？","哪一種穿法，讓腿看起來比較長？",[[I.low,"A｜低腰線"],[I.natural,"B｜自然腰線"],[I.high,"C｜高腰線"]],["A","B","C"],"✨ 比例小秘密：腰線的位置會重新分割上下身比例。腰線提高時，視覺上的腿部起點也跟著提高，因此可能產生腿部比例較長的感覺。"],
+["魔法實驗 4｜圖案放大術","哪一件衣服最先吸引你的注意？",[[I.big,"A｜大圖案"],[I.small,"B｜小圖案"]],["A","B"],"✨ 圖案小秘密：圖案的大小、密度與對比會影響視覺焦點。越明顯的圖案，通常越容易成為第一眼注意的位置。"],
+["魔法實驗 5｜你的眼睛先看哪裡？","觀察四種造型，視覺焦點會落在哪裡？",[[I.ftb,"亮色上身"],[I.fbb,"亮色下身"],[I.ftp,"上身明顯圖案"],[I.fbp,"下身明顯圖案"]],["上半身","下半身","會隨造型改變"],"✨ 焦點小秘密：顏色、圖案、配件與對比都可以成為視覺焦點。穿搭也可以主動決定想讓別人先看到哪裡。"]];
+function steps(){document.getElementById("stepper").innerHTML=["① 選擇我的體型","② 視覺魔法","③ 我的穿搭指南"].map((x,i)=>`<div class="step ${i+1<stage?'done':i+1===stage?'active':''}">${x}</div>${i<2?'<div class="line"></div>':''}`).join("")}
+function selectPage(){stage=1;steps();document.getElementById("app").innerHTML=`<div class="card"><h2 style="text-align:center">👗 先選擇我的體型</h2><p class="muted" style="text-align:center">如果你已經在「認識我的身形」完成測量，請直接選擇剛才判斷出的體型。</p><div class="type-grid">${TYPES.map(t=>`<button class="type-card ${type===t?'selected':''}" onclick="pick('${t}')"><img src="${I.body[t]}"><strong>${t}</strong></button>`).join("")}</div>${type?`<div class="notice">你選擇的是：<strong>${type}</strong></div><div class="btnrow"><button class="btn primary" onclick="start()">開始視覺魔法 →</button></div>`:""}</div>`}
+function pick(t){type=t;selectPage()}function start(){idx=0;experiment()}
+function experiment(){stage=2;steps();if(idx>=E.length)return complete();const e=E[idx];document.getElementById("app").innerHTML=`<div class="card"><h2>✨ 服裝的視覺魔法</h2><div class="notice">我的體型：${type}</div><h3 style="margin-top:20px">${e[0]}</h3><div class="figure-row">${e[2].map(c=>`<div class="figure-card"><img src="${c[0]}"><div class="label">${c[1]}</div></div>`).join("")}</div><p style="text-align:center;font-weight:700">${e[1]}</p><div class="opts">${e[3].map(o=>`<button class="opt" onclick="answer()">${o}</button>`).join("")}</div><div id="r"></div></div>`}
+function answer(){document.getElementById("r").innerHTML=`<div class="reveal">${E[idx][4]}</div><div class="btnrow"><button class="btn primary" onclick="next()">${idx===E.length-1?"完成視覺魔法":"下一個魔法 →"}</button></div>`}function next(){idx++;experiment();scrollTo(0,0)}
+function complete(){document.getElementById("app").innerHTML=`<div class="card" style="text-align:center"><h2>🎉 你已解鎖 5 個穿搭魔法！</h2><p style="font-weight:700;line-height:2">↕ 線條　🎨 色彩　📐 比例　✦ 圖案　👀 焦點</p><p class="muted">衣服沒有改變你的身體，改變的是我們「看到比例的方式」。</p><div class="btnrow"><button class="btn ghost" onclick="selectPage()">← 重選體型</button><button class="btn primary" onclick="guide()">看看我的穿搭指南 →</button></div></div>`}
+function guide(){stage=3;steps();document.getElementById("app").innerHTML=`<div class="card guide"><h2>🌷 我的穿搭指南｜${type}</h2><p class="muted">依照一開始選擇的體型，看看如何運用剛才發現的視覺魔法。</p><img src="${I.guide[type]}" alt="${type}穿搭指南"><div class="btnrow"><button class="btn ghost" onclick="selectPage()">重新選擇體型</button><button class="btn primary" onclick="start()">再玩一次視覺魔法</button></div></div>`}
+selectPage();
+</script></body></html>

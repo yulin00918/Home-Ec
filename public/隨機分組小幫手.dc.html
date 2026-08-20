@@ -32,6 +32,10 @@
         <input type="text" placeholder="例如：九年一班" value="{{className}}" onChange="{{onClassNameChange}}" style="width:100%;border:1px solid #dfe4f2;border-radius:14px;padding:12px 14px;font:inherit;color:#26304a;background:#fff;outline:none;box-sizing:border-box;">
 
         <label style="display:block;font-weight:700;margin:15px 0 8px;">學生名單</label>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <span style="font-size:13px;color:#6f7890;">{{rosterHint}}</span>
+          <button onClick="{{loadFromRoster}}" style="border:1px solid #5b67f1;background:#fff;color:#5b67f1;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer;">📥 從學生名單載入</button>
+        </div>
         <textarea placeholder="請一行輸入一位學生，例如：&#10;王小明&#10;李小華&#10;陳美玲" value="{{namesText}}" onChange="{{onNamesChange}}" style="width:100%;min-height:230px;resize:vertical;line-height:1.7;border:1px solid #dfe4f2;border-radius:14px;padding:12px 14px;font:inherit;color:#26304a;background:#fff;outline:none;box-sizing:border-box;"></textarea>
 
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
@@ -130,6 +134,14 @@ class Component extends DCLogic {
   };
   toastTimer = null;
 
+  loadRosterInfo() {
+    try {
+      const cd = JSON.parse(localStorage.getItem('teacherToolboxClassData') || 'null');
+      if (cd && cd.students && cd.students.length) return cd;
+    } catch (e) {}
+    return null;
+  }
+
   parseNames() {
     const raw = this.state.namesText.split(/\n|,|，/).map(n => n.trim()).filter(Boolean);
     return [...new Set(raw)];
@@ -207,6 +219,14 @@ class Component extends DCLogic {
     return {
       className: s.className, onClassNameChange: (e) => this.setState({ className: e.target.value }),
       namesText: s.namesText, onNamesChange: (e) => this.setState({ namesText: e.target.value }),
+      rosterHint: (() => { const cd = this.loadRosterInfo(); return cd ? `已載入班級名單可用：${cd.students.length} 位學生` : '尚未建立學生名單，可至教學百寶箱的「學生名單」匯入'; })(),
+      loadFromRoster: () => {
+        const cd = this.loadRosterInfo();
+        if (!cd) { this.showToast('尚未建立學生名單，請先至「學生名單」匯入'); return; }
+        const names = cd.students.map(s => s.name).filter(Boolean).join('\n');
+        this.setState({ namesText: names, className: cd.className || this.state.className });
+        this.showToast(`已載入 ${cd.students.length} 位學生`);
+      },
       studentCount: this.parseNames().length,
       isByGroups, isBySize: !isByGroups,
       byGroupBtnStyle: tabStyle(isByGroups), bySizeBtnStyle: tabStyle(!isByGroups),

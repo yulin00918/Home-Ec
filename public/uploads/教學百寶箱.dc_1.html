@@ -184,6 +184,7 @@ const CLASS_DATA_KEY = 'teacherToolboxClassData';
 class Component extends DCLogic {
   state = {
     active: 'lottery',
+    // store shape: { classes: { [id]: {id, schoolName, className, homeroomTeacher, students:[]} }, classOrder: [id,...], currentClassId }
     store: (() => {
       const id = 'c_init';
       return {
@@ -204,8 +205,10 @@ class Component extends DCLogic {
       if (raw) {
         const parsed = JSON.parse(raw);
         if (parsed && parsed.classes && parsed.classOrder && parsed.currentClassId && parsed.classes[parsed.currentClassId]) {
+          // already in multi-class format
           store = { classes: parsed.classes, classOrder: parsed.classOrder, currentClassId: parsed.currentClassId };
         } else if (parsed && Array.isArray(parsed.students)) {
+          // migrate from old single-class format
           const cls = {
             id: this.uid('c'),
             schoolName: parsed.schoolName || '',
@@ -238,6 +241,8 @@ class Component extends DCLogic {
         classes: store.classes,
         classOrder: store.classOrder,
         currentClassId: store.currentClassId,
+        // mirror of the current class, so other tools can keep reading the
+        // simple flat fields without knowing about the multi-class structure
         schoolName: current.schoolName,
         className: current.className,
         homeroomTeacher: current.homeroomTeacher,
@@ -365,6 +370,7 @@ class Component extends DCLogic {
     const active = this.state.active;
     const store = this.state.store;
     const cd = store.classes[store.currentClassId];
+
     const raw = [
       { id: 'roster', label: '📇 學生名單', enabled: true },
       { id: 'lottery', label: '🎁 抽獎活動', dc: '抽獎活動', enabled: true },
@@ -408,7 +414,8 @@ class Component extends DCLogic {
     const roster = {
       schoolName: cd.schoolName,
       onSchoolChange: (e) => this.updateCurrentClass({ schoolName: e.target.value }),
-      className: cd.className, teacherName: cd.homeroomTeacher,
+      className: cd.className,
+      teacherName: cd.homeroomTeacher,
       onClassChange: (e) => this.updateCurrentClass({ className: e.target.value }),
       onTeacherChange: (e) => this.updateCurrentClass({ homeroomTeacher: e.target.value }),
       count: cd.students.length,
