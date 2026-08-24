@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>九年級金融體檢</title>
+</head>
+<body style="margin:0;">
+<div id="financeCheck" class="min-h-full w-full bg-[#f7f4ee] text-[#27323a]">
+  <style>
+    #financeCheck{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI","Noto Sans TC",sans-serif;background:linear-gradient(180deg,#f7f4ee 0%,#eef4f1 100%);}
+    #financeCheck .wrap{max-width:980px;margin:0 auto;padding:28px 18px 56px;}
+    #financeCheck .hero{background:linear-gradient(135deg,#234a44,#487a6f);color:#fff;border-radius:28px;padding:30px;box-shadow:0 18px 50px rgba(35,74,68,.16);}
+    #financeCheck .hero h2{font-size:clamp(28px,5vw,48px);font-weight:900;line-height:1.08;margin:0 0 12px;}
+    #financeCheck .hero p{margin:0;max-width:680px;color:#e8f4f0;line-height:1.8;}
+    #financeCheck .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+    #financeCheck .badge{padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.14);font-size:13px;font-weight:700;}
+    #financeCheck .progressShell{margin-top:18px;background:#dfe8e4;border-radius:999px;height:10px;overflow:hidden;}
+    #financeCheck .progressBar{height:100%;width:0;background:#c59143;transition:width .3s ease;}
+    #financeCheck .panel{margin-top:18px;background:#fff;border:1px solid #dde4df;border-radius:24px;padding:24px;box-shadow:0 10px 30px rgba(39,50,58,.06);}
+    #financeCheck .stepTag{font-size:13px;font-weight:900;letter-spacing:.06em;color:#567168;text-transform:uppercase;}
+    #financeCheck h3{font-size:25px;line-height:1.25;margin:6px 0 8px;font-weight:900;}
+    #financeCheck .lead{color:#66736f;line-height:1.7;margin-bottom:20px;}
+    #financeCheck .field{margin:16px 0;}
+    #financeCheck label{display:block;font-weight:800;margin-bottom:8px;}
+    #financeCheck input[type="text"],#financeCheck input[type="number"],#financeCheck select,#financeCheck textarea{width:100%;border:1px solid #cad5cf;border-radius:14px;padding:13px 14px;background:#fff;font-size:16px;outline:none;}
+    #financeCheck input[type="text"]:focus,#financeCheck input[type="number"]:focus,#financeCheck select:focus,#financeCheck textarea:focus{border-color:#47776c;box-shadow:0 0 0 3px rgba(71,119,108,.12);}
+    #financeCheck textarea{min-height:120px;resize:vertical;}
+    #financeCheck .questionCard{border:1px solid #e0e5e1;border-radius:20px;padding:18px;margin:14px 0;background:#fbfcfb;}
+    #financeCheck .questionCard legend{font-weight:850;line-height:1.6;margin-bottom:12px;padding:0 4px;}
+    #financeCheck .choiceGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+    #financeCheck .choiceGrid.four{grid-template-columns:1fr;}
+    #financeCheck .choice{position:relative;}
+    #financeCheck .choice input{position:absolute;opacity:0;pointer-events:none;}
+    #financeCheck .choice label{height:100%;margin:0;border:1px solid #d6dfda;border-radius:14px;padding:12px 13px;background:#fff;cursor:pointer;font-weight:700;line-height:1.45;transition:.18s ease;}
+    #financeCheck .choice input:checked+label{border-color:#47776c;background:#edf5f2;box-shadow:0 0 0 2px rgba(71,119,108,.12);}
+    #financeCheck .scenario{background:linear-gradient(180deg,#fffaf0,#fff);}
+    #financeCheck .message{background:#e9f4ef;border-radius:18px 18px 18px 4px;padding:14px 16px;margin:8px 0 16px;line-height:1.7;border:1px solid #d5e5dd;}
+    #financeCheck .actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;margin-top:20px;}
+    #financeCheck button{border:0;border-radius:14px;padding:12px 18px;font-size:16px;font-weight:850;cursor:pointer;min-height:46px;}
+    #financeCheck .primary{background:#234a44;color:#fff;}
+    #financeCheck .secondary{background:#e8eeeb;color:#31413c;}
+    #financeCheck .ghost{background:transparent;color:#53645e;border:1px solid #cad5cf;}
+    #financeCheck .error{color:#9f3f3f;font-weight:750;margin-top:10px;display:none;}
+    #financeCheck .syncStatus{margin-top:12px;padding:11px 13px;border-radius:14px;background:#edf5f2;color:#36584f;font-weight:750;line-height:1.55;}
+    #financeCheck .resultGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px;}
+    #financeCheck .metric{border:1px solid #dae3de;border-radius:18px;padding:16px;background:#fbfcfb;}
+    #financeCheck .metric .num{font-size:30px;font-weight:950;margin-top:4px;color:#234a44;}
+    #financeCheck .meter{height:9px;background:#e4e9e6;border-radius:999px;overflow:hidden;margin-top:10px;}
+    #financeCheck .meter span{display:block;height:100%;background:#c59143;border-radius:999px;}
+    #financeCheck .resultNote{margin-top:16px;padding:15px 16px;border-radius:16px;background:#f2eee5;line-height:1.65;}
+    #financeCheck .abilityGrid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;margin-top:18px;align-items:stretch;}
+    #financeCheck .radarCard,#financeCheck .abilityList,#financeCheck .teacherPanel{border:1px solid #dae3de;border-radius:20px;padding:18px;background:#fbfcfb;}
+    #financeCheck .radarWrap{max-width:430px;margin:0 auto;}
+    #financeCheck .abilityRow{margin:12px 0;}
+    #financeCheck .abilityHead{display:flex;justify-content:space-between;gap:12px;font-weight:800;}
+    #financeCheck .abilityBar{height:9px;background:#e4e9e6;border-radius:999px;overflow:hidden;margin-top:7px;}
+    #financeCheck .abilityBar span{display:block;height:100%;background:#47776c;border-radius:999px;}
+    #financeCheck .resultCard{margin-top:18px;border:1px solid #d8e0dc;border-radius:22px;padding:20px;background:linear-gradient(135deg,#f9f6ef,#eef6f2);}
+    #financeCheck .resultCard h4{font-size:21px;margin:0 0 8px;font-weight:900;}
+    #financeCheck .resultCard p{margin:6px 0;line-height:1.65;color:#53645e;}
+    #financeCheck .teacherPanel{margin-top:18px;}
+    #financeCheck .teacherPanel h4{font-size:19px;margin:0 0 10px;font-weight:900;}
+    #financeCheck .statTable{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px;}
+    #financeCheck .statTable th,#financeCheck .statTable td{padding:9px 8px;border-bottom:1px solid #dde4df;text-align:left;vertical-align:top;}
+    #financeCheck .compareGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px;}
+    #financeCheck .compareBox{border:1px solid #dce4df;border-radius:16px;padding:14px;background:#fff;}
+    #financeCheck .compareBox strong{display:block;font-size:13px;color:#687770;margin-bottom:4px;}
+    #financeCheck .compareBox .delta{font-size:24px;font-weight:950;color:#234a44;}
+    #financeCheck .openAnswers{margin-top:16px;display:grid;gap:10px;}
+    #financeCheck .openAnswers div{padding:12px 14px;background:#fff;border:1px solid #e0e5e1;border-radius:14px;line-height:1.6;}
+    #financeCheck .hidden{display:none!important;}
+    @media (max-width:700px){
+      #financeCheck .wrap{padding:18px 12px 40px;}
+      #financeCheck .hero,#financeCheck .panel{border-radius:20px;padding:19px;}
+      #financeCheck .choiceGrid{grid-template-columns:1fr;}
+      #financeCheck .resultGrid{grid-template-columns:1fr;}
+      #financeCheck .abilityGrid{grid-template-columns:1fr;}
+      #financeCheck .compareGrid{grid-template-columns:1fr;}
+      #financeCheck .actions button{flex:1 1 140px;}
+    }
+  </style>
+
+  <div class="wrap">
+    <section class="hero">
+      <div class="stepTag" style="color:#dbece7">九年級・金融學習起點</div>
+      <h2>💰 我的金融體檢</h2>
+      <p>這不是考試，也不列入成績。請依照你現在真正的想法與經驗回答；不知道也沒關係，今天的結果只是我們這學期的起點。</p>
+      <div class="badges">
+        <span class="badge">約 15～20 分鐘</span>
+        <span class="badge">前後測可共用</span>
+        <span class="badge">不公布知識題答案</span>
+      </div>
+    </section>
+
+    <div class="progressShell" aria-label="作答進度"><div class="progressBar" id="progressBar"></div></div>
+
+    <form id="financeForm">
+      <section class="panel step" data-step="0">
+        <div class="stepTag">STEP 1 / 5</div>
+        <h3>👤 關於你</h3>
+        <p class="lead">方便之後比較學期初與學期末的變化。</p>
+        <div class="field"><label for="className">班級</label><input type="text" id="className" placeholder="例如：九年一班、901、3A" required></div>
+        <div class="field"><label for="seat">座號</label><input type="text" id="seat" placeholder="例如：12、A05" required></div>
+        <div class="field"><label for="stage">這是第幾次金融體檢？</label><select id="stage" required><option value="">請選擇</option><option>學期初｜前測</option><option>學期末｜後測</option></select></div>
+        <div class="error" id="error0">請先完成基本資料。</div>
+        <div class="actions"><span></span><button type="button" class="primary next">開始體檢 →</button></div>
+      </section>
+
+      <section class="panel step hidden" data-step="1">
+        <div class="stepTag">STEP 2 / 5</div>
+        <h3>💳 我的金融生活經驗值</h3>
+        <p class="lead">每題選一個最符合現在自己的狀態：還沒有／有一點／很符合我。</p>
+        <div id="experienceBox"></div>
+        <div class="error" id="error1">還有題目尚未回答。</div>
+        <div class="actions"><button type="button" class="secondary prev">← 上一步</button><button type="button" class="primary next">下一站 →</button></div>
+      </section>
+
+      <section class="panel step hidden" data-step="2">
+        <div class="stepTag">STEP 3 / 5</div>
+        <h3>🎯 如果是你，你會怎麼做？</h3>
+        <p class="lead">請選擇最接近你真正會做的事，不用猜老師希望你選哪一個。</p>
+        <div id="scenarioBox"></div>
+        <div class="error" id="error2">還有情境題尚未回答。</div>
+        <div class="actions"><button type="button" class="secondary prev">← 上一步</button><button type="button" class="primary next">下一站 →</button></div>
+      </section>
+
+      <section class="panel step hidden" data-step="3">
+        <div class="stepTag">STEP 4 / 5</div>
+        <h3>🧠 金融理財知識挑戰</h3>
+        <p class="lead">這一區有正確答案，但不知道沒關係，也不需要查資料。系統只計分，不會公布答案。</p>
+        <div id="knowledgeBox"></div>
+        <div class="error" id="error3">還有知識題尚未回答。</div>
+        <div class="actions"><button type="button" class="secondary prev">← 上一步</button><button type="button" class="primary next">最後一站 →</button></div>
+      </section>
+
+      <section class="panel step hidden" data-step="4">
+        <div class="stepTag">STEP 5 / 5</div>
+        <h3>✍️ 我和錢的關係</h3>
+        <p class="lead">最後三題沒有標準答案。留下現在的想法，期末再回來看看自己改變了多少。</p>
+        <div class="field"><label for="open1">28. 如果現在給你 10,000 元，而且完全由你決定，你會怎麼使用？為什麼？</label><textarea id="open1" required></textarea></div>
+        <div class="field"><label for="open2">29. 你覺得「很會存錢」就等於「很會理財」嗎？為什麼？</label><textarea id="open2" required></textarea></div>
+        <div class="field"><label for="open3">30. 現在的你認為：「會理財的人」最重要的能力是什麼？</label><textarea id="open3" required></textarea></div>
+        <div class="error" id="error4">請完成三個想法題。</div>
+        <div class="actions"><button type="button" class="secondary prev">← 上一步</button><button type="submit" class="primary" id="submitBtn">完成金融體檢</button></div>
+        <div class="syncStatus hidden" id="syncStatus"></div>
+      </section>
+    </form>
+
+    <section class="panel hidden" id="result" aria-live="polite">
+      <div class="stepTag">FINISH</div>
+      <h3>🎉 我的金融起點</h3>
+      <p class="lead" id="resultIntro"></p>
+      <div class="resultGrid">
+        <div class="metric"><div>金融生活經驗</div><div class="num" id="expScore">0 / 24</div><div class="meter"><span id="expMeter"></span></div></div>
+        <div class="metric"><div>情境決策</div><div class="num" id="scenarioScore">0 / 5</div><div class="meter"><span id="scenarioMeter"></span></div></div>
+        <div class="metric"><div>金融知識</div><div class="num" id="knowledgeScore">0 / 10</div><div class="meter"><span id="knowledgeMeter"></span></div></div>
+      </div>
+      <div class="abilityGrid">
+        <div class="radarCard">
+          <strong>五向度能力雷達圖</strong>
+          <div class="radarWrap"><svg id="radarChart" viewBox="0 0 420 360" role="img" aria-label="五向度金融能力雷達圖"></svg></div>
+        </div>
+        <div class="abilityList" id="abilityList"></div>
+      </div>
+      <div class="resultCard" id="personalCard"></div>
+      <div class="resultNote" id="resultNote"></div>
+      <div class="openAnswers" id="openAnswers"></div>
+      <div class="teacherPanel">
+        <h4>🏫 班級統計</h4>
+        <p class="lead">接上 Google Sheet 後，會讀取全班跨裝置作答資料；尚未設定後端網址時，會自動使用本裝置暫存資料預覽。</p>
+        <div id="classStats"></div>
+      </div>
+      <div class="teacherPanel">
+        <h4>📈 前後測比較</h4>
+        <div id="prePostCompare"></div>
+      </div>
+      <div class="actions"><button type="button" class="ghost" id="restart">重新作答</button></div>
+    </section>
+  </div>
+
+  <script>
+    (()=>{
+      const root=document.getElementById('financeCheck');
+      if(root.dataset.ready) return; root.dataset.ready='1';
+      const form=root.querySelector('#financeForm');
+      const steps=[...root.querySelectorAll('.step')];
+      const progress=root.querySelector('#progressBar');
+      let current=0;
+      const GOOGLE_SCRIPT_URL='https://script.google.com/macros/s/AKfycbxwxJ5VmRj4d5W6zWBjgr1rAzrwsKgT4BOct3tTawjGBp_XnbSQg9jL5p6zUml6zt5sXQ/exec';
+
+      const experiences=[
+        '我有記帳或查看消費紀錄的經驗，知道自己的錢大多花到哪裡。',
+        '買東西前，我會考慮自己的預算，並想想這項東西是「需要」還是「想要」。',
+        '我知道儲蓄的重要性，也會為了未來想買的東西或想完成的目標存錢。',
+        '我聽過單利與複利，並大致知道兩者有什麼不同。',
+        '面對借錢給別人或向別人借錢的情況，我知道需要考慮還款、信用及可能的風險。',
+        '我聽過股票、基金、ETF 等投資工具，並知道投資可能賺錢，也可能虧損。',
+        '我平常會主動接觸金融或財經相關資訊，例如新聞、影片、Podcast、書籍或雜誌等。',
+        '我曾經思考過，除了自己消費之外，金錢也可以用來幫助別人或支持公益。',
+        '我曾經思考過「金錢對我來說代表什麼」，以及自己希望和金錢建立什麼樣的關係。',
+        '我聽過資產與負債這兩個名詞，並大致知道它們的意思。',
+        '當看到「保證獲利、穩賺不賠、限時加入」等訊息時，我知道應該先停下來查證，而不是立刻相信。',
+        '我知道不同的理財或投資方式有不同的風險與報酬，不會只看「可以賺多少錢」來做決定。'
+      ];
+      const expBox=root.querySelector('#experienceBox');
+      experiences.forEach((q,i)=>{const fs=document.createElement('fieldset');fs.className='questionCard';fs.innerHTML=`<legend>${i+1}. ${q}</legend><div class="choiceGrid">${[['0','還沒有／不知道'],['1','有一點／偶爾'],['2','很符合我／了解']].map(([v,l])=>`<div class="choice"><input type="radio" id="exp${i}_${v}" name="exp${i}" value="${v}"><label for="exp${i}_${v}">${l}</label></div>`).join('')}</div>`;expBox.appendChild(fs);});
+
+      const scenarios=[
+        {q:'你存了 3,000 元，看到一雙很喜歡的限量球鞋，售價 2,800 元。你現在的鞋子其實還可以穿。你最可能怎麼做？',opts:['馬上買，難得遇到喜歡的','朋友都有，所以我也買','先想這是不是現在真的需要，再決定','先買，以後再重新存錢'],a:2},
+        {q:'如果你突然得到 10,000 元，而且可以自己決定怎麼使用，你比較可能怎麼做？',opts:['買一直很想要的東西','全部存起來，不使用','先規劃一部分儲蓄，再決定其他用途','找報酬最高的投資，把錢全部投入'],a:2},
+        {q:'朋友傳訊息告訴你：「投入 5,000 元，一個月可以拿回 8,000 元，而且保證不會賠！」你最可能怎麼做？',opts:['趕快加入，免得錯過','先投入少一點試試看','問朋友是不是真的有賺','先不匯款，查證平台及資訊來源'],a:3,msg:true},
+        {q:'假設你買的投資商品最近價格一直下跌，你看到帳面上的錢變少了。你第一個比較可能採取的行動是？',opts:['很害怕，立刻全部賣掉','趕快再投入更多，一定會漲回來','先了解下跌原因，再重新評估自己的決定','看朋友怎麼做，我就跟著做'],a:2},
+        {q:'最近班上很多同學都在買某樣流行商品，你也開始很想買。在決定以前，最值得先想的是？',opts:['班上到底有多少人買了？','再不買會不會跟不上流行？','我真的需要嗎？買了會不會影響原本的金錢規劃？','哪裡買最方便？'],a:2}
+      ];
+      const scenarioBox=root.querySelector('#scenarioBox');
+      scenarios.forEach((item,i)=>{const fs=document.createElement('fieldset');fs.className='questionCard scenario';const msg=item.msg?'<div class="message">💬「我最近找到一個超好賺的投資，投入 5,000 元，一個月可以拿回 8,000 元，而且保證不會賠！」</div>':'';fs.innerHTML=`<legend>${13+i}. ${item.q}</legend>${msg}<div class="choiceGrid four">${item.opts.map((o,j)=>`<div class="choice"><input type="radio" id="sc${i}_${j}" name="sc${i}" value="${j}"><label for="sc${i}_${j}">${String.fromCharCode(65+j)}. ${o}</label></div>`).join('')}</div>`;scenarioBox.appendChild(fs);});
+
+      const knowledge=[
+        {q:'物價普遍上漲後，同樣 100 元能買到的東西變少，這種現象最接近？',o:['通貨膨脹','儲蓄','投資','分散風險'],a:0},
+        {q:'一般而言，下列哪個說法比較正確？',o:['報酬越高，風險一定越低','報酬越高，通常可能伴隨較高風險','只要長期投資就一定不會賠錢','銀行以外的投資一定很危險'],a:1},
+        {q:'「不要把所有雞蛋放在同一個籃子」主要是在說？',o:['增加收入','減少消費','分散風險','增加投資次數'],a:2},
+        {q:'購買一家公司的「股票」，最接近下列哪個意思？',o:['把錢借給這家公司','成為這家公司的部分所有人','把錢存在公司','公司保證支付固定利息'],a:1},
+        {q:'「債券」最接近下列哪一種概念？',o:['借錢給發行債券的政府或企業','購買一家公司的部分所有權','把錢存在銀行','購買保險'],a:0},
+        {q:'基金的概念比較接近？',o:['每個人自己選一家公司投資','集合許多人的資金，投資不同的資產','把錢全部存入銀行','保證本金不會損失'],a:1},
+        {q:'保險最主要的功能是？',o:['快速增加財富','保證獲利','分擔特定意外或風險造成的經濟損失','讓存款得到更高利息'],a:2},
+        {q:'如果把所有可以使用的錢都拿去投資，可能產生什麼問題？',o:['投資報酬一定太高','臨時需要用錢時可能沒有足夠的資金','銀行會禁止你投資','投資一定會虧損'],a:1},
+        {q:'下列哪一項最值得提高警覺？',o:['投資有賺有賠，請先了解風險','請先閱讀商品相關資訊','老師推薦的投資商品不代表一定獲利','保證獲利 20%，完全零風險！'],a:3},
+        {q:'小安有 10,000 元，把全部資金投入一家公司股票；小美則把資金分散在不同資產。其他條件相同，下列何者較合理？',o:['小安承受的單一投資風險較集中','小美一定不會賠錢','小安一定賺得比較多','兩人的風險一定完全相同'],a:0}
+      ];
+      const knowledgeBox=root.querySelector('#knowledgeBox');
+      knowledge.forEach((item,i)=>{const fs=document.createElement('fieldset');fs.className='questionCard';fs.innerHTML=`<legend>${18+i}. ${item.q}</legend><div class="choiceGrid four">${item.o.map((o,j)=>`<div class="choice"><input type="radio" id="kn${i}_${j}" name="kn${i}" value="${j}"><label for="kn${i}_${j}">${String.fromCharCode(65+j)}. ${o}</label></div>`).join('')}</div>`;knowledgeBox.appendChild(fs);});
+
+      const deviceRecords=[];
+      function backendReady(){return /^https:\/\/script\.google\.com\/macros\/s\//.test(GOOGLE_SCRIPT_URL);}
+      async function postToBackend(record){
+        if(!backendReady()) return {ok:false,localOnly:true};
+        try{
+          const res=await fetch(GOOGLE_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'submit',record})});
+          const data=await res.json();
+          return data;
+        }catch(err){return {ok:false,error:String(err)};}
+      }
+      async function getBackendReports(className,seat){
+        if(!backendReady()) return null;
+        try{
+          const url=GOOGLE_SCRIPT_URL+'?action=reports&className='+encodeURIComponent(className)+'&seat='+encodeURIComponent(seat)+'&_='+Date.now();
+          const res=await fetch(url);
+          return await res.json();
+        }catch(err){return null;}
+      }
+      function clamp(v,min,max){return Math.max(min,Math.min(max,v));}
+      function pct(v){return Math.round(clamp(v,0,1)*100);}
+      function average(list){return list.length?list.reduce((a,b)=>a+b,0)/list.length:0;}
+      function getAbilityScores(expVals,scenarioVals,knowledgeVals){
+        const consumption=average([expVals[0]/2,expVals[1]/2,scenarioVals[0]===2?1:0,scenarioVals[4]===2?1:0]);
+        const planning=average([expVals[2]/2,scenarioVals[1]===2?1:0,knowledgeVals[7]===1?1:0]);
+        const risk=average([expVals[11]/2,scenarioVals[3]===2?1:0,knowledgeVals[1]===1?1:0,knowledgeVals[2]===2?1:0,knowledgeVals[9]===0?1:0]);
+        const investing=average([expVals[3]/2,expVals[5]/2,expVals[9]/2,knowledgeVals[3]===1?1:0,knowledgeVals[4]===0?1:0,knowledgeVals[5]===1?1:0,knowledgeVals[6]===2?1:0]);
+        const fraud=average([expVals[10]/2,scenarioVals[2]===3?1:0,knowledgeVals[8]===3?1:0]);
+        return [
+          {name:'消費判斷',score:pct(consumption)},
+          {name:'金錢規劃',score:pct(planning)},
+          {name:'風險意識',score:pct(risk)},
+          {name:'投資理解',score:pct(investing)},
+          {name:'防詐警覺',score:pct(fraud)}
+        ];
+      }
+      function drawRadar(items){
+        const svg=root.querySelector('#radarChart');
+        const cx=210,cy=178,maxR=120,n=items.length;
+        const point=(r,i)=>{const a=-Math.PI/2+(Math.PI*2*i/n);return [cx+Math.cos(a)*r,cy+Math.sin(a)*r];};
+        let html='';
+        [0.25,0.5,0.75,1].forEach(level=>{const pts=items.map((_,i)=>point(maxR*level,i).join(',')).join(' ');html+=`<polygon points="${pts}" fill="none" stroke="#d7dfdb" stroke-width="1"/>`;});
+        items.forEach((_,i)=>{const [x,y]=point(maxR,i);html+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#d7dfdb" stroke-width="1"/>`;});
+        const dataPts=items.map((it,i)=>point(maxR*it.score/100,i).join(',')).join(' ');
+        html+=`<polygon points="${dataPts}" fill="rgba(71,119,108,.22)" stroke="#47776c" stroke-width="3"/>`;
+        items.forEach((it,i)=>{const [x,y]=point(maxR*it.score/100,i);html+=`<circle cx="${x}" cy="${y}" r="4.5" fill="#234a44"/>`;const [lx,ly]=point(maxR+38,i);html+=`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="14" font-weight="800" fill="#33453f">${it.name}</text><text x="${lx}" y="${ly+17}" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="#718079">${it.score}%</text>`;});
+        svg.innerHTML=html;
+      }
+      function renderAbilities(items){
+        root.querySelector('#abilityList').innerHTML='<strong>五向度能力</strong>'+items.map(it=>`<div class="abilityRow"><div class="abilityHead"><span>${it.name}</span><span>${it.score}%</span></div><div class="abilityBar"><span style="width:${it.score}%"></span></div></div>`).join('');
+      }
+      function renderPersonalCard(items,knScore){
+        const sorted=[...items].sort((a,b)=>b.score-a.score);const high=sorted[0],low=sorted[sorted.length-1];
+        let title='穩健起步型';
+        if(high.name==='防詐警覺') title='警覺守門型';
+        else if(high.name==='投資理解') title='金融探索型';
+        else if(high.name==='消費判斷') title='理性消費型';
+        else if(high.name==='金錢規劃') title='規劃實踐型';
+        else if(high.name==='風險意識') title='風險觀察型';
+        root.querySelector('#personalCard').innerHTML=`<h4>🪪 個人結果卡｜${title}</h4><p>目前最突出的向度是 <strong>${high.name} ${high.score}%</strong>；最值得繼續累積的是 <strong>${low.name} ${low.score}%</strong>。</p><p>金融知識目前為 <strong>${knScore}/10</strong>。這張卡代表你的學習起點，不是能力排名。</p>`;
+      }
+      function renderClassStats(className){
+        const list=deviceRecords.filter(r=>r.className===className);
+        if(!list.length){root.querySelector('#classStats').innerHTML='<p>目前尚無本班紀錄。</p>';return;}
+        const avgAbilities=[0,1,2,3,4].map(i=>Math.round(average(list.map(r=>r.abilities[i].score))));
+        root.querySelector('#classStats').innerHTML=`<table class="statTable"><thead><tr><th>人數</th><th>生活經驗</th><th>情境</th><th>知識</th></tr></thead><tbody><tr><td>${list.length}</td><td>${average(list.map(r=>r.expScore)).toFixed(1)}/24</td><td>${average(list.map(r=>r.scScore)).toFixed(1)}/5</td><td>${average(list.map(r=>r.knScore)).toFixed(1)}/10</td></tr></tbody></table><table class="statTable"><thead><tr>${['消費判斷','金錢規劃','風險意識','投資理解','防詐警覺'].map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody><tr>${avgAbilities.map(x=>`<td>${x}%</td>`).join('')}</tr></tbody></table>`;
+      }
+      function renderPrePost(className,seat){
+        const mine=deviceRecords.filter(r=>r.className===className&&r.seat===seat);
+        const pre=[...mine].reverse().find(r=>r.stage.includes('前測'));
+        const post=[...mine].reverse().find(r=>r.stage.includes('後測'));
+        if(!(pre&&post)){root.querySelector('#prePostCompare').innerHTML='<p>目前尚未同時完成前測與後測；完成兩次後就會自動顯示進步幅度。</p>';return;}
+        const abilityDelta=post.abilities.map((a,i)=>a.score-pre.abilities[i].score);
+        root.querySelector('#prePostCompare').innerHTML=`<div class="compareGrid"><div class="compareBox"><strong>生活經驗</strong><div class="delta">${post.expScore-pre.expScore>=0?'+':''}${post.expScore-pre.expScore}</div></div><div class="compareBox"><strong>情境決策</strong><div class="delta">${post.scScore-pre.scScore>=0?'+':''}${post.scScore-pre.scScore}</div></div><div class="compareBox"><strong>金融知識</strong><div class="delta">${post.knScore-pre.knScore>=0?'+':''}${post.knScore-pre.knScore}</div></div></div><table class="statTable"><thead><tr><th>向度</th><th>前測</th><th>後測</th><th>變化</th></tr></thead><tbody>${post.abilities.map((a,i)=>`<tr><td>${a.name}</td><td>${pre.abilities[i].score}%</td><td>${a.score}%</td><td>${abilityDelta[i]>=0?'+':''}${abilityDelta[i]}%</td></tr>`).join('')}</tbody></table>`;
+      }
+      function renderBackendClassStats(stats){
+        if(!stats||!stats.count){root.querySelector('#classStats').innerHTML='<p>目前尚無本班紀錄。</p>';return;}
+        root.querySelector('#classStats').innerHTML=`<table class="statTable"><thead><tr><th>人數</th><th>生活經驗</th><th>情境</th><th>知識</th></tr></thead><tbody><tr><td>${stats.count}</td><td>${Number(stats.expAvg).toFixed(1)}/24</td><td>${Number(stats.scAvg).toFixed(1)}/5</td><td>${Number(stats.knAvg).toFixed(1)}/10</td></tr></tbody></table><table class="statTable"><thead><tr>${['消費判斷','金錢規劃','風險意識','投資理解','防詐警覺'].map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody><tr>${stats.abilityAvg.map(x=>`<td>${Math.round(x)}%</td>`).join('')}</tr></tbody></table>`;
+      }
+      function renderBackendCompare(compare){
+        if(!compare||!compare.pre||!compare.post){root.querySelector('#prePostCompare').innerHTML='<p>目前尚未同時完成前測與後測；完成兩次後就會自動顯示進步幅度。</p>';return;}
+        const pre=compare.pre,post=compare.post;
+        root.querySelector('#prePostCompare').innerHTML=`<div class="compareGrid"><div class="compareBox"><strong>生活經驗</strong><div class="delta">${post.expScore-pre.expScore>=0?'+':''}${post.expScore-pre.expScore}</div></div><div class="compareBox"><strong>情境決策</strong><div class="delta">${post.scScore-pre.scScore>=0?'+':''}${post.scScore-pre.scScore}</div></div><div class="compareBox"><strong>金融知識</strong><div class="delta">${post.knScore-pre.knScore>=0?'+':''}${post.knScore-pre.knScore}</div></div></div><table class="statTable"><thead><tr><th>向度</th><th>前測</th><th>後測</th><th>變化</th></tr></thead><tbody>${post.abilities.map((a,i)=>`<tr><td>${a.name}</td><td>${pre.abilities[i].score}%</td><td>${a.score}%</td><td>${a.score-pre.abilities[i].score>=0?'+':''}${a.score-pre.abilities[i].score}%</td></tr>`).join('')}</tbody></table>`;
+      }
+
+      function showStep(index){steps.forEach((s,i)=>s.classList.toggle('hidden',i!==index));current=index;progress.style.width=((index+1)/5*100)+'%';steps[index].scrollIntoView({behavior:'smooth',block:'start'});}
+      function complete(index){
+        if(index===0) return root.querySelector('#className').value&&root.querySelector('#seat').value&&root.querySelector('#stage').value;
+        if(index===1) return experiences.every((_,i)=>form.querySelector(`input[name="exp${i}"]:checked`));
+        if(index===2) return scenarios.every((_,i)=>form.querySelector(`input[name="sc${i}"]:checked`));
+        if(index===3) return knowledge.every((_,i)=>form.querySelector(`input[name="kn${i}"]:checked`));
+        if(index===4) return ['open1','open2','open3'].every(id=>root.querySelector('#'+id).value.trim().length>0);
+        return true;
+      }
+      root.querySelectorAll('.next').forEach(btn=>btn.addEventListener('click',()=>{const err=root.querySelector('#error'+current);if(!complete(current)){err.style.display='block';return;}err.style.display='none';showStep(Math.min(4,current+1));}));
+      root.querySelectorAll('.prev').forEach(btn=>btn.addEventListener('click',()=>showStep(Math.max(0,current-1))));
+
+      form.addEventListener('submit',async e=>{
+        e.preventDefault();
+        if(!complete(4)){root.querySelector('#error4').style.display='block';return;}
+        const submitBtn=root.querySelector('#submitBtn');
+        const syncStatus=root.querySelector('#syncStatus');
+        submitBtn.disabled=true;submitBtn.textContent='正在儲存…';syncStatus.classList.remove('hidden');syncStatus.textContent='正在計算結果並儲存資料…';
+        const expScore=experiences.reduce((s,_,i)=>s+Number(form.querySelector(`input[name="exp${i}"]:checked`).value),0);
+        const scScore=scenarios.reduce((s,item,i)=>s+(Number(form.querySelector(`input[name="sc${i}"]:checked`).value)===item.a?1:0),0);
+        const knScore=knowledge.reduce((s,item,i)=>s+(Number(form.querySelector(`input[name="kn${i}"]:checked`).value)===item.a?1:0),0);
+        const expVals=experiences.map((_,i)=>Number(form.querySelector(`input[name="exp${i}"]:checked`).value));
+        const scenarioVals=scenarios.map((_,i)=>Number(form.querySelector(`input[name="sc${i}"]:checked`).value));
+        const knowledgeVals=knowledge.map((_,i)=>Number(form.querySelector(`input[name="kn${i}"]:checked`).value));
+        const abilities=getAbilityScores(expVals,scenarioVals,knowledgeVals);
+        const className=root.querySelector('#className').value.trim();
+        const seat=root.querySelector('#seat').value.trim();
+        const stage=root.querySelector('#stage').value;
+        const record={timestamp:new Date().toISOString(),className,seat,stage,expScore,scScore,knScore,abilities,expVals,scenarioVals,knowledgeVals,open1:root.querySelector('#open1').value.trim(),open2:root.querySelector('#open2').value.trim(),open3:root.querySelector('#open3').value.trim()};
+        deviceRecords.push(record);
+        const saved=await postToBackend(record);
+        form.classList.add('hidden');
+        progress.style.width='100%';
+        const result=root.querySelector('#result');result.classList.remove('hidden');
+        root.querySelector('#expScore').textContent=`${expScore} / 24`;root.querySelector('#scenarioScore').textContent=`${scScore} / 5`;root.querySelector('#knowledgeScore').textContent=`${knScore} / 10`;
+        root.querySelector('#expMeter').style.width=(expScore/24*100)+'%';root.querySelector('#scenarioMeter').style.width=(scScore/5*100)+'%';root.querySelector('#knowledgeMeter').style.width=(knScore/10*100)+'%';
+        root.querySelector('#resultIntro').textContent=`${root.querySelector('#className').value} 班 ${root.querySelector('#seat').value} 號｜${root.querySelector('#stage').value}`;
+        drawRadar(abilities);
+        renderAbilities(abilities);
+        renderPersonalCard(abilities,knScore);
+        renderClassStats(className);
+        renderPrePost(className,seat);
+        if(saved&&saved.ok){
+          syncStatus.textContent='✓ 已安全儲存到老師的 Google Sheet。';
+          const reports=await getBackendReports(className,seat);
+          if(reports&&reports.ok){renderBackendClassStats(reports.classStats);renderBackendCompare(reports.compare);}
+        }else if(saved&&saved.localOnly){syncStatus.textContent='目前為預覽模式：請將 Google Apps Script 網頁應用程式網址貼入程式中的 GOOGLE_SCRIPT_URL，即可跨裝置寫入 Google Sheet。';}
+        else{syncStatus.textContent='結果已顯示，但這次未能同步到 Google Sheet；請檢查網路或後端部署設定。';}
+        let note='這份結果不是你的「理財能力排名」，而是目前的金融起點。';
+        if(knScore<=4) note+=' 目前有不少金融概念還很陌生，正好可以在這學期慢慢建立。'; else if(knScore<=7) note+=' 你已經掌握一些基本概念，接下來可以加強風險判斷與實際應用。'; else note+=' 你目前的金融基礎概念相當完整，接下來可以挑戰更真實的決策情境。';
+        root.querySelector('#resultNote').textContent=note;
+        const oa=root.querySelector('#openAnswers');oa.innerHTML=`<div><strong>💬 10,000 元怎麼用：</strong><br>${escapeHtml(root.querySelector('#open1').value)}</div><div><strong>💬 會存錢＝會理財嗎：</strong><br>${escapeHtml(root.querySelector('#open2').value)}</div><div><strong>💬 我認為最重要的理財能力：</strong><br>${escapeHtml(root.querySelector('#open3').value)}</div>`;
+        submitBtn.disabled=false;submitBtn.textContent='完成金融體檢';
+        result.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+      function escapeHtml(str){return str.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+      root.querySelector('#restart').addEventListener('click',()=>{form.reset();root.querySelector('#result').classList.add('hidden');form.classList.remove('hidden');showStep(0);});
+      showStep(0);
+    })();
+  </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css">
+  <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
+</helmet>
+
+<div style="background:linear-gradient(180deg, #a9cbea 0%, #c9d5ef 24%, #e0cbe6 50%, #f0c9d8 75%, #ddc6e6 100%); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
+  <div style="max-width:1120px; margin:0 auto; padding:var(--space-6) var(--space-4);">
+    <a href="家政金融網頁.dc.html" style="font-size:14px; color:var(--color-accent-700); text-decoration:none;">← 回首頁</a>
+  </div>
+
+  <header style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
+    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4); flex-wrap:wrap;">
+      <span style="font-size:36px; flex:none;">💰</span>
+      <h1 style="margin:0; min-width:0; white-space:nowrap; font-size:38px; font-weight:800;">消費與管理</h1>
+    </div>
+    <p style="max-width:680px; opacity:0.85; font-size:18px; font-weight:700;">理財規劃、理性消費、永續生活</p>
+  </header>
+
+  <section style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
+    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-2); flex-wrap:wrap;">
+      <span style="font-size:26px; flex:none;">📊</span>
+      <h2 style="margin:0; min-width:0; white-space:nowrap; font-size:28px; font-weight:800;">金融教育</h2>
+    </div>
+    <p style="max-width:760px; opacity:0.8; font-size:15px; line-height:1.7; margin-bottom:var(--space-6);">依使用目的分成主題課程、互動挑戰、教材資源與課程案例。活動不再獨立分類，避免與互動工具、課程實踐重複。</p>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px,1fr)); gap:var(--space-3); margin-bottom:var(--space-6);">
+      <sc-for list="{{ sections }}" as="item" hint-placeholder-count="4">
+        <button onClick="{{ item.onSelect }}" style="{{ item.style }}">
+          <span style="font-size:30px; line-height:1;">{{ item.icon }}</span>
+          <span style="font-size:18px; font-weight:800;">{{ item.label }}</span>
+          <span style="font-size:13px; line-height:1.5; opacity:.78; font-weight:600;">{{ item.desc }}</span>
+        </button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ isCourses }}" hint-placeholder-val="{{ true }}">
+      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:rgba(255,255,255,.88); border:1px solid rgba(255,255,255,.92); backdrop-filter:blur(6px);">
+        <span class="card-kicker">01｜主題課程</span>
+        <h3 class="card-title" style="margin-top:4px; font-size:24px; font-weight:800;">金融教育要學什麼？</h3>
+        <p class="card-body" style="opacity:.82; font-size:15px; font-weight:600; line-height:1.7; margin-bottom:var(--space-4);">保留原本六大金融主題，這一區只負責「學習內容與主題脈絡」；教材下載另外集中到「教材資源」。</p>
+
+        <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-4);">
+          <sc-for list="{{ topics }}" as="topic" hint-placeholder-count="6">
+            <button onClick="{{ topic.onSelect }}" style="{{ topic.style }}">{{ topic.label }}</button>
+          </sc-for>
+        </div>
+
+        <div style="padding:var(--space-4); border-radius:18px; background:rgba(245,247,255,.9); border:1px solid rgba(120,120,150,.12);">
+          <span class="card-kicker">{{ activeTopic.label }}</span>
+          <h4 style="margin:5px 0 8px; font-size:21px; font-weight:800;">{{ activeTopic.title }}</h4>
+          <p style="opacity:.82; font-size:15px; font-weight:600; line-height:1.75; margin:0;">{{ activeTopic.desc }}</p>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isChallenges }}">
+      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:rgba(255,255,255,.88); border:1px solid rgba(255,255,255,.92); backdrop-filter:blur(6px);">
+        <span class="card-kicker">02｜互動挑戰</span>
+        <h3 style="margin:4px 0 8px; font-size:24px; font-weight:800;">操作、模擬、做決策</h3>
+        <p style="opacity:.82; font-size:15px; font-weight:600; line-height:1.7; max-width:760px;">把原本「教學活動」中需要學生操作或參與的內容，統一收在這裡。可以讓學生個別使用，也可以由教師投影帶領全班進行。</p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:var(--space-3); margin-top:var(--space-4);">
+          <div style="padding:var(--space-4); border-radius:18px; background:rgba(245,247,255,.9); border:1px solid rgba(120,120,150,.14);">
+            <div style="font-size:28px;">🩺</div>
+            <h4 style="margin:8px 0 6px; font-size:19px; font-weight:800;">金融體檢</h4>
+            <p style="font-size:14px; opacity:.78; line-height:1.6;">30題互動式自我檢視，產出五向度能力雷達圖與個人結果卡，可作為前測與後測。</p>
+            <a href="金融體檢.html" class="btn btn-secondary" style="margin-top:var(--space-3); justify-content:space-between;">開始使用 <span>→</span></a>
+          </div>
+
+          <div style="padding:var(--space-4); border-radius:18px; background:rgba(245,247,255,.9); border:1px solid rgba(120,120,150,.14);">
+            <div style="font-size:28px;">⚖️</div>
+            <h4 style="margin:8px 0 6px; font-size:19px; font-weight:800;">金錢價值光譜</h4>
+            <p style="font-size:14px; opacity:.78; line-height:1.6;">價值澄清、全班即時光譜，讓學生表態並看見全班的金錢價值分布。</p>
+            <a href="https://script.google.com/macros/s/AKfycbzRIzgiDWC1zde5I4F-nJIcZWsM8szsrGn_ui44XIcpAanmWbA1b4Q-_IJXJy_pbkpY/exec" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="margin-top:var(--space-3); justify-content:space-between;">開始使用 <span>↗</span></a>
+          </div>
+
+          <div style="padding:var(--space-4); border-radius:18px; border:1px dashed rgba(90,90,120,.28); background:rgba(255,255,255,.52); display:flex; flex-direction:column; justify-content:center; min-height:180px; text-align:center;">
+            <div style="font-size:30px;">＋</div>
+            <div style="font-size:16px; font-weight:800; margin-top:6px;">更多互動挑戰</div>
+            <div style="font-size:13px; opacity:.68; margin-top:5px; line-height:1.6;">之後可加入預算模擬、投資配置、防詐情境等活動</div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isResources }}">
+      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:rgba(255,255,255,.88); border:1px solid rgba(255,255,255,.92); backdrop-filter:blur(6px);">
+        <span class="card-kicker">03｜教材資源</span>
+        <h3 style="margin:4px 0 8px; font-size:24px; font-weight:800;">老師要找教材，從這裡進入</h3>
+        <p style="opacity:.82; font-size:15px; font-weight:600; line-height:1.7; max-width:760px;">原本散在「金融核心知識」裡的官方教師手冊與學生手冊，集中到這一區，之後也可加入學習單、任務卡、牌卡與簡報。</p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:var(--space-3); margin-top:var(--space-4);">
+          <sc-for list="{{ resourceGroups }}" as="group" hint-placeholder-count="6">
+            <div style="padding:var(--space-4); border-radius:18px; background:rgba(245,247,255,.9); border:1px solid rgba(120,120,150,.14); display:flex; flex-direction:column; gap:10px;">
+              <div style="font-size:18px; font-weight:800;">{{ group.label }}</div>
+              <div style="font-size:13px; opacity:.72; line-height:1.55;">{{ group.desc }}</div>
+              <a href="{{ group.teacherLink }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="justify-content:space-between; white-space:normal; text-align:left;">教師手冊 <span>↗</span></a>
+              <a href="{{ group.studentLink }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="justify-content:space-between; white-space:normal; text-align:left;">學生手冊 <span>↗</span></a>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCases }}">
+      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:rgba(255,255,255,.88); border:1px solid rgba(255,255,255,.92); backdrop-filter:blur(6px);">
+        <span class="card-kicker">04｜課程案例</span>
+        <h3 style="margin:4px 0 8px; font-size:24px; font-weight:800;">一整套課程怎麼教？</h3>
+        <p style="opacity:.82; font-size:15px; font-weight:600; line-height:1.7; max-width:760px;">這裡只放完整的教學案例：包含課程目標、節次流程、搭配的互動挑戰、教材與評量方式，不再重複收錄單一活動或工具。</p>
+        <div style="margin-top:var(--space-4); padding:var(--space-6); border-radius:18px; border:1px dashed rgba(90,90,120,.28); background:rgba(255,255,255,.52); text-align:center;">
+          <div style="font-size:34px; margin-bottom:8px;">🌟</div>
+          <div style="font-size:18px; font-weight:800;">完整課程案例整理中</div>
+          <div style="font-size:14px; opacity:.7; margin-top:6px; line-height:1.6;">之後可將一套完整教學設計整理成案例頁，再連回同一份互動挑戰與教材資源。</div>
+        </div>
+      </div>
+    </sc-if>
+  </section>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { section: 'courses', topic: 'planning' };
+
+  renderVals() {
+    const sectionRaw = [
+      { id: 'courses', icon: '📚', label: '主題課程', desc: '依主題建立金融知識與學習脈絡' },
+      { id: 'challenges', icon: '🎮', label: '互動挑戰', desc: '操作、模擬、判斷與課堂體驗' },
+      { id: 'resources', icon: '📂', label: '教材資源', desc: '手冊、學習單、牌卡與教學素材' },
+      { id: 'cases', icon: '🌟', label: '課程案例', desc: '完整課程流程與實際教學設計' }
+    ];
+
+    const section = this.state.section;
+    const sections = sectionRaw.map(item => {
+      const active = item.id === section;
+      return {
+        ...item,
+        onSelect: () => this.setState({ section: item.id }),
+        style: `min-height:150px; padding:20px 18px; border-radius:20px; border:${active ? '2px solid var(--color-accent-600)' : '1px solid rgba(255,255,255,.92)'}; background:${active ? 'rgba(255,255,255,.94)' : 'rgba(255,255,255,.68)'}; color:var(--color-text); cursor:pointer; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:10px; text-align:left; box-shadow:${active ? '0 8px 24px rgba(70,70,100,.12)' : 'none'}; transition:all .2s ease;`
+      };
+    });
+
+    const topicRaw = [
+      { id: 'planning', label: '金錢規劃', title: '金錢規劃', desc: '從收入、支出、預算與儲蓄開始，練習在有限資源中做出合適的金錢安排。' },
+      { id: 'credit', label: '借貸與信用', title: '借貸與信用', desc: '理解借貸、利息與信用的基本概念，建立負責任使用信用與借款的觀念。' },
+      { id: 'insurance', label: '保險與風險管理', title: '保險與風險管理', desc: '辨識生活中的風險，了解保險與風險管理在財務保障中的作用。' },
+      { id: 'invest', label: '理財投資', title: '理財投資', desc: '認識常見理財與投資工具，理解風險、報酬與分散配置的基本概念。' },
+      { id: 'protection', label: '金融消費保護', title: '金融消費保護', desc: '認識金融消費者的權益、契約與申訴觀念，在使用金融服務時保護自己。' },
+      { id: 'fraud', label: '金融防詐', title: '金融防詐', desc: '辨識常見金融詐騙警訊，練習查證資訊、停看聽與安全決策。' }
+    ];
+
+    const activeTopicId = this.state.topic;
+    const topics = topicRaw.map(t => {
+      const active = t.id === activeTopicId;
+      return {
+        ...t,
+        onSelect: () => this.setState({ topic: t.id }),
+        style: `padding:9px 16px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:15px; font-weight:700; cursor:pointer; white-space:nowrap; background:${active ? 'var(--color-accent-600)' : 'var(--color-accent-2-100)'}; color:${active ? 'var(--color-bg)' : 'var(--color-text)'};`
+      };
+    });
+
+    const activeTopic = topicRaw.find(t => t.id === activeTopicId) || topicRaw[0];
+
+    const resourceGroups = [
+      {
+        label: '金錢規劃',
+        desc: '官方金融知識養成教材',
+        teacherLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250200000000000&type=Doc&PKID=93c94548-81f2-4d5b-823e-37f314601d8e',
+        studentLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250200000000000&type=Doc&PKID=93c94548-81f2-4d5b-823e-37f314601d8e'
+      },
+      {
+        label: '借貸與信用',
+        desc: '官方金融知識養成教材',
+        teacherLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250300000000000',
+        studentLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250300000000000'
+      },
+      {
+        label: '保險與風險管理',
+        desc: '官方金融知識養成教材',
+        teacherLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250400000000000',
+        studentLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250400000000000'
+      },
+      {
+        label: '理財投資',
+        desc: '官方金融知識養成教材',
+        teacherLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250500000000000',
+        studentLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250500000000000'
+      },
+      {
+        label: '金融消費保護',
+        desc: '官方金融知識養成教材',
+        teacherLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250600000000000&type=Doc&PKID=963bd33d-71bb-4788-aab5-9c0c8cf0f60d',
+        studentLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250600000000000&type=Doc&PKID=963bd33d-71bb-4788-aab5-9c0c8cf0f60d'
+      },
+      {
+        label: '金融防詐',
+        desc: '官方金融知識養成教材',
+        teacherLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010270101000000000',
+        studentLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010270101000000000'
+      }
+    ];
+
+    return {
+      sections,
+      topics,
+      activeTopic,
+      resourceGroups,
+      isCourses: section === 'courses',
+      isChallenges: section === 'challenges',
+      isResources: section === 'resources',
+      isCases: section === 'cases'
+    };
+  }
+}
+
+</script>
+</body>
+</html>

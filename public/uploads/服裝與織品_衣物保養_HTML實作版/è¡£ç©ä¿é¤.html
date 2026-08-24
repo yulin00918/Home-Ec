@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>衣物保養｜服裝與織品</title>
+<style>
+:root{--ink:#263248;--muted:#657085;--blue:#7fa9d8;--lav:#b5a6d9;--pink:#e7b7c9;--paper:rgba(255,255,255,.92);--line:#dbe3ef;--good:#2f7d5b;--warn:#a85c31;--shadow:0 14px 38px rgba(67,75,105,.12)}
+*{box-sizing:border-box} body{margin:0;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:linear-gradient(180deg,#b9d3ee 0%,#d9dff2 34%,#ead6e9 68%,#e6d6ef 100%);min-height:100vh}
+a{color:inherit}.wrap{max-width:1120px;margin:auto;padding:28px 20px 72px}.toplink{display:inline-block;text-decoration:none;font-weight:700;color:#50647f;margin-bottom:18px}.hero{padding:12px 0 24px}.hero h1{font-size:40px;margin:0 0 8px}.hero p{font-size:18px;font-weight:700;margin:0;color:#46566f}.panel{background:var(--paper);border:1px solid rgba(255,255,255,.9);border-radius:24px;box-shadow:var(--shadow);padding:26px;margin-top:18px}.eyebrow{font-size:13px;font-weight:900;letter-spacing:.08em;color:#6f70a8}.section-title{font-size:28px;margin:6px 0 8px}.lead{color:var(--muted);line-height:1.8;margin:0 0 18px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.unit-card{border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px;text-align:left;cursor:pointer;transition:.18s;min-height:150px}.unit-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(74,83,114,.12)}.unit-card .icon{font-size:30px}.unit-card h3{margin:8px 0 5px;font-size:18px}.unit-card p{margin:0;color:var(--muted);line-height:1.55;font-size:14px}.unit-card.done{outline:2px solid #7fb99d}.unit-card.active{outline:3px solid #7d85c4}.hidden{display:none!important}.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.tab{border:0;border-radius:999px;padding:10px 16px;background:#eef2f8;font-weight:800;cursor:pointer}.tab.active{background:#6f7fb8;color:white}.label-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.label-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px;display:flex;gap:12px;align-items:center;min-height:112px}.label-card img{width:76px;height:76px;object-fit:contain}.label-card b{display:block;margin-bottom:4px}.label-card small{color:var(--muted);line-height:1.5}.callout{background:#f4f1fb;border-radius:16px;padding:15px 17px;margin-top:14px;line-height:1.7}.btn{border:0;border-radius:13px;padding:11px 17px;font-weight:850;cursor:pointer;background:#6678b5;color:white}.btn.secondary{background:#eef2f8;color:#43506b}.btn:disabled{opacity:.45;cursor:not-allowed}.quiz{max-width:760px;margin:12px auto}.qcount{font-size:13px;font-weight:900;color:#777fa0}.qimg{display:block;max-width:180px;max-height:180px;object-fit:contain;margin:15px auto;background:white;border-radius:16px;padding:8px;border:1px solid var(--line)}.question{font-size:22px;font-weight:900;text-align:center;margin:10px 0 16px}.options{display:grid;gap:10px}.option{border:1px solid var(--line);border-radius:14px;background:#fff;padding:13px 15px;font-size:16px;text-align:left;cursor:pointer}.option.correct{border-color:#72ae91;background:#edf8f2}.option.wrong{border-color:#d8957a;background:#fff2ed}.feedback{border-radius:14px;padding:13px 15px;margin-top:12px;line-height:1.65}.feedback.good{background:#edf8f2;color:#245f45}.feedback.bad{background:#fff3ed;color:#854c31}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.progress{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:14px 0}.progress span{font-size:13px;font-weight:800;background:#eef2f8;padding:7px 10px;border-radius:999px}.progress span.on{background:#dfe5ff;color:#4f5d99}.task-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.task{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}.task h4{margin:0 0 10px}.choices{display:flex;gap:8px;flex-wrap:wrap}.choice{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;font-weight:700}.choice.selected{background:#e3e8fb;border-color:#7a86bd}.checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.check-item{background:#fff;border:1px solid var(--line);padding:14px;border-radius:14px;cursor:pointer}.check-item.hit{background:#edf8f2;border-color:#7fb99d}.laundry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.laundry{border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px;text-align:center}.laundry .big{font-size:34px}.stain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stain{background:#fff;border:1px solid var(--line);border-radius:15px;padding:14px;text-align:center}.stain .big{font-size:30px}.safety-wrap{position:relative;max-width:1000px;margin:auto}.safety-wrap img{width:100%;border-radius:18px;display:block}.hotspot{position:absolute;border:2px dashed transparent;background:transparent;border-radius:20px;cursor:pointer}.hotspot.found{border-color:#2f7d5b;background:rgba(47,125,91,.16)}.hotspot::after{content:"✓";display:none;position:absolute;right:-8px;top:-12px;width:30px;height:30px;border-radius:50%;background:#2f7d5b;color:white;align-items:center;justify-content:center;font-weight:900}.hotspot.found::after{display:flex}.safe-count{text-align:center;font-weight:900;margin:12px}.sequence{display:grid;gap:9px;max-width:620px;margin:auto}.seq-item{background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px 14px;cursor:pointer;font-weight:800}.seq-item.picked{background:#e8ecfb;border-color:#7d88bf}.ability-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.ability{background:white;border:1px solid var(--line);border-radius:16px;padding:16px;text-align:center}.ability .icon{font-size:30px}.footer-res{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.resource{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;text-decoration:none}.resource b{display:block;margin-bottom:4px}.resource small{color:var(--muted)}
+@media(max-width:850px){.grid4,.ability-grid{grid-template-columns:repeat(2,1fr)}.label-grid,.laundry-grid,.stain-grid,.footer-res{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.hero h1{font-size:32px}.grid4,.ability-grid,.label-grid,.task-grid,.checklist,.laundry-grid,.stain-grid,.footer-res{grid-template-columns:1fr}.panel{padding:18px}.section-title{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="toplink" href="服裝與織品_衣物保養整合版.dc.html">← 回服裝與織品</a>
+<header class="hero"><h1>🧺 衣物保養</h1><p>會看、會洗、會處理，衣服才能穿得更久。</p></header>
+
+<section class="panel" id="home">
+<div class="eyebrow">衣物保養，要學什麼？</div><h2 class="section-title">把衣服照顧好，是一種生活能力</h2>
+<div class="grid4">
+<button class="unit-card" data-unit="label"><div class="icon">🏷️</div><h3>看得懂｜洗標解碼</h3><p>衣服上的符號，在告訴我什麼？</p></button>
+<button class="unit-card" data-unit="wash"><div class="icon">🫧</div><h3>洗得對｜正確洗滌</h3><p>衣服怎麼洗，才不會越洗越糟？</p></button>
+<button class="unit-card" data-unit="stain"><div class="icon">🧼</div><h3>救得回｜污漬處理</h3><p>衣服弄髒了，怎麼救？</p></button>
+<button class="unit-card" data-unit="iron"><div class="icon">♨️</div><h3>燙得好｜衣物整燙</h3><p>衣服皺了，怎麼燙才安全？</p></button>
+</div>
+</section>
+
+<section class="panel hidden" id="unit-label">
+<div class="eyebrow">🏷️ 看得懂</div><h2 class="section-title">洗標解碼</h2><p class="lead">衣服也有自己的「使用說明書」。洗之前、曬之前、燙之前，先看一眼洗標，就能知道這件衣服適合怎麼照顧。</p>
+<div class="progress"><span class="on">認識洗標</span><span>彩色挑戰</span><span>黑白挑戰</span><span>衣物任務</span></div>
+<div id="labelLearn">
+<h3>🔍 先看外形，不用急著背</h3><p class="lead">洗標看起來很多，其實可以先從外形判斷它在說什麼。</p>
+<div class="tabs" id="labelTabs"></div><div id="labelCards" class="label-grid"></div><div id="labelTip" class="callout"></div>
+<div class="row" style="margin-top:18px"><button class="btn" id="startColorQuiz">開始彩色洗標挑戰 →</button></div>
+</div>
+<div id="colorQuiz" class="hidden quiz"></div><div id="bwQuiz" class="hidden quiz"></div><div id="careTask" class="hidden"></div>
+</section>
+
+<section class="panel hidden" id="unit-wash">
+<div class="eyebrow">🫧 洗得對</div><h2 class="section-title">衣服怎麼洗，才不會越洗越糟？</h2><p class="lead">看懂洗標了，衣服就可以全部丟進洗衣機嗎？等等，洗之前還有幾件事情要做。</p>
+<h3>① 洗之前，先檢查</h3><p class="lead">點出洗衣前應該注意的四件事。</p><div class="checklist" id="prewashChecklist"></div><div id="prewashMsg" class="callout hidden"></div>
+<h3 style="margin-top:24px">② 洗衣籃分類任務</h3><div class="laundry-grid" id="laundryGrid"></div>
+<div class="callout"><b>🫧 洗劑與洗程</b><br>洗衣精不是越多越乾淨；依產品標示、衣物量與髒污程度使用適量洗劑。不同衣物也不一定適合同一個洗程，需要時回頭看洗標。</div>
+<div class="callout"><b>🧺 洗衣準備完成！</b><br>不是把衣服丟進洗衣機就叫會洗，會判斷才是真的會洗。</div>
+</section>
+
+<section class="panel hidden" id="unit-stain">
+<div class="eyebrow">🧼 救得回</div><h2 class="section-title">衣服弄髒了，怎麼救？</h2><p class="lead">等等！先別用力搓。牛奶、果汁、油漬、原子筆，看起來都是「衣服髒了」，處理方式卻不一定相同。</p>
+<h3>🔎 六大污漬嫌疑犯</h3><div class="stain-grid" id="stainGrid"></div>
+<h3 style="margin-top:24px">🚨 哪裡做錯了？</h3><div id="stainScenarios" class="task-grid"></div>
+<div class="callout"><b>🧼 污漬急救 4 原則</b><br><b>快</b>｜儘早處理　<b>看</b>｜看材質與洗標　<b>判</b>｜判斷污漬種類　<b>試</b>｜依產品標示操作，必要時先在不明顯處確認。</div>
+</section>
+
+<section class="panel hidden" id="unit-iron">
+<div class="eyebrow">♨️ 燙得好</div><h2 class="section-title">衣服皺了，怎麼燙才安全？</h2><p class="lead">衣服洗乾淨、晾乾了，卻皺巴巴的。拿起熨斗就直接燙嗎？先確認衣物，再確認環境，才能安全開始。</p>
+<div class="task-grid">
+<div class="task"><h4>🏷️ 先看洗標</h4><p>先確認衣物是否可以熨燙，以及適合的溫度。</p></div>
+<div class="task"><h4>🌡️ 溫度不是越高越好</h4><p>不是所有衣服都能使用相同的熨燙溫度，依洗標選擇適合的溫度。</p></div>
+</div>
+<h3 style="margin-top:24px">🛡️ 熨燙安全檢查</h3><p class="lead">這個熨燙空間藏了 4 個危險，你找得到嗎？</p>
+<div class="safety-wrap"><img src="assets/care/ironing-safety.png" alt="熨燙安全找碴情境圖">
+<button class="hotspot" data-risk="hand" style="left:20%;top:29%;width:11%;height:28%" aria-label="手靠近高溫底板"></button>
+<button class="hotspot" data-risk="cord" style="left:39%;top:44%;width:29%;height:31%" aria-label="電線橫跨走道"></button>
+<button class="hotspot" data-risk="iron" style="left:75%;top:37%;width:16%;height:23%" aria-label="熨斗平放在衣物上"></button>
+<button class="hotspot" data-risk="water" style="left:77%;top:73%;width:13%;height:22%" aria-label="水杯靠近用電區"></button>
+</div><div class="safe-count" id="safeCount">已找到 0 / 4</div><div id="safeFeedback" class="callout">點圖片中的危險位置。</div>
+<h3 style="margin-top:24px">👕 基本熨燙技巧</h3><div class="task-grid"><div class="task"><h4>① 先整平</h4><p>把衣物攤平、整理好，再開始熨燙。</p></div><div class="task"><h4>② 分區處理</h4><p>小部位先處理，再處理較大的衣身。</p></div><div class="task"><h4>③ 持續移動</h4><p>熨斗不要長時間停留在同一位置。</p></div></div>
+<h3 style="margin-top:24px">👔 最後任務｜明天要穿的制服皺了！</h3><p class="lead">依正確順序點選五個步驟。</p><div class="sequence" id="ironSequence"></div><div id="seqMsg" class="callout hidden"></div>
+</section>
+
+<section class="panel" id="summary">
+<div class="eyebrow">完成後，你會帶走什麼？</div><h2 class="section-title">🧺 衣物保養力 GET！</h2>
+<div class="ability-grid"><div class="ability"><div class="icon">🏷️</div><b>我會看</b><p>看懂洗標。</p></div><div class="ability"><div class="icon">🫧</div><b>我會洗</b><p>洗前會檢查與分類。</p></div><div class="ability"><div class="icon">🧼</div><b>我會救</b><p>遇到污漬先判斷再處理。</p></div><div class="ability"><div class="icon">♨️</div><b>我會燙</b><p>依洗標安全整燙。</p></div></div>
+<div class="callout" style="text-align:center;font-size:20px;font-weight:900">衣服穿得久，不只是因為品質好，<br>也和我們怎麼照顧它有關。</div>
+<h3 style="margin-top:24px">📚 延伸學習</h3><div class="footer-res"><a class="resource" target="_blank" rel="noopener" href="https://jibaoviewer.com/project/6191b0579c16baa70a1810fe"><b>還我乾淨漂漂衣</b><small>洗標、洗滌與衣物照顧</small></a><a class="resource" target="_blank" rel="noopener" href="https://jibaoviewer.com/project/589acb29c66eaca73d43cf3f"><b>六大類污垢清洗法</b><small>污漬分類與處理概念</small></a><a class="resource" target="_blank" rel="noopener" href="https://jibaoviewer.com/project/5ab46ce58274a5537f005d54"><b>衣物熨燙技巧</b><small>整燙技巧延伸學習</small></a></div>
+</section>
+</div>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const done=JSON.parse(localStorage.getItem('careDone')||'{}');
+function saveDone(k){done[k]=true;localStorage.setItem('careDone',JSON.stringify(done));$$('.unit-card').forEach(b=>b.classList.toggle('done',!!done[b.dataset.unit]));}
+$$('.unit-card').forEach(b=>{b.classList.toggle('done',!!done[b.dataset.unit]);b.onclick=()=>{ $$('.unit-card').forEach(x=>x.classList.remove('active'));b.classList.add('active');$$('[id^="unit-"]').forEach(x=>x.classList.add('hidden'));$('#unit-'+b.dataset.unit).classList.remove('hidden');$('#unit-'+b.dataset.unit).scrollIntoView({behavior:'smooth',block:'start'});};});
+
+const categories={
+wash:{label:'🩵 水洗｜怎麼洗？',tip:'💡 水槽和「水洗」有關；數字是在提醒最高水溫；看到 × 就要特別注意不可進行這項處理。',items:[['wash_general_color.png','一般水洗','可使用一般水洗方式。'],['wash_60_color.png','最高水溫 60°C','水洗時，水溫不得超過攝氏 60 度。'],['wash_40_gentle_color.png','40°C｜較溫和洗程','最高 40°C，並使用較溫和的洗程。'],['wash_40_very_gentle_color.png','40°C｜更溫和洗程','最高 40°C，並使用更溫和的洗程。'],['wash_hand_color.png','手洗','以手洗滌。'],['wash_no_color.png','不可水洗','不可使用水洗方式處理。']]},
+bleach:{label:'🧡 漂白｜能不能漂？',tip:'💡 看到三角形，先想到「漂白」。',items:[['bleach_general_color.png','可漂白','可使用漂白方式。'],['bleach_no_chlorine_color.png','漂白有限制','不可使用含氯漂白劑，依洗標使用適合的方式。'],['bleach_no_color.png','不可漂白','不可使用漂白方式。']]},
+tumble:{label:'🩷 烘乾｜能不能烘？',tip:'💡 正方形裡有圓形，和「烘乾」有關。',items:[['tumble_general_color.png','可烘乾','可以使用烘衣機。'],['tumble_low_color.png','較低溫烘乾','可以烘乾，但要注意較低溫度。'],['tumble_high_color.png','較高溫烘乾','可使用較高溫度烘乾。'],['tumble_no_color.png','不可烘乾','不可使用滾筒烘衣機。']]},
+dry:{label:'👕 晾乾｜洗完怎麼晾？',tip:'💡 有些衣物適合吊掛，有些適合平放；是否避光也要看標示。',items:[['hang_dry_color.png','吊掛晾乾','脫水後吊掛晾乾。'],['hang_shade_color.png','陰涼處吊掛','脫水後於陰涼處吊掛晾乾。'],['hang_no_color.png','不可吊掛','不要使用吊掛方式晾乾。'],['flat_dry_color.png','平放晾乾','脫水後平放晾乾。'],['flat_shade_color.png','陰涼處平放','脫水後於陰涼處平放晾乾。'],['flat_no_color.png','不可平放','不要使用平放方式晾乾。']]},
+iron:{label:'♨️ 熨燙｜怎麼燙？',tip:'💡 熨斗裡的點數越多，代表可承受的熨燙溫度越高。',items:[['iron_general_color.png','可熨燙','可使用熨斗。'],['iron_low_color.png','低溫熨燙','使用較低溫度熨燙。'],['iron_medium_color.png','中溫熨燙','使用中等溫度熨燙。'],['iron_high_color.png','高溫熨燙','可使用較高溫度熨燙。'],['iron_no_color.png','不可熨燙','不可使用熨斗。']]},
+wring:{label:'🟣 扭擰｜能不能擰？',tip:'💡 有些衣物不適合用力擰扭，洗後也要看標示。',items:[['wring_yes_color.png','可以擰乾／脫水','可依洗標使用適當的擰乾或脫水方式。'],['wring_no_color.png','不可擰扭','不可擰扭或強力脫水。']]},
+dryclean:{label:'🟢 乾洗｜需要專業處理嗎？',tip:'🔎 進階認識：看到圓形洗標，通常和專業洗滌／乾洗有關；F、P、A 等字母代表不同專業處理條件，國中階段不用背所有溶劑名稱。',items:[['dryclean_petroleum_color.png','石油類乾洗','專業處理標示。'],['dryclean_F_color.png','F','專業處理標示。'],['dryclean_A_color.png','A','專業處理標示。'],['dryclean_P_gentle_color.png','P｜溫和','專業處理標示。'],['dryclean_no_color.png','不可乾洗','不可使用乾洗方式。']]}}
+function renderCategory(k){const c=categories[k];$('#labelCards').innerHTML=c.items.map(i=>`<div class="label-card"><img src="assets/care/labels/${i[0]}" alt="${i[1]}"><div><b>${i[1]}</b><small>${i[2]}</small></div></div>`).join('');$('#labelTip').innerHTML=c.tip;$$('#labelTabs .tab').forEach(x=>x.classList.toggle('active',x.dataset.cat===k));}
+$('#labelTabs').innerHTML=Object.entries(categories).map(([k,c])=>`<button class="tab" data-cat="${k}">${c.label}</button>`).join('');$$('#labelTabs .tab').forEach(b=>b.onclick=()=>renderCategory(b.dataset.cat));renderCategory('wash');
+
+const colorQs=[
+{img:'wash_60_color.png',q:'這件衣服可以怎麼洗？',o:['一定要使用 60°C 的水','水洗溫度不得超過 60°C','只能手洗'],a:1,ok:'洗標中的數字是在告訴你「最高水溫」。'},
+{img:'wash_hand_color.png',q:'看到這個洗標，應該怎麼洗？',o:['以手洗滌','強力機洗','不可以碰水'],a:0,ok:'這個圖示表示以手洗滌。'},
+{img:'bleach_no_color.png',q:'衣服沾到污漬，可以直接使用漂白劑嗎？',o:['可以','不可以'],a:1,ok:'能不能漂白，不是只看衣服顏色，還要先看洗標。'},
+{img:'tumble_no_color.png',q:'明天急著穿，可以直接放進烘衣機嗎？',o:['可以','不可以'],a:1,ok:'趕時間也要先看洗標；這件不可烘乾。'},
+{img:'iron_no_color.png',q:'衣服很皺，可以直接用熨斗處理嗎？',o:['可以','不可以'],a:1,ok:'這個標示表示不可熨燙。'},
+{img:'flat_shade_color.png',q:'哪一種晾乾方式符合洗標？',o:['掛在太陽下曝曬','使用烘衣機','在陰涼處平放晾乾'],a:2,ok:'這件衣服適合在陰涼處平放晾乾。'}];
+const bwQs=[
+{img:'wash_95_textbook.jpg',q:'這個洗標最主要在告訴你什麼？',o:['水洗時有最高水溫限制','必須使用 95°C 水洗','不可水洗'],a:0,ok:'數字代表不得超過的最高洗滌水溫。'},
+{img:'wash_hand_textbook.jpg',q:'哪一種洗滌方式符合這個洗標？',o:['強力機洗','以手洗滌','不可碰水'],a:1,ok:'這是手洗標示。'},
+{img:'bleach_no_textbook.jpg',q:'這件衣服可以使用漂白方式處理嗎？',o:['可以','不可以'],a:1,ok:'這個符號表示不可漂白。'},
+{img:'tumble_no_textbook.jpg',q:'洗完可以使用烘衣機嗎？',o:['可以','不可以'],a:1,ok:'這個符號表示不可烘乾。'},
+{img:'iron_low_textbook.jpg',q:'這個洗標主要是在提醒你注意什麼？',o:['洗衣水溫','熨燙方式與溫度','晾乾位置'],a:1,ok:'熨斗符號提醒熨燙方式與溫度。'},
+{img:'wash_no_textbook.jpg',q:'這件衣服可以直接水洗嗎？',o:['可以','不可以'],a:1,ok:'水槽打叉表示不可水洗。'}];
+function runQuiz(holder,qs,onDone){let idx=0;function draw(){let q=qs[idx];holder.innerHTML=`<div class="qcount">${idx+1} / ${qs.length}</div><img class="qimg" src="assets/care/labels/${q.img}" alt="洗標題目"><div class="question">${q.q}</div><div class="options">${q.o.map((x,i)=>`<button class="option" data-i="${i}">${x}</button>`).join('')}</div><div id="fb"></div>`;holder.querySelectorAll('.option').forEach(b=>b.onclick=()=>{if(holder.dataset.lock)return;holder.dataset.lock='1';let i=+b.dataset.i;holder.querySelectorAll('.option').forEach((x,j)=>x.classList.add(j===q.a?'correct':j===i?'wrong':''));holder.querySelector('#fb').innerHTML=`<div class="feedback ${i===q.a?'good':'bad'}">${i===q.a?'✓ 解碼成功！':'再看一次符號的線索。'}<br>${q.ok}</div><div class="row" style="margin-top:10px"><button class="btn" id="nextQ">${idx===qs.length-1?'完成':'下一題 →'}</button></div>`;holder.querySelector('#nextQ').onclick=()=>{holder.dataset.lock='';idx++;if(idx>=qs.length)onDone();else draw();};});}draw();}
+$('#startColorQuiz').onclick=()=>{$('#labelLearn').classList.add('hidden');$('#colorQuiz').classList.remove('hidden');runQuiz($('#colorQuiz'),colorQs,()=>{$('#colorQuiz').innerHTML='<div class="callout"><b>🎉 彩色洗標解碼完成！</b><br>顏色幫你找到洗標的家族，接下來把顏色拿掉看看！</div><div class="row" style="margin-top:12px"><button class="btn" id="goBw">📖 挑戰課本洗標 →</button></div>';$('#goBw').onclick=()=>{$('#colorQuiz').classList.add('hidden');$('#bwQuiz').classList.remove('hidden');runQuiz($('#bwQuiz'),bwQs,()=>{renderCareTask();});};});};
+function renderCareTask(){ $('#bwQuiz').classList.add('hidden');let box=$('#careTask');box.classList.remove('hidden');box.innerHTML=`<h3>👕 終極任務｜明天想穿這件上衣！</h3><p class="lead">依這組洗標，完成五個衣物照顧決策。</p><div class="row" style="justify-content:center;margin-bottom:14px"><img class="qimg" src="assets/care/labels/wash_40_very_gentle_textbook.jpg"><img class="qimg" src="assets/care/labels/bleach_no_textbook.jpg"><img class="qimg" src="assets/care/labels/tumble_no_textbook.jpg"><img class="qimg" src="assets/care/labels/iron_low_textbook.jpg"></div><div class="task-grid" id="careChoices"></div><div class="row" style="margin-top:14px"><button class="btn" id="checkCare">🔍 檢查我的照顧方式</button></div><div id="careResult"></div>`;
+const tasks=[['怎麼洗？',['最高 40°C、使用較溫和洗程','一定要 95°C','不可水洗'],0],['可以漂白嗎？',['可以','不可以'],1],['可以烘乾嗎？',['可以','不可以'],1],['洗完怎麼晾？',['依衣物洗標選擇合適晾乾方式','一律曝曬','一律烘乾'],0],['衣服皺了呢？',['依洗標使用較低溫度熨燙','直接最高溫','完全不能熨'],0]];let ans={};$('#careChoices').innerHTML=tasks.map((t,n)=>`<div class="task"><h4>${n+1}. ${t[0]}</h4><div class="choices">${t[1].map((x,i)=>`<button class="choice" data-n="${n}" data-i="${i}">${x}</button>`).join('')}</div></div>`).join('');$$('#careChoices .choice').forEach(b=>b.onclick=()=>{let n=+b.dataset.n;ans[n]=+b.dataset.i;$$(`#careChoices .choice[data-n="${n}"]`).forEach(x=>x.classList.remove('selected'));b.classList.add('selected');});$('#checkCare').onclick=()=>{let correct=tasks.reduce((s,t,n)=>s+(ans[n]===t[2]),0);$('#careResult').innerHTML=`<div class="feedback ${correct===tasks.length?'good':'bad'}"><b>${correct===tasks.length?'🏆 洗標解碼成功！':'🔍 再看一次錯誤的決策'}</b><br>你完成 ${correct} / ${tasks.length} 個正確判斷。${correct===tasks.length?' 你已經會利用洗標，幫衣服選擇適合的照顧方式。':''}</div>`;if(correct===tasks.length)saveDone('label');};}
+
+const prewash=[['🏷️ 看洗標','確認能不能水洗、適合什麼洗程。'],['🧻 清空口袋','取出衛生紙、零錢等物品。'],['👕 整理衣物','整理拉鍊、鈕扣等細節。'],['🧼 檢查污漬','有明顯污漬先處理。']];$('#prewashChecklist').innerHTML=prewash.map((x,i)=>`<div class="check-item" data-i="${i}"><b>${x[0]}</b><br><small>${x[1]}</small></div>`).join('');let hit=new Set();$$('#prewashChecklist .check-item').forEach(x=>x.onclick=()=>{x.classList.add('hit');hit.add(x.dataset.i);if(hit.size===4){$('#prewashMsg').classList.remove('hidden');$('#prewashMsg').innerHTML='✓ 洗前檢查完成！看洗標 → 清口袋 → 整衣物 → 查污漬';saveDone('wash');}});
+const laundry=[['👕','白色制服','可和淺色衣物一起評估'],['👚','白色T恤','可和淺色衣物一起評估'],['👕','黑色T恤','深淺色分開較安心'],['👖','深色牛仔褲','注意掉色風險'],['🧶','針織毛衣','先看洗標再決定'],['🧦','襪子','依顏色與材質分類'],['👚','有污漬的上衣','先處理污漬']];$('#laundryGrid').innerHTML=laundry.map(x=>`<div class="laundry"><div class="big">${x[0]}</div><b>${x[1]}</b><p>${x[2]}</p></div>`).join('');
+const stains=[['🥛','蛋白質類','牛奶等'],['🍓','單寧酸類','果汁、茶、咖啡等'],['🍟','油脂類','奶油、美乃滋等'],['🖊️','化學顏料類','原子筆、蠟筆等'],['🍫','綜合類','巧克力、烤肉醬等'],['🌿','染料類','植物汁、衣物染色等']];$('#stainGrid').innerHTML=stains.map(x=>`<div class="stain"><div class="big">${x[0]}</div><b>${x[1]}</b><p>${x[2]}</p></div>`).join('');
+const sc=[['🥛 牛奶沾到制服，趕快用很熱的水沖？','🚨 等一下！蛋白質類污漬不宜一開始就用熱水。'],['🍓 草莓汁滴到衣服，週末再處理？','🚨 等一下！污漬通常越早處理越好。'],['🍟 油漬沾到T恤，用力左右擦？','🚨 等一下！先處理表面污物，不要把油污越擦越開。'],['🧴 不同清潔劑混在一起，效果一定更強？','🚨 STOP！不要自行混合不同清潔藥劑。']];$('#stainScenarios').innerHTML=sc.map((x,i)=>`<div class="task"><h4>${x[0]}</h4><button class="btn secondary" data-i="${i}">看看哪裡不對</button><div class="feedback hidden"></div></div>`).join('');$$('#stainScenarios button').forEach(b=>b.onclick=()=>{let fb=b.nextElementSibling;fb.className='feedback bad';fb.textContent=sc[+b.dataset.i][1];saveDone('stain');});
+const risks={hand:'✋ 手靠近高溫熨斗底板：有燙傷風險。',cord:'🔌 電線橫跨走道：容易絆倒，也可能拉扯、拉落熨斗。',iron:'♨️ 熨斗平放在衣物上：長時間停留可能損傷衣物並造成危險。',water:'💧 水杯放在熨燙／用電區旁：容易打翻，不應放在電器與電線附近。'};let found=new Set();$$('.hotspot').forEach(h=>h.onclick=()=>{let k=h.dataset.risk;if(found.has(k))return;found.add(k);h.classList.add('found');$('#safeCount').textContent=`已找到 ${found.size} / 4`;$('#safeFeedback').textContent=risks[k];if(found.size===4){$('#safeFeedback').innerHTML='<b>🛡️ 安全檢查完成！</b><br>使用熨斗時，不只要注意溫度，也要留意手、電線、熨斗放置位置與周圍環境。';}});
+const seq=['🏷️ 看洗標','🌡️ 調整溫度','👕 整理衣物','♨️ 分區熨燙','🔌 關閉電源、安全冷卻'];let picked=[];$('#ironSequence').innerHTML=seq.map((x,i)=>`<button class="seq-item" data-i="${i}">${x}</button>`).join('');$$('#ironSequence .seq-item').forEach(b=>b.onclick=()=>{if(b.classList.contains('picked'))return;b.classList.add('picked');picked.push(+b.dataset.i);if(picked.length===5){let ok=picked.every((x,i)=>x===i);$('#seqMsg').classList.remove('hidden');$('#seqMsg').innerHTML=ok?'<b>♨️ 我會安全整燙了！</b><br>看 → 調 → 整 → 燙 → 收，順序正確。':'順序還可以再調整一次。重新整理頁面即可重試。';if(ok)saveDone('iron');}});
+</script>
+</body></html>

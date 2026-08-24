@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>自己動手，做一餐！｜料理實作力</title>
+<style>
+:root{
+  --bg:#fbf8f2;
+  --card:#fff;
+  --text:#2f3935;
+  --muted:#6f7a74;
+  --line:#e8e2d8;
+  --rose:#b77b7d;
+  --rose-soft:#f2dfe1;
+  --cream:#fff7ef;
+  --green-soft:#e8f0e6;
+  --yellow-soft:#f7efd4;
+  --blue-soft:#e5eef2;
+  --shadow:0 12px 32px rgba(55,60,48,.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  color:var(--text);
+  background:linear-gradient(180deg,#fbf8f2 0%,#f6f3ec 100%);
+}
+button{font:inherit}
+.topbar{
+  position:sticky;top:0;z-index:30;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:16px 26px;background:rgba(255,255,255,.9);
+  border-bottom:1px solid var(--line);backdrop-filter:blur(10px)
+}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}
+.badge{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--rose-soft);font-size:24px}
+.progress-wrap{flex:1;max-width:520px}
+.track{height:9px;background:#ece8df;border-radius:99px;overflow:hidden}
+.bar{height:100%;width:12.5%;background:linear-gradient(90deg,#b77b7d,#d5a6a8);transition:.3s}
+.plabel{font-size:13px;color:var(--muted);text-align:right;margin-top:5px}
+.teacher{
+  border:1px solid #dad6cd;background:#fff;color:#5c675f;border-radius:12px;
+  padding:9px 13px;cursor:pointer
+}
+main{width:min(1180px,calc(100% - 34px));margin:28px auto 58px}
+.screen{display:none;animation:fade .22s ease}
+.screen.active{display:block}
+@keyframes fade{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center;
+  padding:40px 36px;border:1px solid #e5dfd3;border-radius:30px;
+  background:linear-gradient(135deg,#fff7f5,#f8e8e8);box-shadow:var(--shadow)
+}
+.kicker{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;background:#fff;border:1px solid #e3ded3;color:#815a5c;font-weight:800;font-size:14px}
+h1{font-size:clamp(36px,5vw,64px);line-height:1.08;margin:18px 0 14px;letter-spacing:-1px}
+h2{font-size:clamp(28px,4vw,44px);margin:0 0 10px}
+h3{font-size:22px;margin:0 0 10px}
+.lead{font-size:19px;line-height:1.8;color:#5b665f}
+.hero-ill{
+  width:min(360px,80vw);aspect-ratio:1;border-radius:50%;
+  background:#fff;border:16px solid #efd8d9;display:grid;place-items:center;
+  margin:auto;box-shadow:inset 0 0 0 1px #dfc8ca,0 18px 40px rgba(100,65,70,.1)
+}
+.hero-ill span{font-size:110px}
+.primary,.secondary{
+  border:0;border-radius:16px;padding:13px 20px;font-weight:900;cursor:pointer
+}
+.primary{background:#a96f72;color:white;box-shadow:0 8px 16px rgba(152,92,96,.16)}
+.secondary{background:white;color:#59635d;border:1px solid #ddd8cf}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px;box-shadow:var(--shadow)}
+.screen-head{margin-bottom:22px}.screen-head p{color:var(--muted);font-size:17px}
+.option-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.option{
+  border:1px solid #dfdbd1;background:#fff;border-radius:16px;padding:15px;cursor:pointer;font-weight:800;text-align:left
+}
+.option.active{background:#f8eeee;border-color:#c79698}
+.tool-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.tool{
+  border:1px solid #e2ded4;background:#fff;border-radius:16px;padding:14px;cursor:pointer;text-align:center
+}
+.tool .emo{font-size:34px}.tool.active{background:#f8eeee;border-color:#c79698}
+.feedback{display:none;margin-top:16px;padding:16px;border-radius:15px;background:#f6eeee;line-height:1.8}
+.feedback.show{display:block}
+.safety-stage{
+  position:relative;min-height:430px;border-radius:24px;overflow:hidden;
+  background:linear-gradient(180deg,#f5f2ea 0 58%,#e4dbce 58% 100%);
+  border:1px solid #e0d7ca
+}
+.obj{position:absolute;font-size:54px}
+.hotspot{
+  position:absolute;width:52px;height:52px;border-radius:50%;
+  border:3px solid #c76f70;background:rgba(255,255,255,.85);cursor:pointer;display:grid;place-items:center;font-weight:900
+}
+.hotspot.found{background:#e5f0e4;border-color:#7ea083}
+.cook-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:18px}
+.method{
+  border:1px solid #e3ddd4;background:#fff;border-radius:18px;padding:16px;text-align:center;cursor:pointer
+}
+.method.active{background:#fff5ea;border-color:#d4aa7e}
+.method .emo{font-size:38px}
+.sequence{display:grid;gap:10px;margin-top:18px}
+.seq{
+  padding:14px 16px;border:1px solid #e3ddd4;background:#fff;border-radius:14px;cursor:pointer
+}
+.seq.done{background:#eaf2e7;border-color:#a9bda4}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.role{padding:15px;background:#fff;border:1px solid #e3ddd4;border-radius:15px}
+.sim-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sim-box{padding:18px;background:#fff;border:1px solid #e4ded5;border-radius:18px}
+.recipe-card{
+  display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;
+  background:#fff;border:1px solid #e5ddd5;border-radius:24px;padding:24px
+}
+.ingredients,.steps{display:grid;gap:10px;margin-top:12px}
+.row{padding:12px 14px;border-radius:13px;background:#faf8f4;border:1px solid #ece6dc}
+.rating-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.rating{padding:15px;background:#fff;border:1px solid #e4ded5;border-radius:15px}
+.stars button{border:0;background:transparent;font-size:23px;cursor:pointer;padding:2px}
+.cleanup{
+  position:relative;min-height:360px;border-radius:22px;background:linear-gradient(180deg,#f7f5ef 0 55%,#ddd4c6 55% 100%);border:1px solid #e0d7ca;overflow:hidden
+}
+.clean-item{position:absolute;font-size:48px;cursor:pointer;filter:grayscale(.15)}
+.clean-item.done{opacity:.25;transform:scale(.9)}
+.result{
+  max-width:820px;margin:auto;background:linear-gradient(145deg,#fff7f7,#f3e4e5);
+  border:1px solid #e5cecf;border-radius:30px;padding:34px;box-shadow:var(--shadow)
+}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.skill{padding:16px;background:#fff;border:1px solid #e7dede;border-radius:15px;text-align:center}
+.teacher-note{display:none;margin-top:16px;padding:15px;border-radius:15px;background:#fff8df;border:1px solid #e8d48e;color:#665c39}
+body.teacher-mode .teacher-note{display:block}
+.small{font-size:14px;color:var(--muted)}
+.info-box{margin-top:16px;padding:17px;border-radius:16px;background:#fff7f6;border:1px solid #ead4d5;line-height:1.8}
+.toast{
+ position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+ background:#2f3934;color:white;padding:11px 17px;border-radius:999px;opacity:0;transition:.2s;z-index:99
+}
+.toast.show{opacity:1;transform:translateX(-50%)}
+@media(max-width:900px){
+  .hero,.recipe-card,.sim-grid{grid-template-columns:1fr}
+  .tool-grid,.team-grid,.cook-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .topbar{padding:13px;flex-wrap:wrap}.progress-wrap{order:3;width:100%;max-width:none}
+  main{width:min(100% - 20px,1180px)}
+  .hero{padding:28px 20px}
+  .option-grid,.rating-grid,.badges{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<p style="text-align:center;margin:10px 0 0;"><a href="飲食與營養.dc.html" style="color:#537258;text-decoration:none;font-weight:800;">← 回飲食與營養</a></p>
+<header class="topbar">
+  <div class="brand"><div class="badge">👩‍🍳</div><div>飲食與營養<div class="small">05 料理實作力</div></div></div>
+  <div class="progress-wrap"><div class="track"><div class="bar" id="bar"></div></div><div class="plabel" id="plabel">1 / 8</div></div>
+  <button class="teacher" id="teacherBtn">👩‍🏫 教師模式</button>
+</header>
+
+<main>
+<section class="screen active" data-screen="1">
+  <div class="hero">
+    <div>
+      <span class="kicker">👩‍🍳 料理實作力｜第 5 關</span>
+      <h1>自己動手，<br>做一餐！</h1>
+      <p class="lead">會看食譜，不代表就會料理。<br>從準備、刀工、烹調、分工到清潔復原，才是一個完整的料理任務。</p>
+      <button class="primary" onclick="go(2)">進入料理實驗室 →</button>
+      <div class="teacher-note"><b>教師提問：</b>「你覺得料理真正開始的第一步，是開火嗎？」</div>
+    </div>
+    <div class="hero-ill"><span>🍳</span></div>
+  </div>
+</section>
+
+<section class="screen" data-screen="2">
+  <div class="panel">
+    <span class="kicker">STEP 1｜開始料理前</span>
+    <h2 style="margin-top:14px">🧼 第一件事要做什麼？</h2>
+    <p class="lead" style="font-size:17px">今天要做「蛋炒飯＋蔬菜蛋花湯」，老師說可以開始了。</p>
+    <div class="option-grid">
+      <button class="option" onclick="prepAnswer(this,false)">A｜馬上開火</button>
+      <button class="option" onclick="prepAnswer(this,false)">B｜先切菜</button>
+      <button class="option" onclick="prepAnswer(this,true)">C｜洗手、整理工作區並確認材料與器具</button>
+      <button class="option" onclick="prepAnswer(this,false)">D｜先把蛋打進鍋子</button>
+    </div>
+    <div class="feedback" id="prepFb"></div>
+    <div class="info-box"><b>料理前四件事：</b>🧼 個人衛生　🧹 工作環境　🥕 食材確認　🍳 器具確認</div>
+    <div class="teacher-note"><b>教師提醒：</b>這裡不是要背口訣，而是建立「料理從準備開始」的程序感。</div>
+    <div class="actions"><button class="secondary" onclick="go(1)">← 上一步</button><button class="primary" onclick="go(3)">工具箱挑戰 →</button></div>
+  </div>
+</section>
+
+<section class="screen" data-screen="3">
+  <div class="panel">
+    <span class="kicker">STEP 2｜我的廚房工具箱</span>
+    <h2 style="margin-top:14px">🔧 完成任務，要拿什麼工具？</h2>
+    <div class="info-box" id="toolTask">任務 1：把紅蘿蔔切成細絲。</div>
+    <div class="tool-grid" id="toolGrid"></div>
+    <div class="feedback" id="toolFb"></div>
+    <div class="teacher-note"><b>教師提問：</b>「工具不是越多越好，怎麼選才有效率？」</div>
+    <div class="actions"><button class="secondary" onclick="go(2)">← 上一步</button><button class="primary" onclick="go(4)">刀工安全挑戰 →</button></div>
+  </div>
+</section>
+
+<section class="screen" data-screen="4">
+  <div class="panel">
+    <span class="kicker">STEP 3｜刀工安全挑戰</span>
+    <h2 style="margin-top:14px">⚠️ 哪裡有危險？</h2>
+    <p class="lead" style="font-size:17px">點出畫面中的 5 個危險行為。</p>
+    <div class="safety-stage">
+      <div class="obj" style="left:9%;top:17%">🧑‍🍳</div>
+      <div class="obj" style="left:27%;top:62%">🔪</div>
+      <div class="obj" style="left:48%;top:58%">🥕</div>
+      <div class="obj" style="left:71%;top:18%">🧑‍🍳</div>
+      <div class="obj" style="left:81%;top:60%">🧽</div>
+      <button class="hotspot" style="left:16%;top:30%" onclick="findDanger(this,'拿著刀具嬉鬧或走動，容易造成割傷。')">1</button>
+      <button class="hotspot" style="left:35%;top:53%" onclick="findDanger(this,'刀具使用後不應隨意放在桌邊。')">2</button>
+      <button class="hotspot" style="left:53%;top:50%" onclick="findDanger(this,'切圓形食材時要先固定，手指內縮，減少滑動。')">3</button>
+      <button class="hotspot" style="left:73%;top:31%" onclick="findDanger(this,'傳遞刀具時應注意方向，不要直接把刀刃朝向別人。')">4</button>
+      <button class="hotspot" style="left:82%;top:70%" onclick="findDanger(this,'刀具清洗後應妥善放置，不要藏在水槽或抹布下。')">5</button>
+    </div>
+    <div class="info-box">已找到 <b><span id="dangerCount">0</span> / 5</b>｜<span id="dangerInfo">找到一個危險點後，這裡會顯示原因。</span></div>
+    <div class="teacher-note"><b>教師提醒：</b>安全規則要配合實際操作示範，不建議只靠網頁完成。</div>
+    <div class="actions"><button class="secondary" onclick="go(3)">← 上一步</button><button class="primary" id="toMethodBtn" onclick="requireDanger()">烹調方式實驗室 →</button></div>
+  </div>
+</section>
+
+<section class="screen" data-screen="5">
+  <div class="panel">
+    <span class="kicker">STEP 4｜烹調方式實驗室</span>
+    <h2 style="margin-top:14px">🔥 同一種食材，不只一種做法</h2>
+    <div class="cook-grid">
+      <button class="method" onclick="methodPick(this,'炒','少量油、鍋中快速翻動食材。常見：炒青菜、炒飯。')"><div class="emo">🥘</div><b>炒</b></button>
+      <button class="method" onclick="methodPick(this,'煮','利用水或湯汁加熱。常見：湯、麵、水煮料理。')"><div class="emo">🍲</div><b>煮</b></button>
+      <button class="method" onclick="methodPick(this,'蒸','利用蒸氣加熱，常見：蒸蛋、蒸魚。')"><div class="emo">♨️</div><b>蒸</b></button>
+      <button class="method" onclick="methodPick(this,'煎','少量油脂讓食材表面直接受熱。常見：煎蛋、煎魚。')"><div class="emo">🍳</div><b>煎</b></button>
+      <button class="method" onclick="methodPick(this,'烤','利用熱空氣或烤箱加熱。常見：烤蔬菜、烤地瓜。')"><div class="emo">🔥</div><b>烤</b></button>
+    </div>
+    <div class="info-box" id="methodInfo">點一種烹調方式看看。</div>
+    <div class="teacher-note"><b>教師提問：</b>「如果今天食材是雞蛋，你想到幾種做法？」</div>
+    <div class="actions"><button class="secondary" onclick="go(4)">← 上一步</button><button class="primary" onclick="go(6)">料理順序挑戰 →</button></div>
+  </div>
+</section>
+
+<section class="screen" data-screen="6">
+  <div class="screen-head">
+    <span class="kicker">STEP 5｜料理順序與分工</span>
+    <h2>⏱️ 不是所有人都站著等</h2>
+    <p>今天要完成：炒飯＋炒青菜＋蛋花湯。請依序點出合理流程。</p>
+  </div>
+  <div class="sim-grid">
+    <div class="panel">
+      <h3>🧩 料理順序</h3>
+      <div class="sequence" id="sequence"></div>
+      <div class="info-box" id="seqInfo">先把「備料」做好，再進入開火與烹調。</div>
+    </div>
+    <div class="panel">
+      <h3>👥 四人分工示例</h3>
+      <div class="team-grid">
+        <div class="role"><b>A｜備料</b><br><span class="small">洗菜、切菜、準備配料</span></div>
+        <div class="role"><b>B｜蛋與調味</b><br><span class="small">打蛋、量調味料</span></div>
+        <div class="role"><b>C｜爐台料理</b><br><span class="small">依流程操作爐台</span></div>
+        <div class="role"><b>D｜清潔支援</b><br><span class="small">器具歸位、邊做邊整理</span></div>
+      </div>
+      <div class="teacher-note"><b>教師重點：</b>分工不是固定職位，重點是工作量合理、彼此知道下一步。</div>
+    </div>
+  </div>
+  <div class="actions"><button class="secondary" onclick="go(5)">← 上一步</button><button class="primary" id="toSimBtn" onclick="requireSequence()">進入料理模擬 →</button></div>
+</section>
+
+<section class="screen" data-screen="7">
+  <div class="panel">
+    <span class="kicker">STEP 6｜開火前先模擬一次</span>
+    <h2 style="margin-top:14px">🎮 番茄炒蛋料理模擬</h2>
+    <div class="sim-grid">
+      <div class="sim-box">
+        <h3>請依序完成</h3>
+        <div class="sequence" id="simSequence"></div>
+        <div class="info-box" id="simInfo">先想清楚順序，再真的進廚房。</div>
+      </div>
+      <div class="sim-box">
+        <h3>今日料理任務</h3>
+        <div class="recipe-card" style="grid-template-columns:1fr">
+          <div>
+            <h3>🍅 番茄炒蛋</h3>
+            <div class="ingredients">
+              <div class="row">🍅 番茄</div>
+              <div class="row">🥚 雞蛋</div>
+              <div class="row">🧂 調味料</div>
+              <div class="row">🧅 蔥（可選）</div>
+            </div>
+          </div>
+          <div>
+            <div class="steps">
+              <div class="row">🧼 食安提醒｜處理食材前先洗手</div>
+              <div class="row">🔪 安全提醒｜切番茄時先固定食材</div>
+              <div class="row">🔥 料理技巧｜先完成備料，再開始加熱</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="teacher-note"><b>教師提醒：</b>正式實作時可把這一頁當作課前檢核，不取代現場示範。</div>
+    <div class="actions"><button class="secondary" onclick="go(6)">← 上一步</button><button class="primary" id="toFinishBtn" onclick="requireSim()">完成料理與善後 →</button></div>
+  </div>
+</section>
+
+<section class="screen" data-screen="8">
+  <div class="result">
+    <div style="font-size:54px">🏅</div>
+    <span class="kicker">完成｜料理實作力已探索</span>
+    <h2 style="margin-top:14px">料理完成，不代表任務結束</h2>
+    <p class="lead" style="font-size:18px">還要品評、反思、清潔與復原，才是一個完整的家政實作。</p>
+
+    <h3>📸 我的料理自評</h3>
+    <div class="rating-grid">
+      <div class="rating"><b>👀 外觀</b><div class="stars" data-rating="appearance"></div></div>
+      <div class="rating"><b>👅 味道</b><div class="stars" data-rating="taste"></div></div>
+      <div class="rating"><b>🧼 衛生</b><div class="stars" data-rating="clean"></div></div>
+      <div class="rating"><b>🤝 合作</b><div class="stars" data-rating="team"></div></div>
+      <div class="rating"><b>⏱️ 時間管理</b><div class="stars" data-rating="time"></div></div>
+      <div class="rating"><b>🔥 烹調掌握</b><div class="stars" data-rating="cook"></div></div>
+    </div>
+
+    <h3 style="margin-top:24px">🧹 廚房復原挑戰</h3>
+    <div class="cleanup">
+      <div class="clean-item" style="left:8%;top:18%" onclick="clean(this)">🍳</div>
+      <div class="clean-item" style="left:30%;top:58%" onclick="clean(this)">🔪</div>
+      <div class="clean-item" style="left:50%;top:18%" onclick="clean(this)">🥣</div>
+      <div class="clean-item" style="left:70%;top:60%" onclick="clean(this)">🗑️</div>
+      <div class="clean-item" style="left:82%;top:20%" onclick="clean(this)">🧽</div>
+    </div>
+    <div class="info-box">已完成清潔：<b><span id="cleanCount">0</span> / 5</b></div>
+
+    <div class="badges">
+      <div class="skill">🧼<br><b>衛生管理</b></div>
+      <div class="skill">🔪<br><b>安全操作</b></div>
+      <div class="skill">🥕<br><b>食材處理</b></div>
+      <div class="skill">🔥<br><b>烹調技巧</b></div>
+      <div class="skill">⏱️<br><b>時間管理</b></div>
+      <div class="skill">🤝<br><b>團隊合作</b></div>
+    </div>
+
+    <div class="teacher-note"><b>收尾提問：</b>「如果下次再做一次，你最想改善哪一個地方？」</div>
+    <div class="actions">
+      <button class="secondary" onclick="resetAll()">🔄 再做一次</button>
+      <button class="primary" id="lesson5Complete" onclick="requireCleanup()">✅ 完成這一關</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function go(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelector(`.screen[data-screen="${n}"]`).classList.add('active');
+  document.getElementById('bar').style.width=(n/8*100)+'%';
+  document.getElementById('plabel').textContent=`${n} / 8`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function prepAnswer(btn,ok){
+  document.querySelectorAll('[data-screen="2"] .option').forEach(x=>x.classList.remove('active'));
+  btn.classList.add('active');
+  const fb=document.getElementById('prepFb');fb.classList.add('show');
+  fb.innerHTML=ok?'✅ <b>對！</b>料理不是從開火開始，而是先把人、環境、材料和器具準備好。':'💡 <b>再想想。</b>如果還沒洗手、沒整理工作區、材料也沒確認，就先開火或切菜，容易手忙腳亂。';
+}
+const toolTasks=[
+  {task:'任務 1：把紅蘿蔔切成細絲。',answer:'菜刀',fb:'✅ 菜刀搭配砧板最適合完成切絲任務。'},
+  {task:'任務 2：把蛋液攪拌均勻。',answer:'筷子',fb:'✅ 筷子或打蛋器都能完成攪拌蛋液的任務。'},
+  {task:'任務 3：把青菜瀝乾。',answer:'瀝水籃',fb:'✅ 瀝水籃能幫助去除多餘水分。'}
+];
+const tools=['菜刀','砧板','筷子','湯匙','瀝水籃','鍋鏟','平底鍋','量匙'];
+const toolEmoji={'菜刀':'🔪','砧板':'🪵','筷子':'🥢','湯匙':'🥄','瀝水籃':'🥗','鍋鏟':'🍳','平底鍋':'🍳','量匙':'🥄'};
+let toolIndex=0;
+function renderTools(){
+  document.getElementById('toolTask').textContent=toolTasks[toolIndex].task;
+  document.getElementById('toolGrid').innerHTML=tools.map(t=>`<button class="tool" onclick="pickTool(this,'${t}')"><div class="emo">${toolEmoji[t]}</div><b>${t}</b></button>`).join('');
+  document.getElementById('toolFb').className='feedback';
+}
+function pickTool(el,t){
+  document.querySelectorAll('.tool').forEach(x=>x.classList.remove('active'));el.classList.add('active');
+  const task=toolTasks[toolIndex],fb=document.getElementById('toolFb');fb.classList.add('show');
+  if(t===task.answer){
+    fb.innerHTML=task.fb;
+    setTimeout(()=>{
+      if(toolIndex<toolTasks.length-1){toolIndex++;renderTools();}
+      else fb.innerHTML='🎉 三個工具任務完成！工具要依任務選，不是越多越好。';
+    },650);
+  }else{
+    fb.innerHTML='💡 這個工具不太適合目前的任務，再想想「要完成什麼動作」。';
+  }
+}
+let danger=0;
+function findDanger(el,msg){
+  if(el.classList.contains('found')) return;
+  el.classList.add('found');danger++;
+  document.getElementById('dangerCount').textContent=danger;
+  document.getElementById('dangerInfo').textContent=msg;
+}
+function methodPick(el,name,msg){
+  document.querySelectorAll('.method').forEach(x=>x.classList.remove('active'));el.classList.add('active');
+  document.getElementById('methodInfo').innerHTML=`<b>${name}</b>｜${msg}`;
+}
+const seqSteps=['洗手與整理工作區','洗菜與備料','切菜與打蛋','先處理需要較久時間的湯','炒飯／炒青菜','盛裝與邊做邊整理'];
+let seqIndex=0;
+function renderSequence(){
+  document.getElementById('sequence').innerHTML=seqSteps.map((s,i)=>`<button class="seq" onclick="pickSeq(this,${i})">${s}</button>`).join('');
+}
+function pickSeq(el,i){
+  if(el.classList.contains('done'))return;
+  if(i!==seqIndex){document.getElementById('seqInfo').innerHTML='💡 順序再想想：先準備，再烹調，最後盛裝與整理。';return}
+  el.classList.add('done');seqIndex++;
+  document.getElementById('seqInfo').innerHTML=seqIndex===seqSteps.length?'✅ 流程完成！你已經掌握「先備料、再開火、邊做邊整理」。':`很好，下一步再想想要做什麼。`;
+}
+const simSteps=['洗手','洗番茄','切番茄','打蛋','準備調味','開火','先炒蛋再處理番茄','完成盛裝'];
+let simIndex=0;
+function renderSim(){
+  document.getElementById('simSequence').innerHTML=simSteps.map((s,i)=>`<button class="seq" onclick="pickSim(this,${i})">${s}</button>`).join('');
+}
+function pickSim(el,i){
+  if(el.classList.contains('done'))return;
+  if(i!==simIndex){document.getElementById('simInfo').innerHTML='💡 還沒備料完成就先開火，可能會手忙腳亂。再想一下順序。';return}
+  el.classList.add('done');simIndex++;
+  document.getElementById('simInfo').innerHTML=simIndex===simSteps.length?'🎉 模擬完成！現在才適合進入真正的料理實作。':'✅ 很好，繼續下一步。';
+}
+document.querySelectorAll('.stars').forEach(box=>{
+  box.innerHTML=[1,2,3,4,5].map(n=>`<button onclick="rate(this,${n})">☆</button>`).join('');
+});
+function rate(btn,n){
+  const box=btn.parentElement;
+  [...box.children].forEach((b,i)=>b.textContent=i<n?'★':'☆');
+}
+let cleanCount=0;
+function clean(el){
+  if(el.classList.contains('done'))return;
+  el.classList.add('done');cleanCount++;
+  document.getElementById('cleanCount').textContent=cleanCount;
+}
+
+function requireDanger(){
+  if(danger<5){showToast('先找完 5 / 5 個刀工安全風險');return;}
+  go(5);
+}
+function requireSequence(){
+  if(seqIndex<seqSteps.length){showToast('先完成料理順序挑戰');return;}
+  go(7);
+}
+function requireSim(){
+  if(simIndex<simSteps.length){showToast('先完成番茄炒蛋料理模擬');return;}
+  go(8);
+}
+function requireCleanup(){
+  if(cleanCount<5){showToast('先完成 5 / 5 廚房復原');return;}
+  markComplete('05','料理實作力','👩‍🍳');
+}
+
+document.getElementById('teacherBtn').addEventListener('click',()=>{
+  document.body.classList.toggle('teacher-mode');
+  document.getElementById('teacherBtn').textContent=document.body.classList.contains('teacher-mode')?'👩‍🏫 關閉教師模式':'👩‍🏫 教師模式';
+});
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1700);
+}
+function resetAll(){
+  toolIndex=0;danger=0;seqIndex=0;simIndex=0;cleanCount=0;
+  document.querySelectorAll('.hotspot').forEach(x=>x.classList.remove('found'));
+  document.getElementById('dangerCount').textContent='0';
+  document.querySelectorAll('.clean-item').forEach(x=>x.classList.remove('done'));
+  document.getElementById('cleanCount').textContent='0';
+  document.querySelectorAll('.stars').forEach(box=>[...box.children].forEach(b=>b.textContent='☆'));
+  renderTools();renderSequence();renderSim();go(1);
+}
+renderTools();renderSequence();renderSim();
+
+function markComplete(num, ability, icon){
+  try {
+    const key='foodNutritionProgress';
+    const data=JSON.parse(localStorage.getItem(key)||'{}');
+    data[num]={complete:true, ability:ability, updatedAt:new Date().toISOString()};
+    localStorage.setItem(key,JSON.stringify(data));
+  } catch(e) {}
+  showToast(icon+' '+ability+'：已探索！');
+  setTimeout(()=>{
+    if(confirm('這一關已完成！要回到「飲食與營養」主題首頁嗎？')) {
+      location.href='飲食與營養_主題首頁.html';
+    }
+  },500);
+}
+
+</script>
+</body>
+</html>

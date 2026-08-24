@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css">
+  <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
+
+<style>
+.food-learning-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.food-card{position:relative;display:flex;flex-direction:column;min-height:300px;padding:20px;border-radius:22px;text-decoration:none;color:inherit;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.8);box-shadow:0 10px 25px rgba(58,66,94,.08);transition:.18s}
+.food-card:nth-child(1){background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(231,242,229,.9))}
+.food-card:nth-child(2){background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(250,242,214,.9))}
+.food-card:nth-child(3){background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(247,226,214,.9))}
+.food-card:nth-child(4){background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(224,241,239,.9))}
+.food-card:nth-child(5){background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(244,226,229,.9))}
+.food-card:nth-child(6){background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(236,229,245,.9))}
+.food-card:hover{transform:translateY(-3px);box-shadow:0 15px 30px rgba(58,66,94,.12)}
+.food-no{font-size:12px;font-weight:900;opacity:.48}.food-icon{font-size:38px;margin:12px 0 8px}
+.food-question{font-size:21px;font-weight:900;line-height:1.35}.food-ability{font-size:15px;font-weight:900;margin-top:6px;opacity:.75}
+.food-card p{font-size:14px;line-height:1.75;opacity:.7;margin:12px 0 16px}.food-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
+.food-tags span{font-size:12px;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.65)}
+.food-go{font-size:14px;margin-top:16px}.food-done{display:none;position:absolute;right:14px;top:14px;font-size:12px;font-weight:900;background:#e7f1e5;color:#537258;padding:5px 9px;border-radius:999px}
+.food-card.completed .food-done{display:block}
+@media(max-width:900px){.food-learning-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.food-learning-grid{grid-template-columns:1fr}}
+</style>
+
+</helmet>
+<div style="background:linear-gradient(180deg, #a9cbea 0%, #c9d5ef 24%, #e0cbe6 50%, #f0c9d8 75%, #ddc6e6 100%); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
+  <div style="max-width:1120px; margin:0 auto; padding:var(--space-6) var(--space-4);">
+    <a href="家政金融網頁.dc.html" style="font-size:14px; color:var(--color-accent-700); text-decoration:none;">← 回首頁</a>
+  </div>
+  <header style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
+    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4); flex-wrap:wrap;">
+      <span style="font-size:36px; flex:none;">🍳</span>
+      <h1 style="margin:0; min-width:0; white-space:nowrap; font-size:38px; font-weight:800;">飲食與營養</h1>
+    </div>
+    <p style="max-width:560px; opacity:0.85; font-size:18px; font-weight:700;">健康飲食、食品安全、烹飪實作</p>
+    <p style="max-width:680px; opacity:0.62; font-size:14px; margin-top:var(--space-3);">從健康飲食、食品判讀、消費選擇、食品安全到料理實作，把「知道」變成生活中真正做得到的能力。</p>
+  </header>
+
+  <main style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
+    <section style="background:rgba(255,255,255,.72); border:1px solid rgba(255,255,255,.65); border-radius:28px; padding:28px; box-shadow:0 14px 38px rgba(66,73,105,.10); backdrop-filter:blur(10px);">
+      <div style="display:flex; justify-content:space-between; gap:18px; align-items:flex-end; flex-wrap:wrap;">
+        <div>
+          <div style="font-size:14px; font-weight:800; opacity:.62; margin-bottom:8px;">STUDENT LEARNING</div>
+          <h2 style="font-size:30px; margin:0 0 8px; font-weight:900;">飲食與營養要學什麼？</h2>
+          <p style="margin:0; opacity:.72; font-size:16px; line-height:1.8;">從「今天吃什麼？」開始，練習六種真正帶得走的飲食生活能力。</p>
+        </div>
+        <div id="foodProgressText" style="font-size:14px; font-weight:800; background:rgba(255,255,255,.75); padding:9px 13px; border-radius:999px;">已探索 0 / 6</div>
+      </div>
+
+      <div style="height:10px; background:rgba(255,255,255,.62); border-radius:999px; overflow:hidden; margin:20px 0 24px;">
+        <div id="foodProgressBar" style="height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,#79a987,#8d7da8); transition:.3s;"></div>
+      </div>
+
+      <div class="food-learning-grid">
+        <a class="food-card" data-food-card="01" href="飲食與營養_01_我今天吃得健康嗎.html">
+          <span class="food-done">✓ 已探索</span><div class="food-no">01</div><div class="food-icon">🥗</div>
+          <div class="food-question">我今天，吃得健康嗎？</div><div class="food-ability">均衡飲食力</div>
+          <p>從一餐開始，認識食物分類與「我的餐盤」，看看怎麼調整更適合自己。</p>
+          <div class="food-tags"><span>食物分類</span><span>我的餐盤</span><span>餐點調整</span></div><b class="food-go">開始看看 →</b>
+        </a>
+        <a class="food-card" data-food-card="02" href="飲食與營養_02_這個東西我該怎麼選.html">
+          <span class="food-done">✓ 已探索</span><div class="food-no">02</div><div class="food-icon">🔍</div>
+          <div class="food-question">這個東西，我該怎麼選？</div><div class="food-ability">食品判讀力</div>
+          <p>從食品包裝、成分與營養標示找線索，不再只憑包裝正面做決定。</p>
+          <div class="food-tags"><span>食品標示</span><span>營養標示</span><span>食品 PK</span></div><b class="food-go">開始調查 →</b>
+        </a>
+        <a class="food-card" data-food-card="03" href="飲食與營養_03_買吃的也要會判斷.html">
+          <span class="food-done">✓ 已探索</span><div class="food-no">03</div><div class="food-icon">🛒</div>
+          <div class="food-question">買吃的，也要會判斷！</div><div class="food-ability">消費選擇力</div>
+          <p>把價格、營養、份量與需求放在一起，練習真實的外食與預算決策。</p>
+          <div class="food-tags"><span>便利商店</span><span>外食</span><span>預算</span></div><b class="food-go">開始挑戰 →</b>
+        </a>
+        <a class="food-card" data-food-card="04" href="飲食與營養_04_這個還能吃嗎.html">
+          <span class="food-done">✓ 已探索</span><div class="food-no">04</div><div class="food-icon">🛡️</div>
+          <div class="food-question">這個還能吃嗎？</div><div class="food-ability">食安防護力</div>
+          <p>從保存、生熟食與廚房操作找出風險，建立自己的食品安全防線。</p>
+          <div class="food-tags"><span>保存</span><span>交叉污染</span><span>食安判斷</span></div><b class="food-go">開始調查 →</b>
+        </a>
+        <a class="food-card" data-food-card="05" href="飲食與營養_05_自己動手做一餐.html">
+          <span class="food-done">✓ 已探索</span><div class="food-no">05</div><div class="food-icon">👩‍🍳</div>
+          <div class="food-question">自己動手，做一餐！</div><div class="food-ability">料理實作力</div>
+          <p>從準備、工具、刀工、烹調與分工，到清潔復原，完成一次料理任務。</p>
+          <div class="food-tags"><span>刀工安全</span><span>烹調技巧</span><span>料理實作</span></div><b class="food-go">進入料理實驗室 →</b>
+        </a>
+        <a class="food-card" data-food-card="06" href="飲食與營養_06_怎麼吃才適合我的生活.html">
+          <span class="food-done">✓ 已探索</span><div class="food-no">06</div><div class="food-icon">🍱</div>
+          <div class="food-question">怎麼吃，才適合我的生活？</div><div class="food-ability">生活決策力</div>
+          <p>走過早餐、午餐、放學、飲料、晚餐與睡前，把所學放進自己的生活。</p>
+          <div class="food-tags"><span>生活情境</span><span>飲食決策</span><span>綜合挑戰</span></div><b class="food-go">開始我的一天 →</b>
+        </a>
+      </div>
+    </section>
+  </main>
+
+</div>
+
+</x-dc>
+
+<script>
+(function(){
+  function renderFoodProgress(){
+    let data={};
+    try{data=JSON.parse(localStorage.getItem('foodNutritionProgress')||'{}')}catch(e){}
+    let count=0;
+    ['01','02','03','04','05','06'].forEach(function(n){
+      const done=!!(data[n]&&data[n].complete);
+      const card=document.querySelector('[data-food-card="'+n+'"]');
+      if(card) card.classList.toggle('completed',done);
+      if(done) count++;
+    });
+    const t=document.getElementById('foodProgressText');
+    const b=document.getElementById('foodProgressBar');
+    if(t)t.textContent='已探索 '+count+' / 6';
+    if(b)b.style.width=(count/6*100)+'%';
+  }
+  window.addEventListener('pageshow',renderFoodProgress);
+  renderFoodProgress();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css">
+  <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
+</helmet>
+
+<div style="background:linear-gradient(180deg, #a9cbea 0%, #c9d5ef 24%, #e0cbe6 50%, #f0c9d8 75%, #ddc6e6 100%); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
+  <div style="max-width:1120px; margin:0 auto; padding:var(--space-6) var(--space-4);">
+    <a href="家政金融網頁.dc.html" style="font-size:14px; color:var(--color-accent-700); text-decoration:none;">← 回首頁</a>
+  </div>
+
+  <header style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
+    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4); flex-wrap:wrap;">
+      <span style="font-size:36px; flex:none;">💰</span>
+      <h1 style="margin:0; min-width:0; white-space:nowrap; font-size:38px; font-weight:800;">消費與管理</h1>
+    </div>
+    <p style="max-width:680px; opacity:0.85; font-size:18px; font-weight:700;">理財規劃、理性消費、永續生活</p>
+  </header>
+
+  <section style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
+    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-2); flex-wrap:wrap;">
+      <span style="font-size:26px; flex:none;">📊</span>
+      <h2 style="margin:0; min-width:0; white-space:nowrap; font-size:28px; font-weight:800;">金融教育</h2>
+    </div>
+    <p style="max-width:760px; opacity:0.8; font-size:15px; line-height:1.7; margin-bottom:var(--space-6);">從生活中的選擇開始，認識金錢、信用、風險、投資與防詐，學會為自己的金融決定找到理由。</p>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px,1fr)); gap:var(--space-3); margin-bottom:var(--space-6);">
+      <sc-for list="{{ sections }}" as="item" hint-placeholder-count="4">
+        <button onClick="{{ item.onSelect }}" style="{{ item.style }}">
+          <span style="font-size:30px; line-height:1;">{{ item.icon }}</span>
+          <span style="font-size:18px; font-weight:800;">{{ item.label }}</span>
+          <span style="font-size:13px; line-height:1.5; opacity:.78; font-weight:600;">{{ item.desc }}</span>
+        </button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ isCourses }}" hint-placeholder-val="{{ true }}">
+      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:rgba(255,255,255,.88); border:1px solid rgba(255,255,255,.92); backdrop-filter:blur(6px);">
+        <span class="card-kicker">01｜學生學習</span>
+        <h3 class="card-title" style="margin-top:4px; font-size:24px; font-weight:800;">金融教育要學什麼？</h3>
+        <p class="card-body" style="opacity:.82; font-size:15px; font-weight:600; line-height:1.7; margin-bottom:var(--space-4);">金融，其實每天都在我們的生活裡。選一個你想了解的主題，從生活問題開始，把重要的金融概念一步一步搞懂。</p>
+
+        <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-4);">
+          <sc-for list="{{ topics }}" as="topic" hint-placeholder-count="6">
+            <button onClick="{{ topic.onSelect }}" style="{{ topic.style }}">{{ topic.label }}</button>
+          </sc-for>
+        </div>
+
+        <div style="padding:var(--space-4); border-radius:18px; background:rgba(245,247,255,.9); border:1px solid rgba(120,120,150,.12);">
+          <span class="card-kicker">{{ activeTopic.label }}</span>
+          <h4 style="margin:5px 0 8px; font-size:22px; font-weight:800;">{{ activeTopic.question }}</h4>
+          <p style="opacity:.82; font-size:15px; font-weight:600; line-height:1.75; margin:0 0 var(--space-4);">{{ activeTopic.desc }}</p>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:var(--space-3);">
+            <sc-for list="{{ concepts }}" as="concept" hint-placeholder-count="5">
+              <button onClick="{{ concept.onSelect }}" style="{{ concept.style }}">
+                <span style="font-size:26px;">{{ concept.icon }}</span>
+                <span style="font-size:16px; font-weight:800;">{{ concept.title }}</span>
+                <span style="font-size:13px; opacity:.72; line-height:1.5;">{{ concept.short }}</span>
+              </button>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ hasActiveConcept }}">
+            <div style="margin-top:var(--space-4); padding:var(--space-5); border-radius:18px; background:rgba(255,255,255,.92); border:1px solid rgba(120,120,150,.14);">
+              <span class="card-kicker">{{ activeConcept.kicker }}</span>
+              <h4 style="margin:6px 0 8px; font-size:20px; font-weight:800;">{{ activeConcept.title }}｜{{ activeConcept.lead }}</h4>
+              <p style="font-size:15px; line-height:1.8; opacity:.86; margin:0 0 14px;">{{ activeConcept.body }}</p>
+              <div style="padding:14px 16px; border-radius:14px; background:rgba(238,245,255,.9); font-size:14px; line-height:1.75; margin-bottom:12px;"><b>🌱 生活例子</b><br>{{ activeConcept.example }}</div>
+              <div style="padding:14px 16px; border-radius:14px; background:rgba(255,247,230,.92); font-size:14px; line-height:1.75; margin-bottom:12px;"><b>💭 想一想</b><br>{{ activeConcept.think }}</div>
+              <p style="font-size:14px; line-height:1.7; margin:0;"><b>記住：</b>{{ activeConcept.key }}</p>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isChallenges }}">
+      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:rgba(255,255,255,.88); border:1px solid rgba(255,255,255,.92); backdrop-filter:blur(6px);">
+        <span class="card-kicker">02｜互動挑戰</span>
+        <h3 style="margin:4px 0 8px; font-size:24px; font-weight:800;">操作、模擬、做決策</h3>
+        <p style="opacity:.82; font-size:15px; font-weight:600; line-height:1.7; max-width:760px;">把原本「教學活動」中需要學生操作或參與的內容，統一收在這裡。可以讓學生個別使用，也可以由教師投影帶領全班進行。</p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:var(--space-3); margin-top:var(--space-4);">
+          <div style="padding:var(--space-4); border-radius:18px; background:rgba(245,247,255,.9); border:1px solid rgba(120,120,150,.14);">
+            <div style="font-size:28px;">🩺</div>
+            <h4 style="margin:8px 0 6px; font-size:19px; font-weight:800;">金融體檢</h4>
+            <p style="font-size:14px; opacity:.78; line-height:1.6;">30題互動式自我檢視，產出五向度能力雷達圖與個人結果卡，可作為前測與後測。</p>
+            <a href="金融體檢.html" class="btn btn-secondary" style="margin-top:var(--space-3); justify-content:space-between;">開始使用 <span>→</span></a>
+          </div>
+
+          <div style="padding:var(--space-4); border-radius:18px; background:rgba(245,247,255,.9); border:1px solid rgba(120,120,150,.14);">
+            <div style="font-size:28px;">⚖️</div>
+            <h4 style="margin:8px 0 6px; font-size:19px; font-weight:800;">金錢價值光譜</h4>
+            <p style="font-size:14px; opacity:.78; line-height:1.6;">價值澄清、全班即時光譜，讓學生表態並看見全班的金錢價值分布。</p>
+            <a href="https://script.google.com/macros/s/AKfycbzRIzgiDWC1zde5I4F-nJIcZWsM8szsrGn_ui44XIcpAanmWbA1b4Q-_IJXJy_pbkpY/exec" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="margin-top:var(--space-3); justify-content:space-between;">開始使用 <span>↗</span></a>
+          </div>
+
+          <div style="padding:var(--space-4); border-radius:18px; background:rgba(245,247,255,.9); border:1px solid rgba(120,120,150,.14);">
+            <div style="font-size:28px;">💰</div>
+            <h4 style="margin:8px 0 6px; font-size:19px; font-weight:800;">人生金錢挑戰｜預算模擬器</h4>
+            <p style="font-size:14px; opacity:.78; line-height:1.6;">選擇人生角色，分配有限收入，面對突發事件，在生活需求、儲蓄、風險與財務目標之間做出選擇。</p>
+            <a href="人生金錢挑戰.html" class="btn btn-secondary" style="margin-top:var(--space-3); justify-content:space-between;">開始使用 <span>→</span></a>
+          </div>
+
+          <div style="padding:var(--space-4); border-radius:18px; border:1px dashed rgba(90,90,120,.28); background:rgba(255,255,255,.52); display:flex; flex-direction:column; justify-content:center; min-height:180px; text-align:center;">
+            <div style="font-size:30px;">＋</div>
+            <div style="font-size:16px; font-weight:800; margin-top:6px;">更多互動挑戰</div>
+            <div style="font-size:13px; opacity:.68; margin-top:5px; line-height:1.6;">之後可加入預算模擬、投資配置、防詐情境等活動</div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isResources }}">
+      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:rgba(255,255,255,.88); border:1px solid rgba(255,255,255,.92); backdrop-filter:blur(6px);">
+        <span class="card-kicker">03｜教材資源</span>
+        <h3 style="margin:4px 0 8px; font-size:24px; font-weight:800;">老師要找教材，從這裡進入</h3>
+        <p style="opacity:.82; font-size:15px; font-weight:600; line-height:1.7; max-width:760px;">原本散在「金融核心知識」裡的官方教師手冊與學生手冊，集中到這一區，之後也可加入學習單、任務卡、牌卡與簡報。</p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:var(--space-3); margin-top:var(--space-4);">
+          <sc-for list="{{ resourceGroups }}" as="group" hint-placeholder-count="6">
+            <div style="padding:var(--space-4); border-radius:18px; background:rgba(245,247,255,.9); border:1px solid rgba(120,120,150,.14); display:flex; flex-direction:column; gap:10px;">
+              <div style="font-size:18px; font-weight:800;">{{ group.label }}</div>
+              <div style="font-size:13px; opacity:.72; line-height:1.55;">{{ group.desc }}</div>
+              <a href="{{ group.teacherLink }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="justify-content:space-between; white-space:normal; text-align:left;">教師手冊 <span>↗</span></a>
+              <a href="{{ group.studentLink }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="justify-content:space-between; white-space:normal; text-align:left;">學生手冊 <span>↗</span></a>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCases }}">
+      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:rgba(255,255,255,.88); border:1px solid rgba(255,255,255,.92); backdrop-filter:blur(6px);">
+        <span class="card-kicker">04｜課程案例</span>
+        <h3 style="margin:4px 0 8px; font-size:24px; font-weight:800;">一整套課程怎麼教？</h3>
+        <p style="opacity:.82; font-size:15px; font-weight:600; line-height:1.7; max-width:760px;">這裡只放完整的教學案例：包含課程目標、節次流程、搭配的互動挑戰、教材與評量方式，不再重複收錄單一活動或工具。</p>
+        <div style="margin-top:var(--space-4); padding:var(--space-6); border-radius:18px; border:1px dashed rgba(90,90,120,.28); background:rgba(255,255,255,.52); text-align:center;">
+          <div style="font-size:34px; margin-bottom:8px;">🌟</div>
+          <div style="font-size:18px; font-weight:800;">完整課程案例整理中</div>
+          <div style="font-size:14px; opacity:.7; margin-top:6px; line-height:1.6;">之後可將一套完整教學設計整理成案例頁，再連回同一份互動挑戰與教材資源。</div>
+        </div>
+      </div>
+    </sc-if>
+  </section>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { section: 'courses', topic: 'planning', concept: null };
+
+  renderVals() {
+    const sectionRaw = [
+      { id: 'courses', icon: '📚', label: '主題課程', desc: '依主題建立金融知識與學習脈絡' },
+      { id: 'challenges', icon: '🎮', label: '互動挑戰', desc: '操作、模擬、判斷與課堂體驗' },
+      { id: 'resources', icon: '📂', label: '教材資源', desc: '手冊、學習單、牌卡與教學素材' },
+      { id: 'cases', icon: '🌟', label: '課程案例', desc: '完整課程流程與實際教學設計' }
+    ];
+
+    const section = this.state.section;
+    const sections = sectionRaw.map(item => {
+      const active = item.id === section;
+      return {
+        ...item,
+        onSelect: () => this.setState({ section: item.id }),
+        style: `min-height:150px; padding:20px 18px; border-radius:20px; border:${active ? '2px solid var(--color-accent-600)' : '1px solid rgba(255,255,255,.92)'}; background:${active ? 'rgba(255,255,255,.94)' : 'rgba(255,255,255,.68)'}; color:var(--color-text); cursor:pointer; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:10px; text-align:left; box-shadow:${active ? '0 8px 24px rgba(70,70,100,.12)' : 'none'}; transition:all .2s ease;`
+      };
+    });
+
+    const topicRaw = [
+      { id:'planning', label:'💰 金錢規劃', question:'我的錢，要怎麼安排？', desc:'從每天的花費開始，學會看懂自己的金錢流向，安排現在，也為未來留一點空間。',
+        concepts:[
+          {icon:'💵',title:'收入與支出',short:'錢從哪裡來，又花到哪裡去？',lead:'錢從哪裡來，又到哪裡去？',body:'收入是你可以運用的金錢來源；支出則是為了生活、需要或想要而花出去的錢。對國中生來說，收入不一定是薪水，也可能是零用錢、獎學金、打工收入或收到的紅包。',example:'小宇這個月有零用錢 1,000 元，加上幫忙工作的收入 500 元，總收入 1,500 元；花了 900 元，因此還剩 600 元。',think:'剩下的 600 元，就是「可以全部花掉的錢」嗎？你還可能需要為哪些事情預留？',key:'知道錢從哪裡來、花到哪裡去，是開始管理金錢的第一步。'},
+          {icon:'🛍️',title:'需要與想要',short:'分辨重要與想要，找到優先順序。',lead:'我真的需要它嗎？',body:'需要通常和生活、學習、安全等重要事情有關；想要則能讓生活更方便、更有樂趣。兩者不是永遠固定的，同一樣東西在不同情境下可能有不同答案。',example:'下雨天沒有雨具，買雨傘比較接近「需要」；家裡已有能用的雨傘，卻因新款又想買，就比較接近「想要」。',think:'一雙新球鞋對你來說是需要還是想要？如果原本的鞋已經破了，答案會不會改變？',key:'理財不是把所有「想要」都刪掉，而是先知道自己的優先順序。'},
+          {icon:'🧾',title:'預算規劃',short:'在花之前先安排，讓錢有目的地使用。',lead:'錢還沒花，就先幫它安排工作。',body:'預算是在花錢以前，先決定有限的錢要怎麼分配。它不是規定「不能花」，而是幫助你兼顧必要支出、想要的東西與未來目標。',example:'這個月有 1,000 元，可以先安排交通與餐費 400 元、儲蓄 200 元，剩下 400 元再決定其他用途。',think:'如果臨時多了一筆 300 元的必要支出，你會從哪一項調整？為什麼？',key:'好的預算不是完全不能改，而是每次調整都知道自己放棄了什麼、保留了什麼。'},
+          {icon:'🐷',title:'儲蓄',short:'把存錢也當成預算的一部分。',lead:'先存再花，還是花剩再存？',body:'儲蓄是把一部分現在可以使用的錢留給未來。若只等月底「有剩再存」，常常很難累積；把儲蓄先列入預算，通常更容易達成目標。',example:'每月有 1,000 元，如果一開始先留下 200 元，連續 5 個月就能累積 1,000 元。',think:'如果你想在 6 個月後存到 3,000 元，平均每個月需要留下多少？',key:'存錢比較容易成功的關鍵，是先知道自己為什麼要存。'},
+          {icon:'☂️',title:'緊急預備金',short:'為計畫外的必要支出留安全空間。',lead:'如果計畫外的事情突然發生呢？',body:'生活不一定照計畫進行。緊急預備金是為突發且必要的支出預留的安全空間，和為了買想要物品而存的錢用途不同。',example:'通勤用的腳踏車突然需要修理，如果完全沒有預留金錢，就可能必須取消其他計畫，甚至向別人借錢。',think:'手機突然故障、朋友臨時揪聚餐、看見限時特價商品，哪些比較像「緊急狀況」？',key:'預備金的目的，是讓突發事件發生時，你還有選擇。'}
+        ]},
+      { id:'credit', label:'💳 借貸與信用', question:'借錢之後，真正要付出的有多少？', desc:'借貸可以解決眼前需求，但也會產生成本與責任。',
+        concepts:[
+          {icon:'💸',title:'借貸',short:'現在使用別人的錢，之後必須償還。',lead:'先拿到錢，就等於多了一筆收入嗎？',body:'借貸是先取得一筆資金，之後依照約定償還。借來的錢可以解決眼前需求，但它不是免費增加的收入。',example:'想買 18,000 元的筆電，手上只有 8,000 元；若借 10,000 元補足差額，未來仍要依約償還。',think:'「借錢買」和「先存錢再買」各有什麼好處與代價？',key:'借貸不是讓錢憑空變多；借來的錢也會占用未來可以使用的收入。'},
+          {icon:'💰',title:'利息與借貸成本',short:'借多少，不一定等於最後還多少。',lead:'借 10,000 元，最後一定只還 10,000 元嗎？',body:'借錢通常會有成本，最常見的是利息，也可能有其他費用。因此不能只看「借到多少」，還要看最後總共需要付出多少。',example:'借 10,000 元，若依約最後總共償還 10,600 元，多出的 600 元就是借貸成本的一部分。',think:'除了最後總共還多少，你還會想比較哪些借貸條件？',key:'判斷借貸划不划算，要看總成本與完整條件。'},
+          {icon:'📆',title:'分期付款',short:'每月比較少，不代表總成本比較低。',lead:'「每月只要 1,500 元」真的代表比較便宜嗎？',body:'分期付款是把一筆支出拆成多次支付，可以降低單次付款壓力，但商品不會因此自動變便宜。',example:'18,000 元手機若分 12 期、每期 1,500 元且沒有其他費用，總額仍是 18,000 元；若另有費用，總支出還可能更高。',think:'看到「每月只要 999 元」時，你會先確認期數、每期金額，還是其他費用？',key:'每月付得起，不等於總成本比較低，也不等於這筆消費適合自己。'},
+          {icon:'⭐',title:'信用',short:'信用來自長期履行承諾。',lead:'信用不是「有很多錢」，那是什麼？',body:'信用和一個人是否依約履行承諾有關。按時還款、遵守契約等紀錄，都可能影響未來取得金融服務的條件。',example:'收入相近的兩個人，一個長期按時履約，另一個常逾期，未來取得金融服務的條件可能不同。',think:'為什麼金融機構不只在意「最後有沒有還」，也在意「有沒有準時」？',key:'信用需要時間累積，也可能因沒有履行承諾而受到影響。'},
+          {icon:'⚠️',title:'負債與還款能力',short:'借得到，不代表還得起。',lead:'借得到，就代表還得起嗎？',body:'真正重要的不是「最多可以借多少」，而是未來支付必要生活支出後，是否仍有能力按時還款。',example:'每月可運用 20,000 元，固定生活支出已需 16,000 元，再增加每月 6,000 元還款，就會超過能負擔的範圍。',think:'如果收入突然減少，但每月還款不變，生活可能受到哪些影響？',key:'借貸前要替未來的自己保留生活空間。'}
+        ]},
+      { id:'insurance', label:'🛡️ 保險與風險管理', question:'如果意外發生，我有辦法面對嗎？', desc:'不是所有風險都要害怕，而是先判斷影響，再選擇適合的因應方式。',
+        concepts:[
+          {icon:'⚡',title:'風險',short:'可能發生、而且可能造成損失的事件。',lead:'生活中哪些事情算是風險？',body:'風險是未來可能發生、而且可能造成損失的不確定事件。風險不代表事情一定會發生。',example:'通勤事故、手機摔壞、家中突發的大額支出，都可能影響原本的生活與金錢安排。',think:'不同風險可能造成的影響都一樣嗎？',key:'認識風險，是為可能的損失做好準備。'},
+          {icon:'📊',title:'發生機會與影響',short:'機會多大？發生後有多嚴重？',lead:'風險只要看「會不會發生」嗎？',body:'判斷風險時，可以同時想：發生的可能性有多高？一旦發生，造成的影響有多大？',example:'忘帶水壺可能較常發生但影響有限；嚴重事故機率可能較低，卻可能帶來很大的財務負擔。',think:'手機螢幕摔破要 5,000 元，和突然需要 500,000 元的必要支出，你會用一樣的方法準備嗎？',key:'評估風險要同時看發生可能性和影響程度。'},
+          {icon:'🧠',title:'我承受得起嗎？',short:'同一筆損失，對每個人的影響不同。',lead:'同一筆損失，對每個人的影響都一樣嗎？',body:'每個人可以承受的損失程度不同，會受到收入、存款、家庭責任與其他資源影響。',example:'同樣突然需要 10,000 元，有預備金的人可能能自行負擔；沒有存款的人可能必須取消其他必要支出。',think:'如果一筆損失會讓你無法支付必要生活費，它是不是已超過你的承受範圍？',key:'風險大小也要看損失對自己的生活會造成多大影響。'},
+          {icon:'🧯',title:'風險管理',short:'避免、降低、承擔或轉移風險。',lead:'遇到風險，只能靠保險嗎？',body:'面對風險可以避免高風險行為、降低損失、自己承擔較小損失，或把難以承受的大額風險轉移出去。',example:'戴安全帽是在降低風險；準備小額維修金是自己承擔可負擔的損失；保險則可用來轉移部分重大風險。',think:'手機保護殼、緊急預備金、保險，三者管理風險的方法有什麼不同？',key:'保險只是風險管理的方法之一。'},
+          {icon:'🛡️',title:'保險',short:'用固定成本管理難以承受的大額風險。',lead:'為什麼有人願意先付保費？',body:'保險的核心功能是風險保障。依契約支付保費，在符合約定的事故發生時，由保險依契約提供給付。',example:'對可能造成重大財務衝擊的事件，可以思考是否透過適合的保險轉移部分風險。',think:'小額且能自行處理的損失，和可能造成數十萬元負擔的大損失，哪一種更需要思考風險轉移？',key:'保險主要是管理難以承受的風險，不是讓每次繳出去的錢都一定拿回來。'}
+        ]},
+      { id:'invest', label:'📈 理財投資', question:'存錢和投資，有什麼不一樣？', desc:'投資不是快速變有錢，而是在了解風險後，讓資金有機會隨時間成長。',
+        concepts:[
+          {icon:'🏦',title:'儲蓄與投資',short:'用途不同，不是誰一定比較好。',lead:'把錢存起來，和拿去投資，有什麼不一樣？',body:'儲蓄比較重視安全、穩定與流動性；投資則是在承擔一定風險的前提下，期待資金有機會成長。',example:'三個月後一定要用的錢通常更重視安全；多年後才使用的資金，才比較有空間承擔波動。',think:'下個月一定要用的錢和五年後才可能用的錢，你會用一樣的方法處理嗎？',key:'先看目標與時間，再決定儲蓄或投資。'},
+          {icon:'📈',title:'報酬',short:'可能有收益，但並非固定保證。',lead:'投資為什麼有人願意承擔風險？',body:'投資人願意承擔價格波動或損失的可能，是因為期待未來獲得報酬，但報酬並不保證發生。',example:'資產價格上升可能獲利，價格下跌也可能虧損；不同工具的報酬來源並不相同。',think:'如果有人標榜「一定有高報酬、完全沒有風險」，你會先相信還是先查證？',key:'有機會獲得報酬，也代表要面對結果不如預期的可能。'},
+          {icon:'🎢',title:'風險',short:'結果可能和原本期待不同。',lead:'價格上下波動，就是投資風險嗎？',body:'投資風險也包括本金損失、無法及時變現、資訊判斷錯誤等。高風險不代表一定賺得更多。',example:'同樣投入 10,000 元，一種工具價格較穩定，另一種短時間可能大漲大跌，後者需要更高的風險承受能力。',think:'如果帳面金額一天內下跌 15%，你能承受這種波動嗎？',key:'投資前先認識自己能承受多少波動與損失。'},
+          {icon:'⏳',title:'複利',short:'報酬再投入，時間會影響累積。',lead:'為什麼時間會影響資產累積？',body:'本金產生報酬後，如果報酬繼續留下來，下一期可能連同本金一起產生新的報酬，形成複利效果。',example:'10,000 元一年後變成 10,500 元，若 500 元繼續投入，下一年計算報酬的基礎就不只是原本的 10,000 元。',think:'同樣每年投入一筆錢，現在開始和十年後才開始，差距可能來自哪些因素？',key:'複利需要時間與持續累積，不代表短期一定快速變多。'},
+          {icon:'🧺',title:'分散投資',short:'不要讓單一風險決定全部結果。',lead:'為什麼不要把所有錢放在同一個地方？',body:'把資金配置在不同資產、產業或市場，可以降低單一投資出問題時對整體造成的衝擊。',example:'全部資金都放在同一家公司，一旦公司出現重大問題，整體資產都會受影響。',think:'「不要把所有雞蛋放在同一個籃子裡」和投資有什麼關係？',key:'分散不能保證不虧損，但能降低單一風險的衝擊。'},
+          {icon:'🧰',title:'常見理財與資產工具',short:'不同工具有不同用途、風險與條件。',lead:'錢可以放在哪裡？',body:'常見工具包括定存、債券、基金、ETF、股票、保險、黃金與房地產等。它們的用途、風險、可能報酬、資金需求與變現方式都不同。',example:'定存通常較重視穩定；股票價格可能有較明顯波動；房地產通常需要較大的資金。保險主要功能是保障與風險管理，不是以追求投資報酬為主要目的。',think:'一年後一定要用的錢和十年後才可能使用的錢，你會選完全相同的工具嗎？',key:'先認識工具，再依目標、時間與風險承受能力做選擇。'}
+        ]},
+      { id:'protection', label:'⚖️ 金融消費保護', question:'買金融商品，也有消費者權益嗎？', desc:'金融商品不只看好不好賺，也要看懂條件、費用、權利與責任。',
+        concepts:[
+          {icon:'🔍',title:'看懂資訊',short:'不要只看廣告最醒目的文字。',lead:'廣告寫得很吸引人，就代表適合我嗎？',body:'金融商品常同時包含收益、費用、限制與風險。做決定前要確認重要條件，弄懂自己買的是什麼。',example:'看到「高利率」「0元手續費」時，還要確認適用期間、資格限制與附帶條件。',think:'廣告寫「最高可享」某項優惠，你還會想知道哪些資訊？',key:'重要資訊不一定寫在最大的字上。'},
+          {icon:'💰',title:'比較費用',short:'比較整體負擔，不只看一個數字。',lead:'看起來一樣的商品，最後付的錢可能不同嗎？',body:'除了商品價格或借款金額，也可能有利息、手續費、管理費或其他成本。',example:'兩個方案都標示每月 2,000 元，但期數或其他費用不同，最後支付總額可能不同。',think:'方案 A 每月較便宜但要多付很多期，你會只因每月較少就選 A 嗎？',key:'比較金融商品，要看總成本與完整條件。'},
+          {icon:'📄',title:'閱讀契約',short:'看懂再同意，先知道自己答應什麼。',lead:'按下「我同意」以前，我真的知道自己答應了什麼嗎？',body:'契約會記載權利、義務、費用、期限與限制。不清楚的地方要先詢問，不要直接略過。',example:'服務契約可能包含提前終止、付款方式或違約相關規定，這些都可能影響權益。',think:'契約中有一段完全看不懂，你會先簽再問，還是先弄懂再決定？',key:'簽下去代表接受約定；看懂再同意，是保護自己的第一步。'},
+          {icon:'🧾',title:'保留紀錄',short:'重要交易不要只靠記憶。',lead:'交易完成後，資料還需要留著嗎？',body:'契約、收據、交易紀錄、付款證明與重要溝通內容，都可能在處理爭議時派上用場。',example:'日後發現扣款與原本說明不同，能提出契約與交易明細，就比較容易釐清問題。',think:'只靠「我記得」和能提出紀錄相比，哪一種比較容易釐清爭議？',key:'留下紀錄，就是替未來的自己保存證據。'},
+          {icon:'☎️',title:'有問題，我可以找誰？',short:'知道可以詢問、申訴與求助。',lead:'真的發生金融消費爭議時，我可以怎麼辦？',body:'遇到不清楚的扣款、契約爭議或金融消費問題，可以先向提供服務的金融機構詢問，必要時再透過正式管道尋求協助。',example:'發現帳單有不理解的費用，可以先整理契約與交易資料，再向業者詢問費用來源。',think:'為什麼先把資料整理好，會比只說「我覺得不合理」更有幫助？',key:'知道自己的權益，也知道遇到問題可以查詢、詢問與求助。'}
+        ]},
+      { id:'fraud', label:'🚨 金融防詐', question:'面對「好康機會」，怎麼判斷是真是假？', desc:'詐騙常利用急迫、貪心或害怕的心理，先停下來查證，比立刻行動更重要。',
+        concepts:[
+          {icon:'🚩',title:'辨識警訊',short:'保證、催促、保密，都要提高警覺。',lead:'哪些訊號出現時，我應該提高警覺？',body:'詐騙常利用賺快錢、限時機會、害怕出事、不能告訴別人等方式讓人急著行動。',example:'有人私訊聲稱跟著老師操作就能「穩賺不賠」，名額只剩今天，要求立刻匯款。',think:'「保證獲利」「只剩今天」「不要告訴家人」為什麼容易讓人來不及思考？',key:'越是保證、催促、要求保密，越需要提高警覺。'},
+          {icon:'⏸️',title:'先停一下',short:'越催你，越不要照對方節奏行動。',lead:'對方一直催，我為什麼更不能急？',body:'詐騙常利用時間壓力讓人沒有機會查證。遇到要求立即付款、轉帳或提供資料時，先停止操作。',example:'自稱客服說訂單設定錯誤，不立刻操作網銀就會一直扣款。不要因害怕照做，先中止聯絡再自行確認。',think:'先花幾分鐘確認，和立刻匯錯錢相比，哪一個風險比較大？',key:'遇到可疑金融要求時，「先停」本身就是一種保護。'},
+          {icon:'🔎',title:'主動查證',short:'離開對方提供的資訊環境再確認。',lead:'對方給我的證明，可以證明他自己是真的嗎？',body:'查證不能只用對方提供的電話、連結、群組或截圖，應自己尋找可信任的正式來源確認。',example:'收到自稱銀行的簡訊，不直接點裡面的網址；可以自己從正式網站、官方 App 或卡片上的聯絡方式確認。',think:'對方說「你可以打這支電話查證」，但電話也是他提供的，算真正的交叉查證嗎？',key:'真正的查證，是自己找到可信來源確認。'},
+          {icon:'🔐',title:'保護個資與帳戶',short:'重要資料、帳戶與金融卡不要交給陌生人。',lead:'哪些資料不能因為對方看起來很專業就交出去？',body:'帳號、密碼、驗證碼、金融卡資訊都可能被用來操作帳戶或冒用身分。不要把金融帳戶、金融卡交給陌生人使用，也不要替不明人士收款或轉帳。',example:'自稱客服的人知道你的姓名與訂單內容，仍不代表可信，更不能因此提供簡訊驗證碼。',think:'為什麼「他知道我的名字，所以一定是真的」不是可靠的判斷方式？',key:'重要資料不交陌生人，帳戶與金融卡也不要借給別人使用。'},
+          {icon:'🆘',title:'求助',short:'不要獨自處理，越早求助越能降低損失。',lead:'覺得怪怪的，或已經操作了，接下來怎麼辦？',body:'遇到可疑情況，可以找可信任的大人、金融機構或正式查證管道協助。若已提供資料或轉帳，更應盡快停止後續操作並尋求協助。',example:'發現可能點進假購物網站並輸入重要資料，可以立即告訴家長或可信任的大人，一起聯絡相關金融機構。',think:'詐騙者為什麼常要求受害者「不要跟別人說」？',key:'越早停止、查證與求助，越有機會降低損失。'}
+        ]}
+    ];
+
+    const activeTopicId = this.state.topic;
+    const topics = topicRaw.map(t => {
+      const active = t.id === activeTopicId;
+      return {
+        ...t,
+        onSelect: () => this.setState({ topic: t.id, concept: null }),
+        style: `padding:9px 16px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:15px; font-weight:700; cursor:pointer; white-space:nowrap; background:${active ? 'var(--color-accent-600)' : 'var(--color-accent-2-100)'}; color:${active ? 'var(--color-bg)' : 'var(--color-text)'};`
+      };
+    });
+
+    const activeTopic = topicRaw.find(t => t.id === activeTopicId) || topicRaw[0];
+    const conceptIndex = this.state.concept;
+    const concepts = activeTopic.concepts.map((c, i) => {
+      const active = i === conceptIndex;
+      return {
+        ...c,
+        onSelect: () => this.setState({ concept: active ? null : i }),
+        style: `padding:16px; min-height:132px; border-radius:16px; border:${active ? '2px solid var(--color-accent-600)' : '1px solid rgba(120,120,150,.14)'}; background:${active ? 'rgba(255,255,255,.98)' : 'rgba(255,255,255,.72)'}; color:var(--color-text); cursor:pointer; text-align:left; display:flex; flex-direction:column; align-items:flex-start; gap:7px; font-family:var(--font-body);`
+      };
+    });
+    const selectedConcept = conceptIndex === null || conceptIndex === undefined ? null : activeTopic.concepts[conceptIndex];
+    const activeConcept = selectedConcept ? {
+      ...selectedConcept,
+      kicker: `${String(conceptIndex + 1).padStart(2,'0')}｜核心概念`
+    } : {};
+
+    const resourceGroups = [
+      { label: '金錢規劃', desc: '官方金融知識養成教材',
+        teacherLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250200000000000&type=Doc&PKID=93c94548-81f2-4d5b-823e-37f314601d8e',
+        studentLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250200000000000&type=Doc&PKID=93c94548-81f2-4d5b-823e-37f314601d8e' },
+      { label: '借貸與信用', desc: '官方金融知識養成教材',
+        teacherLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250300000000000',
+        studentLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250300000000000' },
+      { label: '保險與風險管理', desc: '官方金融知識養成教材',
+        teacherLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250400000000000',
+        studentLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250400000000000' },
+      { label: '理財投資', desc: '官方金融知識養成教材',
+        teacherLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250500000000000',
+        studentLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250500000000000' },
+      { label: '金融消費保護', desc: '官方金融知識養成教材',
+        teacherLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250600000000000&type=Doc&PKID=963bd33d-71bb-4788-aab5-9c0c8cf0f60d',
+        studentLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010250600000000000&type=Doc&PKID=963bd33d-71bb-4788-aab5-9c0c8cf0f60d' },
+      { label: '金融防詐', desc: '官方金融知識養成教材',
+        teacherLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010270101000000000',
+        studentLink: 'https://rm.ib.gov.tw/Pages/FKLearning_new.aspx?Dir=010270101000000000' }
+    ];
+
+    return {
+      sections,
+      topics,
+      activeTopic,
+      concepts,
+      activeConcept,
+      hasActiveConcept: !!selectedConcept,
+      resourceGroups,
+      isCourses: section === 'courses',
+      isChallenges: section === 'challenges',
+      isResources: section === 'resources',
+      isCases: section === 'cases'
+    };
+  }
+}
+
+</script>
+</body>
+</html>

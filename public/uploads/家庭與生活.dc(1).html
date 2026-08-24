@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<title>家庭與生活｜家政學習平台</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css">
+  <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
+</helmet>
+<style>
+  :root{
+    --family-bg:#FAF7F4;
+    --family-ink:#403638;
+    --family-primary:#8B6F71;
+    --family-primary-dark:#6F5658;
+    --family-card:#FFFDFC;
+    --family-border:#E9DFDB;
+    --family-sage:#DCE6DF;
+    --family-rose:#E8DADD;
+    --family-blue:#DCE5EA;
+    --family-olive:#E7E5D4;
+    --family-shadow:0 10px 30px rgba(90,70,72,.09);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0}
+  button,input,select,textarea{font:inherit}
+  .family-page{min-height:100vh;background:linear-gradient(180deg,#FAF7F4 0%,#F6F1EE 46%,#F9F7F3 100%);color:var(--family-ink);font-family:var(--font-body,system-ui,-apple-system,"Segoe UI",sans-serif)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 0 10px;position:sticky;top:0;z-index:20;background:linear-gradient(180deg,rgba(250,247,244,.97),rgba(250,247,244,.84),rgba(250,247,244,0));backdrop-filter:blur(8px)}
+  .back{color:var(--family-primary-dark);text-decoration:none;font-size:14px;font-weight:700}
+  .toolbox-btn{border:1px solid var(--family-border);background:#fff;border-radius:999px;padding:9px 14px;cursor:pointer;box-shadow:0 5px 16px rgba(75,58,60,.06);font-weight:800;color:var(--family-primary-dark)}
+  .hero{text-align:center;padding:42px 0 34px}
+  .hero .eyebrow{font-size:14px;font-weight:800;color:var(--family-primary);letter-spacing:.08em;margin-bottom:10px}
+  .hero h1{font-size:clamp(34px,6vw,58px);line-height:1.1;margin:0;font-weight:900;letter-spacing:-.03em}
+  .hero h2{font-size:clamp(21px,3vw,30px);margin:16px 0 12px;font-weight:850;color:var(--family-primary-dark)}
+  .hero p{max-width:720px;margin:0 auto;color:#6E6062;font-size:17px;line-height:1.8}
+  .scrollhint{margin-top:20px;font-size:13px;color:#9A898B}
+  .topic-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;padding:8px 0 56px}
+  .topic-card{grid-column:span 2;background:var(--family-card);border:1px solid var(--family-border);border-radius:24px;padding:24px;text-align:left;box-shadow:var(--family-shadow);cursor:pointer;transition:.22s ease;position:relative;overflow:hidden;min-height:285px;display:flex;flex-direction:column}
+  .topic-card:nth-child(4){grid-column:2/span 2}.topic-card:nth-child(5){grid-column:4/span 2}
+  .topic-card:hover{transform:translateY(-6px);box-shadow:0 16px 38px rgba(90,70,72,.14)}
+  .topic-card .num{font-size:12px;font-weight:900;letter-spacing:.12em;color:#A38F91}
+  .topic-icon{font-size:38px;margin:12px 0 10px}
+  .topic-card h3{font-size:23px;line-height:1.3;margin:0 0 10px}
+  .topic-q{font-weight:800;color:var(--family-primary-dark);margin-bottom:9px}
+  .topic-desc{color:#746567;line-height:1.6;font-size:14px;flex:1}
+  .tags{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}
+  .tag{font-size:12px;font-weight:800;padding:6px 9px;border-radius:999px;background:#F4EEEB;color:#6E5C5E}
+  .explore{font-weight:900;color:var(--family-primary);display:inline-flex;gap:6px;align-items:center}
+  .topic-card:hover .explore .arr{transform:translateX(4px)} .arr{transition:.2s}
+  .section-view{display:none;padding:10px 0 64px}.section-view.active{display:block}
+  .crumb{font-size:13px;color:#8D7B7D;margin:8px 0 20px}.crumb button{border:0;background:none;color:var(--family-primary);cursor:pointer;font-weight:800;padding:0}
+  .section-hero{background:#fff;border:1px solid var(--family-border);border-radius:28px;padding:30px;box-shadow:var(--family-shadow);margin-bottom:18px}
+  .section-title-row{display:flex;align-items:center;gap:13px}.section-hero .bigicon{font-size:44px}.section-hero h2{font-size:32px;margin:0}.section-hero p{color:#756567;line-height:1.7;margin:10px 0 0;max-width:760px}
+  .progress{display:flex;gap:8px;margin-top:18px}.progress span{height:7px;flex:1;background:#EEE6E2;border-radius:999px}.progress span.on{background:var(--family-primary)}
+  .lesson{background:#fff;border:1px solid var(--family-border);border-radius:22px;padding:24px;margin:16px 0;box-shadow:0 7px 22px rgba(90,70,72,.06)}
+  .lesson h3{margin:0 0 12px;font-size:21px}.lesson p{line-height:1.75;color:#685A5C}.prompt{font-size:23px;font-weight:900;margin:12px 0 18px;color:#4A3E40}
+  .options{display:grid;gap:10px}.opt{border:1px solid #E7DCDA;background:#FFFDFC;border-radius:16px;padding:14px 16px;text-align:left;cursor:pointer;transition:.18s}.opt:hover{border-color:#BFA9AB;background:#FCF7F5}.opt.selected{border-color:var(--family-primary);background:#F7F0F0;box-shadow:inset 0 0 0 1px var(--family-primary)}
+  .feedback{display:none;margin-top:14px;padding:14px 16px;border-radius:14px;background:#F6F2EE;line-height:1.65}.feedback.show{display:block}
+  .concept{background:linear-gradient(135deg,#F3ECEB,#F8F5F1);border-left:5px solid var(--family-primary);padding:17px 18px;border-radius:16px;margin-top:14px}.concept strong{display:block;margin-bottom:5px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.chip{background:white;border:1px solid #E5D9D6;padding:7px 10px;border-radius:999px;font-size:13px;font-weight:800}
+  .builder{display:grid;gap:12px}.builder label{font-weight:800;font-size:14px}.builder input,.builder select{width:100%;padding:12px 13px;border:1px solid #DCCFCB;border-radius:12px;background:#fff}.builder-output{padding:16px;border-radius:16px;background:#F6F1EE;font-weight:800;line-height:1.6}
+  .members{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:12px}.member{background:#F8F4F1;border:1px solid #E4DAD6;border-radius:16px;padding:12px;text-align:center;font-weight:800}
+  .tasks{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.task{background:#fff;border:1px dashed #CDBDB9;padding:9px 10px;border-radius:12px;cursor:pointer}.task.assigned{background:#EFE7E6;border-style:solid}
+  .scenario{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}.scenario-card{padding:15px;border-radius:16px;background:#F8F4F1;border:1px solid #E7DDDA}
+  .heat{font-size:23px;letter-spacing:3px;margin:10px 0}.heat.low{color:#7B8A75}.heat.high{color:#9F625C}
+  .tool-earned{background:linear-gradient(135deg,#EEE5E2,#F8F5F1);border:1px solid #DCCBC7;border-radius:22px;padding:22px;text-align:center;margin-top:18px}.tool-earned .emoji{font-size:42px}.tool-earned h3{font-size:25px;margin:6px 0}.tool-earned p{margin:0;color:#6F6163}
+  .complete-btn,.primary-btn{border:0;background:var(--family-primary);color:white;border-radius:14px;padding:12px 18px;font-weight:900;cursor:pointer}.complete-btn:hover,.primary-btn:hover{background:var(--family-primary-dark)}
+  .secondary-btn{border:1px solid #DCCBC7;background:white;color:var(--family-primary-dark);border-radius:14px;padding:12px 18px;font-weight:900;cursor:pointer}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .toolbox-panel{position:fixed;right:20px;top:78px;width:min(360px,calc(100vw - 40px));background:white;border:1px solid var(--family-border);border-radius:22px;padding:18px;box-shadow:0 20px 50px rgba(70,50,52,.18);z-index:50;display:none}.toolbox-panel.open{display:block}.toolbox-panel h3{margin:0 0 12px}.tool-list{display:grid;gap:9px}.tool-item{display:flex;gap:10px;align-items:center;padding:10px;border-radius:13px;background:#F8F4F1;opacity:.45}.tool-item.on{opacity:1;background:#F2EBE8}.tool-item b{display:block}.tool-item small{color:#776769}
+  .final-box{background:white;border:1px solid var(--family-border);border-radius:28px;padding:30px;text-align:center;box-shadow:var(--family-shadow);margin:12px 0 60px}.final-tools{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:20px 0}.final-tools div{padding:16px 8px;background:#F8F3F0;border-radius:16px;font-weight:900}
+  @media(max-width:900px){.topic-grid{grid-template-columns:repeat(2,1fr)}.topic-card,.topic-card:nth-child(4),.topic-card:nth-child(5){grid-column:auto}.members{grid-template-columns:repeat(2,1fr)}.final-tools{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:620px){.wrap{padding:0 14px}.topbar{padding-top:14px}.hero{padding-top:26px}.topic-grid{grid-template-columns:1fr}.topic-card{min-height:auto}.scenario{grid-template-columns:1fr}.section-hero{padding:22px}.section-hero h2{font-size:27px}.topbar{align-items:flex-start}.toolbox-btn{font-size:13px}.final-tools{grid-template-columns:1fr}}
+</style>
+
+<div class="family-page">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="back" href="家政金融網頁.dc.html">← 回首頁</a>
+      <button class="toolbox-btn" id="toolboxBtn">🧰 我的生活工具箱 <span id="toolCount">0/5</span></button>
+    </div>
+
+    <main id="homeView">
+      <section class="hero">
+        <div class="eyebrow">🏠 家庭與生活</div>
+        <h1>家庭與生活，要學什麼？</h1>
+        <h2>我們，怎麼一起把生活過好？</h2>
+        <p>家，不只是住在一起的地方。在每天的相處裡，我們練習<strong>溝通、合作、尊重、解決問題與面對改變</strong>，讓彼此更自在地一起生活。</p>
+        <div class="scrollhint">↓ 從一個生活問題開始探索</div>
+      </section>
+
+      <section class="topic-grid" aria-label="家庭與生活五大主題">
+        <button class="topic-card" data-open="communication">
+          <span class="num">01</span><span class="topic-icon">💬</span>
+          <h3>有話，怎麼好好說？</h3><div class="topic-q">我說的，和對方聽到的，真的一樣嗎？</div>
+          <div class="topic-desc">學會聽懂別人，也把自己的感受與需要說清楚。</div>
+          <div class="tags"><span class="tag">傾聽</span><span class="tag">表達</span><span class="tag">我訊息</span><span class="tag">非語言溝通</span></div>
+          <span class="explore">開始探索 <span class="arr">→</span></span>
+        </button>
+        <button class="topic-card" data-open="cooperation">
+          <span class="num">02</span><span class="topic-icon">🤝</span>
+          <h3>一起生活，怎麼分工？</h3><div class="topic-q">每個人都做一樣多，就是公平嗎？</div>
+          <div class="topic-desc">看見彼此的時間、能力與需要，一起承擔生活中的事情。</div>
+          <div class="tags"><span class="tag">家務分工</span><span class="tag">家庭責任</span><span class="tag">生活照顧</span><span class="tag">公平合作</span></div>
+          <span class="explore">開始探索 <span class="arr">→</span></span>
+        </button>
+        <button class="topic-card" data-open="relationship">
+          <span class="num">03</span><span class="topic-icon">❤️</span>
+          <h3>家人不一樣，怎麼相處？</h3><div class="topic-q">一家人，就一定要什麼都一樣嗎？</div>
+          <div class="topic-desc">每個家庭有不同的樣貌，每個家人也有自己的角色、想法與需要。</div>
+          <div class="tags"><span class="tag">家庭多樣性</span><span class="tag">家庭角色</span><span class="tag">尊重差異</span><span class="tag">關係界線</span></div>
+          <span class="explore">開始探索 <span class="arr">→</span></span>
+        </button>
+        <button class="topic-card" data-open="conflict">
+          <span class="num">04</span><span class="topic-icon">🌧️</span>
+          <h3>意見不一樣，怎麼辦？</h3><div class="topic-q">有衝突，就代表關係不好嗎？</div>
+          <div class="topic-desc">先看見彼此真正的需要，再一起找可以接受的方法。</div>
+          <div class="tags"><span class="tag">情緒調整</span><span class="tag">衝突處理</span><span class="tag">協商</span><span class="tag">共同決策</span></div>
+          <span class="explore">開始探索 <span class="arr">→</span></span>
+        </button>
+        <button class="topic-card" data-open="adaptation">
+          <span class="num">05</span><span class="topic-icon">🌱</span>
+          <h3>家庭改變了，怎麼適應？</h3><div class="topic-q">如果生活突然不一樣了呢？</div>
+          <div class="topic-desc">家庭成員或生活狀況改變時，我們可以重新看見需要、調整生活。</div>
+          <div class="tags"><span class="tag">家庭變化</span><span class="tag">需求改變</span><span class="tag">角色調整</span><span class="tag">生活適應</span></div>
+          <span class="explore">開始探索 <span class="arr">→</span></span>
+        </button>
+      </section>
+      <section class="final-box" id="finalBox" style="display:none">
+        <div style="font-size:46px">🧰</div><h2>我的生活工具箱完成了！</h2>
+        <p>你已經收集五個可以帶回生活使用的工具。</p>
+        <div class="final-tools"><div>💬 好好溝通</div><div>⚖️ 公平分工</div><div>❤️ 尊重差異</div><div>🤝 協商解決</div><div>🌱 調整適應</div></div>
+        <h3>把生活一起過好，不是誰一個人的事。</h3>
+      </section>
+    </main>
+
+    <section class="section-view" id="communication">
+      <div class="crumb"><button data-home>家庭與生活</button> › 有話，怎麼好好說？</div>
+      <div class="section-hero"><div class="section-title-row"><div class="bigicon">💬</div><h2>有話，怎麼好好說？</h2></div><p>溝通，不只是把話說出去，還要讓彼此有機會真正聽懂。</p><div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+      <div class="lesson"><h3>① 同一句話，我們聽到的一樣嗎？</h3><div class="prompt">媽媽：「你房間到底要亂到什麼時候？」</div><p>如果你聽到這句話，第一個感覺是？</p><div class="options one-select" data-feedback="comm-fb"><button class="opt">😠 她又在罵我。</button><button class="opt">😑 好煩，又來了。</button><button class="opt">😰 我是不是又做錯事？</button><button class="opt">🤔 她是不是希望我整理房間？</button></div><div class="feedback" id="comm-fb">沒有唯一答案。同一句話可能因為<strong>語氣、表情、情緒與過去經驗</strong>，被聽成不同的意思。</div></div>
+      <div class="lesson"><h3>② 我有說＝你有懂？</h3><div class="concept"><strong>💡 溝通是雙向的</strong>表達 → 接收 → 理解 → 回應。中間還可能受到情緒、分心或誤解影響。</div><div class="prompt">「我有說」不一定等於「對方有聽懂」。</div></div>
+      <div class="lesson"><h3>③ 你真的有在聽嗎？</h3><p>朋友說：「我昨天又跟家人吵架了……」</p><div class="options feedback-options"><button class="opt" data-msg="你有聽見，但對方不一定感覺自己被理解。">「喔。」</button><button class="opt" data-msg="你想支持朋友，但很快替事情下了判斷。">「你家人真的很煩耶。」</button><button class="opt" data-msg="你想安慰對方，但話題可能轉到自己身上。">「沒什麼啦，我也常這樣。」</button><button class="opt" data-msg="你先接住對方的感受，也留下繼續說話的空間。">「聽起來你昨天很不好受，後來怎麼了？」</button></div><div class="feedback dynamic"></div><div class="concept"><strong>👂 積極傾聽</strong>不急著打斷、確認意思、回應對方的感受。</div></div>
+      <div class="lesson"><h3>④ 🔧 句子改造器</h3><p>把「你每次都不幫忙！」換成比較容易讓對話繼續的說法。</p><div class="builder"><label>發生了什麼事？<input id="commEvent" value="今天晚餐後還有很多東西沒有收"></label><label>我的感受<select id="commFeel"><option>我有點累</option><option>我有點生氣</option><option>我有點有壓力</option><option>我有點失望</option></select></label><label>我的期待<input id="commNeed" value="我希望你可以一起收桌子"></label><div class="builder-output" id="commOutput"></div></div><div class="concept"><strong>💡 我訊息</strong>事情 ＋ 感受 ＋ 需要／期待。</div></div>
+      <div class="lesson"><h3>⑤ 「好啊。」真的都一樣嗎？</h3><div class="scenario"><div class="scenario-card">🙂「好啊！」<br><small>愉快、願意</small></div><div class="scenario-card">😑「好啊……」<br><small>勉強、無奈</small></div><div class="scenario-card">😡「好啊！」<br><small>可能帶著怒氣</small></div><div class="scenario-card">👀 同一句話，表情、語氣與動作不同，意思也可能不同。</div></div></div>
+      <div class="tool-earned"><div class="emoji">💬</div><h3>好好溝通</h3><p>先聽懂，再說清楚。</p><div class="actions" style="justify-content:center"><button class="complete-btn" data-complete="communication">完成這一區</button><button class="secondary-btn" data-home>回到五大主題</button></div></div>
+    </section>
+
+    <section class="section-view" id="cooperation">
+      <div class="crumb"><button data-home>家庭與生活</button> › 一起生活，怎麼分工？</div>
+      <div class="section-hero"><div class="section-title-row"><div class="bigicon">🤝</div><h2>一起生活，怎麼分工？</h2></div><p>一起生活，就有事情需要一起完成；但公平，不一定是每個人做一樣多。</p><div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+      <div class="lesson"><h3>① 原來，家裡有這麼多事</h3><div class="tasks"><span class="task">🍳 做飯</span><span class="task">🍽️ 洗碗</span><span class="task">👕 洗衣</span><span class="task">🧹 打掃</span><span class="task">🗑️ 倒垃圾</span><span class="task">🛒 採買</span><span class="task">🐶 照顧寵物</span><span class="task">❤️ 照顧家人</span></div><div class="concept"><strong>👀 還有「看不見的工作」</strong>記得、安排、準備、提醒，也都需要時間與心力。</div></div>
+      <div class="lesson"><h3>② 🏠 你來分工</h3><p>點一下任務，再點一位家庭成員，把任務交給他／她。</p><div class="tasks assign-tasks"><button class="task" data-task="做晚餐">🍳 做晚餐</button><button class="task" data-task="洗碗">🍽️ 洗碗</button><button class="task" data-task="倒垃圾">🗑️ 倒垃圾</button><button class="task" data-task="晾衣服">👕 晾衣服</button><button class="task" data-task="遛狗">🐶 遛狗</button></div><div class="members"><button class="member" data-member="爸爸">👨<br>爸爸</button><button class="member" data-member="媽媽">👩<br>媽媽</button><button class="member" data-member="國中生">👧<br>國中生</button><button class="member" data-member="弟弟">👦<br>弟弟</button><button class="member" data-member="奶奶">👵<br>奶奶</button></div><div class="feedback show" id="assignResult">先選一個任務，再選家庭成員。</div></div>
+      <div class="lesson"><h3>③ ⚡ 今天有點不一樣</h3><div class="scenario"><div class="scenario-card">👨 爸爸今天加班，晚上 9 點才回家。</div><div class="scenario-card">👩 媽媽今天下午有空。</div><div class="scenario-card">👧 你明天有兩科段考。</div><div class="scenario-card">👵 奶奶膝蓋不舒服，不適合久站。</div></div><div class="prompt">剛才的分工，還適合嗎？</div></div>
+      <div class="lesson"><h3>④ 一人一半＝公平？</h3><div class="concept"><strong>⚖️ 公平，不一定是平均。</strong><div class="chips"><span class="chip">⏰ 時間</span><span class="chip">💪 能力</span><span class="chip">❤️ 身體與需要</span><span class="chip">📚 當下狀況</span></div></div></div>
+      <div class="lesson"><h3>⑤ 誰「應該」做？</h3><p>做飯、修理、照顧、管錢、打掃，真的只能由某個性別負責嗎？</p><div class="options one-select" data-feedback="gender-fb"><button class="opt">👨 男生比較適合</button><button class="opt">👩 女生比較適合</button><button class="opt">👥 都可以，應看能力、時間、意願與共識</button></div><div class="feedback" id="gender-fb">家庭工作不應只用性別決定，更重要的是<strong>能力、時間、意願、需要與家庭共識</strong>。</div></div>
+      <div class="tool-earned"><div class="emoji">⚖️</div><h3>公平分工</h3><p>不是每個人做一樣多，而是一起承擔。</p><div class="actions" style="justify-content:center"><button class="complete-btn" data-complete="cooperation">完成這一區</button><button class="secondary-btn" data-home>回到五大主題</button></div></div>
+    </section>
+
+    <section class="section-view" id="relationship">
+      <div class="crumb"><button data-home>家庭與生活</button> › 家人不一樣，怎麼相處？</div>
+      <div class="section-hero"><div class="section-title-row"><div class="bigicon">❤️</div><h2>家人不一樣，怎麼相處？</h2></div><p>每個家庭有不同的樣貌，每個家人也有自己的角色、想法與需要。</p><div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+      <div class="lesson"><h3>① 怎樣才算一家人？</h3><div class="scenario"><div class="scenario-card">👨‍👩‍👧 父母與孩子一起生活</div><div class="scenario-card">👩‍👧 媽媽和孩子一起生活</div><div class="scenario-card">👨‍👦 爸爸和孩子一起生活</div><div class="scenario-card">👵👴👧 祖父母與孫子女一起生活</div></div><div class="concept"><strong>🏠 家庭，本來就有很多不同的樣子。</strong>家庭成員多寡、生活安排與照顧方式都可能不同。</div></div>
+      <div class="lesson"><h3>② 我在家裡只有一個角色嗎？</h3><div class="chips"><span class="chip">👧 女兒</span><span class="chip">👭 姊姊</span><span class="chip">🐶 寵物照顧者</span><span class="chip">🍽️ 家務參與者</span><span class="chip">❤️ 被照顧者</span><span class="chip">🫶 也可能照顧別人</span></div><div class="concept"><strong>👥 一個人在家庭裡可以同時有很多角色。</strong>角色也會隨著時間與家庭狀況改變。</div></div>
+      <div class="lesson"><h3>③ 「你是○○，所以應該……」</h3><div class="options feedback-options"><button class="opt" data-msg="角色會帶來責任，但不能只靠排行就認定誰永遠必須退讓。">「你是姊姊，所以應該永遠讓弟弟。」</button><button class="opt" data-msg="做飯是生活能力，不是由性別決定。">「媽媽本來就應該負責煮飯。」</button><button class="opt" data-msg="修理能力來自經驗與技能，不是性別本身。">「男生本來就比較會修東西。」</button></div><div class="feedback dynamic"></div></div>
+      <div class="lesson"><h3>④ 親近，需要界線嗎？</h3><p>遇到下面的情況，你會怎麼想？</p><div class="scenario"><div class="scenario-card">👕 手足沒問就穿你的衣服</div><div class="scenario-card">📱 家人想看你的聊天內容</div><div class="scenario-card">🚪 家人沒敲門就進房間</div><div class="scenario-card">💬 家人想了解你的近況</div></div><div class="concept"><strong>❤️ 親近，不代表不需要尊重。</strong>家人也可以有自己的空間、物品、時間與想法。</div></div>
+      <div class="tool-earned"><div class="emoji">❤️</div><h3>尊重差異</h3><p>一家人可以不一樣，也可以彼此尊重。</p><div class="actions" style="justify-content:center"><button class="complete-btn" data-complete="relationship">完成這一區</button><button class="secondary-btn" data-home>回到五大主題</button></div></div>
+    </section>
+
+    <section class="section-view" id="conflict">
+      <div class="crumb"><button data-home>家庭與生活</button> › 意見不一樣，怎麼辦？</div>
+      <div class="section-hero"><div class="section-title-row"><div class="bigicon">🌧️</div><h2>意見不一樣，怎麼辦？</h2></div><p>有不同意見很正常；重要的是，怎麼讓衝突不要只剩下輸贏。</p><div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+      <div class="lesson"><h3>🎮 衝突實驗室</h3><div class="prompt">媽媽：「你到底還要滑多久？手機給我！」</div><div id="heat" class="heat high">🔥🔥🔥□□</div><p>你下一句會說什麼？</p><div class="options conflict-options"><button class="opt" data-heat="5" data-msg="你的回應讓對方感覺受到攻擊，對話更難繼續。">「很煩耶！不要一直管我！」</button><button class="opt" data-heat="4" data-msg="把焦點轉到對方身上，原本的問題還沒有被處理。">「你自己還不是一直滑！」</button><button class="opt" data-heat="2" data-msg="你說清楚目前正在做什麼，也提出具體可討論的時間。">「我正在回班級的事情，可以讓我五分鐘處理完嗎？」</button><button class="opt" data-heat="4" data-msg="直接離開可能讓問題卡住；如果需要冷靜，可以說明『我想先冷靜一下，等一下再談』。">不回答，直接拿手機走回房間。</button></div><div class="feedback dynamic"></div></div>
+      <div class="lesson"><h3>① 衝突一定不好嗎？</h3><div class="concept"><strong>💡 有不同意見，是生活的一部分。</strong>衝突本身不一定是問題，怎麼處理才是關鍵。</div></div>
+      <div class="lesson"><h3>② 表面在吵什麼？真正想要的是什麼？</h3><div class="scenario"><div class="scenario-card">📱 表面：在吵「手機」</div><div class="scenario-card">👩 媽媽可能在意：健康與作息</div><div class="scenario-card">👧 學生可能在意：完成事情與自主安排</div><div class="scenario-card">🔍 看見需要，比只分誰對誰錯更有幫助。</div></div></div>
+      <div class="lesson"><h3>③ 🌡️ 情緒太高時，可以先暫停</h3><div class="heat">😌 1　🙂 2　😐 3　😠 4　🤬 5</div><div class="concept"><strong>⏸️ 暫停 ≠ 逃避</strong>可以說：「我現在真的很生氣，我想先冷靜十分鐘，等一下再談。」</div></div>
+      <div class="lesson"><h3>④ 🛑 STOP 衝突四步驟</h3><div class="scenario"><div class="scenario-card"><b>S｜Stop</b><br>先停一下</div><div class="scenario-card"><b>T｜Think</b><br>想想彼此在意什麼</div><div class="scenario-card"><b>O｜Open</b><br>打開對話</div><div class="scenario-card"><b>P｜Plan</b><br>一起找方法</div></div><div class="concept"><strong>🤝 協商不是「一人退一半」</strong>目標是找到彼此都比較能接受、也能回應需要的方法。</div></div>
+      <div class="tool-earned"><div class="emoji">🤝</div><h3>協商解決</h3><p>不是分輸贏，而是一起找方法。</p><div class="actions" style="justify-content:center"><button class="complete-btn" data-complete="conflict">完成這一區</button><button class="secondary-btn" data-home>回到五大主題</button></div></div>
+    </section>
+
+    <section class="section-view" id="adaptation">
+      <div class="crumb"><button data-home>家庭與生活</button> › 家庭改變了，怎麼適應？</div>
+      <div class="section-hero"><div class="section-title-row"><div class="bigicon">🌱</div><h2>家庭改變了，怎麼適應？</h2></div><p>家庭不是靜止不變的；生活變了，角色、需要與安排也可能一起改變。</p><div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+      <div class="lesson"><h3>① 家，一直都是現在的樣子嗎？</h3><div class="scenario"><div class="scenario-card">👶 新成員加入</div><div class="scenario-card">🎒 孩子開始上學</div><div class="scenario-card">🎓 手足離家求學</div><div class="scenario-card">👵 家人逐漸年長</div></div><div class="concept"><strong>🌱 家庭會隨人生階段改變。</strong>不同階段，角色、責任、需要與生活安排也可能不同。</div></div>
+      <div class="lesson"><h3>② 🎴 抽一張家庭變化卡</h3><button class="primary-btn" id="drawCard">抽一張 →</button><div class="feedback show" id="changeCard">按下按鈕看看今天的家庭發生什麼變化。</div></div>
+      <div class="lesson"><h3>③ 一個改變，可能影響很多事</h3><div class="chips"><span class="chip">🏠 空間</span><span class="chip">🍚 飲食</span><span class="chip">⏰ 作息</span><span class="chip">🧹 分工</span><span class="chip">❤️ 照顧</span><span class="chip">💰 支出</span><span class="chip">💬 相處</span></div><div class="concept"><strong>🌊 家庭變化會產生連鎖影響。</strong>一件事情改變，常常不只影響一個人或一件事。</div></div>
+      <div class="lesson"><h3>④ 同一個改變，每個人感覺一樣嗎？</h3><div class="scenario"><div class="scenario-card">🙂 有人期待</div><div class="scenario-card">😫 有人疲累</div><div class="scenario-card">😢 有人捨不得</div><div class="scenario-card">🤩 有人很興奮</div></div><div class="concept"><strong>❤️ 一起經歷同一件事，不代表每個人必須有一樣的感受。</strong></div></div>
+      <div class="lesson"><h3>⑤ 有些事情，我不能決定</h3><div class="scenario"><div class="scenario-card"><b>✋ 我不能決定</b><br>家人的年齡、已經發生的事情、某些工作安排……</div><div class="scenario-card"><b>🌱 我可以一起想辦法</b><br>重新安排生活、表達感受、幫忙、尋求支持……</div></div><div class="concept"><strong>適應，不是喜歡所有改變。</strong>而是在新的狀況裡，慢慢找到可以繼續生活的方法。</div></div>
+      <div class="tool-earned"><div class="emoji">🌱</div><h3>調整適應</h3><p>看見改變，重新找到適合現在的生活方式。</p><div class="actions" style="justify-content:center"><button class="complete-btn" data-complete="adaptation">完成這一區</button><button class="secondary-btn" data-home>回到五大主題</button></div></div>
+    </section>
+  </div>
+
+  <aside class="toolbox-panel" id="toolboxPanel" aria-live="polite">
+    <h3>🧰 我的生活工具箱</h3>
+    <div class="tool-list">
+      <div class="tool-item" data-tool="communication"><div>💬</div><div><b>好好溝通</b><small>先聽懂，再說清楚。</small></div></div>
+      <div class="tool-item" data-tool="cooperation"><div>⚖️</div><div><b>公平分工</b><small>看見彼此狀況，一起承擔。</small></div></div>
+      <div class="tool-item" data-tool="relationship"><div>❤️</div><div><b>尊重差異</b><small>一家人也可以不一樣。</small></div></div>
+      <div class="tool-item" data-tool="conflict"><div>🤝</div><div><b>協商解決</b><small>不分輸贏，一起找方法。</small></div></div>
+      <div class="tool-item" data-tool="adaptation"><div>🌱</div><div><b>調整適應</b><small>生活改變時重新安排。</small></div></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+(function(){
+  const keys=['communication','cooperation','relationship','conflict','adaptation'];
+  const storageKey='familyLifeProgress_v1';
+  let progress={};
+  try{progress=JSON.parse(localStorage.getItem(storageKey)||'{}')}catch(e){progress={}}
+
+  const home=document.getElementById('homeView');
+  const sections=[...document.querySelectorAll('.section-view')];
+  const panel=document.getElementById('toolboxPanel');
+
+  function showHome(){
+    sections.forEach(s=>s.classList.remove('active'));
+    home.style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+    renderProgress();
+  }
+  function openSection(id){
+    home.style.display='none';
+    sections.forEach(s=>s.classList.toggle('active',s.id===id));
+    panel.classList.remove('open');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>openSection(b.dataset.open)));
+  document.querySelectorAll('[data-home]').forEach(b=>b.addEventListener('click',showHome));
+  document.getElementById('toolboxBtn').addEventListener('click',()=>panel.classList.toggle('open'));
+  document.addEventListener('click',(e)=>{if(!panel.contains(e.target)&&!document.getElementById('toolboxBtn').contains(e.target)) panel.classList.remove('open')});
+
+  function renderProgress(){
+    let count=0;
+    keys.forEach(k=>{
+      const on=!!progress[k]; if(on) count++;
+      document.querySelectorAll('[data-tool="'+k+'"]').forEach(el=>el.classList.toggle('on',on));
+      document.querySelectorAll('[data-open="'+k+'"]').forEach(el=>el.style.opacity=on?'1':'1');
+    });
+    document.getElementById('toolCount').textContent=count+'/5';
+    document.getElementById('finalBox').style.display=count===5?'block':'none';
+  }
+  document.querySelectorAll('[data-complete]').forEach(btn=>btn.addEventListener('click',()=>{
+    progress[btn.dataset.complete]=true;
+    localStorage.setItem(storageKey,JSON.stringify(progress));
+    renderProgress();
+    btn.textContent='✓ 已完成';
+    btn.disabled=true;
+  }));
+
+  document.querySelectorAll('.one-select').forEach(group=>{
+    group.querySelectorAll('.opt').forEach(btn=>btn.addEventListener('click',()=>{
+      group.querySelectorAll('.opt').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');
+      const fb=document.getElementById(group.dataset.feedback); if(fb) fb.classList.add('show');
+    }));
+  });
+  document.querySelectorAll('.feedback-options').forEach(group=>{
+    const fb=group.parentElement.querySelector('.feedback.dynamic');
+    group.querySelectorAll('.opt').forEach(btn=>btn.addEventListener('click',()=>{
+      group.querySelectorAll('.opt').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');
+      fb.innerHTML=btn.dataset.msg;fb.classList.add('show');
+    }));
+  });
+
+  const eventInput=document.getElementById('commEvent'),feel=document.getElementById('commFeel'),need=document.getElementById('commNeed'),out=document.getElementById('commOutput');
+  function updateComm(){out.textContent='💬 '+eventInput.value+'，'+feel.value+'，'+need.value+'。'}
+  [eventInput,feel,need].forEach(el=>el.addEventListener('input',updateComm));updateComm();
+
+  let selectedTask=''; const assignments={};
+  document.querySelectorAll('.assign-tasks .task').forEach(t=>t.addEventListener('click',()=>{
+    selectedTask=t.dataset.task;document.querySelectorAll('.assign-tasks .task').forEach(x=>x.classList.remove('assigned'));t.classList.add('assigned');
+    document.getElementById('assignResult').textContent='已選擇「'+selectedTask+'」，現在請選一位家庭成員。';
+  }));
+  document.querySelectorAll('.member').forEach(m=>m.addEventListener('click',()=>{
+    if(!selectedTask){document.getElementById('assignResult').textContent='請先選一個任務。';return}
+    assignments[selectedTask]=m.dataset.member;
+    document.getElementById('assignResult').innerHTML='✓ 「'+selectedTask+'」交給了 <strong>'+m.dataset.member+'</strong>。你可以繼續分配其他任務。';
+    selectedTask='';document.querySelectorAll('.assign-tasks .task').forEach(x=>x.classList.remove('assigned'));
+  }));
+
+  const heat=document.getElementById('heat');
+  document.querySelectorAll('.conflict-options .opt').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('.conflict-options .opt').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');
+    const val=Number(btn.dataset.heat);heat.textContent='🔥'.repeat(val)+'□'.repeat(5-val);heat.className='heat '+(val<=2?'low':'high');
+    const fb=btn.closest('.lesson').querySelector('.feedback.dynamic');fb.innerHTML=btn.dataset.msg;fb.classList.add('show');
+  }));
+
+  const cards=[
+    '👶 家裡多了一個小寶寶。想想：作息、照顧與家務可能怎麼改變？',
+    '👵 阿嬤搬來一起住。想想：空間、飲食、照顧與分工可能怎麼調整？',
+    '💼 爸爸開始輪夜班。想想：晚餐、家務與相處時間可能怎麼改變？',
+    '🎓 姊姊到外地念書。想想：空間、聯絡與家庭角色可能怎麼改變？',
+    '🏠 全家要搬到另一個城市。想想：作息、人際與生活安排會有什麼變化？',
+    '🤒 家人受傷，需要一段時間休養。想想：誰需要多一點協助？哪些分工要調整？'
+  ];
+  document.getElementById('drawCard').addEventListener('click',()=>{
+    document.getElementById('changeCard').innerHTML='<strong>'+cards[Math.floor(Math.random()*cards.length)]+'</strong>';
+  });
+  renderProgress();
+})();
+</script>
+</x-dc>
+</body>
+</html>

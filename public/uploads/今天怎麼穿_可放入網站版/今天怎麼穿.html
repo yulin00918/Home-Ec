@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>今天怎麼穿？｜美感穿搭互動</title>
+<style>
+:root{
+  --ink:#27313b; --muted:#6b7280; --card:#ffffffee; --line:#e8e4ef;
+  --green:#6f9d6c; --green2:#eaf4e6; --blue:#d9ebff; --purple:#e8ddff; --pink:#f8dce8;
+  --shadow:0 16px 40px rgba(65,52,82,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);
+background:linear-gradient(135deg,#d8edff 0%,#e7defa 48%,#f5d7e6 100%);min-height:100vh}
+button{font:inherit}
+.app{max-width:1180px;margin:0 auto;padding:22px 18px 48px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:14px}
+.brand{font-weight:800;font-size:18px}.progress{display:flex;gap:8px;flex-wrap:wrap}
+.pill{background:#ffffffbf;border:1px solid #ffffff;padding:7px 12px;border-radius:999px;font-size:14px}
+.pill.done{background:var(--green2);color:#557c51;font-weight:700}
+.screen{display:none}.screen.active{display:block}
+.hero,.panel{background:var(--card);border:1px solid rgba(255,255,255,.8);border-radius:26px;box-shadow:var(--shadow)}
+.hero{padding:54px 38px;text-align:center}.panel{padding:30px}
+h1{font-size:clamp(34px,5vw,58px);margin:0 0 14px}h2{font-size:clamp(28px,4vw,42px);margin:0 0 12px}
+h3{font-size:22px;margin:0 0 8px}
+.lead{font-size:20px;line-height:1.8;color:#4b5563}.small{color:var(--muted);line-height:1.7}
+.btn{border:0;border-radius:16px;padding:14px 22px;cursor:pointer;font-weight:800;transition:.2s;min-height:50px}
+.btn:hover{transform:translateY(-2px)} .btn.primary{background:var(--green);color:white}
+.btn.soft{background:var(--green2);color:#4d784d}.btn.ghost{background:white;border:1px solid var(--line)}
+.btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.grid3,.grid4,.choice-grid{display:grid;gap:16px}.grid3{grid-template-columns:repeat(3,1fr)}.grid4{grid-template-columns:repeat(4,1fr)}
+.card{background:white;border:2px solid transparent;border-radius:20px;padding:18px;box-shadow:0 8px 22px rgba(57,48,73,.07);cursor:pointer;transition:.2s}
+.card:hover{transform:translateY(-3px);border-color:#c6d9bd}.card.selected{border-color:var(--green);box-shadow:0 0 0 4px #dfeeda}
+.bigicon{font-size:48px}.question{max-width:920px;margin:0 auto}
+.qtitle{font-size:26px;font-weight:850;margin-bottom:10px}.scenario{background:#f8f8fb;border:1px solid var(--line);padding:18px;border-radius:18px;margin:16px 0 20px;font-size:18px;line-height:1.7}
+.options{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.option{min-height:126px;text-align:left}
+.feedback{margin-top:18px;border-radius:18px;padding:18px;background:#eef7ea;display:none;line-height:1.7}.feedback.show{display:block}
+.feedback.warn{background:#fff6df}
+.weatherbar{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}.weatherbar span{background:#f6f4fb;padding:9px 13px;border-radius:999px;font-weight:700}
+.activity-wrap{display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:28px;align-items:center}
+.activity-img{width:100%;max-height:500px;object-fit:contain;border-radius:18px;background:#fff}
+.quickbtn{width:100%;font-size:20px;margin:7px 0}
+.missioncards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.missioncard{padding:18px;border-radius:18px;background:#f7f5fb}
+.role-grid{display:grid;grid-template-columns:repeat(2,minmax(220px,360px));gap:18px;justify-content:center}
+.role-grid img{width:100%;height:360px;object-fit:contain}
+.selector{margin-top:20px}.selector h3{margin-bottom:12px}.choice-grid{grid-template-columns:repeat(4,1fr)}
+.choice img{width:100%;height:220px;object-fit:contain}.choice strong{display:block;margin-top:8px}.choice small{color:var(--muted)}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.summary .card{cursor:default;text-align:center}
+.checks{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.check{padding:16px;border-radius:16px;background:#f5f5f8}.check.ok{background:#edf7ea}.check.maybe{background:#fff4dd}
+.badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}.badge{background:#f3f6ee;padding:8px 12px;border-radius:999px}
+.hidden{display:none!important}
+@media(max-width:850px){.grid3,.grid4,.choice-grid,.missioncards,.summary,.checks{grid-template-columns:repeat(2,1fr)}.activity-wrap{grid-template-columns:1fr}.options{grid-template-columns:1fr}.role-grid{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}}
+@media(max-width:520px){.grid3,.grid4,.choice-grid,.summary,.checks{grid-template-columns:1fr}.hero{padding:36px 20px}.panel{padding:20px}.app{padding:14px 10px 34px}.choice img{height:180px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand">👗 美感穿搭｜今天怎麼穿？</div>
+    <div class="progress" id="progress">
+      <span class="pill" id="p1">🏫 場合 ○</span>
+      <span class="pill" id="p2">☀️ 天氣 ○</span>
+      <span class="pill" id="p3">🎒 活動 ○</span>
+      <span class="pill" id="p4">🧠 任務 ○</span>
+    </div>
+  </div>
+
+  <section class="screen active" id="home">
+    <div class="hero">
+      <div class="bigicon">👗</div>
+      <h1>今天怎麼穿？</h1>
+      <p class="lead">每天打開衣櫃，你都在做選擇。<br>
+      <b>今天要去哪裡？　天氣怎麼樣？　會做什麼活動？</b><br>
+      好看的衣服很多，哪一套最適合今天？</p>
+      <div class="btnrow"><button class="btn primary" onclick="go('map')">👗 開始穿搭挑戰</button></div>
+    </div>
+  </section>
+
+  <section class="screen" id="map">
+    <div class="panel">
+      <h2>🔍 找到三個穿搭線索</h2>
+      <p class="lead">三個線索都找到，就能完成今天的穿搭任務！</p>
+      <div class="grid3">
+        <div class="card"><div class="bigicon">🏫</div><h3>場合</h3><p>我要去哪裡？</p></div>
+        <div class="card"><div class="bigicon">☀️</div><h3>天氣</h3><p>今天環境如何？</p></div>
+        <div class="card"><div class="bigicon">🎒</div><h3>活動</h3><p>我要做什麼？</p></div>
+      </div>
+      <div class="btnrow"><button class="btn primary" onclick="startStage1()">開始尋找第一個線索 →</button></div>
+    </div>
+  </section>
+
+  <section class="screen" id="stage1">
+    <div class="panel question">
+      <div id="stage1content"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="stage2">
+    <div class="panel question"><div id="stage2content"></div></div>
+  </section>
+
+  <section class="screen" id="stage3">
+    <div class="panel question"><div id="stage3content"></div></div>
+  </section>
+
+  <section class="screen" id="cluesdone">
+    <div class="hero">
+      <h2>🎉 三個線索收集完成！</h2>
+      <p class="lead"><b>我要去哪裡 × 今天環境如何 × 我要做什麼</b></p>
+      <div class="badges"><span class="badge">🏫 場合 ✓</span><span class="badge">☀️ 天氣 ✓</span><span class="badge">🎒 活動 ✓</span></div>
+      <h3 style="margin-top:28px;font-size:28px">🧠 現在，換你自己決定。</h3>
+      <div class="btnrow"><button class="btn primary" onclick="go('mission')">👗 進入今日穿搭任務 →</button></div>
+    </div>
+  </section>
+
+  <section class="screen" id="mission">
+    <div class="panel">
+      <h2>🎲 今日穿搭任務</h2>
+      <p class="lead">抽一個真實生活情境，根據場合、天氣和活動完成你的穿搭選擇。</p>
+      <div class="btnrow"><button class="btn primary" onclick="drawMission()">🎲 抽取任務</button></div>
+      <div id="missionResult" class="hidden">
+        <div class="missioncards" id="missionCards" style="margin-top:22px"></div>
+        <div class="btnrow"><button class="btn primary" onclick="go('role')">下一步｜選角色 →</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="role">
+    <div class="panel">
+      <h2>👧👦 今天想用哪個角色完成挑戰？</h2>
+      <p class="small">這只是換裝角色選擇，不是在詢問你的性別。</p>
+      <div class="role-grid">
+        <div class="card" onclick="chooseRole('girl',this)"><img src="assets/girl_base.png"><h3>女生角色</h3></div>
+        <div class="card" onclick="chooseRole('boy',this)"><img src="assets/boy_base.png"><h3>男生角色</h3></div>
+      </div>
+      <div class="btnrow"><button id="roleNext" class="btn primary hidden" onclick="openDress()">開始選穿搭 →</button></div>
+    </div>
+  </section>
+
+  <section class="screen" id="dress">
+    <div class="panel">
+      <h2>👗 完成今天的穿搭選擇</h2>
+      <div id="missionMini" class="scenario"></div>
+      <div class="selector"><h3>👕 1. 選上衣</h3><div class="choice-grid" id="topChoices"></div></div>
+      <div class="selector"><h3>👖 2. 選下身</h3><div class="choice-grid" id="bottomChoices"></div></div>
+      <div class="selector"><h3>👟 3. 選鞋子</h3><div class="choice-grid" id="shoeChoices"></div></div>
+      <div class="selector"><h3>🎒 4. 今天還想準備什麼？</h3><p class="small">可選一樣，也可以選「不需要」。</p><div class="choice-grid" id="accChoices"></div></div>
+      <div class="btnrow"><button class="btn primary" onclick="evaluateDress()">🪞 看看我的穿搭檢查</button></div>
+    </div>
+  </section>
+
+  <section class="screen" id="result">
+    <div class="panel">
+      <h2>🪞 我的穿搭檢查</h2>
+      <div class="summary" id="selectionSummary"></div>
+      <div class="checks" id="checks" style="margin-top:20px"></div>
+      <div id="resultText" class="feedback show"></div>
+      <div class="btnrow">
+        <button class="btn soft" onclick="go('dress')">🔄 調整我的穿搭</button>
+        <button class="btn ghost" onclick="go('keep')">💬 我想保留這套</button>
+        <button class="btn primary" onclick="go('comfort')">😊 繼續</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="keep">
+    <div class="panel question">
+      <h2>💬 為什麼你想保留這個選擇？</h2>
+      <div class="grid4">
+        <div class="card" onclick="keepReason(this)">😊 我穿起來很舒服</div>
+        <div class="card" onclick="keepReason(this)">🎨 我喜歡這個風格</div>
+        <div class="card" onclick="keepReason(this)">🙆 我覺得不會影響今天的活動</div>
+        <div class="card" onclick="keepReason(this)">💭 我有自己的理由</div>
+      </div>
+      <div id="keepFb" class="feedback">穿搭決定也包含了解自己的需求，並知道自己為什麼這樣選。</div>
+      <div class="btnrow"><button id="keepNext" class="btn primary hidden" onclick="go('comfort')">繼續 →</button></div>
+    </div>
+  </section>
+
+  <section class="screen" id="comfort">
+    <div class="panel question">
+      <h2>😊 最後問問自己</h2>
+      <p class="lead">如果真的穿這一套一整天，<b>你覺得舒服嗎？</b></p>
+      <div class="grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <button class="btn soft" onclick="finishComfort(true)">👍 可以</button>
+        <button class="btn ghost" onclick="go('dress')">🤔 我可能想調整</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="selfclue">
+    <div class="hero">
+      <p class="lead">🏫 ✓　☀️ ✓　🎒 ✓</p>
+      <h2>還有一個很重要的穿搭線索……</h2>
+      <div class="bigicon">🪞</div>
+      <h1 style="font-size:46px">自己</h1>
+      <div class="badges">
+        <span class="badge">🧼 清爽整潔</span><span class="badge">📐 我的身形</span>
+        <span class="badge">🎨 我的色彩</span><span class="badge">❤️ 我的喜好與感受</span>
+      </div>
+      <p class="lead">場合、天氣和活動，幫助我們看懂<b>「今天需要什麼」</b>；<br>
+      認識自己，幫助我們決定<b>「我想怎麼穿」</b>。</p>
+      <div class="btnrow"><button class="btn primary" onclick="finishAll()">完成學習 →</button></div>
+    </div>
+  </section>
+
+  <section class="screen" id="finish">
+    <div class="hero">
+      <div class="summary">
+        <div class="card"><div class="bigicon">🏫</div><h3>場合</h3></div>
+        <div class="card"><div class="bigicon">☀️</div><h3>天氣</h3></div>
+        <div class="card"><div class="bigicon">🎒</div><h3>活動</h3></div>
+        <div class="card"><div class="bigicon">🪞</div><h3>自己</h3></div>
+      </div>
+      <h1 style="margin-top:28px">👗 我的穿搭決定</h1>
+      <p class="lead"><b>穿搭沒有唯一答案。</b><br>適合自己，也適合今天，就是好的穿搭選擇。</p>
+      <div class="btnrow">
+        <button class="btn soft" onclick="restartMission()">🎲 再抽一個任務</button>
+        <button class="btn primary" onclick="go('home')">✓ 完成學習</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+const state={s1:0,s2:0,s3:0,role:null,mission:null,top:null,bottom:null,shoes:null,acc:null};
+
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function setDone(n){
+  document.getElementById('p'+n).classList.add('done');
+  const labels={1:'🏫 場合 ✓',2:'☀️ 天氣 ✓',3:'🎒 活動 ✓',4:'🧠 任務 ✓'};
+  document.getElementById('p'+n).textContent=labels[n];
+}
+const s1=[
+ {t:'🚌 校外參訪',q:'明天要參加學校安排的校外參訪。哪一套穿著比較符合這次活動？',
+  opts:['A｜睡衣＋居家拖鞋','B｜乾淨、自然、方便一般活動的日常穿著','C｜華麗宴會服裝'],
+  a:1,ok:'✓ 很合適！穿搭不一定要非常正式，符合場合、整潔自然，就是很好的選擇。'},
+ {t:'🎤 上台報告',q:'輪到你代表小組上台介紹成果。希望看起來整齊、有精神，但不是參加正式宴會。',
+  opts:['A｜乾淨素色上衣＋整齊下身＋整潔鞋款','B｜睡衣＋拖鞋','C｜非常華麗的晚宴服'],
+  a:0,ok:'✓ 很合適！整潔、有精神、符合場合，不代表一定要穿得非常正式。'},
+ {t:'🎓 畢業典禮',q:'今天要參加畢業典禮，會和師長、同學參加儀式，也會留下許多照片。',
+  opts:['A｜剛運動完的運動服','B｜整潔、有精神、適度正式的穿著','C｜睡衣造型'],
+  a:1,ok:'✓ 你注意到「場合」了！有些活動具有儀式感，適當整理穿著，也是對場合與他人的尊重。'},
+ {t:'🍽️ 家庭聚餐',q:'家庭聚餐一定只有一種正確穿法嗎？',
+  opts:['A｜是，一定要穿正式服裝','B｜不是，只要整潔、合宜，可以有不同選擇'],
+  a:1,ok:'💡 沒錯！穿搭不是標準答案題。同一個場合，可以有很多不同但合適的穿法。'}
+];
+function startStage1(){state.s1=0;go('stage1');renderS1()}
+function renderS1(){
+ const x=s1[state.s1],c=document.getElementById('stage1content');
+ c.innerHTML=`<h2>🏫 我要去哪裡？</h2><p class="small">不是越正式越好，而是要穿得合宜。</p>
+ <div class="qtitle">${x.t}</div><div class="scenario">${x.q}</div>
+ <div class="options">${x.opts.map((o,i)=>`<button class="card option" onclick="answerS1(${i})">${o}</button>`).join('')}</div>
+ <div id="fb1" class="feedback"></div>`;
+}
+function answerS1(i){
+ const x=s1[state.s1],fb=document.getElementById('fb1');
+ fb.className='feedback show '+(i===x.a?'':'warn');
+ fb.innerHTML=i===x.a?x.ok:'🤔 再想想：這一題的重點是「是否符合今天的場合」。';
+ if(i===x.a){fb.innerHTML+=`<div class="btnrow"><button class="btn primary" onclick="nextS1()">下一題 →</button></div>`}
+}
+function nextS1(){state.s1++; if(state.s1<s1.length)renderS1();else{setDone(1);startStage2()}}
+
+const s2=[
+ {t:'☀️ 炎熱＋強日曬',w:['🌡️ 34°C','🌧️ 10%','☀️ 日曬強'],q:'下午要在戶外活動，你會怎麼準備？',
+  opts:['A｜透氣衣著＋遮陽準備','B｜厚帽T＋厚外套','C｜厚圍巾＋鋪棉外套'],a:0,
+  ok:'✓ 很合適！炎熱時要同時考慮透氣、排汗與遮陽／防曬。'},
+ {t:'🌡️ 一天溫差',w:['🌅 18°C','☀️ 27°C'],q:'一天溫差這麼大，怎麼穿比較方便？',
+  opts:['A｜輕薄內層＋方便穿脫的薄外套','B｜整天穿厚羽絨外套','C｜只穿短袖、不做任何準備'],a:0,
+  ok:'🧅 洋蔥式穿搭：利用可以穿脫的不同層次，隨環境調整，比一次穿得很厚更有彈性。'},
+ {t:'☀️→❄️ 室內外差異',w:['☀️ 室外 32°C','❄️ 教室冷氣較強'],q:'怎麼準備比較有彈性？',
+  opts:['A｜輕薄衣著＋準備薄外套','B｜厚毛衣＋厚外套整天穿著','C｜完全不考慮室內環境'],a:0,
+  ok:'✓ 穿搭不只看出門時的天氣，也要想想今天會待在哪些環境。'},
+ {t:'🌧️ 突發天氣',w:['🌧️ 下午降雨機率 80%'],q:'出門前還可以多準備什麼？',
+  opts:['☂️ 摺疊傘','🧣 厚圍巾','🕶️ 太陽眼鏡'],a:0,
+  ok:'✓ 準備好了！看到降雨機率升高，帶上容易攜帶的雨具很實用。'}
+];
+function startStage2(){state.s2=0;go('stage2');renderS2()}
+function renderS2(){
+ const x=s2[state.s2],c=document.getElementById('stage2content');
+ c.innerHTML=`<h2>☀️ 今天環境怎麼樣？</h2><p class="small">雨、風、日曬和室內外環境，都可能影響穿搭。</p>
+ <div class="qtitle">${x.t}</div><div class="weatherbar">${x.w.map(z=>`<span>${z}</span>`).join('')}</div>
+ <div class="scenario">${x.q}</div><div class="options">${x.opts.map((o,i)=>`<button class="card option" onclick="answerS2(${i})">${o}</button>`).join('')}</div>
+ <div id="fb2" class="feedback"></div>`;
+}
+function answerS2(i){
+ const x=s2[state.s2],fb=document.getElementById('fb2');fb.className='feedback show '+(i===x.a?'':'warn');
+ fb.innerHTML=i===x.a?x.ok:'🤔 再想想：看看溫度、降雨或室內外環境，哪個選項最能回應今天的狀況？';
+ if(i===x.a)fb.innerHTML+=`<div class="btnrow"><button class="btn primary" onclick="nextS2()">下一題 →</button></div>`;
+}
+function nextS2(){state.s2++;if(state.s2<s2.length)renderS2();else{setDone(2);startStage3()}}
+
+const activities=[
+ {key:'cook',title:'🍳 料理實作',q:'看看這套穿搭，進行料理實作時適合嗎？',type:'quick',answer:false,
+  fb:'🎯 找到了！長髮、寬大袖口與垂墜飾品，都可能影響料理實作。'},
+ {key:'walk',title:'👟 長時間步行',q:'如果今天要走很久，這套穿搭適合嗎？',type:'quick',answer:true,
+  fb:'✓ 很合適！衣服方便活動，鞋子也適合長時間行走。'},
+ {key:'lecture',title:'🪑 一整天講座',q:'這套衣服腰部與腿部比較貼身。如果要坐一整天，還需要特別想想哪件事？',type:'choice',answer:0,
+  opts:['A｜穿著是否舒適','B｜衣服是不是最流行'],fb:'😊 沒錯！好不好看是一件事，自己穿一整天是否舒服，也值得考慮。'},
+ {key:'challenge',title:'🏃 戶外闖關',q:'跑、跳、快速移動時，這套穿搭適合嗎？',type:'quick',answer:false,
+  fb:'✓ 看到了！過長的褲腳與不穩定的鞋子，可能影響跑、跳或快速移動。'},
+ {key:'carry',title:'📦 搬展示用品＋上台',q:'要搬東西又要上台，這套穿搭適合嗎？',type:'quick',answer:true,
+  fb:'✓ 很合適！整潔＋方便活動＋舒適，一套穿搭也可以同時回應不同需求。'}
+];
+let activityGender={};
+function startStage3(){state.s3=0;activityGender={};activities.forEach(a=>activityGender[a.key]=Math.random()<.5?'f':'m');go('stage3');renderS3()}
+function renderS3(){
+ const x=activities[state.s3],g=activityGender[x.key],c=document.getElementById('stage3content');
+ const img=`assets/activity_${g}_${x.key}.png`;
+ let controls=x.type==='quick'
+ ? `<button class="btn soft quickbtn" onclick="answerS3(true)">👍 適合</button><button class="btn ghost quickbtn" onclick="answerS3(false)">👎 再想想</button>`
+ : `<div class="options">${x.opts.map((o,i)=>`<button class="card option" onclick="answerS3(${i})">${o}</button>`).join('')}</div>`;
+ c.innerHTML=`<h2>⚡ 穿搭快篩</h2><div class="activity-wrap"><img class="activity-img" src="${img}">
+ <div><div class="qtitle">${x.title}</div><div class="scenario">${x.q}</div>${controls}<div id="fb3" class="feedback"></div></div></div>`;
+}
+function answerS3(v){
+ const x=activities[state.s3],correct=v===x.answer,fb=document.getElementById('fb3');
+ fb.className='feedback show '+(correct?'':'warn');fb.innerHTML=correct?x.fb:'🤔 再想想：先從「今天要做什麼」來判斷衣服與鞋子是否方便。';
+ if(correct)fb.innerHTML+=`<div class="btnrow"><button class="btn primary" onclick="nextS3()">下一題 →</button></div>`;
+}
+function nextS3(){state.s3++;if(state.s3<activities.length)renderS3();else{setDone(3);go('cluesdone')}}
+
+const missions=[
+ {id:'present',name:'🎤 班級成果發表',weather:'29°C、午後降雨70%',activity:'搬展示用品＋上台介紹',acc:['umbrella','light_jacket','sunglasses'],goodAcc:['umbrella'],
+  score:{top:{A:2,B:2,C:0,D:0},bottom:{A:2,B:1,C:0,D:1},shoes:{A:2,B:2,C:1,D:0}}},
+ {id:'field',name:'🚌 校外教學',weather:'33°C、晴朗、日曬強',activity:'戶外步行約5小時',acc:['hat','sunglasses','heavy_jacket'],goodAcc:['hat','sunglasses'],
+  score:{top:{A:2,B:1,C:0,D:0},bottom:{A:2,B:2,C:0,D:1},shoes:{A:2,B:1,C:0,D:0}}},
+ {id:'dinner',name:'🍽️ 家庭聚餐',weather:'20°C、晚間微涼',activity:'用餐＋拍照',acc:['light_jacket','scarf','umbrella'],goodAcc:['light_jacket','scarf'],
+  score:{top:{A:2,B:2,C:2,D:1},bottom:{A:2,B:2,C:1,D:2},shoes:{A:2,B:2,C:1,D:1}}},
+ {id:'market',name:'🛍️ 假日戶外市集',weather:'26°C、有風',activity:'長時間走路＋站立',acc:['light_jacket','hat','heavy_jacket'],goodAcc:['light_jacket'],
+  score:{top:{A:2,B:2,C:1,D:1},bottom:{A:2,B:2,C:0,D:1},shoes:{A:2,B:2,C:1,D:0}}},
+ {id:'museum',name:'🏛️ 博物館參訪',weather:'室外30°C、室內冷氣較強',activity:'步行＋久站＋室內參觀',acc:['light_jacket','heavy_jacket','sunglasses'],goodAcc:['light_jacket'],
+  score:{top:{A:2,B:2,C:1,D:1},bottom:{A:2,B:2,C:1,D:1},shoes:{A:2,B:2,C:1,D:0}}},
+ {id:'sports',name:'🏃 學校運動會',weather:'31°C、日曬強',activity:'戶外活動＋跑動',acc:['hat','sunglasses','scarf'],goodAcc:['hat'],
+  score:{top:{A:2,B:1,C:0,D:0},bottom:{A:1,B:2,C:0,D:0},shoes:{A:2,B:1,C:0,D:0}}}
+];
+function drawMission(){
+ state.mission=missions[Math.floor(Math.random()*missions.length)];
+ const m=state.mission;document.getElementById('missionResult').classList.remove('hidden');
+ document.getElementById('missionCards').innerHTML=`
+ <div class="missioncard"><h3>🏫 場合</h3><p>${m.name.replace(/^.. /,'')}</p></div>
+ <div class="missioncard"><h3>☀️ 天氣</h3><p>${m.weather}</p></div>
+ <div class="missioncard"><h3>🎒 活動</h3><p>${m.activity}</p></div>`;
+}
+function chooseRole(role,el){state.role=role;document.querySelectorAll('#role .card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');document.getElementById('roleNext').classList.remove('hidden')}
+const topData={A:['輕薄短袖','透氣・活動方便'],B:['薄襯衫／罩衫','整潔・稍有正式感'],C:['厚帽T','保暖・較厚'],D:['寬大垂袖上衣','有造型・活動性較低']};
+const bottomData={A:['直筒長褲','整潔・活動方便'],B:['運動長褲','舒適・好活動'],C:['拖地寬褲','有造型・活動較受限'],D:['貼身長褲','俐落・舒適度因人而異']};
+const shoeData={A:['舒適運動鞋','適合長時間活動'],B:['整潔休閒鞋','俐落・一般步行'],C:['厚底造型鞋','造型感較強'],D:['拖鞋','輕鬆・跑動時穩定性較低']};
+const accData={umbrella:'摺疊傘',hat:'遮陽帽',light_jacket:'薄外套',heavy_jacket:'厚外套',scarf:'圍巾',sunglasses:'太陽眼鏡'};
+function makeChoices(type,data,container){
+ const el=document.getElementById(container);
+ el.innerHTML=Object.entries(data).map(([k,v])=>`<div class="card choice" onclick="selectDress('${type}','${k}',this)">
+ <img src="assets/${state.role}_${type}_${k}.png"><strong>${k}｜${v[0]}</strong><small>${v[1]}</small></div>`).join('');
+}
+function openDress(){
+ state.top=state.bottom=state.shoes=state.acc=null;go('dress');
+ const m=state.mission;document.getElementById('missionMini').innerHTML=`<b>${m.name}</b><br>☀️ ${m.weather}<br>🎒 ${m.activity}`;
+ makeChoices('top',topData,'topChoices');makeChoices('bottom',bottomData,'bottomChoices');makeChoices('shoes',shoeData,'shoeChoices');
+ document.getElementById('accChoices').innerHTML=m.acc.map(k=>`<div class="card choice" onclick="selectAcc('${k}',this)">
+ <img src="assets/acc_${k}.png"><strong>${accData[k]}</strong></div>`).join('')+
+ `<div class="card choice" onclick="selectAcc('none',this)"><div style="font-size:70px;text-align:center;padding:55px 0">○</div><strong>不需要</strong></div>`;
+}
+function selectDress(type,k,el){state[type]=k;el.parentNode.querySelectorAll('.card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected')}
+function selectAcc(k,el){state.acc=k;el.parentNode.querySelectorAll('.card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected')}
+function evaluateDress(){
+ if(!state.top||!state.bottom||!state.shoes||state.acc===null){alert('請先完成上衣、下身、鞋子與配件選擇。');return}
+ const m=state.mission;
+ const scores=[m.score.top[state.top],m.score.bottom[state.bottom],m.score.shoes[state.shoes]];
+ const act=Math.min(2,Math.round(scores.reduce((a,b)=>a+b,0)/3));
+ const weather=(m.goodAcc.includes(state.acc)||state.acc==='none'&&m.id==='dinner')?2:1;
+ const occasion=(m.id==='present' && state.top==='D')?1:2;
+ const safety=(state.shoes==='D'&&(m.id==='sports'||m.id==='field'||m.id==='market') || state.bottom==='C'&&(m.id==='sports'||m.id==='field'))?0:2;
+ const checks=[['🏫 場合',occasion],['☀️ 環境',weather],['🎒 活動',act],['🛡️ 安全',safety]];
+ document.getElementById('checks').innerHTML=checks.map(([n,s])=>`<div class="check ${s>=2?'ok':'maybe'}"><b>${n}</b><br>${s>=2?'✓ 有考慮':'△ 可以再想想'}</div>`).join('');
+ const img=(type,k)=>`assets/${state.role}_${type}_${k}.png`;
+ document.getElementById('selectionSummary').innerHTML=`
+ <div class="card"><img style="width:100%;height:150px;object-fit:contain" src="${img('top',state.top)}"><b>${topData[state.top][0]}</b></div>
+ <div class="card"><img style="width:100%;height:150px;object-fit:contain" src="${img('bottom',state.bottom)}"><b>${bottomData[state.bottom][0]}</b></div>
+ <div class="card"><img style="width:100%;height:150px;object-fit:contain" src="${img('shoes',state.shoes)}"><b>${shoeData[state.shoes][0]}</b></div>
+ <div class="card">${state.acc==='none'?'<div style="font-size:60px">○</div><b>不需要配件</b>':`<img style="width:100%;height:150px;object-fit:contain" src="assets/acc_${state.acc}.png"><b>${accData[state.acc]}</b>`}</div>`;
+ const avg=(occasion+weather+act+safety)/4;
+ document.getElementById('resultText').innerHTML=avg>=1.75
+ ? `<b>🌟 很適合今天！</b><br>你已經同時考慮到這個情境中的多個生活需求。`
+ : `<b>🤔 有幾個地方可以再想想。</b><br>你已經做出自己的選擇；再看看今天的場合、環境、活動與安全，是否有哪一項值得調整。`;
+ go('result');
+}
+function keepReason(el){document.querySelectorAll('#keep .card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');document.getElementById('keepFb').classList.add('show');document.getElementById('keepNext').classList.remove('hidden')}
+function finishComfort(ok){if(ok)go('selfclue')}
+function finishAll(){setDone(4);go('finish')}
+function restartMission(){state.mission=null;state.role=null;state.top=state.bottom=state.shoes=state.acc=null;go('mission');document.getElementById('missionResult').classList.add('hidden')}
+</script>
+</body>
+</html>

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>人生金錢挑戰｜預算模擬器 V10 資金守恆版</title>
+<style>
+:root{--bg:#f3f7fb;--card:#fff;--ink:#263245;--muted:#697386;--line:#dce4ee;--accent:#6877c9;--accent2:#9568aa;--soft:#eef1fb;--ok:#eaf7ef;--warn:#fff5dd;--danger:#fdebed}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#edf7fa,#f8eff8);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif}
+button,input{font:inherit}button{cursor:pointer}.app{max-width:1120px;margin:auto;padding:22px 14px 50px}
+.hero,.panel{background:rgba(255,255,255,.97);border:1px solid rgba(255,255,255,.9);box-shadow:0 12px 30px rgba(31,41,55,.07)}
+.hero{padding:26px;border-radius:26px}.panel{padding:21px;border-radius:22px;margin-top:16px}
+.eyebrow{font-size:13px;font-weight:900;letter-spacing:.08em;color:var(--accent2)}h1{font-size:clamp(30px,5vw,48px);margin:6px 0 8px}h2{margin-top:0}.lead{font-size:17px;line-height:1.7;margin:0}.hidden{display:none!important}
+.roles{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:15px}.role{border:1px solid var(--line);background:#fff;border-radius:18px;padding:17px;text-align:left;transition:.15s}.role:hover{transform:translateY(-2px);border-color:var(--accent)}.role .icon{font-size:38px}.role b{display:block;font-size:18px;margin:8px 0}.role .money{font-size:23px;color:var(--accent2);font-weight:1000}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.space{justify-content:space-between}.btn{border:0;border-radius:12px;padding:11px 15px;font-weight:900}.primary{background:var(--accent);color:#fff}.ghost{background:#fff;border:1px solid var(--line)}.btn:disabled{opacity:.45}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}.small{font-size:13px;color:var(--muted);line-height:1.6}.notice{padding:13px 15px;border-radius:14px;background:var(--warn);line-height:1.6}.ok{background:var(--ok)}.danger{background:var(--danger)}
+.bigmoney{font-size:clamp(32px,7vw,56px);font-weight:1000;color:var(--accent2)}
+.cat{display:grid;grid-template-columns:1.2fr 1fr 140px;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}.cat:last-child{border-bottom:0}.catname{font-weight:900}.amount{font-weight:1000;text-align:right}input[type=range]{width:100%}
+.goals,.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.goal,.choice{border:1px solid var(--line);background:#fff;border-radius:15px;padding:14px;text-align:left;font-weight:800}.goal.active{background:var(--soft);border-color:var(--accent)}.goal b{display:block;font-size:17px;margin-bottom:5px}
+.progress{height:12px;background:#e9edf3;border-radius:999px;overflow:hidden}.progress>div{height:100%;background:var(--accent)}
+.event{border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px}.eventIcon{font-size:42px}.eventTitle{font-size:24px;font-weight:1000;margin:5px 0 8px}.choices{grid-template-columns:repeat(2,1fr);margin-top:14px}.choice:hover{border-color:var(--accent)}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.stat{border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px;text-align:center}.stat b{display:block;font-size:23px;margin-top:4px}.summaryItem{display:flex;justify-content:space-between;gap:15px;padding:10px 0;border-bottom:1px solid var(--line)}
+@media(max-width:850px){.roles{grid-template-columns:repeat(2,1fr)}.goals,.choices,.stats{grid-template-columns:1fr}.cat{grid-template-columns:1fr}.amount{text-align:left}}@media(max-width:520px){.roles{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<section class="hero">
+ <div class="eyebrow">金融互動工具</div>
+ <h1>💰 人生金錢挑戰</h1>
+ <p class="lead">如果一筆錢真的交給你管理，你會怎麼選？不同人生階段，有不同的收入、必要支出、目標與突發狀況。</p>
+</section>
+
+<section class="panel" id="roleStage">
+ <h2>① 選擇一個人生階段</h2>
+ <p class="small">第一次可以選最接近現在的角色；也可以再挑戰其他人生階段，比較「管理金錢」的難度怎麼改變。金額為教學情境設定，重點是練習取捨，不代表每個家庭或每個人的實際支出。每次挑戰會從事件池抽出 3 個情境，並盡量涵蓋不同類型；有風險／必要支出的角色，每局至少會遇到一個相關情境。重新挑戰仍可能遇到不同事件。</p>
+ <div class="roles" id="roles"></div>
+    <details class="card" style="margin-top:15px">
+      <summary style="cursor:pointer;font-weight:900">👩‍🏫 教師使用方式</summary>
+      <div class="small" style="margin-top:10px">
+        建議時間約 10～15 分鐘。第一次可請學生選最接近自己的角色，依直覺完成一次；
+        第二次可重玩同角色或挑戰另一人生階段。討論時可問：
+        「你最不願意犧牲的是什麼？」、「哪個事件讓你改變原本的預算？」、
+        「不花錢是不是永遠比較好？」。本工具沒有唯一正確的預算答案。系統會把「彈性資金」視為獨立餘額；已花掉的預算不會重新變回彈性資金。
+      </div>
+    </details>
+</section>
+
+<section class="panel hidden" id="budgetStage">
+ <div class="row space"><div><div class="small" id="roleName"></div><div class="bigmoney" id="income"></div></div><button class="btn ghost" id="changeRole">← 換角色</button></div>
+ <div class="notice" id="roleNote" style="margin:12px 0"></div>
+ <h2>② 分配你的預算</h2>
+ <div class="card" id="budgetList"></div>
+ <div class="row space" style="margin-top:14px"><div><div class="small">💵 彈性資金</div><b id="remain" style="font-size:25px"></b><div class="small">沒有分完不是錯誤；這筆錢會保留下來，之後遇到事件時可直接使用。</div></div><button class="btn primary" id="toGoal">下一步：設定目標 →</button></div>
+ <div id="budgetWarn" class="notice hidden" style="margin-top:12px"></div><div id="coach" class="notice" style="margin-top:12px"></div><div id="minimumHints" class="small" style="margin-top:8px"></div>
+</section>
+
+<section class="panel hidden" id="goalStage">
+ <h2>③ 你想替未來留下什麼？</h2>
+ <div class="goals" id="goals"></div>
+ <div class="card" style="margin-top:14px">
+  <div class="row space"><div>目前每月儲蓄：<b id="saveNow"></b></div><div>目標每月至少：<b id="saveNeed"></b></div></div>
+  <div class="progress" style="margin-top:12px"><div id="goalBar"></div></div><div class="small" id="goalMsg" style="margin-top:8px"></div>
+ </div>
+ <div class="row" style="margin-top:15px"><button class="btn ghost" id="backBudget">← 調整預算</button><button class="btn primary" id="start">開始生活挑戰 →</button></div>
+</section>
+
+<section class="panel hidden" id="eventStage">
+ <div class="row space"><b id="eventNo"></b><span class="small">選擇不一定只有一個答案；做完後系統會告訴你「得到什麼、付出什麼、影響什麼」。預算不足時不會自動借款，只有你明確選擇借錢才會產生借款。</span></div>
+ <div id="eventArea" style="margin-top:13px"></div>
+</section>
+
+<section class="panel hidden" id="resultStage">
+ <h2>🏁 這個月，你怎麼走過來的？</h2>
+ <div class="stats" id="stats"></div>
+ <div class="card" style="margin-top:14px"><h3>你的結果</h3><div id="summary"></div></div>
+    <div class="card hidden" id="compareCard" style="margin-top:14px">
+      <h3>🔁 第一次決策 → 再挑戰</h3>
+      <div id="comparison"></div>
+      <div class="small" style="margin-top:8px">不是看哪一次「分數比較高」，而是看看你的決策為什麼改變。哪一項改變是你刻意做的？</div>
+    </div>
+ <div class="notice" id="reflection" style="margin-top:14px"></div>
+ <div class="row" style="margin-top:15px"><button class="btn primary" id="again">同角色再挑戰</button><button class="btn ghost" id="other">換人生階段</button></div>
+</section>
+</div>
+
+<script>
+const DATA={
+ junior:{icon:"🎒",name:"國中生｜零用錢挑戰",income:1500,note:"家人負擔基本餐費、學費與通勤；這 1,500 元是你一個月可自行管理的零用錢。",cats:[
+  ["food","🧋 額外飲食",300,800],["fun","🎮 娛樂／遊戲",250,800],["shop","🛍️ 購物",250,900],["save","💰 儲蓄",500,1200],["reserve","🛡️ 預備金",200,800]],
+  goals:[["🎧","耳機",2400,6],["👟","球鞋",3000,6],["🎁","送給自己的生日目標",1800,6]],
+  events:[
+   ["🧋","同學放學約飲料","大家臨時揪飲料和點心，大約 180 元。",180,[["一起去，用額外飲食預算","food"],["用娛樂預算","fun"],["動用儲蓄","save"],["這次先不買",null]]],
+   ["🎮","遊戲推出限時造型","你很喜歡的遊戲造型今天最後一天，售價 390 元。",390,[["用娛樂預算","fun"],["用購物預算","shop"],["動用儲蓄","save"],["放棄限時優惠",null]]],
+   ["🎂","朋友生日","你想準備約 300 元的生日禮物。",300,[["用購物預算","shop"],["用娛樂預算","fun"],["動用儲蓄","save"],["用手邊材料做小卡片，不另外花錢",null]]],
+   ["📚","想買補充教材","一本你覺得可能對學習有幫助的補充教材 280 元。",280,[["用購物預算","shop"],["動用儲蓄","save"],["用預備金","reserve"],["先向圖書館或同學借",null]]],
+   ["👟","喜歡的鞋子特價","一雙喜歡的鞋子特價 650 元，但原本沒有排進預算。",650,[["用購物預算","shop"],["減少娛樂支出","fun"],["動用儲蓄","save"],["先不買",null]]],
+   ["💰","比賽得到獎金","你得到 500 元獎金。",-500,[["全部存起來","save+"],["放進預備金","reserve+"],["一半存、一半花","split+"],["加入購物預算","shop+"]]]
+  ]},
+ high:{icon:"🏫",name:"高中生｜生活費挑戰",income:4000,note:"午餐與基本學費另計；你開始自行管理交通、通訊、額外飲食、娛樂與部分個人支出。預設會保留一小筆彈性資金，讓你在臨時狀況發生時還有調整空間。",cats:[
+  ["transport","🚍 交通",600,1500],["phone","📱 通訊／網路",400,1000],["food","🧋 額外飲食",500,1500],["fun","🎮 娛樂",350,1500],["shop","🛍️ 購物",350,1800],["save","💰 儲蓄",900,2500],["reserve","🛡️ 預備金",400,1800]],
+  goals:[["🎧","耳機",3000,3],["🎤","活動／演唱會基金",4800,6],["🧳","畢旅加碼基金",6000,6]],
+  events:[
+   ["📱","手機螢幕破裂","維修需要 1,200 元。手機還能勉強使用，但會影響操作。",1200,[["預備金＋彈性資金一起支付","combo_reserve_flex"],["動用部分儲蓄來維修","save"],["先比較維修價格，再決定","research"],["手機還能使用，先延後維修",null]]],
+   ["👟","球鞋突然特價","喜歡很久的球鞋今天特價 1,800 元，但原本沒有排進預算。",1800,[["購物＋娛樂預算一起調整來買","combo_shop_fun"],["動用部分儲蓄，再減少本月其他消費","combo_save_flex"],["先存錢，下個月再看看","research"],["放棄這次特價，繼續原本財務目標",null]]],
+   ["🚌","交通卡遺失","重新辦卡並加值需要 500 元。",500,[["用交通預算","transport"],["用預備金","reserve"],["動用儲蓄","save"],["跟家人借","borrow"]]],
+   ["🎤","朋友揪活動","臨時有一場你很想參加的活動，票價 900 元。",900,[["娛樂＋彈性資金參加","combo_fun_flex"],["娛樂＋減少購物支出來參加","combo_fun_shop"],["動用儲蓄參加，但財務目標會延後","save"],["這次不參加",null]]],
+   ["📝","想報名檢定／競賽","你想替自己多一次學習與挑戰的機會，報名費 800 元。",800,[["調整購物＋娛樂支出來報名","combo_shop_fun"],["使用彈性資金＋部分其他預算","combo_flex_any"],["動用儲蓄，把它視為投資自己","save"],["這次先不報名",null]]],
+   ["🧋","聚餐比預期多花","這個月和同學聚餐、飲料累積多出 600 元。",600,[["用額外飲食預算","food"],["減少娛樂支出","fun"],["動用儲蓄","save"],["用彈性資金補上，接下來減少外食飲料","flex"]]],
+   ["💰","比賽得到獎金","你意外得到 1,000 元。",-1000,[["全部存起來","save+"],["放進預備金","reserve+"],["一半存、一半花","split+"],["加入購物預算","shop+"]]]
+  ]},
+ college:{icon:"🎓",name:"大學生｜獨立生活挑戰",income:15000,note:"你在外地讀書，住宿費與學雜費另計；這 15,000 元要負責餐食、交通、通訊、日用品、社交娛樂，也要開始替未來與突發狀況留錢。",cats:[
+  ["food","🍱 餐食",5000,8000],["transport","🚇 交通",1200,3000],["phone","📱 通訊",600,1500],["daily","🧴 日用品",900,2500],["fun","🎬 社交娛樂",1500,3500],["save","💰 儲蓄",2500,6000],["reserve","🛡️ 預備金",1500,4500]],
+  goals:[["💻","新筆電基金",24000,12],["✈️","旅行基金",18000,12],["📚","證照／進修基金",12000,6]],
+  events:[
+   ["💻","筆電突然故障","維修報價 3,500 元；目前還能勉強使用，但可能影響上課與作業。",3500,[["預備金＋彈性資金＋少量娛樂支出一起調整","combo_college_laptop1"],["動用部分儲蓄＋彈性資金維修","combo_college_laptop2"],["先詢價／找其他維修方案，再決定","research"],["目前還能使用，先撐一陣子",null]]],
+   ["🏥","臨時看診與藥費","身體不舒服，看診與藥費共 800 元。",800,[["用預備金","reserve"],["從餐食調整","food"],["動用儲蓄","save"],["先借錢支付","borrow"]]],
+   ["🎉","朋友揪週末小旅行","大家臨時約兩天一夜，預估 2,500 元。",2500,[["用娛樂預算","fun"],["動用儲蓄","save"],["用預備金","reserve"],["這次不去",null]]],
+   ["📚","課程教材費","這個月臨時需要購買 1,200 元教材。",1200,[["用日用品預算","daily"],["用預備金","reserve"],["動用儲蓄","save"],["找二手教材或借用",null]]],
+   ["🍜","期末聚餐","同學揪期末聚餐，預估 800 元。",800,[["用社交娛樂預算","fun"],["從餐食預算調整","food"],["動用儲蓄","save"],["這次不參加",null]]],
+   ["🏠","生活用品臨時採買","宿舍／租屋生活突然需要補齊用品，共約 1,500 元。",1500,[["用日用品預算","daily"],["用預備金","reserve"],["動用儲蓄","save"],["先買必要用品 700 元，其餘延後","partial700"]]],
+   ["💰","接到臨時打工","你多賺了 2,000 元。",-2000,[["全部存起來","save+"],["補預備金","reserve+"],["一半存一半花","split+"],["增加娛樂預算","fun+"]]]
+  ]},
+ worker:{icon:"💼",name:"社會新鮮人｜第一份薪水",income:36000,note:"你剛開始工作並租屋生活。這次以『月收入 36,000 元』作為情境，練習安排房租、生活、保障、儲蓄與休閒；預設不把薪水全部分完，留下的彈性資金要由你決定用途。這是教學簡化情境，不另外計算薪資扣繳。",cats:[
+  ["rent","🏠 房租／居住",10000,15000],["food","🍱 飲食",7000,11000],["transport","🚇 交通",1500,3500],["phone","📱 通訊",700,1500],["insurance","🛡️ 基本保障",1500,4000],["fun","🎬 休閒社交",2500,6500],["save","💰 儲蓄／目標",7000,14000],["reserve","🚑 緊急預備",3000,9000]],
+  goals:[["🚑","緊急預備金",36000,12],["✈️","旅行基金",24000,12],["💻","進修／設備基金",30000,12]],
+  events:[
+   ["🧊","租屋處冰箱故障","需要分攤或自行處理 3,000 元。",3000,[["用緊急預備金","reserve"],["動用儲蓄","save"],["減少休閒社交","fun"],["先借錢處理","borrow"]]],
+   ["💒","朋友婚禮","紅包與交通預計 2,600 元。",2600,[["用休閒社交預算","fun"],["動用儲蓄","save"],["用預備金","reserve"],["婉拒出席",null]]],
+   ["🏥","臨時醫療支出","這個月有 1,500 元額外醫療支出。",1500,[["用預備金","reserve"],["從飲食支出調整","food"],["動用儲蓄","save"],["先借錢","borrow"]]],
+   ["🧾","年度固定費用到期","你有一筆一年繳一次的必要費用 1,800 元，之前忘了把它分攤進每月預算。",1800,[["用預備金","reserve"],["動用儲蓄","save"],["減少休閒","fun"],["先借錢支付","borrow"]]],
+   ["💳","信用卡帳單來了","本月信用卡帳單 4,500 元，但這個月又剛好有一筆 3,000 元的必要支出。如果全額繳清，這個月可以運用的錢會明顯變少。",4500,[["全額繳清，減少休閒支出","fun"],["全額繳清，動用部分儲蓄","save"],["本月先繳 2,500 元，其餘延後","credit_partial"],["重新檢查其他支出，再決定如何調整","rebudget"]]],
+   ["🛡️","要不要增加保障？","你目前已有基本保障。最近開始思考是否每月再支出 1,200 元增加保障，但這會讓每月可以儲蓄的金額下降。",1200,[["增加保障，接受儲蓄變慢","insurance_recurring"],["先確認自己目前有哪些保障再決定","research"],["目前收入有限，維持現有保障",null],["減少休閒支出，增加保障","fun_recurring"]]],
+   ["📈","同事分享投資機會","同事最近投資一個熱門標的，說自己這幾個月賺了不少，也把相關資料傳給你。第一次投入至少需要 3,000 元。",3000,[["拿 3,000 元儲蓄先小額嘗試","save"],["先了解投資內容、風險與資金用途，再決定","research"],["用彈性資金＋減少一點休閒支出來投入","combo_invest_flex_fun"],["目前先不投資，繼續完成自己的財務目標",null]]],
+   ["💰","公司發小額獎金","這個月多得到 3,000 元。",-3000,[["全部存起來","save+"],["補緊急預備金","reserve+"],["一半存一半休閒","split+"],["增加休閒預算","fun+"]]]
+  ]}
+};
+
+
+const MINIMUMS={
+  junior:{},
+  high:{transport:300,phone:200},
+  college:{food:3000,transport:600,phone:300,daily:400},
+  worker:{rent:7000,food:4500,transport:800,phone:300}
+};
+const EVENT_TYPES={
+  junior:["social","want","social","growth","want","income"],
+  high:["risk","want","risk","social","growth","spending","income"],
+  college:["risk","risk","social","need","social","need","income"],
+  worker:["risk","social","risk","need","credit","protection","investment","income"]
+};
+let roleKey=null;
+let firstResults={};
+let runNoByRole={};
+let role=null,cats=[],goal=null,events=[],ei=0,borrowed=0,creditDebt=0,skipped=0,experiences=0,ongoingMonthly=0,flexCash=0,inSimulation=false;
+const $=s=>document.querySelector(s), fmt=n=>"$"+Math.round(Math.abs(n)).toLocaleString("zh-TW");
+function renderRoles(){roles.innerHTML=Object.entries(DATA).map(([k,r])=>`<button class="role" data-k="${k}"><div class="icon">${r.icon}</div><b>${r.name}</b><div class="money">${fmt(r.income)}／月</div><div class="small">${r.note}</div></button>`).join("");document.querySelectorAll(".role").forEach(b=>b.onclick=()=>chooseRole(b.dataset.k))}
+function chooseRole(k){
+  roleKey=k;
+  role=DATA[k];
+  cats=role.cats.map(x=>({id:x[0],name:x[1],value:x[2],max:x[3]}));
+  goal=null;
+  borrowed=0;
+  creditDebt=0;
+  skipped=0;
+  experiences=0;
+  ongoingMonthly=0;
+  inSimulation=false;
+  flexCash=Math.max(0,role.income-cats.reduce((a,c)=>a+c.value,0));
+  roleStage.classList.add("hidden");
+  budgetStage.classList.remove("hidden");
+  roleName.textContent=role.icon+" "+role.name;
+  income.textContent=fmt(role.income);
+  roleNote.textContent=role.note;
+  renderBudget();
+  scrollTo(0,0)
+}
+function sum(){return cats.reduce((a,c)=>a+c.value,0)}
+function cat(id){return cats.find(c=>c.id===id)}
+function flexAmount(){return Math.max(0,flexCash)}
+function spendFlex(cost){
+  cost=Math.max(0,Number(cost)||0);
+  if(flexCash>=cost){
+    flexCash-=cost;
+    return {ok:true,gap:0};
+  }
+  return {ok:false,gap:cost-flexCash};
+}
+function renderBudget(){
+  budgetList.innerHTML=cats.map(c=>`<div class="cat"><div class="catname">${c.name}</div><input type="range" min="0" max="${c.max}" step="100" value="${c.value}" data-id="${c.id}"><div class="amount" id="a-${c.id}">${fmt(c.value)}</div></div>`).join("");
+  budgetList.querySelectorAll("input").forEach(x=>x.oninput=()=>{
+    cat(x.dataset.id).value=+x.value;
+    $("#a-"+x.dataset.id).textContent=fmt(+x.value);
+    if(!inSimulation) flexCash=Math.max(0,role.income-sum());
+    updateRemain()
+  });
+  if(!inSimulation) flexCash=Math.max(0,role.income-sum());
+  updateRemain()
+}
+function coachBudget(){
+  const allocated=sum(), inc=role.income;
+  const save=cat("save")?.value||0, reserve=cat("reserve")?.value||0;
+  const flexible=(cat("fun")?.value||0)+(cat("shop")?.value||0);
+  const pct=n=>Math.round(n/inc*100);
+  coach.innerHTML=`<b>📊 目前配置</b><br>
+    儲蓄約占收入 ${pct(save)}%　｜　預備金約占 ${pct(reserve)}%　｜　娛樂／購物約占 ${pct(flexible)}%　｜　彈性資金約占 ${pct(flexAmount())}%`;
+  const mins=MINIMUMS[roleKey]||{};
+  const warns=[];
+  Object.entries(mins).forEach(([id,min])=>{
+    const c=cat(id);
+    if(c && c.value<min) warns.push(`${c.name}目前 ${fmt(c.value)}，低於這個教學情境的基本參考額 ${fmt(min)}`);
+  });
+  minimumHints.innerHTML=warns.length
+    ? `⚠️ <b>情境可行性提醒：</b>${warns.join("；")}。你仍可繼續，但之後要觀察這樣的配置會帶來什麼影響。`
+    : `情境可行性：目前沒有低於本情境設定的基本參考額。`;
+}
+function updateRemain(){
+  const planned=sum();
+  const over=Math.max(0,planned-role.income);
+  if(!inSimulation) flexCash=Math.max(0,role.income-planned);
+  remain.textContent=fmt(flexAmount());
+  toGoal.disabled=over>0;
+  budgetWarn.classList.toggle("hidden",over===0);
+  budgetWarn.className=over>0?"notice danger":"notice hidden";
+  budgetWarn.textContent=over>0?`⚠️ 已超出收入 ${fmt(over)}，請先調整。`:"";
+  coachBudget()
+}
+function renderGoals(){goals.innerHTML=role.goals.map((g,i)=>`<button class="goal ${goal===i?"active":""}" data-i="${i}"><b>${g[0]} ${g[1]}</b><span class="small">${g[3]} 個月後需要 ${fmt(g[2])}</span></button>`).join("");document.querySelectorAll(".goal").forEach(b=>b.onclick=()=>{goal=+b.dataset.i;renderGoals();goalInfo()});goalInfo()}
+function goalInfo(){let s=cat("save")?.value||0;if(goal===null){saveNow.textContent=fmt(s);saveNeed.textContent="—";goalBar.style.width="0%";goalMsg.textContent="先選一個目標。";start.disabled=true;return}let g=role.goals[goal],need=Math.ceil(g[2]/g[3]);saveNow.textContent=fmt(s);saveNeed.textContent=fmt(need);goalBar.style.width=Math.min(100,s/need*100)+"%";goalMsg.textContent=s>=need?"✅ 目前每月安排的儲蓄額已達到這個目標需要的進度。":`⚠️ 目前每月還差 ${fmt(need-s)}。這不代表不能選，而是之後需要調整其他支出或延長完成時間。`;start.disabled=false}
+function pick(){
+  const pool=role.events.map((e,i)=>({e,type:(EVENT_TYPES[roleKey]||[])[i]||"other"}));
+  const chosen=[];
+  const must=pool.filter(x=>x.type==="risk"||x.type==="need");
+  if(must.length) chosen.push(must[Math.floor(Math.random()*must.length)]);
+  const shuffled=[...pool].sort(()=>Math.random()-.5);
+  for(const x of shuffled){
+    if(chosen.length>=3) break;
+    if(chosen.includes(x)) continue;
+    const existingTypes=new Set(chosen.map(y=>y.type));
+    if(!existingTypes.has(x.type) || chosen.length>=2) chosen.push(x);
+  }
+  while(chosen.length<3){
+    const x=shuffled.find(y=>!chosen.includes(y));
+    if(!x) break;
+    chosen.push(x);
+  }
+  events=chosen.map(x=>x.e).sort(()=>Math.random()-.5);
+  ei=0
+}
+function renderEvent(){let e=events[ei];eventNo.textContent=`情境 ${ei+1} / 3`;eventArea.innerHTML=`<div class="event"><div class="eventIcon">${e[0]}</div><div class="eventTitle">${e[1]}</div><div>${e[2]}</div><div class="choices">${e[4].map((c,i)=>`<button class="choice" data-i="${i}">${c[0]}</button>`).join("")}</div><div id="feedback"></div></div>`;document.querySelectorAll(".choice").forEach(b=>b.onclick=()=>choose(e,e[4][+b.dataset.i]))}
+
+function spendFromPool(ids,cost){
+  cost=Math.max(0,Number(cost)||0);
+  const categoryAvailable=ids.reduce((s,id)=>s+(cat(id)?.value||0),0);
+  const totalAvailable=categoryAvailable+flexAmount();
+  if(totalAvailable<cost){
+    return {ok:false,remaining:cost-totalAvailable,used:[]};
+  }
+
+  let remaining=cost;
+  const used=[];
+  for(const id of ids){
+    const c=cat(id);
+    if(!c) continue;
+    const take=Math.min(c.value,remaining);
+    if(take>0){
+      c.value-=take;
+      remaining-=take;
+      used.push(`${c.name} ${fmt(take)}`);
+    }
+    if(remaining<=0)break;
+  }
+  if(remaining>0){
+    const take=Math.min(flexAmount(),remaining);
+    if(take>0){
+      spendFlex(take);
+      remaining-=take;
+      used.push(`💵 彈性資金 ${fmt(take)}`);
+    }
+  }
+  return {ok:remaining<=0,remaining,used};
+}
+function countsAsLifeChoice(title,src){
+  if(src===null || src==="research" || src==="rebudget" || src==="borrow" || src==="credit_partial") return false;
+  const keywords=["飲料","遊戲","生日","鞋","球鞋","活動","聚餐","旅行","禮物","演唱會","社交"];
+  return keywords.some(k=>title.includes(k));
+}
+function choose(e,ch){
+  let cost=e[3],src=ch[1],msg="",gain="",costText="",impact="";
+  const title=e[1];
+
+  if(cost>0&&src==="save"&&goal!==null){
+    let g=role.goals[goal],need=Math.ceil(g[2]/g[3]),months=Math.max(1,Math.ceil(cost/Math.max(need,100)));
+    if(!confirm(`這個選擇會動用 ${fmt(cost)} 儲蓄。\n你的「${g[1]}」可能因此延後約 ${months} 個月。\n\n仍要這樣選嗎？`))return
+  }
+
+  document.querySelectorAll(".choice").forEach(b=>b.disabled=true);
+
+  // 額外收入
+  if(cost<0){
+    let bonus=-cost;
+    if(src==="split+"){
+      cat("save").value+=bonus/2;
+      let target=cat("fun")||cat("shop");
+      target.value+=bonus/2;
+      msg="你把額外收入一半留給未來，一半留給現在。";
+      gain=`同時保留了 ${fmt(bonus/2)} 的現在享受與 ${fmt(bonus/2)} 的未來資源`;
+      costText="未來累積速度比全數存下來慢";
+      impact="你選擇了平衡，而不是把所有額外收入放在同一個地方";
+    }else{
+      let id=src.replace("+",""),c=cat(id);
+      c.value+=bonus;
+      msg=`你把 ${fmt(bonus)} 放進「${c.name}」。`;
+      gain=`增加 ${fmt(bonus)} 可運用資源`;
+      costText=src==="save+"||src==="reserve+"?"現在可花的錢沒有增加":"未來可累積的錢相對較少";
+      impact=src==="reserve+"?"風險準備提高":src==="save+"?"財務目標更接近":"當月彈性提高";
+    }
+  }
+  // 查證／先了解：不扣錢
+  else if(src==="research"){
+    msg="你先蒐集資訊、確認需求與風險，再決定要不要花這筆錢。";
+    gain="保留決策空間，也避免在資訊不足時立即支出";
+    costText="需要花時間理解資訊，短期內不會立刻得到商品／保障／投資部位";
+    impact="現金流暫時不受影響，之後可做更有依據的決定";
+  }
+  // 重新檢查支出：不立即扣款
+  else if(src==="rebudget"){
+    msg="你先回頭檢查本月其他支出，準備重新安排現金流，再決定怎麼處理帳單。";
+    gain="保留調整空間，不急著從某一筆資金硬扣";
+    costText="帳單仍然存在，必須在期限內做出下一步處理";
+    impact="你需要重新排序本月支出優先順序";
+  }
+  // 信用卡部分繳款：本月先付2500，餘2000成為未清償
+  else if(src==="credit_partial"){
+    const payNow=2500, remainDebt=Math.max(0,cost-payNow);
+    const result=spendFromPool(["fun","save"],payNow);
+    if(!result.ok){
+      // 若連部分繳款都做不到，就不偷偷扣錢；整筆成為未清償信用卡帳款
+      creditDebt+=cost;
+      msg="目前連 2,500 元都無法從可調整預算與彈性資金中支付，整筆信用卡帳單形成未清償壓力。";
+      gain="短期保留了手上的現金";
+      costText=`信用卡仍有 ${fmt(cost)} 未清償，可能產生循環信用利息或其他信用成本`;
+      impact="之後月份的現金流壓力更大，也需要更留意信用管理";
+    }else{
+      creditDebt+=remainDebt;
+      msg=`你本月先支付 ${fmt(payNow)}（${result.used.join("＋")}），剩下 ${fmt(remainDebt)} 信用卡帳款延後處理。`;
+      gain="保留一部分現金處理本月必要支出";
+      costText=`信用卡仍有 ${fmt(remainDebt)} 未清償，可能產生循環信用利息或其他信用成本`;
+      impact="下個月可運用的錢會變少，也需要安排清償計畫";
+    }
+  }
+  // 保險：每月固定新增支出
+  else if(src==="insurance_recurring"||src==="fun_recurring"){
+    const ids = src==="insurance_recurring" ? ["save"] : ["fun"];
+    const result=spendFromPool(ids,cost);
+    if(!result.ok){
+      document.querySelectorAll(".choice").forEach(b=>b.disabled=false);
+      feedback.innerHTML=`<div class="notice danger" style="margin-top:13px">
+        ⚠️ 目前可調整的資金不足 ${fmt(cost)}，還差 ${fmt(result.remaining)}。<br>
+        請換一個決定；系統不會自動替你借錢。
+      </div>`;
+      return;
+    }
+    ongoingMonthly+=cost;
+    msg=`你決定增加保障：本月已支付 ${fmt(cost)}（${result.used.join("＋")}）；從下個月開始，每月預算也需要固定再安排 ${fmt(cost)}。`;
+    gain="保障提高";
+    costText=`本月可自由運用資金減少 ${fmt(cost)}`;
+    impact=`未來每月固定支出增加 ${fmt(cost)}，儲蓄、休閒或其他目標需要重新調整`;
+  }
+  // 部分支付：700元
+  else if(src==="partial700"){
+    const partial=700;
+    const d=cat("daily");
+    const fromDaily=Math.min(d?d.value:0,partial);
+    const needFlex=partial-fromDaily;
+    const flex=flexAmount();
+    if(fromDaily+flex<partial){
+      document.querySelectorAll(".choice").forEach(b=>b.disabled=false);
+      feedback.innerHTML=`<div class="notice danger" style="margin-top:13px">
+        ⚠️ 日用品預算加上彈性資金仍不足 ${fmt(partial)}，還差 ${fmt(partial-(fromDaily+flex))}。<br>
+        請換一個決定；系統不會自動替你借錢。
+      </div>`;
+      return;
+    }
+    if(d)d.value-=fromDaily;
+    if(needFlex>0)spendFlex(needFlex);
+    skipped++;
+    msg=`你先花 ${fmt(partial)} 買最必要的用品，其餘延後。`;
+    gain="先滿足最必要的生活需求";
+    costText=`本月先支出 ${fmt(partial)}，另外一些用品暫時延後`;
+    impact="保留部分現金，但之後仍可能需要補買";
+  }
+  // 社會新鮮人：投資以彈性資金＋休閒支出共同支付
+  else if(src==="combo_invest_flex_fun"){
+    const result=spendFromPool(["fun"],cost);
+    if(!result.ok){
+      document.querySelectorAll(".choice").forEach(b=>b.disabled=false);
+      feedback.innerHTML=`<div class="notice danger" style="margin-top:13px">
+        ⚠️ 彈性資金加上休閒預算仍不足，還差 ${fmt(result.remaining)}。<br>
+        請換一個決定；系統不會自動產生借款。
+      </div>`;
+      return;
+    }
+    msg=`你重新組合了預算：${result.used.join("＋")}。`;
+    gain="取得一個投資部位，也開始承擔市場風險";
+    costText=`本月有 ${fmt(cost)} 資金轉入投資，休閒與彈性空間因此減少`;
+    impact="投資可能上漲也可能下跌，這筆錢不再等同可立即使用的現金";
+  }
+
+  // 大學生：筆電維修的跨預算調整
+  else if(src==="combo_college_laptop1" || src==="combo_college_laptop2"){
+    const ids = src==="combo_college_laptop1" ? ["reserve","fun"] : ["save"];
+    const result=spendFromPool(ids,cost);
+    if(!result.ok){
+      document.querySelectorAll(".choice").forEach(b=>b.disabled=false);
+      feedback.innerHTML=`<div class="notice danger" style="margin-top:13px">
+        ⚠️ 這幾筆預算加上彈性資金仍不足，還差 ${fmt(result.remaining)}。<br>
+        請換一個決定；系統不會自動產生借款。
+      </div>`;
+      return;
+    }
+    msg=`你重新組合了預算：${result.used.join("＋")}。`;
+    gain="筆電維修問題得到處理，能較穩定地完成上課與作業";
+    costText=`你必須從原本不同用途的預算中重新挪出 ${fmt(cost)}`;
+    impact=src==="combo_college_laptop2"
+      ?"儲蓄與財務目標會受到影響"
+      :"預備金、娛樂與彈性空間都會變小";
+  }
+
+  // 高中生：組合調整選項
+  else if(["combo_reserve_flex","combo_shop_fun","combo_save_flex","combo_fun_flex","combo_fun_shop","combo_flex_any"].includes(src)){
+    let ids=[];
+    if(src==="combo_reserve_flex") ids=["reserve"];
+    if(src==="combo_shop_fun") ids=["shop","fun"];
+    if(src==="combo_save_flex") ids=["save"];
+    if(src==="combo_fun_flex") ids=["fun"];
+    if(src==="combo_fun_shop") ids=["fun","shop"];
+    if(src==="combo_flex_any") ids=["shop","fun","food"];
+    const result=spendFromPool(ids,cost);
+    if(!result.ok){
+      document.querySelectorAll(".choice").forEach(b=>b.disabled=false);
+      feedback.innerHTML=`<div class="notice danger" style="margin-top:13px">
+        ⚠️ 你想調整的這幾筆預算加上彈性資金仍不夠，還差 ${fmt(result.remaining)}。<br>
+        請換一個決定；系統不會自動產生借款。
+      </div>`;
+      return;
+    }
+    msg=`你重新組合了預算：${result.used.join("＋")}。`;
+    if(title.includes("檢定")||title.includes("競賽")){
+      gain="把資源投入學習與自我成長";
+    }else if(title.includes("活動")){
+      gain="保留了這次想參加的活動與社交體驗";
+      experiences++;
+    }else if(title.includes("球鞋")){
+      gain="現在就買到喜歡的球鞋";
+      experiences++;
+    }else if(title.includes("手機")){
+      gain="手機維修問題得到處理";
+    }else{
+      gain=`完成「${title}」`;
+    }
+    costText=`你必須從原本不同用途的預算中重新挪出 ${fmt(cost)}`;
+    impact="預算不是不能改，但每一次調整都代表其他用途的空間變少";
+  }
+
+  // 使用彈性資金
+  else if(src==="flex"){
+    const available=flexAmount();
+    if(available>=cost){
+      spendFlex(cost);
+      msg=`你用本月的彈性資金支付 ${fmt(cost)}。`;
+      gain=`完成「${title}」且不動用原本已分配的預算`;
+      costText=`彈性資金減少 ${fmt(cost)}`;
+      impact="之後可自由調整的空間變小";
+    }else{
+      document.querySelectorAll(".choice").forEach(b=>b.disabled=false);
+      const shortage=cost-available;
+      feedback.innerHTML=`<div class="notice danger" style="margin-top:13px">
+        ⚠️ 彈性資金目前只有 ${fmt(available)}，還差 ${fmt(shortage)}。<br>
+        請換一個決定；系統不會自動替你借錢。
+      </div>`;
+      return;
+    }
+  }
+  // 不花
+  else if(src===null){
+    skipped++;
+    const essentialKeywords=["手機","筆電","交通卡","冰箱","醫療","看診","教材","生活用品","年費"];
+    const isEssential=essentialKeywords.some(k=>title.includes(k));
+    msg="你選擇暫時不花這筆錢。延後處理，也是一種財務決定。";
+    gain=`保留 ${fmt(cost)} 的資金`;
+    if(isEssential){
+      if(title.includes("筆電")){
+        costText="繼續承擔筆電可能影響上課與作業的不便";
+        impact="如果之後完全故障，可能需要更快處理，甚至面臨更高支出";
+      }else if(title.includes("手機")){
+        costText="繼續承擔手機使用上的不便或故障風險";
+        impact="之後若情況惡化，仍可能需要支付維修或更換費用";
+      }else{
+        costText="必要需求沒有立刻處理，可能帶來生活上的不便或後續成本";
+        impact="財務目標暫時不受影響，但風險被延後到未來";
+      }
+    }else{
+      costText="放棄或延後了這次的商品、活動或體驗";
+      impact="你的財務目標與預備金較不受影響";
+    }
+  }
+  // 直接借款
+  else if(src==="borrow"){
+    borrowed+=cost;
+    msg=`你先借了 ${fmt(cost)}。問題解決了，但未來多了一筆需要償還的義務。`;
+    gain="現在的問題先被解決";
+    costText=`未來需要償還 ${fmt(cost)}，也可能產生額外信用成本`;
+    impact="下一個月可運用的錢會變少";
+  }
+  // 從某預算支付
+  else{
+    let c=cat(src);
+    if(c && c.value>=cost){
+      c.value-=cost;
+      msg=`你從「${c.name}」支付 ${fmt(cost)}。`;
+    }else{
+      const available=c?c.value:0;
+      const gap=cost-available;
+      const flex=flexAmount();
+      if(available+flex>=cost){
+        // 允許使用彈性資金補足，但不自動借款
+        if(c)c.value=0;
+        const flexNeed=cost-available;
+        if(flexNeed>0) spendFlex(flexNeed);
+        msg=`「${c?c.name:"這個項目"}」本身不夠，你再用 ${fmt(flexNeed)} 彈性資金補足。`;
+      }else{
+        // 不足時不自動借款，請學生重新選擇
+        document.querySelectorAll(".choice").forEach(b=>b.disabled=false);
+        const shortage=cost-(available+flex);
+        feedback.innerHTML=`<div class="notice danger" style="margin-top:13px">
+          ⚠️ 這個選擇目前的預算不夠，還差 ${fmt(shortage)}。<br>
+          請換一個決定；只有明確選擇「借錢」時，系統才會計入借款。
+        </div>`;
+        return;
+      }
+    }
+
+    // 專屬化的得到／代價／影響
+    if(title.includes("醫療")||title.includes("看診")){
+      gain="醫療需求順利處理";
+    }else if(title.includes("旅行")||title.includes("活動")||title.includes("聚餐")){
+      gain="保留了這次的生活體驗或社交機會";
+    }else if(title.includes("教材")||title.includes("檢定")||title.includes("競賽")){
+      gain="把資源投入學習或自我成長";
+    }else if(title.includes("手機")||title.includes("筆電")||title.includes("交通卡")||title.includes("冰箱")){
+      gain="必要設備／生活問題得到處理";
+    }else{
+      gain=`完成「${title}」這個選擇`;
+    }
+
+    if(src==="save"){
+      costText=`儲蓄減少 ${fmt(cost)}，原本目標可能延後`;
+      impact="未來目標受到影響";
+    }else if(src==="reserve"){
+      costText=`預備金減少 ${fmt(cost)}`;
+      impact="之後再遇到突發狀況時，可承受空間變小";
+    }else if(src==="insurance"){
+      costText=`每月可自由運用的錢減少 ${fmt(cost)}`;
+      impact="保障提高，但其他目標可能要放慢";
+    }else if(src==="fun"||src==="shop"||src==="food"){
+      costText=`這個月其他彈性支出空間減少 ${fmt(cost)}`;
+      impact="你把資源優先放在當下的生活選擇";
+    }else{
+      costText=`「${c?c.name:"該預算"}」可用金額減少 ${fmt(cost)}`;
+      impact="你需要在其他支出或未來目標中做調整";
+    }
+  }
+
+  if(cost>0 && countsAsLifeChoice(title,src) && !String(src).startsWith("combo_")) experiences++;
+  feedback.innerHTML=`<div class="notice ok" style="margin-top:13px">
+    <b>你的選擇：</b>${ch[0]}<br>${msg}
+    <div style="margin-top:10px"><b>✓ 得到：</b>${gain}</div>
+    <div><b>△ 代價：</b>${costText}</div>
+    <div><b>→ 影響：</b>${impact}</div>
+  </div>
+  <button class="btn primary" id="next" style="margin-top:12px">${ei===2?"查看結果 →":"下一個情境 →"}</button>`;
+  next.onclick=()=>{if(ei<2){ei++;renderEvent()}else showResult()}
+}
+function showResult(){
+  eventStage.classList.add("hidden");resultStage.classList.remove("hidden");
+  let s=cat("save")?.value||0,r=cat("reserve")?.value||0,g=role.goals[goal],need=Math.ceil(g[2]/g[3]),rate=Math.min(100,Math.round(s/need*100));
+  runNoByRole[roleKey]=(runNoByRole[roleKey]||0)+1;
+  const current={saving:s,reserve:r,flex:flexAmount(),borrowed,creditDebt,rate,skipped,goal:g[1]};
+  const previous=firstResults[roleKey];
+  if(!previous){
+    firstResults[roleKey]={...current};
+    compareCard.classList.add("hidden");
+  }else{
+    compareCard.classList.remove("hidden");
+    const delta=(a,b)=>{const d=b-a;return d===0?"沒有改變":`${d>0?"增加":"減少"} ${fmt(Math.abs(d))}`};
+    comparison.innerHTML=`
+      <div class="summaryItem"><span>💰 儲蓄</span><b>${fmt(previous.saving)} → ${fmt(current.saving)}（${delta(previous.saving,current.saving)}）</b></div>
+      <div class="summaryItem"><span>🛡️ 預備金</span><b>${fmt(previous.reserve)} → ${fmt(current.reserve)}（${delta(previous.reserve,current.reserve)}）</b></div><div class="summaryItem"><span>💵 彈性資金</span><b>${fmt(previous.flex||0)} → ${fmt(current.flex)}（${delta(previous.flex||0,current.flex)}）</b></div>
+      <div class="summaryItem"><span>⚖️ 一般借款</span><b>${fmt(previous.borrowed)} → ${fmt(current.borrowed)}</b></div><div class="summaryItem"><span>💳 信用卡未清償</span><b>${fmt(previous.creditDebt||0)} → ${fmt(current.creditDebt||0)}</b></div>
+      <div class="summaryItem"><span>🎯 目標進度</span><b>${previous.rate}% → ${current.rate}%</b></div>`;
+  }stats.innerHTML=`<div class="stat">🎯 本月儲蓄達成<b>${rate}%</b></div><div class="stat">🛡️ 風險準備<b>${fmt(r)}</b></div><div class="stat">⚖️ 一般借款<b>${fmt(borrowed)}</b></div><div class="stat">💳 信用卡未清償<b>${fmt(creditDebt)}</b></div><div class="stat">⏸️ 延後支出<b>${skipped} 次</b></div><div class="stat">😊 當下生活選擇<b>${experiences} 次</b></div>`;summary.innerHTML=`<div class="summaryItem"><span>人生階段</span><b>${role.name}</b></div><div class="summaryItem"><span>目前儲蓄</span><b>${fmt(s)}</b></div><div class="summaryItem"><span>預備金</span><b>${fmt(r)}</b></div><div class="summaryItem"><span>一般借款</span><b>${fmt(borrowed)}</b></div><div class="summaryItem"><span>信用卡未清償</span><b>${fmt(creditDebt)}</b></div><div class="summaryItem"><span>剩餘彈性資金</span><b>${fmt(flexAmount())}</b></div><div class="summaryItem"><span>未來每月新增固定支出</span><b>${fmt(ongoingMonthly)}</b></div><div class="summaryItem"><span>財務目標</span><b>${g[0]} ${g[1]}</b></div>`;reflection.className=(borrowed>0||creditDebt>0)?"notice danger":"notice ok";reflection.innerHTML=(borrowed>0||creditDebt>0)?`你完成了這個月，但出現了${creditDebt>0?"信用卡未清償":"借款"}。<b>如果重來一次，你會先調整哪一筆預算，降低未來的還款與信用壓力？</b>`:"你沒有靠借款撐過這個月。這不代表「越省越好」，也不代表只有一種正確的預算；生活體驗、保障與未來目標都值得被放進決策裡。<b>如果重來一次，你最想改變哪一筆決定？你想保留的，又是哪一筆？為什麼？</b>"}
+changeRole.onclick=()=>{budgetStage.classList.add("hidden");roleStage.classList.remove("hidden")};toGoal.onclick=()=>{budgetStage.classList.add("hidden");goalStage.classList.remove("hidden");renderGoals()};backBudget.onclick=()=>{goalStage.classList.add("hidden");budgetStage.classList.remove("hidden")};start.onclick=()=>{
+  inSimulation=true;
+  flexCash=Math.max(0,flexCash);
+  pick();
+  goalStage.classList.add("hidden");
+  eventStage.classList.remove("hidden");
+  renderEvent()
+};again.onclick=()=>{let key=Object.keys(DATA).find(k=>DATA[k]===role);resultStage.classList.add("hidden");chooseRole(key)};other.onclick=()=>{resultStage.classList.add("hidden");roleStage.classList.remove("hidden")};renderRoles();
+</script>
+</body></html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>這個東西，我該怎麼選？｜食品判讀力</title>
+<style>
+:root{
+  --bg:#fbf8f2;
+  --card:#fff;
+  --text:#2f3935;
+  --muted:#6f7a74;
+  --line:#e8e2d8;
+  --yellow:#ead889;
+  --yellow-soft:#f8f1d6;
+  --green:#78937e;
+  --green-soft:#e7efe5;
+  --blue-soft:#e4eef1;
+  --orange-soft:#f4e0d2;
+  --pink-soft:#f2e0e3;
+  --shadow:0 12px 32px rgba(55,60,48,.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  color:var(--text);
+  background:linear-gradient(180deg,#fbf8f2 0%,#f6f3ec 100%);
+}
+button{font:inherit}
+.topbar{
+  position:sticky;top:0;z-index:30;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:16px 26px;background:rgba(255,255,255,.9);
+  border-bottom:1px solid var(--line);backdrop-filter:blur(10px)
+}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}
+.badge{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--yellow-soft);font-size:24px}
+.progress-wrap{flex:1;max-width:520px}
+.track{height:9px;background:#ece8df;border-radius:99px;overflow:hidden}
+.bar{height:100%;width:14%;background:linear-gradient(90deg,#cbb95e,#e4d580);transition:.3s}
+.plabel{font-size:13px;color:var(--muted);text-align:right;margin-top:5px}
+.teacher{
+  border:1px solid #dad6cd;background:#fff;color:#5c675f;border-radius:12px;
+  padding:9px 13px;cursor:pointer
+}
+main{width:min(1160px,calc(100% - 34px));margin:28px auto 58px}
+.screen{display:none;animation:fade .22s ease}
+.screen.active{display:block}
+@keyframes fade{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:center;
+  padding:40px 36px;border:1px solid #e5dfd3;border-radius:30px;
+  background:linear-gradient(135deg,#fffaf0,#f6f2df);box-shadow:var(--shadow)
+}
+.kicker{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;background:#fff;border:1px solid #e3ded3;color:#786f43;font-weight:800;font-size:14px}
+h1{font-size:clamp(36px,5vw,64px);line-height:1.08;margin:18px 0 14px;letter-spacing:-1px}
+h2{font-size:clamp(28px,4vw,44px);margin:0 0 10px}
+h3{font-size:22px;margin:0 0 10px}
+.lead{font-size:19px;line-height:1.8;color:#5b665f}
+.spyglass{
+  width:min(360px,80vw);aspect-ratio:1;border-radius:50%;
+  background:#fff;border:16px solid #efe5a7;display:grid;place-items:center;
+  margin:auto;box-shadow:inset 0 0 0 1px #ded9bb,0 18px 40px rgba(80,70,30,.1)
+}
+.spyglass span{font-size:110px}
+.primary,.secondary{
+  border:0;border-radius:16px;padding:13px 20px;font-weight:900;cursor:pointer
+}
+.primary{background:#7f8d5f;color:white;box-shadow:0 8px 16px rgba(105,120,72,.16)}
+.secondary{background:white;color:#59635d;border:1px solid #ddd8cf}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px;box-shadow:var(--shadow)}
+.screen-head{margin-bottom:22px}.screen-head p{color:var(--muted);font-size:17px}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.product{
+  border:2px solid transparent;border-radius:24px;padding:20px;background:#fff;cursor:pointer;
+  box-shadow:0 10px 22px rgba(60,60,40,.06);transition:.18s
+}
+.product:hover{transform:translateY(-2px)}
+.product.active{border-color:#b1a450;background:#fffdf2}
+.pack{
+  min-height:250px;border-radius:22px;padding:22px;display:flex;flex-direction:column;justify-content:space-between
+}
+.pack.a{background:linear-gradient(145deg,#f6d7bc,#f7ead7)}
+.pack.b{background:linear-gradient(145deg,#e5eadc,#f4f1df)}
+.brandline{font-size:13px;font-weight:900;letter-spacing:1px;color:#5f675e}
+.pack-title{font-size:30px;font-weight:1000;line-height:1.15}
+.claims{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.claim{padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.75);font-size:13px;font-weight:800}
+.choice-reason{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.reason,.clue,.answer,.pk-option{
+  border:1px solid #dfdbd1;background:#fff;border-radius:15px;padding:14px;cursor:pointer;text-align:left
+}
+.reason.active,.clue.active,.pk-option.active{background:#f8f5df;border-color:#beb365}
+.clue-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:18px}
+.clue{min-height:110px;text-align:center;font-weight:800}
+.clue .icon{font-size:30px;display:block;margin-bottom:7px}
+.info-box{margin-top:16px;padding:18px;border-radius:16px;background:#fbf8ed;border:1px solid #eadfba;line-height:1.8}
+.label-card{
+  max-width:620px;margin:18px auto;border:2px solid #333;background:#fff;padding:18px
+}
+.label-title{font-weight:1000;font-size:24px;border-bottom:3px solid #333;padding-bottom:8px}
+.label-row{display:grid;grid-template-columns:1.4fr .8fr .8fr;padding:9px 0;border-bottom:1px solid #bbb;gap:8px}
+.label-row.head{font-weight:900}
+.question{font-size:23px;font-weight:900;margin-top:24px}
+.answers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.answer{text-align:center;font-weight:800}
+.answer.correct{background:#edf5e9;border-color:#9cad8a}
+.answer.wrong{background:#fff0ed;border-color:#d9a69a}
+.feedback{display:none;margin-top:16px;padding:16px;border-radius:15px;background:#f1f6ef;line-height:1.75}
+.feedback.show{display:block}
+.compare-table{width:100%;border-collapse:collapse;margin-top:18px}
+.compare-table th,.compare-table td{padding:13px;border-bottom:1px solid #e7e2d8;text-align:center}
+.compare-table th:first-child,.compare-table td:first-child{text-align:left}
+.compare-table th{background:#faf8f2}
+.pk-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.pk-tab{border:1px solid #ded8cf;background:#fff;border-radius:999px;padding:9px 13px;cursor:pointer;font-weight:800}
+.pk-tab.active{background:#f2ebc5;border-color:#c6b65e}
+.pk-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.pk-option{padding:18px}
+.pk-option h3{margin-top:6px}
+.tagrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.tag{padding:6px 9px;border-radius:999px;background:#f5f3ed;font-size:13px}
+.result{
+  max-width:780px;margin:auto;background:linear-gradient(145deg,#fffdf4,#f4f0da);
+  border:1px solid #e5dfbd;border-radius:30px;padding:34px;box-shadow:var(--shadow)
+}
+.steps{display:grid;gap:10px;margin-top:20px}
+.step{padding:14px 16px;border-radius:14px;background:#fff;border:1px solid #e4dfd2;font-weight:800}
+.teacher-note{display:none;margin-top:16px;padding:15px;border-radius:15px;background:#fff8df;border:1px solid #e8d48e;color:#665c39}
+body.teacher-mode .teacher-note{display:block}
+.small{font-size:14px;color:var(--muted)}
+.toast{
+ position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+ background:#2f3934;color:white;padding:11px 17px;border-radius:999px;opacity:0;transition:.2s;z-index:99
+}
+.toast.show{opacity:1;transform:translateX(-50%)}
+@media(max-width:900px){
+  .hero,.products,.pk-grid{grid-template-columns:1fr}
+  .clue-grid{grid-template-columns:repeat(3,1fr)}
+  .choice-reason{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .topbar{padding:13px;flex-wrap:wrap}.progress-wrap{order:3;width:100%;max-width:none}
+  main{width:min(100% - 20px,1160px)}
+  .hero{padding:28px 20px}
+  .clue-grid,.choice-reason,.answers{grid-template-columns:1fr}
+  .label-row{font-size:14px}
+}
+</style>
+</head>
+<body>
+<p style="text-align:center;margin:10px 0 0;"><a href="飲食與營養.dc.html" style="color:#537258;text-decoration:none;font-weight:800;">← 回飲食與營養</a></p>
+<header class="topbar">
+  <div class="brand"><div class="badge">🔍</div><div>飲食與營養<div class="small">02 食品判讀力</div></div></div>
+  <div class="progress-wrap"><div class="track"><div class="bar" id="bar"></div></div><div class="plabel" id="plabel">1 / 7</div></div>
+  <button class="teacher" id="teacherBtn">👩‍🏫 教師模式</button>
+</header>
+
+<main>
+  <section class="screen active" data-screen="1">
+    <div class="hero">
+      <div>
+        <span class="kicker">🔍 食品判讀力｜第 2 關</span>
+        <h1>這個東西，<br>我該怎麼選？</h1>
+        <p class="lead">包裝看起來很健康，就一定比較適合你嗎？<br>今天，你要當一名「食品偵探」。</p>
+        <button class="primary" onclick="go(2)">開始食品偵探任務 →</button>
+        <div class="teacher-note"><b>教師提問：</b>「你買包裝食品時，最常先看哪裡？」</div>
+      </div>
+      <div class="spyglass"><span>🕵️</span></div>
+    </div>
+  </section>
+
+  <section class="screen" data-screen="2">
+    <div class="screen-head">
+      <span class="kicker">STEP 1｜第一眼選擇</span>
+      <h2>🥣 明天早餐，你會選哪一包？</h2>
+      <p>先只看包裝正面。沒有標準答案，照你的第一直覺選。</p>
+    </div>
+    <div class="products">
+      <div class="product" data-product="A" onclick="chooseFirst('A',this)">
+        <div class="pack a">
+          <div class="brandline">SUNNY MORNING</div>
+          <div>
+            <div class="pack-title">活力水果脆片</div>
+            <div class="claims"><span class="claim">🌿 天然穀物</span><span class="claim">🍓 水果好營養</span><span class="claim">⚡ 元氣早餐</span></div>
+          </div>
+          <div class="small">示意商品</div>
+        </div>
+      </div>
+      <div class="product" data-product="B" onclick="chooseFirst('B',this)">
+        <div class="pack b">
+          <div class="brandline">PLAIN OATS</div>
+          <div>
+            <div class="pack-title">原味燕麥片</div>
+            <div class="claims"><span class="claim">原味燕麥</span><span class="claim">簡單包裝</span></div>
+          </div>
+          <div class="small">示意商品</div>
+        </div>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:18px">
+      <h3>你剛才主要根據什麼選？</h3>
+      <div class="choice-reason" id="reasons">
+        <button class="reason">包裝看起來比較健康</button>
+        <button class="reason">我喜歡這個口味</button>
+        <button class="reason">品牌／廣告感覺</button>
+        <button class="reason">價格</button>
+        <button class="reason">營養標示</button>
+        <button class="reason">成分</button>
+      </div>
+      <div class="teacher-note"><b>教師提醒：</b>這一頁刻意只給正面資訊，讓學生先看見自己的「第一眼判斷」。</div>
+    </div>
+    <div class="actions"><button class="secondary" onclick="go(1)">← 上一步</button><button class="primary" onclick="step2Next()">繼續找線索 →</button></div>
+  </section>
+
+  <section class="screen" data-screen="3">
+    <div class="panel">
+      <span class="kicker">STEP 2｜包裝裡藏了哪些線索？</span>
+      <h2 style="margin-top:14px">📦 別只看正面</h2>
+      <p class="lead" style="font-size:17px">點開每個位置，看看食品包裝真正能提供你哪些資訊。</p>
+      <div class="clue-grid" id="clueGrid">
+        <button class="clue" onclick="showClue(this,'品名告訴你商品叫什麼，但光靠名稱還不能判斷整體營養。')"><span class="icon">🏷️</span>品名</button>
+        <button class="clue" onclick="showClue(this,'包裝宣稱是商品想讓你先注意的訊息，不能只靠它做決定。')"><span class="icon">📣</span>宣稱文字</button>
+        <button class="clue" onclick="showClue(this,'成分表能幫你了解食品主要由哪些原料組成。')"><span class="icon">📋</span>成分</button>
+        <button class="clue" onclick="showClue(this,'營養標示提供每份量、熱量與多項營養素資訊，是比較食品的重要線索。')"><span class="icon">🔢</span>營養標示</button>
+        <button class="clue" onclick="showClue(this,'有效日期與保存方式關係到食品安全與保存。')"><span class="icon">📅</span>日期／保存</button>
+      </div>
+      <div class="info-box" id="clueInfo">🔎 點一個位置開始調查。</div>
+      <div class="teacher-note"><b>教師提問：</b>「如果你想知道這包食品『到底用了什麼做成』，應該找哪一欄？」</div>
+      <div class="actions"><button class="secondary" onclick="go(2)">← 上一步</button><button class="primary" onclick="go(4)">看營養標示 →</button></div>
+    </div>
+  </section>
+
+  <section class="screen" data-screen="4">
+    <div class="panel">
+      <span class="kicker">STEP 3｜營養標示會說話</span>
+      <h2 style="margin-top:14px">🔢 「每份」不等於「整包」</h2>
+      <div class="label-card">
+        <div class="label-title">營養標示</div>
+        <div class="label-row head"><div>每一份量</div><div>40 公克</div><div></div></div>
+        <div class="label-row head"><div>本包裝含</div><div>2 份</div><div></div></div>
+        <div class="label-row head"><div>項目</div><div>每份</div><div>每100公克</div></div>
+        <div class="label-row"><div>熱量</div><div>180 kcal</div><div>450 kcal</div></div>
+        <div class="label-row"><div>蛋白質</div><div>4 g</div><div>10 g</div></div>
+        <div class="label-row"><div>脂肪</div><div>6 g</div><div>15 g</div></div>
+        <div class="label-row"><div>糖</div><div>12 g</div><div>30 g</div></div>
+        <div class="label-row"><div>鈉</div><div>160 mg</div><div>400 mg</div></div>
+      </div>
+      <div class="question">如果把整包吃完，共吃進多少熱量？</div>
+      <div class="answers" id="servingAnswers">
+        <button class="answer" onclick="servingAnswer(this,false)">180 kcal</button>
+        <button class="answer" onclick="servingAnswer(this,true)">360 kcal</button>
+        <button class="answer" onclick="servingAnswer(this,false)">450 kcal</button>
+      </div>
+      <div class="feedback" id="servingFb"></div>
+      <div class="teacher-note"><b>教學重點：</b>先看「本包裝含幾份」，再判斷整包實際攝取量。</div>
+      <div class="actions"><button class="secondary" onclick="go(3)">← 上一步</button><button class="primary" id="toCompare" style="display:none" onclick="go(5)">回到早餐 PK →</button></div>
+    </div>
+  </section>
+
+  <section class="screen" data-screen="5">
+    <div class="screen-head">
+      <span class="kicker">STEP 4｜現在多了真正的資料</span>
+      <h2>⚔️ 早餐麥片 PK</h2>
+      <p>同樣是早餐食品，看到更多資訊後，你的判斷會不會改變？</p>
+    </div>
+    <div class="panel">
+      <table class="compare-table">
+        <tr><th>比較項目</th><th>A 活力水果脆片</th><th>B 原味燕麥片</th></tr>
+        <tr><td>每份糖</td><td>18 g</td><td>1 g</td></tr>
+        <tr><td>每份膳食纖維</td><td>2 g</td><td>5 g</td></tr>
+        <tr><td>每份鈉</td><td>190 mg</td><td>5 mg</td></tr>
+        <tr><td>主要成分示意</td><td>穀物、糖、油、水果乾</td><td>燕麥</td></tr>
+      </table>
+      <h3 style="margin-top:24px">現在，你會選哪一個當「平常早餐的一部分」？</h3>
+      <div class="products" style="margin-top:14px">
+        <button class="pk-option" onclick="chooseSecond('A',this)"><h3>A｜活力水果脆片</h3><div class="small">我看完資訊後仍會選 A</div></button>
+        <button class="pk-option" onclick="chooseSecond('B',this)"><h3>B｜原味燕麥片</h3><div class="small">我看完資訊後會選 B</div></button>
+      </div>
+      <div class="info-box" id="changeInfo">先做一次選擇，等等會比較你「第一眼」和「看完資訊」之後的判斷。</div>
+      <div class="teacher-note"><b>教師提醒：</b>不把這題簡化成「A壞、B好」，而是強調用途、頻率、份量與需求。</div>
+      <div class="actions"><button class="secondary" onclick="go(4)">← 上一步</button><button class="primary" onclick="compareNext()">進入食品偵探挑戰 →</button></div>
+    </div>
+  </section>
+
+  <section class="screen" data-screen="6">
+    <div class="screen-head">
+      <span class="kicker">STEP 5｜食品偵探挑戰</span>
+      <h2>🕵️ 不同情境，判斷角度也不同</h2>
+      <p>每題都先看「這個人現在需要什麼」，再決定要比較哪些線索。</p>
+    </div>
+    <div class="panel">
+      <div class="pk-tabs">
+        <button class="pk-tab active" onclick="switchPk(0,this)">🥤 飲料</button>
+        <button class="pk-tab" onclick="switchPk(1,this)">🍞 早餐</button>
+        <button class="pk-tab" onclick="switchPk(2,this)">🍪 點心</button>
+      </div>
+      <div id="pkContent"></div>
+      <div class="teacher-note"><b>教師提問：</b>「如果情境換了，原本的答案還一定一樣嗎？」</div>
+      <div class="actions"><button class="secondary" onclick="go(5)">← 上一步</button><button class="primary" onclick="go(7)">完成偵探任務 →</button></div>
+    </div>
+  </section>
+
+  <section class="screen" data-screen="7">
+    <div class="result">
+      <div style="font-size:54px">🏅</div>
+      <span class="kicker">完成｜食品判讀力已探索</span>
+      <h2 style="margin-top:14px">你已經不只看包裝正面了</h2>
+      <p class="lead" style="font-size:18px">真正的食品判讀，不是找到一個「永遠最健康」的商品，而是學會找資訊、做比較，再回到自己的需求。</p>
+      <h3>食品偵探五步驟</h3>
+      <div class="steps">
+        <div class="step">① 看份量｜先確認「一份」是多少、本包裝有幾份</div>
+        <div class="step">② 看熱量與營養素｜不要只盯著一個數字</div>
+        <div class="step">③ 看糖、鈉、脂肪等資訊｜依自己的需求比較</div>
+        <div class="step">④ 看成分｜了解食品主要由什麼組成</div>
+        <div class="step">⑤ 回到自己的需求｜我現在為什麼要吃它？</div>
+      </div>
+      <div class="info-box" id="finalReflection"></div>
+      <p style="line-height:1.9"><b>下次走進便利商店，試著做一件小事：</b><br>把想買的食品翻到背面，看一次「每份量」和營養標示。</p>
+      <div class="teacher-note"><b>收尾提問：</b>「今天哪一個線索最可能改變你下次買東西的方式？」</div>
+      <div class="actions"><button class="secondary" onclick="resetAll()">🔄 再做一次</button><button class="primary" onclick="markComplete('02','食品判讀力','🔍')">✅ 完成這一關</button></div>
+    </div>
+  </section>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+let firstChoice='', secondChoice='', reason='';
+const reasons=document.querySelectorAll('.reason');
+reasons.forEach(btn=>btn.addEventListener('click',()=>{
+  reasons.forEach(x=>x.classList.remove('active'));
+  btn.classList.add('active');reason=btn.textContent;
+}));
+function chooseFirst(v,el){
+  firstChoice=v;
+  document.querySelectorAll('[data-product]').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+}
+function step2Next(){
+  if(!firstChoice){showToast('先選一個你第一眼會拿的商品');return}
+  if(!reason){showToast('再選一下你主要根據什麼做決定');return}
+  go(3);
+}
+function showClue(el,msg){
+  document.querySelectorAll('.clue').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('clueInfo').innerHTML='🔎 '+msg;
+}
+function servingAnswer(btn,ok){
+  document.querySelectorAll('#servingAnswers .answer').forEach(b=>b.disabled=true);
+  btn.classList.add(ok?'correct':'wrong');
+  const fb=document.getElementById('servingFb');
+  fb.classList.add('show');
+  if(ok){
+    fb.innerHTML='✅ <b>沒錯！</b>每份 180 kcal，本包裝有 2 份，所以整包是 360 kcal。';
+  }else{
+    fb.innerHTML='💡 <b>再看一次「本包裝含 2 份」。</b>每份 180 kcal，整包要乘以 2，所以是 360 kcal。';
+    document.querySelectorAll('#servingAnswers .answer')[1].classList.add('correct');
+  }
+  document.getElementById('toCompare').style.display='inline-block';
+}
+function chooseSecond(v,el){
+  secondChoice=v;
+  document.querySelectorAll('.pk-option').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+  const info=document.getElementById('changeInfo');
+  if(firstChoice===secondChoice){
+    info.innerHTML=`你第一眼選 <b>${firstChoice}</b>，看完資訊後仍選 <b>${secondChoice}</b>。重點是：現在你的決定有更多依據了。`;
+  }else{
+    info.innerHTML=`你第一眼選 <b>${firstChoice}</b>，看完資訊後改選 <b>${secondChoice}</b>。這就是「資訊會改變判斷」。`;
+  }
+}
+function compareNext(){
+  if(!secondChoice){showToast('先做一次看完資訊後的選擇');return}
+  switchPk(0,document.querySelector('.pk-tab'));
+  go(6);
+}
+const pkData=[
+  {
+    title:'🥤 放學後運動完，正在挑飲料',
+    desc:'你剛運動完，等等還會吃晚餐。你想找一個日常補充水分的選擇。',
+    a:{name:'水果風味飲料',tags:['每瓶糖 28g','果汁含量少量','有甜味']},
+    b:{name:'無糖茶／水',tags:['無添加糖','補充水分','口味較清淡']},
+    note:'這個情境可先比較「糖」與「現在主要需求是不是補充水分」。'
+  },
+  {
+    title:'🍞 每天都要吃的早餐',
+    desc:'你想找一個能和蛋、鮮奶或豆漿搭配的主食。',
+    a:{name:'菠蘿麵包',tags:['甜味明顯','油脂較多','方便']},
+    b:{name:'全麥吐司',tags:['可搭配蛋白質食物','膳食纖維較多','方便']},
+    note:'如果是「每天」的早餐，頻率與整體搭配比單次享受更值得考慮。'
+  },
+  {
+    title:'🍪 晚餐前 1 小時有點餓',
+    desc:'你只想墊一下肚子，不希望影響等等的晚餐。',
+    a:{name:'餅乾一大包',tags:['份量多','方便','容易一口接一口']},
+    b:{name:'小份水果＋無糖飲品',tags:['份量可控','有水果','較不容易吃過量']},
+    note:'這題可以比較「份量」與「距離下一餐還有多久」。'
+  }
+];
+function switchPk(i,el){
+  document.querySelectorAll('.pk-tab').forEach(x=>x.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const d=pkData[i];
+  document.getElementById('pkContent').innerHTML=`
+    <h3>${d.title}</h3>
+    <p class="lead" style="font-size:17px">${d.desc}</p>
+    <div class="pk-grid">
+      <div class="pk-option"><h3>A｜${d.a.name}</h3><div class="tagrow">${d.a.tags.map(x=>`<span class="tag">${x}</span>`).join('')}</div></div>
+      <div class="pk-option"><h3>B｜${d.b.name}</h3><div class="tagrow">${d.b.tags.map(x=>`<span class="tag">${x}</span>`).join('')}</div></div>
+    </div>
+    <div class="info-box">💡 ${d.note}</div>`;
+}
+function go(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelector(`.screen[data-screen="${n}"]`).classList.add('active');
+  document.getElementById('bar').style.width=(n/7*100)+'%';
+  document.getElementById('plabel').textContent=`${n} / 7`;
+  if(n===7){
+    const text=firstChoice===secondChoice
+      ? `你的第一眼選擇與最後選擇一樣（${secondChoice}），但現在你已經多用了「份量、營養標示、成分與需求」來做判斷。`
+      : `你原本選 ${firstChoice}，看完資訊後改選 ${secondChoice}。你已經親自發現：多看一點資訊，真的可能改變選擇。`;
+    document.getElementById('finalReflection').innerHTML='🔍 '+text;
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.getElementById('teacherBtn').addEventListener('click',()=>{
+  document.body.classList.toggle('teacher-mode');
+  document.getElementById('teacherBtn').textContent=document.body.classList.contains('teacher-mode')?'👩‍🏫 關閉教師模式':'👩‍🏫 教師模式';
+});
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1700);
+}
+function resetAll(){
+  firstChoice='';secondChoice='';reason='';
+  document.querySelectorAll('.active').forEach(x=>{
+    if(x.classList.contains('product')||x.classList.contains('reason')||x.classList.contains('pk-option')) x.classList.remove('active');
+  });
+  document.querySelectorAll('#servingAnswers .answer').forEach(b=>{
+    b.disabled=false;b.classList.remove('correct','wrong');
+  });
+  document.getElementById('servingFb').className='feedback';
+  document.getElementById('toCompare').style.display='none';
+  go(1);
+}
+
+function markComplete(num, ability, icon){
+  try {
+    const key='foodNutritionProgress';
+    const data=JSON.parse(localStorage.getItem(key)||'{}');
+    data[num]={complete:true, ability:ability, updatedAt:new Date().toISOString()};
+    localStorage.setItem(key,JSON.stringify(data));
+  } catch(e) {}
+  showToast(icon+' '+ability+'：已探索！');
+  setTimeout(()=>{
+    if(confirm('這一關已完成！要回到「飲食與營養」主題首頁嗎？')) {
+      location.href='飲食與營養_主題首頁.html';
+    }
+  },500);
+}
+
+</script>
+</body>
+</html>

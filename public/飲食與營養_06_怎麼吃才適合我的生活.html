@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>怎麼吃，才適合我的生活？｜生活決策力</title>
+<style>
+:root{
+  --bg:#fbf8f2;
+  --card:#fff;
+  --text:#2f3935;
+  --muted:#6f7a74;
+  --line:#e8e2d8;
+  --purple:#8d7da8;
+  --purple-soft:#ebe4f2;
+  --green-soft:#e8f0e6;
+  --yellow-soft:#f8f0d4;
+  --blue-soft:#e5eef2;
+  --orange-soft:#f4dfd0;
+  --shadow:0 12px 32px rgba(55,60,48,.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  color:var(--text);
+  background:linear-gradient(180deg,#fbf8f2 0%,#f6f3ec 100%);
+}
+button{font:inherit}
+.topbar{
+  position:sticky;top:0;z-index:30;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:16px 26px;background:rgba(255,255,255,.9);
+  border-bottom:1px solid var(--line);backdrop-filter:blur(10px)
+}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}
+.badge{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--purple-soft);font-size:24px}
+.progress-wrap{flex:1;max-width:520px}
+.track{height:9px;background:#ece8df;border-radius:99px;overflow:hidden}
+.bar{height:100%;width:12.5%;background:linear-gradient(90deg,#8d7da8,#b9acc9);transition:.3s}
+.plabel{font-size:13px;color:var(--muted);text-align:right;margin-top:5px}
+.teacher{
+  border:1px solid #dad6cd;background:#fff;color:#5c675f;border-radius:12px;
+  padding:9px 13px;cursor:pointer
+}
+main{width:min(1180px,calc(100% - 34px));margin:28px auto 58px}
+.screen{display:none;animation:fade .22s ease}
+.screen.active{display:block}
+@keyframes fade{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center;
+  padding:40px 36px;border:1px solid #e5dfd3;border-radius:30px;
+  background:linear-gradient(135deg,#faf7ff,#eee8f5);box-shadow:var(--shadow)
+}
+.kicker{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;background:#fff;border:1px solid #e3ded3;color:#6e6182;font-weight:800;font-size:14px}
+h1{font-size:clamp(36px,5vw,64px);line-height:1.08;margin:18px 0 14px;letter-spacing:-1px}
+h2{font-size:clamp(28px,4vw,44px);margin:0 0 10px}
+h3{font-size:22px;margin:0 0 10px}
+.lead{font-size:19px;line-height:1.8;color:#5b665f}
+.hero-ill{
+  width:min(360px,80vw);aspect-ratio:1;border-radius:50%;
+  background:#fff;border:16px solid #e6def0;display:grid;place-items:center;
+  margin:auto;box-shadow:inset 0 0 0 1px #d8cde5,0 18px 40px rgba(90,70,120,.1)
+}
+.hero-ill span{font-size:110px}
+.primary,.secondary{
+  border:0;border-radius:16px;padding:13px 20px;font-weight:900;cursor:pointer
+}
+.primary{background:#82739b;color:white;box-shadow:0 8px 16px rgba(118,99,146,.16)}
+.secondary{background:white;color:#59635d;border:1px solid #ddd8cf}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px;box-shadow:var(--shadow)}
+.screen-head{margin-bottom:22px}.screen-head p{color:var(--muted);font-size:17px}
+.timecard{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 16px;border-radius:16px;background:#f6f1fb;border:1px solid #e0d7eb;margin-bottom:16px
+}
+.timebadge{font-weight:900;color:#6d6181}
+.options{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.option{
+  border:1px solid #dfdbd1;background:#fff;border-radius:16px;padding:16px;cursor:pointer;text-align:left
+}
+.option:hover{transform:translateY(-1px)}
+.option.active{background:#f2edf7;border-color:#b7aac8}
+.reason-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.reason{
+  border:1px solid #dfdbd1;background:#fff;border-radius:14px;padding:13px;cursor:pointer
+}
+.reason.active{background:#f2edf7;border-color:#b7aac8}
+.info-box{margin-top:16px;padding:17px;border-radius:16px;background:#f8f5fb;border:1px solid #e0d8e8;line-height:1.8}
+.shop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.shop-item{
+  border:1px solid #e2ded4;background:#fff;border-radius:16px;padding:14px;cursor:pointer;text-align:center
+}
+.shop-item .emo{font-size:34px}.shop-item.active{background:#f2edf7;border-color:#b7aac8}
+.moneybar{
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  margin-top:14px;padding:13px 15px;background:#fff9ef;border:1px solid #ecdcb5;border-radius:15px;font-weight:900
+}
+.choice-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:16px}
+.small-choice{
+  border:1px solid #e0dbd2;background:#fff;border-radius:14px;padding:13px;cursor:pointer;text-align:center
+}
+.small-choice.active{background:#f2edf7;border-color:#b7aac8}
+.foodbank{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.food{
+  border:1px solid #e2ded4;background:#fff;border-radius:15px;padding:13px;cursor:pointer;text-align:center
+}
+.food.active{background:#eef4ec;border-color:#a9bba5}
+.day-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.summary-card{padding:16px;background:#fff;border:1px solid #e4ded5;border-radius:15px}
+.meter{margin-top:8px;height:9px;background:#ece8df;border-radius:999px;overflow:hidden}
+.fill{height:100%;background:#8d7da8;border-radius:999px}
+.result{
+  max-width:840px;margin:auto;background:linear-gradient(145deg,#faf7ff,#eee7f5);
+  border:1px solid #ddd3e8;border-radius:30px;padding:34px;box-shadow:var(--shadow)
+}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.skill{padding:16px;background:#fff;border:1px solid #e4ddeb;border-radius:15px;text-align:center}
+.teacher-note{display:none;margin-top:16px;padding:15px;border-radius:15px;background:#fff8df;border:1px solid #e8d48e;color:#665c39}
+body.teacher-mode .teacher-note{display:block}
+.small{font-size:14px;color:var(--muted)}
+.toast{
+ position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+ background:#2f3934;color:white;padding:11px 17px;border-radius:999px;opacity:0;transition:.2s;z-index:99
+}
+.toast.show{opacity:1;transform:translateX(-50%)}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .shop-grid,.foodbank{grid-template-columns:repeat(2,1fr)}
+  .choice-row{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .topbar{padding:13px;flex-wrap:wrap}.progress-wrap{order:3;width:100%;max-width:none}
+  main{width:min(100% - 20px,1180px)}
+  .hero{padding:28px 20px}
+  .options,.reason-grid,.day-summary,.badges{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<p style="text-align:center;margin:10px 0 0;"><a href="飲食與營養.dc.html" style="color:#537258;text-decoration:none;font-weight:800;">← 回飲食與營養</a></p>
+<header class="topbar">
+  <div class="brand"><div class="badge">🍱</div><div>飲食與營養<div class="small">06 生活決策力</div></div></div>
+  <div class="progress-wrap"><div class="track"><div class="bar" id="bar"></div></div><div class="plabel" id="plabel">1 / 8</div></div>
+  <button class="teacher" id="teacherBtn">👩‍🏫 教師模式</button>
+</header>
+
+<main>
+<section class="screen active" data-screen="1">
+  <div class="hero">
+    <div>
+      <span class="kicker">🍱 生活決策力｜第 6 關</span>
+      <h1>怎麼吃，<br>才適合我的生活？</h1>
+      <p class="lead">早餐來不及、放學肚子餓、朋友揪喝飲料……<br>每天都在做飲食選擇。今天，把前面學到的能力放進你的一天。</p>
+      <button class="primary" onclick="go(2)">開始我的一天 →</button>
+      <div class="teacher-note"><b>教師提問：</b>「同樣一份食物，放在不同情境裡，答案會不會不同？」</div>
+    </div>
+    <div class="hero-ill"><span>🗓️</span></div>
+  </div>
+</section>
+
+<section class="screen" data-screen="2">
+  <div class="panel">
+    <div class="timecard"><div class="timebadge">🌅 07:00｜早餐</div><div>30 分鐘後要出門</div></div>
+    <h2>今天早餐，你會怎麼選？</h2>
+    <div class="options" id="breakfastOptions">
+      <button class="option" onclick="chooseMeal('breakfast',this,'🍞 吐司＋🥚蛋＋🥛鮮奶')">A｜🍞 吐司＋🥚蛋＋🥛鮮奶</button>
+      <button class="option" onclick="chooseMeal('breakfast',this,'🍙 飯糰＋🥛豆漿')">B｜🍙 飯糰＋🥛豆漿</button>
+      <button class="option" onclick="chooseMeal('breakfast',this,'🍩 甜甜圈＋🧋奶茶')">C｜🍩 甜甜圈＋🧋奶茶</button>
+      <button class="option" onclick="chooseMeal('breakfast',this,'🏃 不吃，直接出門')">D｜🏃 不吃，直接出門</button>
+    </div>
+    <h3 style="margin-top:24px">你為什麼這樣選？</h3>
+    <div class="reason-grid" id="breakfastReasons">
+      <button class="reason">方便</button><button class="reason">好吃</button><button class="reason">價格</button>
+      <button class="reason">營養</button><button class="reason">習慣</button><button class="reason">時間</button>
+    </div>
+    <div class="info-box">💡 先記錄你的理由。生活裡的飲食選擇，通常不只受到「營養」影響。</div>
+    <div class="teacher-note"><b>教師提醒：</b>這一關不要公布唯一正解，重點是讓學生說出自己的決策依據。</div>
+    <div class="actions"><button class="secondary" onclick="go(1)">← 上一步</button><button class="primary" onclick="nextBreakfast()">去學校 →</button></div>
+  </div>
+</section>
+
+<section class="screen" data-screen="3">
+  <div class="panel">
+    <div class="timecard"><div class="timebadge">🏫 12:00｜午餐</div><div>今天有不太喜歡的魚和青菜</div></div>
+    <h2>如果不太喜歡今天的菜，你會怎麼做？</h2>
+    <div class="options">
+      <button class="option" onclick="simplePick('lunch',this,'全部不吃')">A｜全部不吃</button>
+      <button class="option" onclick="simplePick('lunch',this,'只吃白飯')">B｜只吃白飯</button>
+      <button class="option" onclick="simplePick('lunch',this,'能接受的先吃，再想想怎麼補充')">C｜能接受的先吃，再想想怎麼補充</button>
+      <button class="option" onclick="simplePick('lunch',this,'去買零食代替')">D｜去買零食代替</button>
+    </div>
+    <div class="info-box">💡 遇到不喜歡的食物，不代表只能「全部吃完」或「全部不吃」。你可以先從能接受的部分開始，再想怎麼補足。</div>
+    <div class="teacher-note"><b>教師提問：</b>「如果今天真的不喜歡某一道菜，你有哪些『中間選項』？」</div>
+    <div class="actions"><button class="secondary" onclick="go(2)">← 上一步</button><button class="primary" onclick="nextLunch()">放學了 →</button></div>
+  </div>
+</section>
+
+<section class="screen" data-screen="4">
+  <div class="panel">
+    <div class="timecard"><div class="timebadge">🎒 16:30｜放學</div><div>晚餐 18:30，等等還要運動</div></div>
+    <h2>你有 60 元，而且有點餓</h2>
+    <div class="moneybar"><div>預算：$60</div><div>已選：$<span id="snackSpent">0</span></div><div>剩下：$<span id="snackRemain">60</span></div></div>
+    <div class="shop-grid" id="snackGrid"></div>
+    <div class="info-box">💡 這題不是找「最健康」；先想：離晚餐多久？等等要不要運動？現在需要補充多少？</div>
+    <div class="teacher-note"><b>教師提醒：</b>讓學生把「需求、預算、份量」一起放進來判斷。</div>
+    <div class="actions"><button class="secondary" onclick="go(3)">← 上一步</button><button class="primary" onclick="nextSnack()">朋友揪飲料 →</button></div>
+  </div>
+</section>
+
+<section class="screen" data-screen="5">
+  <div class="panel">
+    <div class="timecard"><div class="timebadge">🧋 17:00｜朋友揪飲料</div><div>你中午已經喝過一次含糖飲料</div></div>
+    <h2>這次你會怎麼選？</h2>
+    <div class="choice-row" id="drinkChoices">
+      <button class="small-choice" onclick="simplePick('drink',this,'照喝珍奶')">🧋<br>照喝珍奶</button>
+      <button class="small-choice" onclick="simplePick('drink',this,'選小杯')">🥤<br>選小杯</button>
+      <button class="small-choice" onclick="simplePick('drink',this,'選低糖／無糖')">🧊<br>低糖／無糖</button>
+      <button class="small-choice" onclick="simplePick('drink',this,'今天不喝')">💧<br>今天不喝</button>
+      <button class="small-choice" onclick="simplePick('drink',this,'一起去但選別的')">🤝<br>一起去但選別的</button>
+    </div>
+    <div class="info-box">💡 飲食選擇不只有「吃」和「不吃」。<b>份量、頻率與搭配</b>，也都是可以調整的地方。</div>
+    <div class="teacher-note"><b>教師提問：</b>「和朋友一起，不一定要點一模一樣的東西嗎？」</div>
+    <div class="actions"><button class="secondary" onclick="go(4)">← 上一步</button><button class="primary" onclick="nextDrink()">回家吃晚餐 →</button></div>
+  </div>
+</section>
+
+<section class="screen" data-screen="6">
+  <div class="panel">
+    <div class="timecard"><div class="timebadge">🌙 19:00｜晚餐</div><div>冰箱裡有一些現成食材</div></div>
+    <h2>用現有食材，幫自己搭一餐</h2>
+    <div class="foodbank" id="dinnerGrid"></div>
+    <div class="info-box" id="dinnerInfo">已選 0 項。這一餐不用追求完美，先看看自己會怎麼搭。</div>
+    <div class="teacher-note"><b>教師連結：</b>這一頁可以回扣前面「均衡飲食力」與「料理實作力」。</div>
+    <div class="actions"><button class="secondary" onclick="go(5)">← 上一步</button><button class="primary" onclick="nextDinner()">晚上又餓了 →</button></div>
+  </div>
+</section>
+
+<section class="screen" data-screen="7">
+  <div class="panel">
+    <div class="timecard"><div class="timebadge">🌙 22:30｜睡前</div><div>突然有點想吃東西</div></div>
+    <h2>先別急著吃，先判斷一下</h2>
+    <div class="options" id="nightQuestions">
+      <button class="option" onclick="toggleNight(this)">我是真的餓嗎？</button>
+      <button class="option" onclick="toggleNight(this)">晚餐有沒有吃夠？</button>
+      <button class="option" onclick="toggleNight(this)">距離睡覺還有多久？</button>
+      <button class="option" onclick="toggleNight(this)">我現在想吃的是什麼？份量多少？</button>
+    </div>
+    <h3 style="margin-top:24px">想過之後，你會怎麼做？</h3>
+    <div class="choice-row">
+      <button class="small-choice" onclick="simplePick('night',this,'吃泡麵')">🍜<br>泡麵</button>
+      <button class="small-choice" onclick="simplePick('night',this,'吃餅乾')">🍪<br>餅乾</button>
+      <button class="small-choice" onclick="simplePick('night',this,'喝牛奶')">🥛<br>牛奶</button>
+      <button class="small-choice" onclick="simplePick('night',this,'吃香蕉')">🍌<br>香蕉</button>
+      <button class="small-choice" onclick="simplePick('night',this,'先喝水看看')">💧<br>先喝水看看</button>
+    </div>
+    <div class="info-box">💡 重點不是「晚上絕對不能吃」，而是先理解自己的狀態，再做決定。</div>
+    <div class="teacher-note"><b>教師提醒：</b>避免把學生導向「好／壞食物」的單一判斷。</div>
+    <div class="actions"><button class="secondary" onclick="go(6)">← 上一步</button><button class="primary" onclick="nextNight()">看看我的一天 →</button></div>
+  </div>
+</section>
+
+<section class="screen" data-screen="8">
+  <div class="result">
+    <div style="font-size:54px">🌱</div>
+    <span class="kicker">完成｜生活決策力已探索</span>
+    <h2 style="margin-top:14px">我的飲食生活力</h2>
+    <p class="lead" style="font-size:18px">今天沒有唯一的完美路線。你的選擇反映了時間、預算、習慣、需求與生活情境。</p>
+
+    <div class="day-summary">
+      <div class="summary-card"><b>🌅 早餐</b><div class="small" id="sumBreakfast"></div></div>
+      <div class="summary-card"><b>🎒 放學</b><div class="small" id="sumSnack"></div></div>
+      <div class="summary-card"><b>🧋 飲料</b><div class="small" id="sumDrink"></div></div>
+      <div class="summary-card"><b>🌙 晚餐</b><div class="small" id="sumDinner"></div></div>
+      <div class="summary-card"><b>🌜 睡前</b><div class="small" id="sumNight"></div></div>
+      <div class="summary-card"><b>🎯 今天的重點</b><div class="small">你有練習把時間、預算、需求與情境一起放進飲食決策。</div></div>
+    </div>
+
+    <div class="info-box" id="summaryText"></div>
+
+    <div class="badges">
+      <div class="skill">🥗<br><b>看自己</b></div>
+      <div class="skill">🔍<br><b>看資訊</b></div>
+      <div class="skill">🛒<br><b>做選擇</b></div>
+      <div class="skill">🛡️<br><b>看風險</b></div>
+      <div class="skill">👩‍🍳<br><b>能實作</b></div>
+      <div class="skill">🍱<br><b>會生活</b></div>
+    </div>
+
+    <p style="line-height:1.9;margin-top:22px"><b>飲食教育不是告訴你「什麼不能吃」。</b><br>而是讓你知道，在自己的生活裡，可以怎麼選。</p>
+
+    <div class="teacher-note"><b>收尾提問：</b>「今天哪一個時刻最像你自己的生活？」</div>
+    <div class="actions">
+      <button class="secondary" onclick="resetAll()">🔄 再過一天</button>
+      <button class="primary" onclick="markComplete('06','生活決策力','🍱')">✅ 完成這一關</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const state={breakfast:'',breakfastReason:'',lunch:'',drink:'',night:'',snack:[],dinner:[]};
+
+function go(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelector(`.screen[data-screen="${n}"]`).classList.add('active');
+  document.getElementById('bar').style.width=(n/8*100)+'%';
+  document.getElementById('plabel').textContent=`${n} / 8`;
+  if(n===8) renderSummary();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function chooseMeal(type,el,value){
+  el.parentElement.querySelectorAll('.option').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');state[type]=value;
+}
+document.querySelectorAll('#breakfastReasons .reason').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#breakfastReasons .reason').forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');state.breakfastReason=btn.textContent;
+  });
+});
+function nextBreakfast(){
+  if(!state.breakfast){showToast('先選一個你會吃的早餐');return}
+  if(!state.breakfastReason){showToast('再選一下你這樣選的主要原因');return}
+  go(3);
+}
+function simplePick(type,el,value){
+  el.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');state[type]=value;
+}
+const snackItems=[
+ {n:'香蕉',e:'🍌',p:25},{n:'鮮奶',e:'🥛',p:35},{n:'茶葉蛋',e:'🥚',p:15},
+ {n:'地瓜',e:'🍠',p:35},{n:'餅乾',e:'🍪',p:30},{n:'薯條',e:'🍟',p:45},
+ {n:'珍珠奶茶',e:'🧋',p:60},{n:'水',e:'💧',p:20}
+];
+function renderSnack(){
+  document.getElementById('snackGrid').innerHTML=snackItems.map((x,i)=>`
+    <button class="shop-item ${state.snack.includes(i)?'active':''}" onclick="toggleSnack(${i})">
+      <div class="emo">${x.e}</div><b>${x.n}</b><div class="small">$${x.p}</div>
+    </button>`).join('');
+  const t=state.snack.reduce((s,i)=>s+snackItems[i].p,0);
+  document.getElementById('snackSpent').textContent=t;
+  document.getElementById('snackRemain').textContent=60-t;
+}
+function toggleSnack(i){
+  const next=state.snack.includes(i)?state.snack.filter(x=>x!==i):[...state.snack,i];
+  const t=next.reduce((s,x)=>s+snackItems[x].p,0);
+  if(t>60){showToast('超過 60 元預算了');return}
+  state.snack=next;renderSnack();
+}
+function nextSnack(){
+  if(!state.snack.length){showToast('先選一個你會買的點心或飲品');return}
+  go(5);
+}
+const dinnerFoods=[
+ {n:'白飯',e:'🍚'},{n:'雞蛋',e:'🥚'},{n:'豬肉',e:'🥩'},{n:'青菜',e:'🥬'},
+ {n:'紅蘿蔔',e:'🥕'},{n:'番茄',e:'🍅'},{n:'牛奶',e:'🥛'},{n:'水果',e:'🍎'}
+];
+function renderDinner(){
+  document.getElementById('dinnerGrid').innerHTML=dinnerFoods.map((x,i)=>`
+  <button class="food ${state.dinner.includes(i)?'active':''}" onclick="toggleDinner(${i})">${x.e}<br><b>${x.n}</b></button>`).join('');
+  document.getElementById('dinnerInfo').innerHTML=`已選 <b>${state.dinner.length}</b> 項。${state.dinner.length>=3?'已經開始有一餐的樣子了，再看看種類是否夠多元。':'可以再挑一些你真的會搭配的食材。'}`;
+}
+function toggleDinner(i){
+  state.dinner=state.dinner.includes(i)?state.dinner.filter(x=>x!==i):[...state.dinner,i];
+  renderDinner();
+}
+function nextDinner(){
+  if(state.dinner.length<2){showToast('至少選 2 項食材再繼續');return}
+  go(7);
+}
+function toggleNight(el){el.classList.toggle('active')}
+function renderSummary(){
+  const snackNames=state.snack.map(i=>snackItems[i].n).join('、')||'未選';
+  const dinnerNames=state.dinner.map(i=>dinnerFoods[i].n).join('、')||'未選';
+
+  document.getElementById('sumBreakfast').innerHTML=
+    `你選：<b>${state.breakfast||'未選'}</b><br>主要考量：${state.breakfastReason||'未選'}`;
+  document.getElementById('sumSnack').innerHTML=
+    `你選：<b>${snackNames}</b><br>有把預算與距離晚餐時間放進考量。`;
+  document.getElementById('sumDrink').innerHTML=
+    `你選：<b>${state.drink||'未選'}</b><br>飲品可以從份量、甜度、頻率或替代方式調整。`;
+  document.getElementById('sumDinner').innerHTML=
+    `你選：<b>${dinnerNames}</b><br>回扣均衡飲食與料理實作。`;
+  document.getElementById('sumNight').innerHTML=
+    `你最後決定：<b>${state.night||'未選'}</b><br>先理解自己的狀態，再決定要不要吃。`;
+
+  document.getElementById('summaryText').innerHTML=
+    `今天的選擇沒有被換算成「健康分數」。真正重要的是：<b>你能說出自己的理由，也知道下一次還可以怎麼調整。</b>`;
+}
+
+function nextLunch(){
+  if(!state.lunch){showToast('先選一個你會採取的午餐做法');return;}
+  go(4);
+}
+function nextDrink(){
+  if(!state.drink){showToast('先選一個你在飲料情境中的做法');return;}
+  go(6);
+}
+function nextNight(){
+  if(!state.night){showToast('先選一個你最後會採取的做法');return;}
+  go(8);
+}
+
+document.getElementById('teacherBtn').addEventListener('click',()=>{
+  document.body.classList.toggle('teacher-mode');
+  document.getElementById('teacherBtn').textContent=document.body.classList.contains('teacher-mode')?'👩‍🏫 關閉教師模式':'👩‍🏫 教師模式';
+});
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1700);
+}
+function resetAll(){
+  state.breakfast='';state.breakfastReason='';state.lunch='';state.drink='';state.night='';state.snack=[];state.dinner=[];
+  document.querySelectorAll('.active').forEach(x=>{
+    if(x.classList.contains('option')||x.classList.contains('reason')||x.classList.contains('small-choice')||x.classList.contains('shop-item')||x.classList.contains('food')) x.classList.remove('active');
+  });
+  renderSnack();renderDinner();go(1);
+}
+renderSnack();
+renderDinner();
+
+function markComplete(num, ability, icon){
+  try {
+    const key='foodNutritionProgress';
+    const data=JSON.parse(localStorage.getItem(key)||'{}');
+    data[num]={complete:true, ability:ability, updatedAt:new Date().toISOString()};
+    localStorage.setItem(key,JSON.stringify(data));
+  } catch(e) {}
+  showToast(icon+' '+ability+'：已探索！');
+  setTimeout(()=>{
+    if(confirm('這一關已完成！要回到「飲食與營養」主題首頁嗎？')) {
+      location.href='飲食與營養_主題首頁.html';
+    }
+  },500);
+}
+
+</script>
+</body>
+</html>

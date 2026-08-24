@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>買吃的，也要會判斷！｜消費選擇力</title>
+<style>
+:root{
+  --bg:#fbf8f2;
+  --card:#fff;
+  --text:#2f3935;
+  --muted:#6f7a74;
+  --line:#e8e2d8;
+  --orange:#c98a63;
+  --orange-soft:#f4dfd0;
+  --green:#78937e;
+  --green-soft:#e7efe5;
+  --yellow-soft:#f8f0d4;
+  --blue-soft:#e4eef1;
+  --shadow:0 12px 32px rgba(55,60,48,.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  color:var(--text);
+  background:linear-gradient(180deg,#fbf8f2 0%,#f6f3ec 100%);
+}
+button{font:inherit}
+.topbar{
+  position:sticky;top:0;z-index:30;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:16px 26px;background:rgba(255,255,255,.9);
+  border-bottom:1px solid var(--line);backdrop-filter:blur(10px)
+}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}
+.badge{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--orange-soft);font-size:24px}
+.progress-wrap{flex:1;max-width:520px}
+.track{height:9px;background:#ece8df;border-radius:99px;overflow:hidden}
+.bar{height:100%;width:14%;background:linear-gradient(90deg,#c98a63,#e2b290);transition:.3s}
+.plabel{font-size:13px;color:var(--muted);text-align:right;margin-top:5px}
+.teacher{
+  border:1px solid #dad6cd;background:#fff;color:#5c675f;border-radius:12px;
+  padding:9px 13px;cursor:pointer
+}
+main{width:min(1180px,calc(100% - 34px));margin:28px auto 58px}
+.screen{display:none;animation:fade .22s ease}
+.screen.active{display:block}
+@keyframes fade{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:center;
+  padding:40px 36px;border:1px solid #e5dfd3;border-radius:30px;
+  background:linear-gradient(135deg,#fff8f2,#f8eadf);box-shadow:var(--shadow)
+}
+.kicker{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;background:#fff;border:1px solid #e3ded3;color:#8a654e;font-weight:800;font-size:14px}
+h1{font-size:clamp(36px,5vw,64px);line-height:1.08;margin:18px 0 14px;letter-spacing:-1px}
+h2{font-size:clamp(28px,4vw,44px);margin:0 0 10px}
+h3{font-size:22px;margin:0 0 10px}
+.lead{font-size:19px;line-height:1.8;color:#5b665f}
+.hero-ill{
+  width:min(360px,80vw);aspect-ratio:1;border-radius:50%;
+  background:#fff;border:16px solid #f1d7c6;display:grid;place-items:center;
+  margin:auto;box-shadow:inset 0 0 0 1px #e0c8bb,0 18px 40px rgba(100,65,45,.1)
+}
+.hero-ill span{font-size:110px}
+.primary,.secondary{
+  border:0;border-radius:16px;padding:13px 20px;font-weight:900;cursor:pointer
+}
+.primary{background:#b87f5d;color:white;box-shadow:0 8px 16px rgba(170,110,76,.16)}
+.secondary{background:white;color:#59635d;border:1px solid #ddd8cf}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px;box-shadow:var(--shadow)}
+.screen-head{margin-bottom:22px}.screen-head p{color:var(--muted);font-size:17px}
+.budgetbar{
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  background:#fff7ef;border:1px solid #edd8c8;border-radius:18px;padding:14px 16px;margin-bottom:18px
+}
+.money{font-weight:900}
+.shop-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:start}
+.food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.item{
+  border:1px solid #e4dfd6;background:#fff;border-radius:18px;padding:14px;cursor:pointer;text-align:center;transition:.18s
+}
+.item:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(60,60,40,.08)}
+.item.selected{outline:3px solid #d3a183;background:#fff7f1}
+.item .emo{font-size:34px}.item .name{font-weight:800;margin-top:7px}.item .price{font-size:14px;color:#8a6550;margin-top:4px}
+.cart{position:sticky;top:110px}
+.cart-items{display:grid;gap:10px;margin-top:12px}
+.cart-row{display:flex;justify-content:space-between;gap:10px;padding:11px 12px;background:#faf8f3;border-radius:12px}
+.status-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+.status-card{padding:14px;border-radius:14px;background:#faf8f3;border:1px solid #ebe6dc}
+.good{background:#edf5e9;border-color:#cadcbc}
+.warn{background:#fff7e5;border-color:#ead6a3}
+.swap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+.swap{
+  border:1px solid #dfdbd2;background:#fff;border-radius:16px;padding:15px;cursor:pointer;text-align:left
+}
+.swap.active{background:#f8ede6;border-color:#d3a183}
+.scene-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.scene-tab{border:1px solid #ded8cf;background:#fff;border-radius:999px;padding:9px 13px;cursor:pointer;font-weight:800}
+.scene-tab.active{background:#f4dfd0;border-color:#d19a78}
+.scene-box{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.scene-choice{
+  border:1px solid #e0dbd2;background:#fff;border-radius:18px;padding:18px;cursor:pointer;text-align:left
+}
+.scene-choice.active{background:#fff4ed;border-color:#d2a185}
+.tagrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.tag{padding:6px 9px;border-radius:999px;background:#f5f3ed;font-size:13px}
+.info-box{margin-top:16px;padding:17px;border-radius:16px;background:#fff7ef;border:1px solid #ecd7c7;line-height:1.8}
+.result{
+  max-width:800px;margin:auto;background:linear-gradient(145deg,#fff9f5,#f6e5d9);
+  border:1px solid #ead5c7;border-radius:30px;padding:34px;box-shadow:var(--shadow)
+}
+.meters{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.meter{padding:16px;background:#fff;border:1px solid #e8dfd6;border-radius:15px}
+.teacher-note{display:none;margin-top:16px;padding:15px;border-radius:15px;background:#fff8df;border:1px solid #e8d48e;color:#665c39}
+body.teacher-mode .teacher-note{display:block}
+.small{font-size:14px;color:var(--muted)}
+.toast{
+ position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+ background:#2f3934;color:white;padding:11px 17px;border-radius:999px;opacity:0;transition:.2s;z-index:99
+}
+.toast.show{opacity:1;transform:translateX(-50%)}
+@media(max-width:900px){
+  .hero,.shop-layout,.scene-box{grid-template-columns:1fr}
+  .food-grid{grid-template-columns:repeat(2,1fr)}
+  .cart{position:static}
+}
+@media(max-width:600px){
+  .topbar{padding:13px;flex-wrap:wrap}.progress-wrap{order:3;width:100%;max-width:none}
+  main{width:min(100% - 20px,1180px)}
+  .hero{padding:28px 20px}
+  .food-grid,.swap-grid,.status-grid,.meters{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="badge">🛒</div><div>飲食與營養<div class="small">03 消費選擇力</div></div></div>
+  <div class="progress-wrap"><div class="track"><div class="bar" id="bar"></div></div><div class="plabel" id="plabel">1 / 7</div></div>
+  <button class="teacher" id="teacherBtn">👩‍🏫 教師模式</button>
+</header>
+
+<main>
+<section class="screen active" data-screen="1">
+  <div class="hero">
+    <div>
+      <span class="kicker">🛒 消費選擇力｜第 3 關</span>
+      <h1>買吃的，<br>也要會判斷！</h1>
+      <p class="lead">有限的錢、有限的時間、不同的需求——<br>真正的挑戰，是選出「適合現在的我」的一餐。</p>
+      <button class="primary" onclick="go(2)">開始外食選擇挑戰 →</button>
+      <div class="teacher-note"><b>教師提問：</b>「你平常買吃的時，最先考慮的是價格、好吃、份量還是營養？」</div>
+    </div>
+    <div class="hero-ill"><span>🛍️</span></div>
+  </div>
+</section>
+
+<section class="screen" data-screen="2">
+  <div class="screen-head">
+    <span class="kicker">STEP 1｜便利商店挑戰</span>
+    <h2>💰 你只有 150 元</h2>
+    <p>放學後還要去補習，希望吃得飽、不超過預算，也盡量讓這一餐更完整。</p>
+  </div>
+  <div class="budgetbar">
+    <div class="money">預算：$150</div>
+    <div class="money">已花：$<span id="spent">0</span></div>
+    <div class="money">剩下：$<span id="remain">150</span></div>
+  </div>
+  <div class="shop-layout">
+    <div class="panel">
+      <div class="food-grid" id="shopGrid"></div>
+      <div class="teacher-note"><b>教師提醒：</b>不要先說「哪個不能買」，讓學生自己完成一次選擇。</div>
+    </div>
+    <div class="cart">
+      <div class="panel">
+        <h3>🛒 我的購物籃</h3>
+        <div class="cart-items" id="cartItems"><div class="small">還沒有選商品</div></div>
+        <div class="actions">
+          <button class="secondary" onclick="go(1)">← 上一步</button>
+          <button class="primary" onclick="checkout()">結帳看看 →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" data-screen="3">
+  <div class="panel">
+    <span class="kicker">STEP 2｜有買到，不代表選好了</span>
+    <h2 style="margin-top:14px">🍱 看看你剛才的一餐</h2>
+    <div class="cart-items" id="reviewCart" style="margin:18px 0"></div>
+    <div class="status-grid" id="statusGrid"></div>
+    <div class="info-box" id="mealComment"></div>
+    <h3 style="margin-top:22px">如果只換掉一樣東西，你想先改哪一個？</h3>
+    <div class="swap-grid" id="swapGrid"></div>
+    <div class="teacher-note"><b>教師重點：</b>這裡不做「整餐重來」，而是練習「只改一件事」。</div>
+    <div class="actions">
+      <button class="secondary" onclick="go(2)">← 回購物籃</button>
+      <button class="primary" onclick="applySwap()">看看調整後 →</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen" data-screen="4">
+  <div class="panel">
+    <span class="kicker">STEP 3｜只換一樣，也可能差很多</span>
+    <h2 style="margin-top:14px">🔄 BEFORE / AFTER</h2>
+    <div class="scene-box">
+      <div class="status-card">
+        <h3>BEFORE</h3>
+        <div id="beforeMeal" class="cart-items"></div>
+        <div class="info-box" id="beforeInfo"></div>
+      </div>
+      <div class="status-card good">
+        <h3>AFTER</h3>
+        <div id="afterMeal" class="cart-items"></div>
+        <div class="info-box" id="afterInfo"></div>
+      </div>
+    </div>
+    <div class="teacher-note"><b>教師提問：</b>「你覺得這次改變是因為更省錢、種類更多，還是更適合現在的需求？」</div>
+    <div class="actions">
+      <button class="secondary" onclick="go(3)">← 上一步</button>
+      <button class="primary" onclick="go(5)">進入外食情境 →</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen" data-screen="5">
+  <div class="screen-head">
+    <span class="kicker">STEP 4｜不同地方，不同限制</span>
+    <h2>🏪 外食三大情境</h2>
+    <p>同樣是買吃的，每個情境的時間、預算和需求都不一樣。</p>
+  </div>
+  <div class="panel">
+    <div class="scene-tabs">
+      <button class="scene-tab active" onclick="switchScene(0,this)">🍳 早餐店</button>
+      <button class="scene-tab" onclick="switchScene(1,this)">🍜 晚餐外食</button>
+      <button class="scene-tab" onclick="switchScene(2,this)">🎒 放學點心</button>
+    </div>
+    <div id="sceneContent"></div>
+    <div class="teacher-note"><b>教師提問：</b>「如果預算不變，但距離下一餐的時間不同，你的選擇會改嗎？」</div>
+    <div class="actions">
+      <button class="secondary" onclick="go(4)">← 上一步</button>
+      <button class="primary" onclick="go(6)">進入角色挑戰 →</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen" data-screen="6">
+  <div class="screen-head">
+    <span class="kicker">STEP 5｜同樣 100 元，不同的人怎麼選？</span>
+    <h2>🎯 飲食選擇要回到「人的需求」</h2>
+    <p>下面三個人都有 100 元，但他們現在的狀況不同。</p>
+  </div>
+  <div class="panel">
+    <div class="scene-box">
+      <button class="scene-choice" onclick="rolePick(this,'🏀 阿哲：剛打完兩小時籃球，很餓。')"><h3>🏀 阿哲</h3><p>剛打完兩小時籃球，很餓。</p><div class="tagrow"><span class="tag">活動量高</span><span class="tag">需要補充能量</span></div></button>
+      <button class="scene-choice" onclick="rolePick(this,'📚 小晴：晚餐一小時後就要吃，只想墊一下肚子。')"><h3>📚 小晴</h3><p>晚餐一小時後就要吃，只想墊一下肚子。</p><div class="tagrow"><span class="tag">離晚餐近</span><span class="tag">份量可小</span></div></button>
+      <button class="scene-choice" onclick="rolePick(this,'🚌 小宇：等等要坐三小時的車，中午吃得比較少。')"><h3>🚌 小宇</h3><p>等等要坐三小時的車，中午吃得比較少。</p><div class="tagrow"><span class="tag">長時間移動</span><span class="tag">需要較完整補充</span></div></button>
+      <div class="status-card">
+        <h3>💡 關鍵觀念</h3>
+        <p style="line-height:1.8">飲食選擇不是找唯一「最健康」的答案，而是：</p>
+        <p><b>食物本身 × 我的需求 × 當下情境</b></p>
+      </div>
+    </div>
+    <div class="info-box" id="roleInfo">點一個角色，看看他的選擇應該優先考量什麼。</div>
+    <div class="teacher-note"><b>教師提醒：</b>這一頁的目的，是打破「所有人都應該買一模一樣」的想法。</div>
+    <div class="actions">
+      <button class="secondary" onclick="go(5)">← 上一步</button>
+      <button class="primary" onclick="go(7)">看看我的結果 →</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen" data-screen="7">
+  <div class="result">
+    <div style="font-size:54px">🏅</div>
+    <span class="kicker">完成｜消費選擇力已探索</span>
+    <h2 style="margin-top:14px">你已經不只是在「挑好吃的」</h2>
+    <p class="lead" style="font-size:18px">你開始會把預算、份量、營養與情境一起放進來判斷。</p>
+    <div class="meters">
+      <div class="meter"><b>💰 我有注意預算</b><br><span id="budgetResult" class="small"></span></div>
+      <div class="meter"><b>🥗 我有比較餐點組成</b><br><span id="varietyResult" class="small"></span></div>
+      <div class="meter"><b>🔄 我會調整</b><br><span id="adjustResult" class="small"></span></div>
+      <div class="meter"><b>🎯 我開始看情境</b><br><span class="small">不同時間、活動量與距離下一餐的時間，都可能改變適合的選擇。</span></div>
+    </div>
+    <div class="info-box" id="resultText"></div>
+    <p style="line-height:1.9"><b>真正的消費選擇力：</b><br>不是買最便宜，也不是買最貴，而是在有限條件下，做出適合自己的選擇。</p>
+    <div class="teacher-note"><b>收尾提問：</b>「你覺得自己最容易因為什麼而改變原本的飲食選擇？」</div>
+    <div class="actions">
+      <button class="secondary" onclick="resetAll()">🔄 再挑戰一次</button>
+      <button class="primary" onclick="markComplete('03','消費選擇力','🛒')">✅ 完成這一關</button>
+    </div>
+  </div>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+const items=[
+ {name:'飯糰',e:'🍙',p:35,cats:['主食']},
+ {name:'三明治',e:'🥪',p:45,cats:['主食','蛋白質']},
+ {name:'便當',e:'🍱',p:89,cats:['主食','蛋白質','蔬菜']},
+ {name:'雞胸肉',e:'🍗',p:59,cats:['蛋白質']},
+ {name:'沙拉',e:'🥗',p:55,cats:['蔬菜']},
+ {name:'茶葉蛋',e:'🥚',p:15,cats:['蛋白質']},
+ {name:'香蕉',e:'🍌',p:25,cats:['水果']},
+ {name:'鮮奶',e:'🥛',p:35,cats:['乳品']},
+ {name:'無糖茶',e:'🍵',p:25,cats:['飲品']},
+ {name:'奶茶',e:'🧋',p:45,cats:['含糖飲品']},
+ {name:'洋芋片',e:'🍟',p:35,cats:['點心']},
+ {name:'布丁',e:'🍮',p:30,cats:['點心']}
+];
+let selected=[],swapChoice='',afterSelected=[];
+function renderShop(){
+ const g=document.getElementById('shopGrid');
+ g.innerHTML=items.map((x,i)=>`<button class="item ${selected.includes(i)?'selected':''}" onclick="toggleItem(${i})">
+   <div class="emo">${x.e}</div><div class="name">${x.name}</div><div class="price">$${x.p}</div></button>`).join('');
+ renderCart();
+}
+function toggleItem(i){
+ selected=selected.includes(i)?selected.filter(x=>x!==i):[...selected,i];
+ renderShop();
+}
+function total(arr=selected){return arr.reduce((s,i)=>s+items[i].p,0)}
+function renderCart(){
+ const t=total();
+ document.getElementById('spent').textContent=t;
+ document.getElementById('remain').textContent=150-t;
+ const c=document.getElementById('cartItems');
+ c.innerHTML=selected.length?selected.map(i=>`<div class="cart-row"><span>${items[i].e} ${items[i].name}</span><b>$${items[i].p}</b></div>`).join(''):'<div class="small">還沒有選商品</div>';
+ document.getElementById('remain').style.color=t>150?'#b23a2f':'';
+}
+function checkout(){
+ if(!selected.length){showToast('先選一些你會買的食物');return}
+ if(total()>150){showToast('目前超過 150 元預算，先調整一下');return}
+ renderReview();go(3);
+}
+function renderReview(){
+ document.getElementById('reviewCart').innerHTML=selected.map(i=>`<div class="cart-row"><span>${items[i].e} ${items[i].name}</span><b>$${items[i].p}</b></div>`).join('');
+ const cats=new Set(selected.flatMap(i=>items[i].cats));
+ const checks=[
+  ['💰 預算',total()<=150,'沒有超過 150 元'],
+  ['🍚 主食',cats.has('主食'),'是否有主食來源'],
+  ['🥩 蛋白質',cats.has('蛋白質'),'是否有蛋白質食物'],
+  ['🥬 蔬菜',cats.has('蔬菜'),'是否有蔬菜'],
+  ['🍎 水果',cats.has('水果'),'是否有水果'],
+  ['🥛 乳品',cats.has('乳品'),'是否有乳品']
+ ];
+ document.getElementById('statusGrid').innerHTML=checks.map(([n,ok,txt])=>`<div class="status-card ${ok?'good':'warn'}"><b>${n}</b><div>${ok?'✅ 有':'○ 可再留意'}</div><div class="small">${txt}</div></div>`).join('');
+ document.getElementById('mealComment').innerHTML='💡 先不急著把整餐重選。想想看：<b>如果只能換掉一樣，哪一個改變最有感？</b>';
+ let opts=[];
+ if(selected.some(i=>items[i].name==='奶茶')) opts.push({label:'🧋 奶茶 → 🥛 鮮奶',from:'奶茶',to:'鮮奶'});
+ if(selected.some(i=>items[i].name==='洋芋片')) opts.push({label:'🍟 洋芋片 → 🍌 香蕉',from:'洋芋片',to:'香蕉'});
+ if(selected.some(i=>items[i].name==='布丁')) opts.push({label:'🍮 布丁 → 🥚 茶葉蛋',from:'布丁',to:'茶葉蛋'});
+ if(!opts.length) opts.push({label:'🍵 無糖茶 → 🥛 鮮奶',from:'無糖茶',to:'鮮奶'});
+ opts.push({label:'✅ 我想先保留這一餐',from:'',to:''});
+ document.getElementById('swapGrid').innerHTML=opts.map((o,idx)=>`<button class="swap" onclick='pickSwap(this,${JSON.stringify(o)})'>${o.label}</button>`).join('');
+}
+function pickSwap(btn,obj){
+ document.querySelectorAll('.swap').forEach(x=>x.classList.remove('active'));btn.classList.add('active');swapChoice=obj;
+}
+function applySwap(){
+ if(!swapChoice){showToast('先選一個你想調整的方向');return}
+ afterSelected=[...selected];
+ if(swapChoice.from){
+   const fi=items.findIndex(x=>x.name===swapChoice.from), ti=items.findIndex(x=>x.name===swapChoice.to);
+   const pos=afterSelected.indexOf(fi);
+   if(pos>=0){afterSelected.splice(pos,1);if(ti>=0&&!afterSelected.includes(ti))afterSelected.push(ti);}
+ }
+ renderBeforeAfter();go(4);
+}
+function mealRows(arr){
+ return arr.map(i=>`<div class="cart-row"><span>${items[i].e} ${items[i].name}</span><b>$${items[i].p}</b></div>`).join('');
+}
+function renderBeforeAfter(){
+ document.getElementById('beforeMeal').innerHTML=mealRows(selected);
+ document.getElementById('afterMeal').innerHTML=mealRows(afterSelected);
+ document.getElementById('beforeInfo').innerHTML=`花費：<b>$${total(selected)}</b>`;
+ document.getElementById('afterInfo').innerHTML=`花費：<b>$${total(afterSelected)}</b><br>${swapChoice.from?'你只換了一樣東西，整餐的組成就改變了。':'你選擇保留原本搭配，也是一種有理由的決定。'}`;
+}
+const scenes=[
+ {title:'🍳 早餐店｜預算 70 元',desc:'早上時間不多，希望快速吃完再進教室。',
+  choices:[
+   ['蛋餅＋無糖豆漿',['$65','有主食','有蛋白質']],
+   ['蘿蔔糕＋奶茶',['$70','方便','含糖飲品']],
+   ['吐司＋蛋＋豆漿',['$70','主食＋蛋白質','搭配較完整']]
+  ],
+  note:'早餐情境可以先看：時間、預算、是否有主食與蛋白質。'},
+ {title:'🍜 晚餐外食｜預算 120 元',desc:'今天家裡沒煮，距離睡覺還有幾個小時。',
+  choices:[
+   ['乾麵＋燙青菜＋湯',['$110','主食','有蔬菜']],
+   ['炸物拼盤',['$120','份量大','種類較單一']],
+   ['水餃＋青菜',['$115','方便','有主食與蔬菜']]
+  ],
+  note:'晚餐可以比較：飽足感、蔬菜、有沒有過度集中某一類食物。'},
+ {title:'🎒 放學點心｜預算 60 元',desc:'距離晚餐還有 2 小時，只是有點餓。',
+  choices:[
+   ['香蕉＋鮮奶',['$60','水果＋乳品','份量適中']],
+   ['珍珠奶茶',['$60','方便','含糖飲品']],
+   ['茶葉蛋＋無糖茶',['$40','蛋白質','不會太撐']]
+  ],
+  note:'如果離下一餐很近，「份量」可能比「吃最多」更重要。'}
+];
+function switchScene(i,el){
+ document.querySelectorAll('.scene-tab').forEach(x=>x.classList.remove('active'));if(el)el.classList.add('active');
+ const d=scenes[i];
+ document.getElementById('sceneContent').innerHTML=`
+ <h3>${d.title}</h3><p class="lead" style="font-size:17px">${d.desc}</p>
+ <div class="scene-box">${d.choices.map(c=>`<button class="scene-choice" onclick="scenePick(this)"><h3>${c[0]}</h3><div class="tagrow">${c[1].map(t=>`<span class="tag">${t}</span>`).join('')}</div></button>`).join('')}</div>
+ <div class="info-box">💡 ${d.note}</div>`;
+}
+function scenePick(el){document.querySelectorAll('#sceneContent .scene-choice').forEach(x=>x.classList.remove('active'));el.classList.add('active')}
+function rolePick(el,text){
+ document.querySelectorAll('[data-screen="6"] .scene-choice').forEach(x=>x.classList.remove('active'));el.classList.add('active');
+ document.getElementById('roleInfo').innerHTML=`${text}<br><br><b>他的選擇，應該先從自己的狀態開始判斷，而不是直接照別人的答案。</b>`;
+}
+function go(n){
+ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+ document.querySelector(`.screen[data-screen="${n}"]`).classList.add('active');
+ document.getElementById('bar').style.width=(n/7*100)+'%';
+ document.getElementById('plabel').textContent=`${n} / 7`;
+ if(n===5) switchScene(0,document.querySelector('.scene-tab'));
+ if(n===7) renderResult();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function renderResult(){
+ const cats=new Set(afterSelected.flatMap(i=>items[i].cats));
+ const chosenCats=['主食','蛋白質','蔬菜','水果','乳品'].filter(c=>cats.has(c));
+ document.getElementById('budgetResult').textContent=
+   total(afterSelected)<=150 ? `這次花費 $${total(afterSelected)}，沒有超過 150 元。`
+                             : `這次花費 $${total(afterSelected)}，超過預算，需要再調整。`;
+ document.getElementById('varietyResult').textContent=
+   chosenCats.length ? `這次有：${chosenCats.join('、')}。` : '這次餐點種類比較集中，可以再觀察。';
+ document.getElementById('adjustResult').textContent=
+   (swapChoice&&swapChoice.from) ? `你把「${swapChoice.from}」調整成「${swapChoice.to}」。`
+                                 : '你選擇保留原本搭配，並為自己的選擇找理由。';
+ document.getElementById('resultText').innerHTML=
+   `你最後的便利商店搭配花費 <b>$${total(afterSelected)}</b>。這裡不換算成分數，而是讓你看見自己用了哪些判斷方式。`;
+}
+document.getElementById('teacherBtn').addEventListener('click',()=>{
+ document.body.classList.toggle('teacher-mode');
+ document.getElementById('teacherBtn').textContent=document.body.classList.contains('teacher-mode')?'👩‍🏫 關閉教師模式':'👩‍🏫 教師模式';
+});
+function showToast(msg){
+ const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+ setTimeout(()=>t.classList.remove('show'),1700);
+}
+function resetAll(){
+ selected=[];swapChoice='';afterSelected=[];renderShop();go(1);
+}
+renderShop();
+
+function markComplete(num, ability, icon){
+  try {
+    const key='foodNutritionProgress';
+    const data=JSON.parse(localStorage.getItem(key)||'{}');
+    data[num]={complete:true, ability:ability, updatedAt:new Date().toISOString()};
+    localStorage.setItem(key,JSON.stringify(data));
+  } catch(e) {}
+  showToast(icon+' '+ability+'：已探索！');
+  setTimeout(()=>{
+    if(confirm('這一關已完成！要回到「飲食與營養」主題首頁嗎？')) {
+      location.href='飲食與營養_主題首頁.html';
+    }
+  },500);
+}
+
+</script>
+</body>
+</html>

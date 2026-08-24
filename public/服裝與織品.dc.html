@@ -26,9 +26,13 @@
   <section style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
     <p style="max-width:560px; opacity:0.8; font-size:15px; margin-bottom:var(--space-4);">點選下方主題，瀏覽對應的課程內容。</p>
 
-    <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-4);">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px,1fr)); gap:var(--space-3); margin-bottom:var(--space-6);">
       <sc-for list="{{ topics }}" as="topic" hint-placeholder-count="3">
-        <button onClick="{{ topic.onSelect }}" style="{{ topic.style }}">{{ topic.label }}</button>
+        <button onClick="{{ topic.onSelect }}" style="{{ topic.style }}">
+          <span style="font-size:30px; line-height:1;">{{ topic.icon }}</span>
+          <span style="font-size:18px; font-weight:800;">{{ topic.label }}</span>
+          <span style="font-size:13px; line-height:1.5; opacity:.78; font-weight:600;">{{ topic.short }}</span>
+        </button>
       </sc-for>
     </div>
 
@@ -442,17 +446,17 @@ class Component extends DCLogic {
 
   renderVals() {
     const raw = [
-      { id: 'sewing', label: '縫紉技巧', title: '縫紉技巧', desc: '課程準備中，之後會放上縫紉技巧相關的課程內容。' },
-      { id: 'care', label: '衣物保養', title: '衣物保養', desc: '課程準備中，之後會放上衣物保養相關的課程內容。' },
-      { id: 'style', label: '美感穿搭', title: '美感穿搭', desc: '課程準備中，之後會放上美感穿搭相關的課程內容。' }
+      { id: 'sewing', icon: '🧵', label: '縫紉技巧', title: '縫紉技巧', short: '手縫針法與基本縫製技巧', desc: '課程準備中，之後會放上縫紉技巧相關的課程內容。' },
+      { id: 'care', icon: '🧺', label: '衣物保養', title: '衣物保養', short: '洗滌、整理與衣物的日常照顧', desc: '課程準備中，之後會放上衣物保養相關的課程內容。' },
+      { id: 'style', icon: '👗', label: '美感穿搭', title: '美感穿搭', short: '身形、色彩與視覺比例的搭配', desc: '課程準備中，之後會放上美感穿搭相關的課程內容。' }
     ];
     const active = this.state.active;
     const topics = raw.map(t => {
       const isActive = t.id === active;
       return {
         ...t,
-        onSelect: () => this.setState({ active: t.id }),
-        style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:16px; font-weight:700; cursor:pointer; white-space:nowrap; background:${isActive ? 'var(--color-accent-600)' : 'var(--color-accent-2-100)'}; color:${isActive ? 'var(--color-bg)' : 'var(--color-text)'};`
+        onSelect: () => { if (t.id === 'care') { window.location.href = '衣物保養.html'; } else if (t.id === 'sewing') { window.location.href = '縫紉技巧.html'; } else { this.setState({ active: t.id }); } },
+        style: `min-height:150px; padding:20px 18px; border-radius:20px; border:${isActive ? '2px solid var(--color-accent-600)' : '1px solid rgba(255,255,255,.92)'}; background:${isActive ? 'rgba(255,255,255,.94)' : 'rgba(255,255,255,.68)'}; color:var(--color-text); cursor:pointer; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:10px; text-align:left; box-shadow:${isActive ? '0 8px 24px rgba(70,70,100,.12)' : 'none'}; transition:all .2s ease; font-family:var(--font-body);`
       };
     });
     const activeTopic = raw.find(t => t.id === active);
@@ -478,7 +482,8 @@ class Component extends DCLogic {
       { id: 'freshLook', label: '清爽好印象', desc: '課程準備中，之後會放上清爽好印象相關的課程內容。' },
       { id: 'bodyShape', label: '認識我的身形', desc: '課程準備中，之後會放上認識我的身形相關的課程內容。' },
       { id: 'colorMe', label: '找到我的色彩', desc: '課程準備中，之後會放上找到我的色彩相關的課程內容。' },
-      { id: 'visualMagic', label: '服裝的視覺魔法', href: '服裝的視覺魔法.html', desc: '透過五個小實驗，觀察線條、顏色、腰線、圖案與焦點如何改變視覺比例，最後進入穿搭實驗室。' }
+      { id: 'visualMagic', label: '服裝的視覺魔法', href: '服裝的視覺魔法.html', desc: '透過五個小實驗，觀察線條、顏色、腰線、圖案與焦點如何改變視覺比例，最後進入穿搭實驗室。' },
+      { id: 'todayOutfit', label: '👗 今天怎麼穿', href: '今天怎麼穿.html', desc: '依天氣與活動情境，為自己搭配一套合適又舒服的衣著。' }
     ];
     const styleTopics = styleTopicsRaw.map(s => {
       const open = this.state.openStyleTopic === s.id;
