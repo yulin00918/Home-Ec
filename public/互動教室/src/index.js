@@ -1,3 +1,7 @@
+/*
+ * 教學網站設計／製作：張鈺聆
+ * Copyright © 張鈺聆
+ */
 import { DurableObject } from "cloudflare:workers";
 
 const jsonResponse = (data, init = {}) =>

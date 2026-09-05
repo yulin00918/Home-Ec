@@ -1,6 +1,18 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
+<!--
+==================================================
+教學網站設計／製作：張鈺聆
+Copyright © 張鈺聆. All rights reserved.
+
+本網站為教學用途所設計。
+未經作者同意，請勿移除作者標示後重新發布、
+重新包裝、冒名散布或作為他人原創作品。
+==================================================
+-->
+<meta name="author" content="張鈺聆">
+<meta name="copyright" content="© 張鈺聆">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>衣物保養｜服裝與織品</title>
@@ -120,4 +132,5 @@ const sc=[['🥛 牛奶沾到制服，趕快用很熱的水沖？','🚨 等一�
 const risks={hand:'✋ 手靠近高溫熨斗底板：有燙傷風險。',cord:'🔌 電線橫跨走道：容易絆倒，也可能拉扯、拉落熨斗。',iron:'♨️ 熨斗平放在衣物上：長時間停留可能損傷衣物並造成危險。',water:'💧 水杯放在熨燙／用電區旁：容易打翻，不應放在電器與電線附近。'};let found=new Set();$$('.hotspot').forEach(h=>h.onclick=()=>{let k=h.dataset.risk;if(found.has(k))return;found.add(k);h.classList.add('found');$('#safeCount').textContent=`已找到 ${found.size} / 4`;$('#safeFeedback').textContent=risks[k];if(found.size===4){$('#safeFeedback').innerHTML='<b>🛡️ 安全檢查完成！</b><br>使用熨斗時，不只要注意溫度，也要留意手、電線、熨斗放置位置與周圍環境。';}});
 const seq=['🏷️ 看洗標','🌡️ 調整溫度','👕 整理衣物','♨️ 分區熨燙','🔌 關閉電源、安全冷卻'];let picked=[];$('#ironSequence').innerHTML=seq.map((x,i)=>`<button class="seq-item" data-i="${i}">${x}</button>`).join('');$$('#ironSequence .seq-item').forEach(b=>b.onclick=()=>{if(b.classList.contains('picked'))return;b.classList.add('picked');picked.push(+b.dataset.i);if(picked.length===5){let ok=picked.every((x,i)=>x===i);$('#seqMsg').classList.remove('hidden');$('#seqMsg').innerHTML=ok?'<b>♨️ 我會安全整燙了！</b><br>看 → 調 → 整 → 燙 → 收，順序正確。':'順序還可以再調整一次。重新整理頁面即可重試。';if(ok)saveDone('iron');}});
 </script>
+<div style="position:fixed;right:10px;bottom:8px;z-index:9999;pointer-events:none;font:500 12px/1.4 system-ui,'Noto Sans TC',sans-serif;color:rgba(80,60,45,.45);letter-spacing:.02em;">張鈺聆 製</div>
 </body></html>

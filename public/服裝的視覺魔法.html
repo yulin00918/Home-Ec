@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+<!--
+==================================================
+教學網站設計／製作：張鈺聆
+Copyright © 張鈺聆. All rights reserved.
+
+本網站為教學用途所設計。
+未經作者同意，請勿移除作者標示後重新發布、
+重新包裝、冒名散布或作為他人原創作品。
+==================================================
+-->
+<meta name="author" content="張鈺聆">
+<meta name="copyright" content="© 張鈺聆">
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>服裝的視覺魔法</title>
 <style>
@@ -38,4 +50,5 @@ function answer(){document.getElementById("r").innerHTML=`<div class="reveal">${
 function complete(){document.getElementById("app").innerHTML=`<div class="card" style="text-align:center"><h2>🎉 你已解鎖 5 個穿搭魔法！</h2><p style="font-weight:700;line-height:2">↕ 線條　🎨 色彩　📐 比例　✦ 圖案　👀 焦點</p><p class="muted">衣服沒有改變你的身體，改變的是我們「看到比例的方式」。</p><div class="btnrow"><button class="btn ghost" onclick="selectPage()">← 重選體型</button><button class="btn primary" onclick="guide()">看看我的穿搭指南 →</button></div></div>`}
 function guide(){stage=3;steps();document.getElementById("app").innerHTML=`<div class="card guide"><h2>🌷 我的穿搭指南｜${type}</h2><p class="muted">依照一開始選擇的體型，看看如何運用剛才發現的視覺魔法。</p><img src="${I.guide[type]}" alt="${type}穿搭指南"><div class="btnrow"><button class="btn ghost" onclick="selectPage()">重新選擇體型</button><button class="btn primary" onclick="start()">再玩一次視覺魔法</button></div></div>`}
 selectPage();
-</script></body></html>
+</script><div style="position:fixed;right:10px;bottom:8px;z-index:9999;pointer-events:none;font:500 12px/1.4 system-ui,'Noto Sans TC',sans-serif;color:rgba(80,60,45,.45);letter-spacing:.02em;">張鈺聆 製</div>
+</body></html>

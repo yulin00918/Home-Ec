@@ -1,4 +1,16 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="./support.js"></script><helmet><link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css"><script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script></helmet><style>
+<!DOCTYPE html><html lang="zh-Hant"><head>
+<!--
+==================================================
+教學網站設計／製作：張鈺聆
+Copyright © 張鈺聆. All rights reserved.
+
+本網站為教學用途所設計。
+未經作者同意，請勿移除作者標示後重新發布、
+重新包裝、冒名散布或作為他人原創作品。
+==================================================
+-->
+<meta name="author" content="張鈺聆">
+<meta name="copyright" content="© 張鈺聆"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="./support.js"></script><helmet><link rel="stylesheet" href="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/styles.css"><script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script></helmet><style>
 :root{--bg:#FAF7F4;--ink:#403638;--primary:#8B6F71;--dark:#6F5658;--card:#FFFDFC;--border:#E9DFDB;--shadow:0 10px 30px rgba(90,70,72,.09)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0}button,input,select{font:inherit}
 .page{min-height:100vh;background:linear-gradient(180deg,#a9cbea 0%,#c9d5ef 24%,#e0cbe6 50%,#f0c9d8 75%,#ddc6e6 100%);color:var(--ink);font-family:var(--font-body,system-ui,-apple-system,"Segoe UI",sans-serif)}
@@ -13,4 +25,5 @@
 <div class="lesson"><h2>③ 你真的有在聽嗎？</h2><p>朋友說：「我昨天又跟家人吵架了……」</p><div class="options"><button class="opt" data-msg="你有聽見，但對方不一定感覺自己被理解。">「喔。」</button><button class="opt" data-msg="你想支持朋友，但很快替事情下了判斷。">「你家人真的很煩耶。」</button><button class="opt" data-msg="你想安慰對方，但話題可能轉到自己身上。">「沒什麼啦，我也常這樣。」</button><button class="opt" data-msg="你先接住對方的感受，也留下繼續說話的空間。">「聽起來你昨天很不好受，後來怎麼了？」</button></div><div class="feedback"></div><div class="concept"><strong>👂 積極傾聽</strong>不急著打斷、確認意思、回應對方的感受。</div></div>
 <div class="lesson"><h2>④ 🔧 句子改造器</h2><p>把「你每次都不幫忙！」換成比較容易讓對話繼續的說法。</p><div class="builder"><label>發生了什麼事？<input id="event" value="今天晚餐後還有很多東西沒有收"></label><label>我的感受<select id="feel"><option>我有點累</option><option>我有點生氣</option><option>我有點有壓力</option><option>我有點失望</option></select></label><label>我的期待<input id="need" value="我希望你可以一起收桌子"></label><div class="builder-output" id="out"></div></div><div class="concept"><strong>💡 我訊息</strong>事情 ＋ 感受 ＋ 需要／期待。</div></div>
 <div class="lesson"><h2>⑤ 「好啊。」真的都一樣嗎？</h2><div class="scenario"><div class="scenario-card">🙂「好啊！」<br><small>愉快、願意</small></div><div class="scenario-card">😑「好啊……」<br><small>勉強、無奈</small></div><div class="scenario-card">😡「好啊！」<br><small>可能帶著怒氣</small></div><div class="scenario-card">👀 同一句話，表情、語氣與動作不同，意思也可能不同。</div></div></div>
-<div class="tool"><div class="emoji">💬</div><h2>好好溝通</h2><p>先聽懂，再說清楚。</p><div class="actions"><a class="primary" href="02_一起生活怎麼分工.dc.html">下一站：公平分工 →</a><a class="secondary" href="家庭與生活.dc.html">回五大主題</a></div></div><script>document.querySelectorAll('.options').forEach(g=>g.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{g.querySelectorAll('.opt').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');const f=g.nextElementSibling;if(f&&f.classList.contains('feedback')){f.innerHTML=b.dataset.msg||f.innerHTML;f.classList.add('show')}})));const e=document.getElementById('event'),f=document.getElementById('feel'),n=document.getElementById('need'),o=document.getElementById('out');function u(){o.textContent='💬 '+e.value+'，'+f.value+'，'+n.value+'。'}[e,f,n].forEach(x=>x.addEventListener('input',u));u();</script></div></div></x-dc></body></html>
+<div class="tool"><div class="emoji">💬</div><h2>好好溝通</h2><p>先聽懂，再說清楚。</p><div class="actions"><a class="primary" href="02_一起生活怎麼分工.dc.html">下一站：公平分工 →</a><a class="secondary" href="家庭與生活.dc.html">回五大主題</a></div></div><script>document.querySelectorAll('.options').forEach(g=>g.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{g.querySelectorAll('.opt').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');const f=g.nextElementSibling;if(f&&f.classList.contains('feedback')){f.innerHTML=b.dataset.msg||f.innerHTML;f.classList.add('show')}})));const e=document.getElementById('event'),f=document.getElementById('feel'),n=document.getElementById('need'),o=document.getElementById('out');function u(){o.textContent='💬 '+e.value+'，'+f.value+'，'+n.value+'。'}[e,f,n].forEach(x=>x.addEventListener('input',u));u();</script></div></div><div style="position:fixed;right:10px;bottom:8px;z-index:9999;pointer-events:none;font:500 12px/1.4 system-ui,'Noto Sans TC',sans-serif;color:rgba(80,60,45,.45);letter-spacing:.02em;">張鈺聆 製</div>
+</x-dc></body></html>

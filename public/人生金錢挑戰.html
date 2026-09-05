@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+<!--
+==================================================
+教學網站設計／製作：張鈺聆
+Copyright © 張鈺聆. All rights reserved.
+
+本網站為教學用途所設計。
+未經作者同意，請勿移除作者標示後重新發布、
+重新包裝、冒名散布或作為他人原創作品。
+==================================================
+-->
+<meta name="author" content="張鈺聆">
+<meta name="copyright" content="© 張鈺聆">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>人生金錢挑戰｜預算模擬器 V10 資金守恆版</title>
@@ -610,4 +622,5 @@ changeRole.onclick=()=>{budgetStage.classList.add("hidden");roleStage.classList.
   renderEvent()
 };again.onclick=()=>{let key=Object.keys(DATA).find(k=>DATA[k]===role);resultStage.classList.add("hidden");chooseRole(key)};other.onclick=()=>{resultStage.classList.add("hidden");roleStage.classList.remove("hidden")};renderRoles();
 </script>
+<div style="position:fixed;right:10px;bottom:8px;z-index:9999;pointer-events:none;font:500 12px/1.4 system-ui,'Noto Sans TC',sans-serif;color:rgba(80,60,45,.45);letter-spacing:.02em;">張鈺聆 製</div>
 </body></html>
