@@ -162,7 +162,7 @@ Copyright © 張鈺聆. All rights reserved.
 
     <div style="{{ roster.toolWrapStyle }}">
       <sc-if value="{{ isLottery }}" hint-placeholder-val="{{ true }}">
-        <dc-import name="抽獎活動" hint-size="100%,760px"></dc-import>
+        <iframe src="課堂抽選.html" style="width:100%; height:900px; border:none; border-radius:var(--radius-lg);"></iframe>
       </sc-if>
       <sc-if value="{{ isGrouping }}">
         <dc-import name="隨機分組小幫手" hint-size="100%,760px"></dc-import>
@@ -383,7 +383,7 @@ class Component extends DCLogic {
     const cd = store.classes[store.currentClassId];
     const raw = [
       { id: 'roster', label: '📇 學生名單', enabled: true },
-      { id: 'lottery', label: '🎁 抽獎活動', dc: '抽獎活動', enabled: true },
+      { id: 'lottery', label: '🎯 課堂抽選', dc: null, enabled: true },
       { id: 'grouping', label: '🎲 隨機分組小幫手', dc: '隨機分組小幫手', enabled: true },
       { id: 'scoreboard', label: '🏆 小組競賽計分板', dc: '小組競賽計分板', enabled: true },
       { id: 'timer', label: '⏳ 自由設定倒數計時器', dc: '自由設定倒數計時器', enabled: true },
