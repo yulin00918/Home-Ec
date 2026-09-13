@@ -44,8 +44,8 @@ Copyright © 張鈺聆. All rights reserved.
     </div>
     <p style="max-width:760px; opacity:0.8; font-size:15px; line-height:1.7; margin-bottom:var(--space-6);">從生活中的選擇開始，認識金錢、信用、風險、投資與防詐，學會為自己的金融決定找到理由。</p>
 
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px,1fr)); gap:var(--space-3); margin-bottom:var(--space-6);">
-      <sc-for list="{{ sections }}" as="item" hint-placeholder-count="4">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:var(--space-3); margin-bottom:var(--space-6);">
+      <sc-for list="{{ sections }}" as="item" hint-placeholder-count="3">
         <button onClick="{{ item.onSelect }}" style="{{ item.style }}">
           <span style="font-size:30px; line-height:1;">{{ item.icon }}</span>
           <span style="font-size:18px; font-weight:800;">{{ item.label }}</span>
@@ -288,18 +288,6 @@ Copyright © 張鈺聆. All rights reserved.
       </div>
     </sc-if>
 
-    <sc-if value="{{ isCases }}">
-      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:rgba(255,255,255,.88); border:1px solid rgba(255,255,255,.92); backdrop-filter:blur(6px);">
-        <span class="card-kicker">04｜課程案例</span>
-        <h3 style="margin:4px 0 8px; font-size:24px; font-weight:800;">一整套課程怎麼教？</h3>
-        <p style="opacity:.82; font-size:15px; font-weight:600; line-height:1.7; max-width:760px;">這裡只放完整的教學案例：包含課程目標、節次流程、搭配的互動挑戰、教材與評量方式，不再重複收錄單一活動或工具。</p>
-        <div style="margin-top:var(--space-4); padding:var(--space-6); border-radius:18px; border:1px dashed rgba(90,90,120,.28); background:rgba(255,255,255,.52); text-align:center;">
-          <div style="font-size:34px; margin-bottom:8px;">🌟</div>
-          <div style="font-size:18px; font-weight:800;">完整課程案例整理中</div>
-          <div style="font-size:14px; opacity:.7; margin-top:6px; line-height:1.6;">之後可將一套完整教學設計整理成案例頁，再連回同一份互動挑戰與教材資源。</div>
-        </div>
-      </div>
-    </sc-if>
   </section>
 </div>
 
@@ -313,8 +301,7 @@ class Component extends DCLogic {
     const sectionRaw = [
       { id: 'courses', icon: '📚', label: '主題課程', desc: '依主題建立金融知識與學習脈絡' },
       { id: 'challenges', icon: '🎮', label: '互動挑戰', desc: '操作、模擬、判斷與課堂體驗' },
-      { id: 'resources', icon: '📂', label: '教材資源', desc: '手冊、學習單、牌卡與教學素材' },
-      { id: 'cases', icon: '🌟', label: '課程案例', desc: '完整課程流程與實際教學設計' }
+      { id: 'resources', icon: '📂', label: '教材資源', desc: '手冊、學習單、牌卡與教學素材' }
     ];
 
     const section = this.state.section;
@@ -436,8 +423,7 @@ class Component extends DCLogic {
       resourceGroups,
       isCourses: section === 'courses',
       isChallenges: section === 'challenges',
-      isResources: section === 'resources',
-      isCases: section === 'cases'
+      isResources: section === 'resources'
     };
   }
 }
