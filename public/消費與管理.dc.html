@@ -24,25 +24,30 @@ Copyright © 張鈺聆. All rights reserved.
   <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
 </helmet>
 
-<div style="background:linear-gradient(180deg, #a9cbea 0%, #c9d5ef 24%, #e0cbe6 50%, #f0c9d8 75%, #ddc6e6 100%); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
-  <div style="max-width:1120px; margin:0 auto; padding:var(--space-6) var(--space-4);">
-    <a href="index.html" style="font-size:14px; color:var(--color-accent-700); text-decoration:none;">← 回首頁</a>
+<div style="background:#F5F3EE; color:#243337; font-family:var(--font-body); min-height:100vh;">
+  <div style="max-width:1160px; margin:0 auto; padding:18px 20px 0;">
+    <div style="height:64px; display:flex; align-items:center; gap:12px; padding:0 15px; background:rgba(255,254,250,.86); border:1px solid rgba(36,51,55,.10); border-radius:18px; box-shadow:0 6px 18px rgba(36,51,55,.045);">
+      <a href="index.html" style="font-family:'Noto Sans TC','Microsoft JhengHei','PingFang TC',sans-serif; font-size:13px; font-weight:800; color:#315C63; text-decoration:none; padding:7px 12px; border-radius:999px; background:#FFFEFA; border:1px solid rgba(36,51,55,.08); white-space:nowrap;">← 回首頁</a>
+      <span style="opacity:.28; color:#243337;">｜</span>
+      <span style="font-family:'Noto Sans TC','Microsoft JhengHei','PingFang TC',sans-serif; font-size:18px; font-weight:950; color:#243337;">鈺聆玩家政</span>
+    </div>
   </div>
 
-  <header style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
-    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4); flex-wrap:wrap;">
+  <header style="max-width:1160px; margin:0 auto; padding:34px 20px 24px;">
+    <div style="font:700 10px Georgia,serif; letter-spacing:.2em; color:#839A8F; margin-bottom:12px;">MONEY &amp; CHOICE · FEATURE 04</div>
+    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:12px; flex-wrap:wrap;">
       <span style="font-size:36px; flex:none;">💰</span>
-      <h1 style="margin:0; min-width:0; white-space:nowrap; font-size:38px; font-weight:800;">消費與管理</h1>
+      <h1 style="margin:0; min-width:0; font-size:38px; font-weight:800; letter-spacing:-.02em; color:#315C63;">消費與管理</h1>
     </div>
-    <p style="max-width:680px; opacity:0.85; font-size:18px; font-weight:700;">理財規劃、理性消費、永續生活</p>
+    <p style="max-width:680px; font-size:16px; font-weight:700; line-height:1.85; color:#243337; opacity:.78;">理財規劃、理性消費、永續生活</p>
   </header>
 
-  <section style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
-    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-2); flex-wrap:wrap;">
+  <section style="max-width:1160px; margin:0 auto; padding:0 20px 42px;">
+    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:10px; flex-wrap:wrap;">
       <span style="font-size:26px; flex:none;">📊</span>
-      <h2 style="margin:0; min-width:0; white-space:nowrap; font-size:28px; font-weight:800;">金融教育</h2>
+      <h2 style="margin:0; min-width:0; font-size:28px; font-weight:800; letter-spacing:-.02em; color:#315C63;">金融教育</h2>
     </div>
-    <p style="max-width:760px; opacity:0.8; font-size:15px; line-height:1.7; margin-bottom:var(--space-6);">從生活中的選擇開始，認識金錢、信用、風險、投資與防詐，學會為自己的金融決定找到理由。</p>
+    <p style="max-width:760px; color:#243337; opacity:.7; font-size:15px; line-height:1.8; margin-bottom:var(--space-6);">從生活中的選擇開始，認識金錢、信用、風險、投資與防詐，學會為自己的金融決定找到理由。</p>
 
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:var(--space-3); margin-bottom:var(--space-6);">
       <sc-for list="{{ sections }}" as="item" hint-placeholder-count="3">
@@ -55,31 +60,31 @@ Copyright © 張鈺聆. All rights reserved.
     </div>
 
     <sc-if value="{{ isCourses }}" hint-placeholder-val="{{ true }}">
-      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,249,238,.94) 42%,rgba(241,247,255,.95)); border:1px solid rgba(255,255,255,.96); backdrop-filter:blur(6px); box-shadow:0 15px 34px rgba(70,70,110,.10);">
-        <div style="display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:linear-gradient(90deg,#fff0b8,#ffdce8,#dfe9ff);margin-bottom:6px;">
-          <span style="font-size:17px;">🧭</span><span class="card-kicker" style="margin:0;">01｜學生學習</span>
+      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:#FFFEFA; border:1px solid rgba(36,51,55,.10); border-radius:24px; box-shadow:0 8px 18px rgba(36,51,55,.055);">
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:#F0D8C8;margin-bottom:6px;">
+          <span style="font-size:17px;">🧭</span><span class="card-kicker" style="margin:0; color:#8A4A30;">01｜學生學習</span>
         </div>
-        <h3 class="card-title" style="margin:6px 0 8px; font-size:25px; font-weight:900;">金融教育要學什麼？</h3>
-        <p class="card-body" style="opacity:.84; font-size:15px; font-weight:600; line-height:1.75; margin-bottom:12px;">金融，其實每天都在我們的生活裡。選一個你想了解的主題，從生活問題開始，把重要的金融概念一步一步搞懂。</p>
+        <h3 class="card-title" style="margin:6px 0 8px; font-size:25px; font-weight:900; color:#315C63; letter-spacing:-.02em;">金融教育要學什麼？</h3>
+        <p class="card-body" style="color:#243337; opacity:.78; font-size:15px; font-weight:600; line-height:1.8; margin-bottom:12px;">金融，其實每天都在我們的生活裡。選一個你想了解的主題，從生活問題開始，把重要的金融概念一步一步搞懂。</p>
         <div style="display:flex;gap:7px;align-items:center;margin-bottom:var(--space-4);" aria-hidden="true">
-          <span style="width:34px;height:7px;border-radius:99px;background:#E6B84E;"></span>
-          <span style="width:34px;height:7px;border-radius:99px;background:#75A9DF;"></span>
-          <span style="width:34px;height:7px;border-radius:99px;background:#77B995;"></span>
-          <span style="width:34px;height:7px;border-radius:99px;background:#9C80C8;"></span>
-          <span style="width:34px;height:7px;border-radius:99px;background:#D9829D;"></span>
-          <span style="width:34px;height:7px;border-radius:99px;background:#E58B6E;"></span>
+          <span style="width:34px;height:6px;border-radius:99px;background:#315C63;"></span>
+          <span style="width:34px;height:6px;border-radius:99px;background:#839A8F;"></span>
+          <span style="width:34px;height:6px;border-radius:99px;background:#D7E2DD;"></span>
+          <span style="width:34px;height:6px;border-radius:99px;background:#F0D8C8;"></span>
+          <span style="width:34px;height:6px;border-radius:99px;background:#E18A6A;"></span>
+          <span style="width:34px;height:6px;border-radius:99px;background:#839A8F;"></span>
         </div>
 
-        <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-4); padding:12px; border-radius:18px; background:linear-gradient(90deg,rgba(255,247,221,.70),rgba(240,247,255,.78),rgba(242,238,252,.76)); border:1px solid rgba(130,120,150,.10);">
+        <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-4); padding:12px; border-radius:18px; background:#F5F3EE; border:1px solid rgba(36,51,55,.09);">
           <sc-for list="{{ topics }}" as="topic" hint-placeholder-count="6">
             <button onClick="{{ topic.onSelect }}" style="{{ topic.style }}">{{ topic.label }}</button>
           </sc-for>
         </div>
 
-        <div style="padding:var(--space-4); border-radius:22px; background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(243,248,255,.94) 48%,rgba(247,240,252,.92)); border:1px solid rgba(120,120,150,.12); box-shadow:0 8px 22px rgba(75,75,110,.07);">
-          <span class="card-kicker" style="display:inline-flex;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,#fff0c7,#e9f3ff);">{{ activeTopic.label }}</span>
-          <h4 style="margin:5px 0 8px; font-size:22px; font-weight:800;">{{ activeTopic.question }}</h4>
-          <p style="opacity:.82; font-size:15px; font-weight:600; line-height:1.75; margin:0 0 var(--space-4);">{{ activeTopic.desc }}</p>
+        <div style="padding:var(--space-4); border-radius:22px; background:#F5F3EE; border:1px solid rgba(36,51,55,.09);">
+          <span class="card-kicker" style="display:inline-flex;padding:6px 11px;border-radius:999px;background:#D7E2DD;color:#2F5148;">{{ activeTopic.label }}</span>
+          <h4 style="margin:6px 0 8px; font-size:22px; font-weight:800; color:#315C63; letter-spacing:-.01em;">{{ activeTopic.question }}</h4>
+          <p style="color:#243337; opacity:.76; font-size:15px; font-weight:600; line-height:1.8; margin:0 0 var(--space-4);">{{ activeTopic.desc }}</p>
 
           <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:var(--space-3);">
             <sc-for list="{{ concepts }}" as="concept" hint-placeholder-count="5">
@@ -92,13 +97,13 @@ Copyright © 張鈺聆. All rights reserved.
           </div>
 
           <sc-if value="{{ hasActiveConcept }}">
-            <div style="margin-top:var(--space-4); padding:var(--space-4); border-radius:20px; background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(255,249,238,.94)); border:1px solid rgba(120,120,150,.14); box-shadow:0 7px 18px rgba(80,75,100,.07);">
-              <span class="card-kicker">{{ activeConcept.kicker }}</span>
-              <h4 style="margin:6px 0 8px; font-size:20px; font-weight:800;">{{ activeConcept.title }}｜{{ activeConcept.lead }}</h4>
-              <p style="font-size:15px; line-height:1.8; opacity:.86; margin:0 0 14px;">{{ activeConcept.body }}</p>
-              <div style="padding:15px 16px; border-radius:16px; background:linear-gradient(135deg,#eaf6ff,#f5fbff); border-left:5px solid #78b9e4; font-size:14px; line-height:1.75; margin-bottom:12px;"><b>🌱 生活例子</b><br>{{ activeConcept.example }}</div>
-              <div style="padding:15px 16px; border-radius:16px; background:linear-gradient(135deg,#fff4d8,#fff0e7); border-left:5px solid #e9ad67; font-size:14px; line-height:1.75; margin-bottom:12px;"><b>💭 想一想</b><br>{{ activeConcept.think }}</div>
-              <p style="font-size:14px; line-height:1.7; margin:0; padding:12px 14px; border-radius:14px; background:linear-gradient(90deg,#eaf7ef,#f4fbf6); border-left:5px solid #75b58f;"><b>✨ 記住：</b>{{ activeConcept.key }}</p>
+            <div style="margin-top:var(--space-4); padding:var(--space-4); border-radius:20px; background:#FFFEFA; border:1px solid rgba(36,51,55,.10); box-shadow:0 8px 18px rgba(36,51,55,.055);">
+              <span class="card-kicker" style="color:#839A8F;">{{ activeConcept.kicker }}</span>
+              <h4 style="margin:6px 0 8px; font-size:20px; font-weight:800; color:#315C63;">{{ activeConcept.title }}｜{{ activeConcept.lead }}</h4>
+              <p style="font-size:15px; line-height:1.85; color:#243337; opacity:.82; margin:0 0 14px;">{{ activeConcept.body }}</p>
+              <div style="padding:15px 16px; border-radius:16px; background:#F5F3EE; border-left:5px solid #839A8F; font-size:14px; line-height:1.8; margin-bottom:12px;"><b style="color:#315C63;">🌱 生活例子</b><br>{{ activeConcept.example }}</div>
+              <div style="padding:15px 16px; border-radius:16px; background:#F5F3EE; border-left:5px solid #E18A6A; font-size:14px; line-height:1.8; margin-bottom:12px;"><b style="color:#8A4A30;">💭 想一想</b><br>{{ activeConcept.think }}</div>
+              <p style="font-size:14px; line-height:1.75; margin:0; padding:12px 14px; border-radius:14px; background:#D7E2DD; border-left:5px solid #315C63; color:#243337;"><b style="color:#2F5148;">✨ 記住：</b>{{ activeConcept.key }}</p>
             </div>
           </sc-if>
         </div>
@@ -106,34 +111,34 @@ Copyright © 張鈺聆. All rights reserved.
     </sc-if>
 
     <sc-if value="{{ isChallenges }}">
-      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:rgba(255,255,255,.88); border:1px solid rgba(255,255,255,.92); backdrop-filter:blur(6px);">
+      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:#FFFEFA; border:1px solid rgba(36,51,55,.10); border-radius:24px; box-shadow:0 8px 18px rgba(36,51,55,.055);">
         <span class="card-kicker">02｜互動挑戰</span>
         <h3 style="margin:4px 0 8px; font-size:24px; font-weight:800;">操作、模擬、做決策</h3>
         <p style="opacity:.82; font-size:15px; font-weight:600; line-height:1.7; max-width:760px;">把原本「教學活動」中需要學生操作或參與的內容，統一收在這裡。可以讓學生個別使用，也可以由教師投影帶領全班進行。</p>
 
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:var(--space-3); margin-top:var(--space-4);">
-          <div style="padding:var(--space-4); border-radius:18px; background:rgba(245,247,255,.9); border:1px solid rgba(120,120,150,.14);">
+          <div style="padding:var(--space-4); border-radius:20px; background:#F5F3EE; border:1px solid rgba(36,51,55,.09);">
             <div style="font-size:28px;">🩺</div>
             <h4 style="margin:8px 0 6px; font-size:19px; font-weight:800;">金融體檢</h4>
             <p style="font-size:14px; opacity:.78; line-height:1.6;">30題互動式自我檢視，產出五向度能力雷達圖與個人結果卡，可作為前測與後測。</p>
             <a href="金融體檢.html" class="btn btn-secondary" style="margin-top:var(--space-3); justify-content:space-between;">開始使用 <span>→</span></a>
           </div>
 
-          <div style="padding:var(--space-4); border-radius:18px; background:rgba(245,247,255,.9); border:1px solid rgba(120,120,150,.14);">
+          <div style="padding:var(--space-4); border-radius:20px; background:#F5F3EE; border:1px solid rgba(36,51,55,.09);">
             <div style="font-size:28px;">⚖️</div>
             <h4 style="margin:8px 0 6px; font-size:19px; font-weight:800;">金錢價值光譜</h4>
             <p style="font-size:14px; opacity:.78; line-height:1.6;">價值澄清、全班即時光譜，讓學生表態並看見全班的金錢價值分布。</p>
             <a href="https://script.google.com/macros/s/AKfycbzRIzgiDWC1zde5I4F-nJIcZWsM8szsrGn_ui44XIcpAanmWbA1b4Q-_IJXJy_pbkpY/exec" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="margin-top:var(--space-3); justify-content:space-between;">開始使用 <span>↗</span></a>
           </div>
 
-          <div style="padding:var(--space-4); border-radius:18px; background:rgba(245,247,255,.9); border:1px solid rgba(120,120,150,.14);">
+          <div style="padding:var(--space-4); border-radius:20px; background:#F5F3EE; border:1px solid rgba(36,51,55,.09);">
             <div style="font-size:28px;">💰</div>
             <h4 style="margin:8px 0 6px; font-size:19px; font-weight:800;">人生金錢挑戰｜預算模擬器</h4>
             <p style="font-size:14px; opacity:.78; line-height:1.6;">選擇人生角色，分配有限收入，面對突發事件，在生活需求、儲蓄、風險與財務目標之間做出選擇。</p>
             <a href="人生金錢挑戰.html" class="btn btn-secondary" style="margin-top:var(--space-3); justify-content:space-between;">開始使用 <span>→</span></a>
           </div>
 
-          <div style="padding:var(--space-4); border-radius:18px; border:1px dashed rgba(90,90,120,.28); background:rgba(255,255,255,.52); display:flex; flex-direction:column; justify-content:center; min-height:180px; text-align:center;">
+          <div style="padding:var(--space-4); border-radius:20px; border:1px dashed rgba(131,154,143,.5); background:#FFFEFA; display:flex; flex-direction:column; justify-content:center; min-height:180px; text-align:center;">
             <div style="font-size:30px;">＋</div>
             <div style="font-size:16px; font-weight:800; margin-top:6px;">更多互動挑戰</div>
             <div style="font-size:13px; opacity:.68; margin-top:5px; line-height:1.6;">之後可加入預算模擬、投資配置、防詐情境等活動</div>
@@ -143,14 +148,14 @@ Copyright © 張鈺聆. All rights reserved.
     </sc-if>
 
     <sc-if value="{{ isResources }}">
-      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:rgba(255,255,255,.88); border:1px solid rgba(255,255,255,.92); backdrop-filter:blur(6px);">
+      <div class="card elev-sm" style="padding:var(--space-6) var(--space-4); background:#FFFEFA; border:1px solid rgba(36,51,55,.10); border-radius:24px; box-shadow:0 8px 18px rgba(36,51,55,.055);">
         <span class="card-kicker">03｜教材資源</span>
         <h3 style="margin:4px 0 8px; font-size:24px; font-weight:800;">不一定要有一整套教材，先看看這個主題可以怎麼教。</h3>
         <p style="opacity:.82; font-size:15px; font-weight:600; line-height:1.7; max-width:880px;">這裡整理的是課堂做法、教學示例與可延伸使用的資源。你可以直接參考，也可以依自己的學生、時間與課程重新改編。</p>
         <div data-resource-tabs style="display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 2px;">
-          <button type="button" data-resource-tab="examples" aria-selected="true" style="padding:9px 14px;border-radius:999px;border:2px solid var(--color-accent-600);background:white;font-family:inherit;font-weight:800;cursor:pointer;">🧭 教學示例</button>
-          <button type="button" data-resource-tab="materials" aria-selected="false" style="padding:9px 14px;border-radius:999px;border:1px solid rgba(120,120,150,.2);background:rgba(255,255,255,.72);font-family:inherit;font-weight:800;cursor:pointer;">🧩 素材分享</button>
-          <button type="button" data-resource-tab="official" aria-selected="false" style="padding:9px 14px;border-radius:999px;border:1px solid rgba(120,120,150,.2);background:rgba(255,255,255,.72);font-family:inherit;font-weight:800;cursor:pointer;">📚 官方教材</button>
+          <button type="button" data-resource-tab="examples" aria-selected="true" style="padding:9px 15px;border-radius:999px;border:1px solid #315C63;background:#315C63;color:#FFFEFA;font-family:inherit;font-weight:800;cursor:pointer;">🧭 教學示例</button>
+          <button type="button" data-resource-tab="materials" aria-selected="false" style="padding:9px 15px;border-radius:999px;border:1px solid rgba(36,51,55,.12);background:#FFFEFA;color:#243337;font-family:inherit;font-weight:800;cursor:pointer;">🧩 素材分享</button>
+          <button type="button" data-resource-tab="official" aria-selected="false" style="padding:9px 15px;border-radius:999px;border:1px solid rgba(36,51,55,.12);background:#FFFEFA;color:#243337;font-family:inherit;font-weight:800;cursor:pointer;">📚 官方教材</button>
         </div>
 
         <div data-resource-panel="examples">
@@ -158,126 +163,126 @@ Copyright © 張鈺聆. All rights reserved.
           <span class="card-kicker">🧭 教學示例｜看看可以怎麼教</span>
           <p style="font-size:14px; line-height:1.7; opacity:.72; font-weight:600; max-width:850px; margin:8px 0 0;">這些不是固定教案，也不要求照表操課。先看懂教學思路，再依班級狀況與生活經驗調整即可。</p>
           <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:var(--space-3); margin-top:var(--space-3);">
-            <button type="button" data-fin-open="fin-ten-yuan" style="font-family:inherit;text-align:left;cursor:pointer;text-decoration:none;color:inherit;padding:18px;border-radius:18px;background:rgba(245,247,255,.92);border:1px solid rgba(120,120,150,.14);display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;justify-content:space-between;gap:8px;"><span style="font-size:28px;">💰</span><span style="font-size:11px;font-weight:800;padding:5px 9px;border-radius:999px;background:white;">20–45 MIN</span></div>
-              <div style="font-size:18px;font-weight:800;">十元大作戰</div><div style="font-size:13px;line-height:1.55;opacity:.72;font-weight:600;">條件改變了，我的決定會不會改？</div><div style="font-size:12px;font-weight:800;margin-top:auto;">查看教學示例 →</div>
+            <button type="button" data-fin-open="fin-ten-yuan" style="font-family:inherit;text-align:left;cursor:pointer;text-decoration:none;color:#243337;padding:18px;border-radius:20px;background:#F5F3EE;border:1px solid rgba(36,51,55,.09);display:flex;flex-direction:column;gap:8px;transition:transform .18s ease,box-shadow .18s ease;">
+              <div style="display:flex;justify-content:space-between;gap:8px;"><span style="font-size:28px;">💰</span><span style="font-size:11px;font-weight:800;padding:5px 9px;border-radius:999px;background:#D7E2DD;color:#2F5148;white-space:nowrap;">20–45 MIN</span></div>
+              <div style="font-size:18px;font-weight:800;color:#315C63;">十元大作戰</div><div style="font-size:13px;line-height:1.55;opacity:.72;font-weight:600;">條件改變了，我的決定會不會改？</div><div style="font-size:12px;font-weight:900;margin-top:auto;color:#315C63;">查看教學示例 →</div>
             </button>
-            <button type="button" data-fin-open="fin-triggers" style="font-family:inherit;text-align:left;cursor:pointer;text-decoration:none;color:inherit;padding:18px;border-radius:18px;background:rgba(245,247,255,.92);border:1px solid rgba(120,120,150,.14);display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;justify-content:space-between;gap:8px;"><span style="font-size:28px;">🧠</span><span style="font-size:11px;font-weight:800;padding:5px 9px;border-radius:999px;background:white;">20–45 MIN</span></div>
-              <div style="font-size:18px;font-weight:800;">急・怕・貪・信</div><div style="font-size:13px;line-height:1.55;opacity:.72;font-weight:600;">是什麼正在推著我做決定？</div><div style="font-size:12px;font-weight:800;margin-top:auto;">查看教學示例 →</div>
+            <button type="button" data-fin-open="fin-triggers" style="font-family:inherit;text-align:left;cursor:pointer;text-decoration:none;color:#243337;padding:18px;border-radius:20px;background:#F5F3EE;border:1px solid rgba(36,51,55,.09);display:flex;flex-direction:column;gap:8px;transition:transform .18s ease,box-shadow .18s ease;">
+              <div style="display:flex;justify-content:space-between;gap:8px;"><span style="font-size:28px;">🧠</span><span style="font-size:11px;font-weight:800;padding:5px 9px;border-radius:999px;background:#D7E2DD;color:#2F5148;white-space:nowrap;">20–45 MIN</span></div>
+              <div style="font-size:18px;font-weight:800;color:#315C63;">急・怕・貪・信</div><div style="font-size:13px;line-height:1.55;opacity:.72;font-weight:600;">是什麼正在推著我做決定？</div><div style="font-size:12px;font-weight:900;margin-top:auto;color:#315C63;">查看教學示例 →</div>
             </button>
-            <button type="button" data-fin-open="fin-pause" style="font-family:inherit;text-align:left;cursor:pointer;text-decoration:none;color:inherit;padding:18px;border-radius:18px;background:rgba(245,247,255,.92);border:1px solid rgba(120,120,150,.14);display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;justify-content:space-between;gap:8px;"><span style="font-size:28px;">⏸️</span><span style="font-size:11px;font-weight:800;padding:5px 9px;border-radius:999px;background:white;">10–20 MIN</span></div>
-              <div style="font-size:18px;font-weight:800;">金融決策的暫停鍵</div><div style="font-size:13px;line-height:1.55;opacity:.72;font-weight:600;">我一定要現在決定嗎？</div><div style="font-size:12px;font-weight:800;margin-top:auto;">查看教學示例 →</div>
+            <button type="button" data-fin-open="fin-pause" style="font-family:inherit;text-align:left;cursor:pointer;text-decoration:none;color:#243337;padding:18px;border-radius:20px;background:#F5F3EE;border:1px solid rgba(36,51,55,.09);display:flex;flex-direction:column;gap:8px;transition:transform .18s ease,box-shadow .18s ease;">
+              <div style="display:flex;justify-content:space-between;gap:8px;"><span style="font-size:28px;">⏸️</span><span style="font-size:11px;font-weight:800;padding:5px 9px;border-radius:999px;background:#F0D8C8;color:#8A4A30;white-space:nowrap;">10–20 MIN</span></div>
+              <div style="font-size:18px;font-weight:800;color:#315C63;">金融決策的暫停鍵</div><div style="font-size:13px;line-height:1.55;opacity:.72;font-weight:600;">我一定要現在決定嗎？</div><div style="font-size:12px;font-weight:900;margin-top:auto;color:#315C63;">查看教學示例 →</div>
             </button>
           </div>
 
           <div id="fin-ten-yuan" data-fin-example style="display:none;scroll-margin-top:24px;margin-top:var(--space-6);">
-            <h4 style="margin:0 0 6px;font-size:20px;font-weight:900;">💰 十元大作戰｜小小的十元・大大的選擇</h4>
+            <h4 style="margin:0 0 6px;font-size:20px;font-weight:900;color:#315C63;letter-spacing:-.01em;">💰 十元大作戰｜小小的十元・大大的選擇</h4>
             <p style="font-size:14px;line-height:1.7;opacity:.74;font-weight:600;">核心不是找出「最好的分配」，而是讓學生經歷第一次決定、條件改變與再次決定，練習說出自己的理由。</p>
             <img src="assets/fin-ten-yuan-flow.png" alt="十元大作戰課程流程圖" style="width:100%;height:auto;border-radius:18px;display:block;margin-top:12px;">
             <img src="assets/fin-ten-yuan-guide.png" alt="十元大作戰教師引導圖" style="width:100%;height:auto;border-radius:18px;display:block;margin-top:14px;">
-            <div style="margin-top:14px;padding:15px 17px;border-radius:16px;background:rgba(245,247,255,.85);font-size:13px;line-height:1.75;font-weight:600;"><strong>你也可以這樣改：</strong>不一定使用 10 元，也可以改成零用錢、生活費或一個月預算；事件可以換成學生真正會遇到的生活選擇。保留「第一次決定 → 條件改變 → 再決定」即可。</div>
-          <button type="button" data-fin-close style="margin-top:14px;padding:9px 14px;border-radius:999px;border:1px solid rgba(120,120,150,.2);background:rgba(255,255,255,.88);font-family:inherit;font-weight:800;cursor:pointer;">✕ 收起教學示例</button>
+            <div style="margin-top:14px;padding:15px 17px;border-radius:16px;background:#F5F3EE;border-left:5px solid #839A8F;font-size:13px;line-height:1.8;font-weight:600;"><strong>你也可以這樣改：</strong>不一定使用 10 元，也可以改成零用錢、生活費或一個月預算；事件可以換成學生真正會遇到的生活選擇。保留「第一次決定 → 條件改變 → 再決定」即可。</div>
+          <button type="button" data-fin-close style="margin-top:14px;padding:9px 15px;border-radius:999px;border:1px solid rgba(36,51,55,.12);background:#FFFEFA;color:#315C63;font-family:inherit;font-weight:800;cursor:pointer;">✕ 收起教學示例</button>
           </div>
 
           <div id="fin-triggers" data-fin-example style="display:none;scroll-margin-top:24px;margin-top:var(--space-6);">
-            <h4 style="margin:0 0 6px;font-size:20px;font-weight:900;">🧠 急・怕・貪・信｜看見心理按鈕</h4>
+            <h4 style="margin:0 0 6px;font-size:20px;font-weight:900;color:#315C63;letter-spacing:-.01em;">🧠 急・怕・貪・信｜看見心理按鈕</h4>
             <p style="font-size:14px;line-height:1.7;opacity:.74;font-weight:600;">不是背詐騙類型，而是看見情境與情緒如何推動決定，再練習替自己爭取重新思考的時間。</p>
             <img src="assets/fin-triggers-flow.png" alt="急怕貪信課程流程圖" style="width:100%;height:auto;border-radius:18px;display:block;margin-top:12px;">
             <img src="assets/fin-triggers-guide.png" alt="急怕貪信教師引導圖" style="width:100%;height:auto;border-radius:18px;display:block;margin-top:14px;">
-            <div style="margin-top:14px;padding:15px 17px;border-radius:16px;background:rgba(245,247,255,.85);font-size:13px;line-height:1.75;font-weight:600;"><strong>你也可以這樣改：</strong>情境不必限定防詐，可以換成網購、投資、交友、遊戲課金或一般消費。重點是問：「現在是什麼在推著我做決定？」</div>
-          <button type="button" data-fin-close style="margin-top:14px;padding:9px 14px;border-radius:999px;border:1px solid rgba(120,120,150,.2);background:rgba(255,255,255,.88);font-family:inherit;font-weight:800;cursor:pointer;">✕ 收起教學示例</button>
+            <div style="margin-top:14px;padding:15px 17px;border-radius:16px;background:#F5F3EE;border-left:5px solid #839A8F;font-size:13px;line-height:1.8;font-weight:600;"><strong>你也可以這樣改：</strong>情境不必限定防詐，可以換成網購、投資、交友、遊戲課金或一般消費。重點是問：「現在是什麼在推著我做決定？」</div>
+          <button type="button" data-fin-close style="margin-top:14px;padding:9px 15px;border-radius:999px;border:1px solid rgba(36,51,55,.12);background:#FFFEFA;color:#315C63;font-family:inherit;font-weight:800;cursor:pointer;">✕ 收起教學示例</button>
           </div>
 
           <div id="fin-pause" data-fin-example style="display:none;scroll-margin-top:24px;margin-top:var(--space-6);">
-            <h4 style="margin:0 0 6px;font-size:20px;font-weight:900;">⏸️ 金融決策的暫停鍵</h4>
+            <h4 style="margin:0 0 6px;font-size:20px;font-weight:900;color:#315C63;letter-spacing:-.01em;">⏸️ 金融決策的暫停鍵</h4>
             <p style="font-size:14px;line-height:1.7;opacity:.74;font-weight:600;">停一下 → 問自己 → 查證／比較 → 再決定。可以套用在消費、投資、防詐、借貸、課金與儲蓄。</p>
             <img src="assets/fin-pause.png" alt="金融決策的暫停鍵教學示例" style="width:100%;height:auto;border-radius:18px;display:block;margin-top:12px;">
-            <div style="margin-top:14px;padding:15px 17px;border-radius:16px;background:rgba(245,247,255,.85);font-size:13px;line-height:1.75;font-weight:600;"><strong>最簡單的用法：</strong>把原本問「答案是什麼？」的題目，改成「你會怎麼決定？為什麼？」再改變一個條件，重新問一次。</div>
-            <button type="button" data-fin-close style="margin-top:14px;padding:9px 14px;border-radius:999px;border:1px solid rgba(120,120,150,.2);background:rgba(255,255,255,.88);font-family:inherit;font-weight:800;cursor:pointer;">✕ 收起教學示例</button>
+            <div style="margin-top:14px;padding:15px 17px;border-radius:16px;background:#F5F3EE;border-left:5px solid #839A8F;font-size:13px;line-height:1.8;font-weight:600;"><strong>最簡單的用法：</strong>把原本問「答案是什麼？」的題目，改成「你會怎麼決定？為什麼？」再改變一個條件，重新問一次。</div>
+            <button type="button" data-fin-close style="margin-top:14px;padding:9px 15px;border-radius:999px;border:1px solid rgba(36,51,55,.12);background:#FFFEFA;color:#315C63;font-family:inherit;font-weight:800;cursor:pointer;">✕ 收起教學示例</button>
           </div>
         </div>
 
         </div>
 
         <div data-resource-panel="materials" style="display:none;">
-        <div style="margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid rgba(120,120,150,.14);">
+        <div style="margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid rgba(36,51,55,.09);">
           <span class="card-kicker">🧩 素材分享｜剛好需要，可以拿去用</span>
           <h4 style="font-size:22px;font-weight:900;margin:8px 0 4px;">不是素材倉庫，而是三組課堂工具箱。</h4>
           <p style="font-size:14px;line-height:1.75;opacity:.75;font-weight:600;max-width:860px;margin:0 0 18px;">依教學示例整理成三組，需要哪一組就直接拿。每份素材都能獨立開啟，也可以搭配上方教學示例一起使用。</p>
 
           <!-- 十元大作戰 -->
-          <section style="margin-top:18px;padding:18px;border-radius:24px;background:linear-gradient(135deg,#fff8dd,#fff1df 55%,#fffaf2);border:1px solid rgba(216,171,79,.28);box-shadow:0 9px 24px rgba(155,115,45,.07);">
+          <section style="margin-top:18px;padding:18px;border-radius:24px;background:#FFFEFA;border:1px solid rgba(36,51,55,.10);box-shadow:0 8px 18px rgba(36,51,55,.055);">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
               <div style="display:flex;align-items:center;gap:11px;">
-                <div style="width:48px;height:48px;border-radius:16px;background:#f0bd55;display:grid;place-items:center;font-size:25px;box-shadow:0 7px 15px rgba(191,137,37,.18);">💰</div>
+                <div style="width:48px;height:48px;border-radius:16px;background:#F0D8C8;display:grid;place-items:center;font-size:25px;flex:none;">💰</div>
                 <div><div style="font-size:18px;font-weight:900;">十元大作戰</div><div style="font-size:12px;opacity:.7;font-weight:700;">條件改變後，再做一次決定</div></div>
               </div>
-              <span style="font-size:11px;font-weight:900;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.78);color:#775513;">3 份素材</span>
+              <span style="font-size:11px;font-weight:900;padding:6px 10px;border-radius:999px;background:#F5F3EE;color:#315C63;white-space:nowrap;">3 份素材</span>
             </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:11px;">
-              <a href="assets/十元大作戰_事件卡.html" target="_blank" style="text-decoration:none;color:inherit;padding:15px;border-radius:18px;background:rgba(255,255,255,.88);border:1px solid rgba(213,173,95,.22);display:flex;gap:12px;align-items:flex-start;box-shadow:0 5px 14px rgba(140,100,35,.06);">
-                <div style="width:42px;height:42px;flex:0 0 42px;border-radius:14px;background:#ffe7ad;display:grid;place-items:center;font-size:22px;">🃏</div>
-                <div style="min-width:0;"><div style="font-size:11px;font-weight:900;color:#a66f12;letter-spacing:.04em;">情境素材</div><strong style="display:block;margin-top:3px;">事件卡</strong><div style="margin-top:5px;font-size:12px;line-height:1.55;opacity:.7;">8 張生活事件<br>讓條件真的改變</div><div style="margin-top:9px;font-size:12px;font-weight:900;color:#966313;">開啟素材 ↗</div></div>
+              <a href="assets/十元大作戰_事件卡.html" target="_blank" style="text-decoration:none;color:inherit;padding:15px;border-radius:18px;background:#F5F3EE;border:1px solid rgba(36,51,55,.09);display:flex;gap:12px;align-items:flex-start;">
+                <div style="width:42px;height:42px;flex:0 0 42px;border-radius:14px;background:#F0D8C8;display:grid;place-items:center;font-size:22px;">🃏</div>
+                <div style="min-width:0;"><div style="font-size:11px;font-weight:900;color:#839A8F;letter-spacing:.04em;">情境素材</div><strong style="display:block;margin-top:3px;">事件卡</strong><div style="margin-top:5px;font-size:12px;line-height:1.55;opacity:.7;">8 張生活事件<br>讓條件真的改變</div><div style="margin-top:9px;font-size:12px;font-weight:900;color:#315C63;">開啟素材 ↗</div></div>
               </a>
-              <a href="assets/十元大作戰_決策紀錄單.html" target="_blank" style="text-decoration:none;color:inherit;padding:15px;border-radius:18px;background:rgba(255,255,255,.88);border:1px solid rgba(213,173,95,.22);display:flex;gap:12px;align-items:flex-start;box-shadow:0 5px 14px rgba(140,100,35,.06);">
-                <div style="width:42px;height:42px;flex:0 0 42px;border-radius:14px;background:#fff0c9;display:grid;place-items:center;font-size:22px;">📝</div>
-                <div><div style="font-size:11px;font-weight:900;color:#a66f12;letter-spacing:.04em;">紀錄工具</div><strong style="display:block;margin-top:3px;">決策紀錄單</strong><div style="margin-top:5px;font-size:12px;line-height:1.55;opacity:.7;">決定 → 事件 → 調整<br>把理由留下來</div><div style="margin-top:9px;font-size:12px;font-weight:900;color:#966313;">開啟素材 ↗</div></div>
+              <a href="assets/十元大作戰_決策紀錄單.html" target="_blank" style="text-decoration:none;color:inherit;padding:15px;border-radius:18px;background:#F5F3EE;border:1px solid rgba(36,51,55,.09);display:flex;gap:12px;align-items:flex-start;">
+                <div style="width:42px;height:42px;flex:0 0 42px;border-radius:14px;background:#D7E2DD;display:grid;place-items:center;font-size:22px;">📝</div>
+                <div><div style="font-size:11px;font-weight:900;color:#839A8F;letter-spacing:.04em;">紀錄工具</div><strong style="display:block;margin-top:3px;">決策紀錄單</strong><div style="margin-top:5px;font-size:12px;line-height:1.55;opacity:.7;">決定 → 事件 → 調整<br>把理由留下來</div><div style="margin-top:9px;font-size:12px;font-weight:900;color:#315C63;">開啟素材 ↗</div></div>
               </a>
-              <a href="assets/十元大作戰_情緒覺察卡.html" target="_blank" style="text-decoration:none;color:inherit;padding:15px;border-radius:18px;background:rgba(255,255,255,.88);border:1px solid rgba(213,173,95,.22);display:flex;gap:12px;align-items:flex-start;box-shadow:0 5px 14px rgba(140,100,35,.06);">
-                <div style="width:42px;height:42px;flex:0 0 42px;border-radius:14px;background:#ffe9c7;display:grid;place-items:center;font-size:22px;">🙂</div>
-                <div><div style="font-size:11px;font-weight:900;color:#a66f12;letter-spacing:.04em;">覺察工具</div><strong style="display:block;margin-top:3px;">情緒覺察卡</strong><div style="margin-top:5px;font-size:12px;line-height:1.55;opacity:.7;">6 種感受<br>看見情緒如何影響選擇</div><div style="margin-top:9px;font-size:12px;font-weight:900;color:#966313;">開啟素材 ↗</div></div>
+              <a href="assets/十元大作戰_情緒覺察卡.html" target="_blank" style="text-decoration:none;color:inherit;padding:15px;border-radius:18px;background:#F5F3EE;border:1px solid rgba(36,51,55,.09);display:flex;gap:12px;align-items:flex-start;">
+                <div style="width:42px;height:42px;flex:0 0 42px;border-radius:14px;background:#F0D8C8;display:grid;place-items:center;font-size:22px;">🙂</div>
+                <div><div style="font-size:11px;font-weight:900;color:#839A8F;letter-spacing:.04em;">覺察工具</div><strong style="display:block;margin-top:3px;">情緒覺察卡</strong><div style="margin-top:5px;font-size:12px;line-height:1.55;opacity:.7;">6 種感受<br>看見情緒如何影響選擇</div><div style="margin-top:9px;font-size:12px;font-weight:900;color:#315C63;">開啟素材 ↗</div></div>
               </a>
             </div>
           </section>
 
           <!-- 急怕貪信 -->
-          <section style="margin-top:14px;padding:18px;border-radius:24px;background:linear-gradient(135deg,#f7efff,#fff0f4 56%,#fff8fb);border:1px solid rgba(165,116,196,.24);box-shadow:0 9px 24px rgba(119,76,148,.07);">
+          <section style="margin-top:14px;padding:18px;border-radius:24px;background:#FFFEFA;border:1px solid rgba(36,51,55,.10);box-shadow:0 8px 18px rgba(36,51,55,.055);">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
               <div style="display:flex;align-items:center;gap:11px;">
-                <div style="width:48px;height:48px;border-radius:16px;background:#ad83cf;display:grid;place-items:center;font-size:25px;box-shadow:0 7px 15px rgba(126,80,160,.16);">🧠</div>
+                <div style="width:48px;height:48px;border-radius:16px;background:#D7E2DD;display:grid;place-items:center;font-size:25px;flex:none;">🧠</div>
                 <div><div style="font-size:18px;font-weight:900;">急・怕・貪・信</div><div style="font-size:12px;opacity:.7;font-weight:700;">先看見推力，再選安全下一步</div></div>
               </div>
-              <span style="font-size:11px;font-weight:900;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.78);color:#704887;">2 份素材</span>
+              <span style="font-size:11px;font-weight:900;padding:6px 10px;border-radius:999px;background:#F5F3EE;color:#315C63;white-space:nowrap;">2 份素材</span>
             </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:11px;">
-              <a href="assets/急怕貪信_心理按鈕覺察卡.html" target="_blank" style="text-decoration:none;color:inherit;padding:16px;border-radius:18px;background:rgba(255,255,255,.88);border:1px solid rgba(169,119,193,.20);display:flex;gap:12px;align-items:flex-start;box-shadow:0 5px 14px rgba(107,72,135,.06);">
-                <div style="width:44px;height:44px;flex:0 0 44px;border-radius:14px;background:#eee0fa;display:grid;place-items:center;font-size:23px;">🎛️</div>
-                <div><div style="font-size:11px;font-weight:900;color:#795091;">心理覺察</div><strong style="display:block;margin-top:3px;">心理按鈕覺察卡</strong><div style="margin-top:5px;font-size:12px;line-height:1.55;opacity:.7;">急・怕・貪・信<br>現在是什麼在推著我？</div><div style="margin-top:9px;font-size:12px;font-weight:900;color:#76508d;">開啟素材 ↗</div></div>
+              <a href="assets/急怕貪信_心理按鈕覺察卡.html" target="_blank" style="text-decoration:none;color:inherit;padding:16px;border-radius:18px;background:#F5F3EE;border:1px solid rgba(36,51,55,.09);display:flex;gap:12px;align-items:flex-start;">
+                <div style="width:44px;height:44px;flex:0 0 44px;border-radius:14px;background:#D7E2DD;display:grid;place-items:center;font-size:23px;">🎛️</div>
+                <div><div style="font-size:11px;font-weight:900;color:#839A8F;">心理覺察</div><strong style="display:block;margin-top:3px;">心理按鈕覺察卡</strong><div style="margin-top:5px;font-size:12px;line-height:1.55;opacity:.7;">急・怕・貪・信<br>現在是什麼在推著我？</div><div style="margin-top:9px;font-size:12px;font-weight:900;color:#315C63;">開啟素材 ↗</div></div>
               </a>
-              <a href="assets/急怕貪信_安全下一步卡.html" target="_blank" style="text-decoration:none;color:inherit;padding:16px;border-radius:18px;background:rgba(255,255,255,.88);border:1px solid rgba(169,119,193,.20);display:flex;gap:12px;align-items:flex-start;box-shadow:0 5px 14px rgba(107,72,135,.06);">
-                <div style="width:44px;height:44px;flex:0 0 44px;border-radius:14px;background:#ffe1ea;display:grid;place-items:center;font-size:23px;">🛡️</div>
-                <div><div style="font-size:11px;font-weight:900;color:#a04f6a;">行動工具</div><strong style="display:block;margin-top:3px;">安全下一步卡</strong><div style="margin-top:5px;font-size:12px;line-height:1.55;opacity:.7;">停一下 → 獨立查證<br>把決定重新拿回來</div><div style="margin-top:9px;font-size:12px;font-weight:900;color:#9a4d67;">開啟素材 ↗</div></div>
+              <a href="assets/急怕貪信_安全下一步卡.html" target="_blank" style="text-decoration:none;color:inherit;padding:16px;border-radius:18px;background:#F5F3EE;border:1px solid rgba(36,51,55,.09);display:flex;gap:12px;align-items:flex-start;">
+                <div style="width:44px;height:44px;flex:0 0 44px;border-radius:14px;background:#F0D8C8;display:grid;place-items:center;font-size:23px;">🛡️</div>
+                <div><div style="font-size:11px;font-weight:900;color:#839A8F;">行動工具</div><strong style="display:block;margin-top:3px;">安全下一步卡</strong><div style="margin-top:5px;font-size:12px;line-height:1.55;opacity:.7;">停一下 → 獨立查證<br>把決定重新拿回來</div><div style="margin-top:9px;font-size:12px;font-weight:900;color:#315C63;">開啟素材 ↗</div></div>
               </a>
             </div>
           </section>
 
           <!-- 暫停鍵 -->
-          <section style="margin-top:14px;padding:18px;border-radius:24px;background:linear-gradient(135deg,#eaf8f1,#edf6ff 58%,#f8fbff);border:1px solid rgba(92,159,137,.23);box-shadow:0 9px 24px rgba(58,117,105,.07);">
+          <section style="margin-top:14px;padding:18px;border-radius:24px;background:#FFFEFA;border:1px solid rgba(36,51,55,.10);box-shadow:0 8px 18px rgba(36,51,55,.055);">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;">
               <div style="display:flex;align-items:center;gap:12px;flex:1;min-width:240px;">
-                <div style="width:52px;height:52px;flex:0 0 52px;border-radius:17px;background:#64ad94;display:grid;place-items:center;font-size:27px;box-shadow:0 7px 15px rgba(61,128,105,.16);">⏸️</div>
-                <div><div style="font-size:11px;font-weight:900;color:#427c68;letter-spacing:.04em;">跨主題決策工具</div><div style="font-size:18px;font-weight:900;margin-top:2px;">金融決策的暫停鍵</div><div style="font-size:12px;opacity:.72;font-weight:700;margin-top:4px;">停一下 → 問自己 → 查證／比較 → 再決定</div></div>
+                <div style="width:52px;height:52px;flex:0 0 52px;border-radius:17px;background:#839A8F;display:grid;place-items:center;font-size:27px;">⏸️</div>
+                <div><div style="font-size:11px;font-weight:900;color:#839A8F;letter-spacing:.04em;">跨主題決策工具</div><div style="font-size:18px;font-weight:900;margin-top:2px;">金融決策的暫停鍵</div><div style="font-size:12px;opacity:.72;font-weight:700;margin-top:4px;">停一下 → 問自己 → 查證／比較 → 再決定</div></div>
               </div>
-              <a href="assets/金融決策的暫停鍵_一頁式決策工具.html" target="_blank" style="text-decoration:none;color:#356d5a;padding:11px 15px;border-radius:999px;background:white;border:1px solid rgba(83,145,124,.22);font-size:13px;font-weight:900;box-shadow:0 5px 13px rgba(61,113,96,.07);">開啟一頁式工具 ↗</a>
+              <a href="assets/金融決策的暫停鍵_一頁式決策工具.html" target="_blank" style="text-decoration:none;color:#FFFEFA;padding:11px 16px;border-radius:999px;background:#315C63;border:none;font-size:13px;font-weight:900;white-space:nowrap;">開啟一頁式工具 ↗</a>
             </div>
           </section>
 
-          <div style="margin-top:16px;padding:13px 16px;border-radius:16px;background:linear-gradient(90deg,rgba(246,248,255,.92),rgba(255,250,240,.94));font-size:12px;line-height:1.75;font-weight:650;border:1px dashed rgba(120,120,150,.18);">
+          <div style="margin-top:16px;padding:13px 16px;border-radius:16px;background:#F5F3EE;font-size:12px;line-height:1.8;font-weight:650;border:1px dashed rgba(131,154,143,.45);">
             💡 <strong>素材不求多。</strong>目前只保留三個教學示例真正會用到的核心工具，避免把「教材資源」做成找不到重點的下載倉庫。
           </div>
         </div>
         </div>
 
         <div data-resource-panel="official" style="display:none;">
-        <div style="margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid rgba(120,120,150,.14);">
+        <div style="margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid rgba(36,51,55,.09);">
           <span class="card-kicker">📚 官方金融教材｜想規劃完整單元，可以從這裡繼續</span>
           <p style="font-size:14px;line-height:1.7;opacity:.72;font-weight:600;max-width:850px;margin-top:8px;">官方教材適合完整備課、延伸閱讀或規劃長單元；教學示例則提供課堂切入方式，兩者各自負責不同功能。</p>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-3);margin-top:var(--space-3);">
             <sc-for list="{{ resourceGroups }}" as="group" hint-placeholder-count="6">
-              <div style="padding:var(--space-4);border-radius:18px;background:rgba(245,247,255,.9);border:1px solid rgba(120,120,150,.14);display:flex;flex-direction:column;gap:10px;">
-                <div style="font-size:18px;font-weight:800;">{{ group.label }}</div><div style="font-size:13px;opacity:.72;line-height:1.55;">{{ group.desc }}</div>
+              <div style="padding:var(--space-4);border-radius:20px;background:#F5F3EE;border:1px solid rgba(36,51,55,.09);display:flex;flex-direction:column;gap:10px;">
+                <div style="font-size:18px;font-weight:800;color:#315C63;">{{ group.label }}</div><div style="font-size:13px;opacity:.72;line-height:1.55;">{{ group.desc }}</div>
                 <a href="{{ group.teacherLink }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="justify-content:space-between;white-space:normal;text-align:left;">教師手冊 <span>↗</span></a>
                 <a href="{{ group.studentLink }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="justify-content:space-between;white-space:normal;text-align:left;">學生手冊 <span>↗</span></a>
               </div>
@@ -288,6 +293,10 @@ Copyright © 張鈺聆. All rights reserved.
       </div>
     </sc-if>
 
+    <footer style="margin-top:21px; padding-top:14px; border-top:1px solid rgba(70,60,50,.15); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:11px; color:#243337; opacity:.62;">
+      <span><b>張鈺聆 製</b>｜鈺聆玩家政</span>
+      <span>LIFE · CHOICE · PLAY</span>
+    </footer>
   </section>
 </div>
 
@@ -305,12 +314,12 @@ class Component extends DCLogic {
     ];
 
     const section = this.state.section;
-    const sections = sectionRaw.map(item => {
+    const sections = sectionRaw.map((item, i) => {
       const active = item.id === section;
       return {
         ...item,
         onSelect: () => this.setState({ section: item.id }),
-        style: `min-height:150px; padding:20px 18px; border-radius:20px; border:${active ? '2px solid var(--color-accent-600)' : '1px solid rgba(255,255,255,.92)'}; background:${active ? 'rgba(255,255,255,.94)' : 'rgba(255,255,255,.68)'}; color:var(--color-text); cursor:pointer; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:10px; text-align:left; box-shadow:${active ? '0 8px 24px rgba(70,70,100,.12)' : 'none'}; transition:all .2s ease;`
+        style: `min-height:150px; padding:20px 18px; border-radius:22px; border-width:5px 1px 1px; border-style:solid; border-color:${['#D7E2DD','#F0D8C8','#E18A6A'][i % 3]} ${active ? '#315C63' : 'rgba(36,51,55,.10)'} ${active ? '#315C63' : 'rgba(36,51,55,.10)'}; background:#FFFEFA; color:#243337; cursor:pointer; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:10px; text-align:left; box-shadow:${active ? '0 14px 26px rgba(36,51,55,.10)' : '0 8px 18px rgba(36,51,55,.055)'}; transform:${active ? 'translateY(-4px)' : 'translateY(0)'}; transition:transform .18s ease, box-shadow .18s ease;`
       };
     });
 
@@ -372,7 +381,7 @@ class Component extends DCLogic {
       return {
         ...t,
         onSelect: () => this.setState({ topic: t.id, concept: null }),
-        style: `padding:9px 16px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:15px; font-weight:700; cursor:pointer; white-space:nowrap; background:${active ? 'var(--color-accent-600)' : 'var(--color-accent-2-100)'}; color:${active ? 'var(--color-bg)' : 'var(--color-text)'};`
+        style: `padding:9px 16px; border-radius:999px; border:1px solid ${active ? '#315C63' : 'rgba(36,51,55,.12)'}; font-family:var(--font-heading); font-size:15px; font-weight:800; cursor:pointer; white-space:nowrap; background:${active ? '#315C63' : '#FFFEFA'}; color:${active ? '#FFFEFA' : '#243337'};`
       };
     });
 
@@ -383,7 +392,7 @@ class Component extends DCLogic {
       return {
         ...c,
         onSelect: () => this.setState({ concept: active ? null : i }),
-        style: `padding:16px; min-height:132px; border-radius:16px; border:${active ? '2px solid var(--color-accent-600)' : '1px solid rgba(120,120,150,.14)'}; background:${active ? 'rgba(255,255,255,.98)' : 'rgba(255,255,255,.72)'}; color:var(--color-text); cursor:pointer; text-align:left; display:flex; flex-direction:column; align-items:flex-start; gap:7px; font-family:var(--font-body);`
+        style: `padding:16px; min-height:132px; border-radius:18px; border:1px solid ${active ? '#315C63' : 'rgba(36,51,55,.10)'}; background:#FFFEFA; color:#243337; cursor:pointer; text-align:left; display:flex; flex-direction:column; align-items:flex-start; gap:7px; font-family:var(--font-body); box-shadow:${active ? '0 10px 20px rgba(36,51,55,.08)' : '0 4px 10px rgba(36,51,55,.04)'}; transition:transform .18s ease, box-shadow .18s ease;`
       };
     });
     const selectedConcept = conceptIndex === null || conceptIndex === undefined ? null : activeTopic.concepts[conceptIndex];
@@ -447,8 +456,9 @@ class Component extends DCLogic {
     document.querySelectorAll('[data-resource-tab]').forEach(function (btn) {
       var active = btn.getAttribute('data-resource-tab') === name;
       btn.setAttribute('aria-selected', active ? 'true' : 'false');
-      btn.style.border = active ? '2px solid var(--color-accent-600)' : '1px solid rgba(120,120,150,.2)';
-      btn.style.background = active ? 'white' : 'rgba(255,255,255,.72)';
+      btn.style.border = active ? '1px solid #315C63' : '1px solid rgba(36,51,55,.12)';
+      btn.style.background = active ? '#315C63' : '#FFFEFA';
+      btn.style.color = active ? '#FFFEFA' : '#243337';
     });
 
     if (name !== 'examples') closeAllExamples();

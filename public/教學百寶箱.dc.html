@@ -24,34 +24,63 @@ Copyright © 張鈺聆. All rights reserved.
   <script src="_ds/organic-03487c1a-87d3-4346-93e4-5edb149c4cd0/_ds_bundle.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </helmet>
-<div style="background:linear-gradient(180deg, #a9cbea 0%, #c9d5ef 24%, #e0cbe6 50%, #f0c9d8 75%, #ddc6e6 100%); color:var(--color-text); font-family:var(--font-body); min-height:100vh;">
-  <div style="max-width:1120px; margin:0 auto; padding:var(--space-6) var(--space-4);">
-    <a href="index.html" style="font-size:14px; color:var(--color-accent-700); text-decoration:none;">← 回首頁</a>
+<div style="background:#F5F3EE; color:#243337; font-family:var(--font-body); min-height:100vh;">
+  <div style="max-width:1160px; margin:0 auto; padding:18px 20px 0;">
+    <div style="height:64px; display:flex; align-items:center; gap:12px; padding:0 15px; background:rgba(255,254,250,.86); border:1px solid rgba(36,51,55,.10); border-radius:18px; box-shadow:0 6px 18px rgba(36,51,55,.045);">
+      <a href="index.html" style="font-family:'Noto Sans TC','Microsoft JhengHei','PingFang TC',sans-serif; font-size:13px; font-weight:800; color:#315C63; text-decoration:none; padding:7px 12px; border-radius:999px; background:#FFFEFA; border:1px solid rgba(36,51,55,.08); white-space:nowrap;">← 回首頁</a>
+      <span style="opacity:.28; color:#243337;">｜</span>
+      <span style="font-family:'Noto Sans TC','Microsoft JhengHei','PingFang TC',sans-serif; font-size:18px; font-weight:950; color:#243337;">鈺聆玩家政</span>
+    </div>
   </div>
-  <header style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-6);">
-    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4); flex-wrap:wrap;">
+
+  <header style="max-width:1160px; margin:0 auto; padding:34px 20px 22px;">
+    <div style="font:700 10px Georgia,serif; letter-spacing:.2em; color:#839A8F; margin-bottom:12px;">TEACHER TOOLKIT · CLASSROOM</div>
+    <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:12px; flex-wrap:wrap;">
       <span style="font-size:36px; flex:none;">🎁</span>
-      <h1 style="margin:0; min-width:0; white-space:nowrap; font-size:38px; font-weight:800;">教學百寶箱</h1>
+      <h1 style="margin:0; min-width:0; font-size:38px; font-weight:800; letter-spacing:-.02em; color:#315C63;">教學百寶箱</h1>
     </div>
-    <p style="max-width:560px; opacity:0.85; font-size:18px; font-weight:700; margin-bottom:var(--space-3);">課堂教學小工具</p>
-    <div style="display:flex; align-items:center; gap:var(--space-2); flex-wrap:wrap;">
-      <span style="font-weight:700; opacity:0.75; font-size:14px;">目前班級：</span>
-      <sc-for list="{{ classSwitcher }}" as="c" hint-placeholder-count="2">
-        <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.label }}</button>
-      </sc-for>
-      <button onClick="{{ addClassClick }}" style="padding:6px 14px; border-radius:999px; border:1.5px dashed var(--color-accent-700); background:transparent; color:var(--color-accent-700); font-weight:700; cursor:pointer; font-size:13px;">＋ 新增班級</button>
-    </div>
+    <p style="max-width:560px; font-size:16px; font-weight:700; line-height:1.85; color:#243337; opacity:.78;">課堂教學小工具</p>
   </header>
 
-  <div style="max-width:1120px; margin:0 auto; padding:0 var(--space-4) var(--space-8);">
-    <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-6);">
-      <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="4">
-        <button onClick="{{ tab.onSelect }}" style="{{ tab.style }}">{{ tab.label }}</button>
+  <div style="max-width:1160px; margin:0 auto; padding:0 20px 42px;">
+    <div style="background:#FFFEFA; border:1px solid rgba(36,51,55,.10); border-radius:22px; padding:18px 20px; box-shadow:0 8px 18px rgba(36,51,55,.055); margin-bottom:18px;">
+      <div style="font:700 10px Georgia,serif; letter-spacing:.16em; color:#839A8F; margin-bottom:10px;">SHARED · 共用資料</div>
+      <div style="display:flex; align-items:center; gap:var(--space-2); flex-wrap:wrap; margin-bottom:12px;">
+        <span style="font-weight:800; font-size:14px; color:#243337; opacity:.7;">目前班級：</span>
+        <sc-for list="{{ classSwitcher }}" as="c" hint-placeholder-count="2">
+          <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.label }}</button>
+        </sc-for>
+        <button onClick="{{ addClassClick }}" style="padding:6px 14px; border-radius:999px; border:1.5px dashed #839A8F; background:transparent; color:#315C63; font-weight:800; cursor:pointer; font-size:13px; white-space:nowrap;">＋ 新增班級</button>
+      </div>
+      <div style="display:flex; gap:var(--space-2); flex-wrap:wrap;">
+        <sc-for list="{{ rosterTabs }}" as="tab" hint-placeholder-count="1">
+          <button onClick="{{ tab.onSelect }}" style="{{ tab.style }}">{{ tab.label }}</button>
+        </sc-for>
+      </div>
+      <p style="margin:10px 0 0; font-size:12.5px; line-height:1.7; color:#243337; opacity:.6;">班級與學生名單為所有工具共用，匯入一次即可在課堂抽選、分組與組內分工中使用。</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); align-items:start; gap:13px; margin-bottom:18px;">
+      <sc-for list="{{ tabGroups }}" as="g" hint-placeholder-count="4">
+        <details open="{{ g.open }}" style="background:#FFFEFA; border:1px solid rgba(36,51,55,.10); border-radius:22px; padding:16px 18px; box-shadow:0 8px 18px rgba(36,51,55,.055);">
+          <summary style="cursor:pointer; list-style:none; display:flex; align-items:center; gap:10px;">
+            <span style="width:40px; height:40px; border-radius:14px; background:#F0D8C8; display:flex; align-items:center; justify-content:center; font-size:20px; flex:none;">{{ g.icon }}</span>
+            <span style="min-width:0;">
+              <span style="display:block; font-size:17px; font-weight:900; color:#315C63;">{{ g.label }}</span>
+              <span style="display:block; font-size:12px; font-weight:700; color:#839A8F;">{{ g.hint }}</span>
+            </span>
+          </summary>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; padding-top:14px; border-top:1px solid rgba(36,51,55,.09);">
+            <sc-for list="{{ g.tabs }}" as="tab" hint-placeholder-count="3">
+              <button onClick="{{ tab.onSelect }}" style="{{ tab.style }}">{{ tab.label }}</button>
+            </sc-for>
+          </div>
+        </details>
       </sc-for>
     </div>
 
     <sc-if value="{{ isRoster }}">
-      <div style="background:white; border-radius:var(--radius-lg); box-shadow:var(--shadow-md); padding:var(--space-6);">
+      <div style="background:#FFFEFA; border:1px solid rgba(36,51,55,.10); border-radius:22px; box-shadow:0 8px 18px rgba(36,51,55,.055); padding:var(--space-6); margin-bottom:18px;">
         <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-2); margin-bottom:var(--space-4);">
           <h2 style="margin:0;">📇 學生名單</h2>
           <div style="display:flex; gap:var(--space-2);">
@@ -189,6 +218,11 @@ Copyright © 張鈺聆. All rights reserved.
         <iframe src="賓果生成器.html" style="width:100%; height:1400px; border:none; border-radius:var(--radius-lg);"></iframe>
       </sc-if>
     </div>
+
+    <footer style="margin-top:21px; padding-top:14px; border-top:1px solid rgba(70,60,50,.15); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:11px; color:#243337; opacity:.62;">
+      <span><b>張鈺聆 製</b>｜鈺聆玩家政</span>
+      <span>LIFE · CHOICE · PLAY</span>
+    </footer>
   </div>
 </div>
 
@@ -382,25 +416,38 @@ class Component extends DCLogic {
     const store = this.state.store;
     const cd = store.classes[store.currentClassId];
     const raw = [
-      { id: 'roster', label: '📇 學生名單', enabled: true },
-      { id: 'lottery', label: '🎯 課堂抽選', dc: null, enabled: true },
-      { id: 'grouping', label: '🎲 隨機分組小幫手', dc: '隨機分組小幫手', enabled: true },
-      { id: 'scoreboard', label: '🏆 小組競賽計分板', dc: '小組競賽計分板', enabled: true },
-      { id: 'timer', label: '⏳ 自由設定倒數計時器', dc: '自由設定倒數計時器', enabled: true },
-      { id: 'wheel', label: '🎡 自由抽籤轉盤', dc: '自由抽籤轉盤', enabled: true },
-      { id: 'seating', label: '🪑 分組座位圖產生器', dc: '分組座位圖產生器', enabled: true },
-      { id: 'groupTask', label: '🧩 組內分工', dc: '組內分工', enabled: true },
-      { id: 'cardDraw', label: '♠ 翻卡抽籤', dc: '翻卡抽籤', enabled: true },
-      { id: 'bingo', label: '🎯 賓果生成器', dc: null, enabled: true }
+      { id: 'roster', label: '📇 學生名單', enabled: true, drawer: 'shared' },
+      { id: 'lottery', label: '🎯 課堂抽選', dc: null, enabled: true, drawer: 'pick' },
+      { id: 'grouping', label: '🎲 隨機分組小幫手', dc: '隨機分組小幫手', enabled: true, drawer: 'group' },
+      { id: 'scoreboard', label: '🏆 小組競賽計分板', dc: '小組競賽計分板', enabled: true, drawer: 'pace' },
+      { id: 'timer', label: '⏳ 自由設定倒數計時器', dc: '自由設定倒數計時器', enabled: true, drawer: 'pace' },
+      { id: 'wheel', label: '🎡 自由抽籤轉盤', dc: '自由抽籤轉盤', enabled: true, drawer: 'pick' },
+      { id: 'seating', label: '🪑 分組座位圖產生器', dc: '分組座位圖產生器', enabled: true, drawer: 'group' },
+      { id: 'groupTask', label: '🧩 組內分工', dc: '組內分工', enabled: true, drawer: 'group' },
+      { id: 'cardDraw', label: '♠ 翻卡抽籤', dc: '翻卡抽籤', enabled: true, drawer: 'pick' },
+      { id: 'bingo', label: '🎯 賓果生成器', dc: null, enabled: true, drawer: 'play' }
     ];
     const tabs = raw.map(t => {
       const isActive = t.id === active;
       return {
         ...t,
         onSelect: () => { if (t.enabled) this.setState({ active: t.id }); },
-        style: `padding:9px 18px; border-radius:999px; border:none; font-family:var(--font-heading); font-size:16px; font-weight:700; cursor:${t.enabled ? 'pointer' : 'not-allowed'}; white-space:nowrap; background:${isActive ? 'var(--color-accent-600)' : 'var(--color-accent-2-100)'}; color:${isActive ? 'var(--color-bg)' : 'var(--color-text)'}; opacity:${t.enabled ? 1 : 0.5};`
+        style: `padding:9px 18px; border-radius:999px; border:1px solid ${isActive ? '#315C63' : 'rgba(36,51,55,.12)'}; font-family:var(--font-heading); font-size:15px; font-weight:800; cursor:${t.enabled ? 'pointer' : 'not-allowed'}; white-space:nowrap; background:${isActive ? '#315C63' : '#FFFEFA'}; color:${isActive ? '#FFFEFA' : '#243337'}; opacity:${t.enabled ? 1 : 0.5}; transition:transform .18s ease, box-shadow .18s ease; box-shadow:${isActive ? '0 8px 18px rgba(36,51,55,.16)' : '0 2px 6px rgba(36,51,55,.04)'};`
       };
     });
+
+    const drawerMeta = [
+      { key: 'pick', label: '抽人・抽籤', hint: '隨機點名、轉盤與翻卡', icon: '🎯' },
+      { key: 'group', label: '分組・座位', hint: '分組、座位圖與組內分工', icon: '🪑' },
+      { key: 'pace', label: '節奏・計分', hint: '倒數計時與小組競賽', icon: '⏳' },
+      { key: 'play', label: '課堂遊戲', hint: '賓果與遊戲化活動', icon: '🎲' }
+    ];
+    const tabGroups = drawerMeta.map(d => ({
+      ...d,
+      open: tabs.some(t => t.drawer === d.key && t.id === active),
+      tabs: tabs.filter(t => t.drawer === d.key)
+    }));
+    const rosterTabs = tabs.filter(t => t.drawer === 'shared');
 
     const classSwitcher = store.classOrder.map(id => {
       const c = store.classes[id];
@@ -459,11 +506,13 @@ class Component extends DCLogic {
       cancelImport: () => this.setState({ preview: null }),
       clearAll: () => { if (confirm('確定要清空「' + (cd.className || '此班級') + '」的學生名單嗎？')) this.updateCurrentClass({ students: [] }); },
       saveNow: () => { this.persistStore(store); alert('資料已儲存'); },
-      toolWrapStyle: `border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-md); ${active === 'roster' ? 'display:none;' : ''}`
+      toolWrapStyle: `border-radius:22px; overflow:hidden; border:1px solid rgba(36,51,55,.10); box-shadow:0 8px 18px rgba(36,51,55,.055); background:#FFFEFA; ${active === 'roster' ? 'display:none;' : ''}`
     };
 
     return {
       tabs,
+      tabGroups,
+      rosterTabs,
       roster,
       classSwitcher,
       addClassClick: () => this.addClass(),
