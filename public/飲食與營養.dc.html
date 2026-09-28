@@ -25,20 +25,20 @@ Copyright © 張鈺聆. All rights reserved.
 
 <style>
 .food-learning-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.food-card{position:relative;display:flex;flex-direction:column;min-height:300px;padding:20px;border-radius:22px;text-decoration:none;color:#243337;background:#FFFEFA;border:1px solid rgba(36,51,55,.10);box-shadow:0 8px 18px rgba(36,51,55,.055);transition:transform .18s ease,box-shadow .18s ease}
-.food-card:before{content:"";position:absolute;left:0;right:0;top:0;height:5px;border-radius:22px 22px 0 0;background:#D7E2DD}
-.food-card:nth-child(2):before{background:#F0D8C8}
-.food-card:nth-child(3):before{background:#E18A6A}
-.food-card:nth-child(4):before{background:#839A8F}
-.food-card:nth-child(5):before{background:#F0D8C8}
-.food-card:nth-child(6):before{background:#315C63}
-.food-card:hover{transform:translateY(-4px);box-shadow:0 14px 26px rgba(36,51,55,.10)}
-.food-no{font:700 11px Georgia,serif;letter-spacing:.18em;color:#839A8F}.food-icon{font-size:38px;margin:12px 0 8px}
-.food-question{font-size:21px;font-weight:900;line-height:1.35;color:#315C63;letter-spacing:-.01em}.food-ability{font-size:14px;font-weight:900;margin-top:6px;color:#E18A6A}
-.food-card p{font-size:14px;line-height:1.75;color:#243337;opacity:.7;margin:12px 0 16px}.food-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
-.food-tags > span{display:inline-block;white-space:nowrap;flex:0 0 auto;font-size:12px;font-weight:700;padding:5px 9px;border-radius:999px;background:#F5F3EE;color:#243337;opacity:.72}
+.food-card{position:relative;display:flex;flex-direction:column;min-height:300px;padding:20px;border-radius:22px;text-decoration:none;color:#5B4636;background:#FFFEFA;border:1px solid rgba(91,70,54,.10);box-shadow:0 8px 18px rgba(91,70,54,.055);transition:transform .18s ease,box-shadow .18s ease}
+.food-card:before{content:"";position:absolute;left:0;right:0;top:0;height:5px;border-radius:22px 22px 0 0;background:#F6E7D8}
+.food-card:nth-child(2):before{background:#E9B7A1}
+.food-card:nth-child(3):before{background:#C96F4F}
+.food-card:nth-child(4):before{background:#7C9A6B}
+.food-card:nth-child(5):before{background:#E9B7A1}
+.food-card:nth-child(6):before{background:#C96F4F}
+.food-card:hover{transform:translateY(-4px);box-shadow:0 14px 26px rgba(91,70,54,.10)}
+.food-no{font:700 11px Georgia,serif;letter-spacing:.18em;color:#7C9A6B}.food-icon{font-size:38px;margin:12px 0 8px}
+.food-question{font-size:21px;font-weight:900;line-height:1.35;color:#5B4636;letter-spacing:-.01em}.food-ability{font-size:14px;font-weight:900;margin-top:6px;color:#C96F4F}
+.food-card p{font-size:14px;line-height:1.75;color:#5B4636;opacity:.7;margin:12px 0 16px}.food-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
+.food-tags > span{display:inline-block;white-space:nowrap;flex:0 0 auto;font-size:12px;font-weight:700;padding:5px 9px;border-radius:999px;background:#FAF7F2;color:#5B4636;opacity:.72}
 .food-tags > span > span{display:inline;padding:0;background:none;border-radius:0;white-space:nowrap}
-.food-go{font-size:14px;margin-top:16px;color:#315C63;font-weight:900}.food-done{display:none;position:absolute;right:14px;top:16px;font-size:11px;font-weight:900;background:#D7E2DD;color:#2F5148;padding:5px 10px;border-radius:999px}
+.food-go{font-size:14px;margin-top:16px;color:#5B4636;font-weight:900}.food-done{display:none;position:absolute;right:14px;top:16px;font-size:11px;font-weight:900;background:#F6E7D8;color:#5B4636;padding:5px 10px;border-radius:999px}
 .food-card.completed .food-done{display:block}
 .food-card.completed{border-color:rgba(131,154,143,.5)}
 @media(max-width:900px){.food-learning-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -46,38 +46,38 @@ Copyright © 張鈺聆. All rights reserved.
 </style>
 
 </helmet>
-<div style="background:#F5F3EE; color:#243337; font-family:var(--font-body); min-height:100vh;">
+<div style="background:#FAF7F2; color:#5B4636; font-family:var(--font-body); min-height:100vh;">
   <div style="max-width:1160px; margin:0 auto; padding:18px 20px 0;">
-    <div style="height:64px; display:flex; align-items:center; gap:12px; padding:0 15px; background:rgba(255,254,250,.86); border:1px solid rgba(36,51,55,.10); border-radius:18px; box-shadow:0 6px 18px rgba(36,51,55,.045);">
-      <a href="index.html" style="font-family:'Noto Sans TC','Microsoft JhengHei','PingFang TC',sans-serif; font-size:13px; font-weight:800; color:#315C63; text-decoration:none; padding:7px 12px; border-radius:999px; background:#FFFEFA; border:1px solid rgba(36,51,55,.08); white-space:nowrap;">← 回首頁</a>
-      <span style="opacity:.28; color:#243337;">｜</span>
-      <span style="font-family:'Noto Sans TC','Microsoft JhengHei','PingFang TC',sans-serif; font-size:18px; font-weight:950; color:#243337;">鈺聆玩家政</span>
+    <div style="height:64px; display:flex; align-items:center; gap:12px; padding:0 15px; background:rgba(255,254,250,.86); border:1px solid rgba(91,70,54,.10); border-radius:18px; box-shadow:0 6px 18px rgba(91,70,54,.045);">
+      <a href="index.html" style="font-family:'Noto Sans TC','Microsoft JhengHei','PingFang TC',sans-serif; font-size:13px; font-weight:800; color:#5B4636; text-decoration:none; padding:7px 12px; border-radius:999px; background:#FFFEFA; border:1px solid rgba(91,70,54,.08); white-space:nowrap;">← 回首頁</a>
+      <span style="opacity:.28; color:#5B4636;">｜</span>
+      <span style="font-family:'Noto Sans TC','Microsoft JhengHei','PingFang TC',sans-serif; font-size:18px; font-weight:950; color:#5B4636;">鈺聆玩家政</span>
     </div>
   </div>
 
   <header style="max-width:1160px; margin:0 auto; padding:34px 20px 24px;">
-    <div style="font:700 10px Georgia,serif; letter-spacing:.2em; color:#839A8F; margin-bottom:12px;">FOOD &amp; DAILY CHOICE · FEATURE 01</div>
+    <div style="font:700 10px Georgia,serif; letter-spacing:.2em; color:#7C9A6B; margin-bottom:12px;">FOOD &amp; DAILY CHOICE · FEATURE 01</div>
     <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:12px; flex-wrap:wrap;">
       <span style="font-size:36px; flex:none;">🍳</span>
-      <h1 style="margin:0; min-width:0; font-size:38px; font-weight:800; letter-spacing:-.02em; color:#315C63;">飲食與營養</h1>
+      <h1 style="margin:0; min-width:0; font-size:38px; font-weight:800; letter-spacing:-.02em; color:#5B4636;">飲食與營養</h1>
     </div>
-    <p style="max-width:560px; font-size:16px; font-weight:700; line-height:1.85; color:#243337; opacity:.78;">健康飲食、食品安全、烹飪實作</p>
-    <p style="max-width:680px; color:#243337; opacity:.6; font-size:14px; line-height:1.8; margin-top:10px;">從健康飲食、食品判讀、消費選擇、食品安全到料理實作，把「知道」變成生活中真正做得到的能力。</p>
+    <p style="max-width:560px; font-size:16px; font-weight:700; line-height:1.85; color:#5B4636; opacity:.78;">健康飲食、食品安全、烹飪實作</p>
+    <p style="max-width:680px; color:#5B4636; opacity:.6; font-size:14px; line-height:1.8; margin-top:10px;">從健康飲食、食品判讀、消費選擇、食品安全到料理實作，把「知道」變成生活中真正做得到的能力。</p>
   </header>
 
   <main style="max-width:1160px; margin:0 auto; padding:0 20px 42px;">
-    <section style="background:#FFFEFA; border:1px solid rgba(36,51,55,.10); border-radius:24px; padding:28px; box-shadow:0 8px 18px rgba(36,51,55,.055);">
+    <section style="background:#FFFEFA; border:1px solid rgba(91,70,54,.10); border-radius:24px; padding:28px; box-shadow:0 8px 18px rgba(91,70,54,.055);">
       <div style="display:flex; justify-content:space-between; gap:18px; align-items:flex-end; flex-wrap:wrap;">
         <div>
-          <div style="font:700 10px Georgia,serif; letter-spacing:.18em; color:#839A8F; margin-bottom:10px;">STUDENT LEARNING</div>
-          <h2 style="font-size:30px; margin:0 0 8px; font-weight:900; color:#315C63; letter-spacing:-.02em;">飲食與營養要學什麼？</h2>
-          <p style="margin:0; color:#243337; opacity:.72; font-size:15px; line-height:1.85;">從「今天吃什麼？」開始，練習六種真正帶得走的飲食生活能力。</p>
+          <div style="font:700 10px Georgia,serif; letter-spacing:.18em; color:#7C9A6B; margin-bottom:10px;">STUDENT LEARNING</div>
+          <h2 style="font-size:30px; margin:0 0 8px; font-weight:900; color:#5B4636; letter-spacing:-.02em;">飲食與營養要學什麼？</h2>
+          <p style="margin:0; color:#5B4636; opacity:.72; font-size:15px; line-height:1.85;">從「今天吃什麼？」開始，練習六種真正帶得走的飲食生活能力。</p>
         </div>
-        <div id="foodProgressText" style="font-size:13px; font-weight:900; color:#315C63; background:#F5F3EE; border:1px solid rgba(36,51,55,.09); padding:9px 14px; border-radius:999px; white-space:nowrap;">已探索 0 / 6</div>
+        <div id="foodProgressText" style="font-size:13px; font-weight:900; color:#5B4636; background:#FAF7F2; border:1px solid rgba(91,70,54,.09); padding:9px 14px; border-radius:999px; white-space:nowrap;">已探索 0 / 6</div>
       </div>
 
-      <div style="height:9px; background:#F5F3EE; border-radius:999px; overflow:hidden; margin:20px 0 24px;">
-        <div id="foodProgressBar" style="height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,#839A8F,#315C63); transition:.3s;"></div>
+      <div style="height:9px; background:#FAF7F2; border-radius:999px; overflow:hidden; margin:20px 0 24px;">
+        <div id="foodProgressBar" style="height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,#7C9A6B,#C96F4F); transition:.3s;"></div>
       </div>
 
       <div class="food-learning-grid">
@@ -120,7 +120,7 @@ Copyright © 張鈺聆. All rights reserved.
       </div>
     </section>
 
-    <footer style="margin-top:21px; padding-top:14px; border-top:1px solid rgba(70,60,50,.15); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:11px; color:#243337; opacity:.62;">
+    <footer style="margin-top:21px; padding-top:14px; border-top:1px solid rgba(70,60,50,.15); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:11px; color:#5B4636; opacity:.62;">
       <span><b>張鈺聆 製</b>｜鈺聆玩家政</span>
       <span>LIFE · CHOICE · PLAY</span>
     </footer>
