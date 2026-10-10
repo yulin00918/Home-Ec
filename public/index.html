@@ -130,15 +130,21 @@ nav .nav-corner-mark{width:54px!important;height:54px!important;border-radius:12
 .card.c1{background:#C97050;color:#fff;}
 /* 版面修正：導覽膠囊不換行；探索按鈕移出主視覺圖示列 */
 .navs span{white-space:nowrap}
+.navs a{display:flex}.navs a span{transition:background .18s ease,color .18s ease}.navs a:hover span{background:#F6E7D8;color:#C96F4F}
+.navs a:focus-visible{outline:2px solid #C96F4F;outline-offset:2px;border-radius:99px}
+html{scroll-behavior:smooth}
 @media(max-width:1000px){nav .brand-logo-link img{width:clamp(170px,20vw,230px)!important}}
 .hero-jump{bottom:auto;top:16px;left:auto;right:16px}
 @media(max-width:700px){.hero-jump{top:10px;right:10px;left:auto;bottom:auto}}
 /* 標語與學生入口按鈕改回陶土橘 */
+:root{--primary:#C96F4F;--main:#C96F4F;--accent:#C96F4F;--green:#7C9A6B}
+.navs span:first-child{color:#C96F4F;box-shadow:inset 0 -2px 0 #C96F4F}
+@media(max-width:800px){nav{height:auto!important;flex-wrap:wrap;row-gap:8px;padding:10px 12px!important}.navs{display:flex!important;order:3;width:100%;justify-content:center;gap:6px}.navs span{padding:7px 12px}}
 .quote b{color:#C96F4F}
 .student-entry .buttons a{background:#C96F4F;color:#fff}
 </style>
 </head><body><div class="wrap">
-<nav><a aria-label="生活聆距離，回首頁" class="brand brand-logo-link" href="index.html"><img src="assets/approved-nav-logo.png" alt="生活聆距離" width="235" height="62"/></a><div class="navs"><span>生活專題</span><span>直接玩</span><span>教師工具</span></div><img class="nav-corner-mark" src="assets/approved-corner-house.png" alt="生活聆距離小屋圖示" width="52" height="52"/></nav>
+<nav><a aria-label="生活聆距離，回首頁" class="brand brand-logo-link" href="index.html"><img src="assets/approved-nav-logo.png" alt="生活聆距離" width="235" height="62"/></a><div class="navs"><a href="#life-features"><span>生活專題</span></a><a href="主題互動學習.dc.html"><span>直接玩</span></a><a href="教學百寶箱.dc.html"><span>教師工具</span></a></div><img class="nav-corner-mark" src="assets/approved-corner-house.png" alt="生活聆距離小屋圖示" width="52" height="52"/></nav>
 <section class="hero hero-banner"><img alt="生活聆距離：讓生活零距離，讓學習有溫度。女孩與小狗一起探索飲食、衣著、家庭、消費理財及生活美學。" loading="eager" src="assets/approved-home-banner.jpg"/><a class="hero-jump" href="#life-features">開始探索生活 ↓</a></section>
 <section class="intro"><div class="quote"><b>「會生活，是慢慢練出自己的選擇。」</b><p>看懂需要、理解條件、動手試試，再替自己做一次決定。</p></div><div class="note"><b>✎ TODAY'S NOTE</b><p>今天最想處理哪一件生活小事？就從那裡開始。</p></div></section>
 <div class="title" id="life-features"><div><h2>生活專題｜FEATURES</h2><small>把家政放回每天真正會遇到的生活裡</small></div><small>01 — 04</small></div>
