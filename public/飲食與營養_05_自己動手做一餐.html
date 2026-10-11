@@ -96,16 +96,24 @@ h3{font-size:22px;margin:0 0 10px}
 .feedback{display:none;margin-top:16px;padding:16px;border-radius:15px;background:#f6eeee;line-height:1.8}
 .feedback.show{display:block}
 .safety-stage{
-  position:relative;min-height:430px;border-radius:24px;overflow:hidden;
-  background:linear-gradient(180deg,#f5f2ea 0 58%,#e4dbce 58% 100%);
-  border:1px solid #e0d7ca
+  position:relative;border-radius:24px;overflow:hidden;line-height:0;
+  background:#f5f2ea;border:1px solid #e0d7ca;cursor:crosshair;-webkit-tap-highlight-color:transparent
 }
+.safety-stage img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
 .obj{position:absolute;font-size:54px}
 .hotspot{
-  position:absolute;width:52px;height:52px;border-radius:50%;
-  border:3px solid #c76f70;background:rgba(255,255,255,.85);cursor:pointer;display:grid;place-items:center;font-weight:900
+  position:absolute;border:0;padding:0;margin:0;border-radius:18px;background:transparent;
+  cursor:pointer;color:transparent;font-size:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation
 }
-.hotspot.found{background:#e5f0e4;border-color:#7ea083}
+.hotspot:focus-visible{outline:2px dashed #C96F4F;outline-offset:2px}
+.hotspot.found{border:4px solid #7C9A6B;background:rgba(124,154,107,.16);box-shadow:0 0 0 3px rgba(255,255,255,.85)}
+.hotspot.found::after{
+  content:attr(data-n);position:absolute;left:-12px;top:-12px;width:30px;height:30px;border-radius:50%;
+  background:#7C9A6B;color:#fff;font-size:15px;font-weight:900;line-height:30px;text-align:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.2)
+}
+.stage-miss{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:3px solid #E9B7A1;pointer-events:none;animation:missfade .7s ease forwards}
+@keyframes missfade{from{opacity:1;transform:scale(.6)}to{opacity:0;transform:scale(1.4)}}
 .cook-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:18px}
 .method{
   border:1px solid #e3ddd4;background:#fff;border-radius:18px;padding:16px;text-align:center;cursor:pointer
@@ -218,18 +226,14 @@ body.teacher-mode .teacher-note{display:block}
   <div class="panel">
     <span class="kicker">STEP 3｜刀工安全挑戰</span>
     <h2 style="margin-top:14px">⚠️ 哪裡有危險？</h2>
-    <p class="lead" style="font-size:17px">點出畫面中的 5 個危險行為。</p>
-    <div class="safety-stage">
-      <div class="obj" style="left:9%;top:17%">🧑‍🍳</div>
-      <div class="obj" style="left:27%;top:62%">🔪</div>
-      <div class="obj" style="left:48%;top:58%">🥕</div>
-      <div class="obj" style="left:71%;top:18%">🧑‍🍳</div>
-      <div class="obj" style="left:81%;top:60%">🧽</div>
-      <button class="hotspot" style="left:16%;top:30%" onclick="findDanger(this,'拿著刀具嬉鬧或走動，容易造成割傷。')">1</button>
-      <button class="hotspot" style="left:35%;top:53%" onclick="findDanger(this,'刀具使用後不應隨意放在桌邊。')">2</button>
-      <button class="hotspot" style="left:53%;top:50%" onclick="findDanger(this,'切圓形食材時要先固定，手指內縮，減少滑動。')">3</button>
-      <button class="hotspot" style="left:73%;top:31%" onclick="findDanger(this,'傳遞刀具時應注意方向，不要直接把刀刃朝向別人。')">4</button>
-      <button class="hotspot" style="left:82%;top:70%" onclick="findDanger(this,'刀具清洗後應妥善放置，不要藏在水槽或抹布下。')">5</button>
+    <p class="lead" style="font-size:17px">直接點擊圖片，找出廚房裡的 5 個危險行為。</p>
+    <div class="safety-stage" id="safetyStage" onclick="stageMiss(event)">
+      <img src="assets/knife-safety-kitchen.png" alt="家政教室廚房，學生正在使用刀具的情境圖" width="1672" height="941" draggable="false">
+      <button class="hotspot" data-n="1" aria-label="危險位置" style="left:4%;top:5%;width:20%;height:40%" onclick="event.stopPropagation();findDanger(this,'拿著刀具嬉鬧或走動，容易造成割傷。')">1</button>
+      <button class="hotspot" data-n="2" aria-label="危險位置" style="left:12%;top:72%;width:22%;height:9%" onclick="event.stopPropagation();findDanger(this,'刀具使用後不應隨意放在桌邊。')">2</button>
+      <button class="hotspot" data-n="3" aria-label="危險位置" style="left:36%;top:57%;width:10%;height:14%" onclick="event.stopPropagation();findDanger(this,'切圓形食材時要先固定，手指內縮，減少滑動。')">3</button>
+      <button class="hotspot" data-n="4" aria-label="危險位置" style="left:69%;top:30%;width:17%;height:15%" onclick="event.stopPropagation();findDanger(this,'傳遞刀具時應注意方向，不要直接把刀刃朝向別人。')">4</button>
+      <button class="hotspot" data-n="5" aria-label="危險位置" style="left:79%;top:74%;width:17%;height:20%" onclick="event.stopPropagation();findDanger(this,'刀具清洗後應妥善放置，不要藏在水槽或抹布下。')">5</button>
     </div>
     <div class="info-box">已找到 <b><span id="dangerCount">0</span> / 5</b>｜<span id="dangerInfo">找到一個危險點後，這裡會顯示原因。</span></div>
     <div class="teacher-note"><b>教師提醒：</b>安全規則要配合實際操作示範，不建議只靠網頁完成。</div>
@@ -405,6 +409,13 @@ function pickTool(el,t){
   }
 }
 let danger=0;
+function stageMiss(e){
+  const st=document.getElementById('safetyStage'),r=st.getBoundingClientRect();
+  const m=document.createElement('span');m.className='stage-miss';
+  m.style.left=((e.clientX-r.left)/r.width*100)+'%';m.style.top=((e.clientY-r.top)/r.height*100)+'%';
+  st.appendChild(m);setTimeout(()=>m.remove(),750);
+  if(danger<5)showToast('再仔細觀察廚房裡的動作與物品');
+}
 function findDanger(el,msg){
   if(el.classList.contains('found')) return;
   el.classList.add('found');danger++;
@@ -497,7 +508,7 @@ function markComplete(num, ability, icon){
   showToast(icon+' '+ability+'：已探索！');
   setTimeout(()=>{
     if(confirm('這一關已完成！要回到「飲食與營養」主題首頁嗎？')) {
-      location.href='飲食與營養_主題首頁.html';
+      location.href='飲食與營養.dc.html';
     }
   },500);
 }
