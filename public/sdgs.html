@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="張鈺聆" name="author"/>
+<meta content="© 張鈺聆" name="copyright"/>
+<title>永續生活｜生活聆距離</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<meta content="#FAF6EF" name="theme-color"/>
+<!--
+==================================================
+教學網站設計／製作：張鈺聆
+Copyright © 張鈺聆. All rights reserved.
+本網站為教學用途所設計。
+未經作者同意，請勿移除作者標示後重新發布、
+重新包裝、冒名散布或作為他人原創作品。
+==================================================
+-->
+<style>
+:root{
+  --bg:#FAF6EF;--paper:#FFFDF9;--ink:#60483A;--ink-soft:#7A6253;
+  --terra:#C96F4F;--terra-dk:#A85A3C;--cream:#F1E3D3;--peach:#EBCFB7;
+  --green:#7C9A6B;--green-dk:#4E6B47;--green-lt:#E4EBDD;
+  --line:rgba(96,72,58,.13);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--terra);outline-offset:2px}
+.wrap{max-width:1040px;margin:auto;padding:18px 20px 42px}
+
+/* 頂部：Logo + 回首頁 */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:rgba(255,254,250,.9);border:1px solid var(--line);border-radius:18px;box-shadow:0 6px 18px rgba(91,70,54,.045)}
+.top img{display:block;width:clamp(160px,22vw,230px);height:auto;max-height:58px;object-fit:contain;object-position:left center}
+.back{font-size:13px;font-weight:900;padding:8px 14px;border-radius:99px;background:var(--paper);border:1px solid var(--line);white-space:nowrap}
+.back:hover{background:var(--cream)}
+
+/* 單元切換導覽（第 4 點範本） */
+.topics{display:flex;gap:6px;flex-wrap:wrap;margin:12px 2px 0}
+.topics a{font-size:13px;font-weight:900;padding:7px 13px;border-radius:99px;background:var(--paper);border:1px solid var(--line)}
+.topics a:hover{background:var(--cream)}
+.topics a[aria-current="page"]{background:var(--green-dk);border-color:var(--green-dk);color:#fff}
+
+/* 標題區 */
+.head{margin-top:16px;padding:30px 32px;border-radius:26px;background:var(--green-lt);position:relative;overflow:hidden}
+.head:after{content:"🌱";position:absolute;right:26px;bottom:6px;font-size:84px;opacity:.9;transform:rotate(-6deg)}
+.kicker{font:700 11px Georgia,serif;letter-spacing:.16em;color:var(--green-dk)}
+.head h1{margin:8px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.2;letter-spacing:.02em}
+.head p{margin:0;max-width:600px;font-size:15px;font-weight:700;color:var(--ink-soft)}
+
+/* 步驟條 */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 4px;padding:0;list-style:none}
+.steps button{width:100%;text-align:left;padding:13px 15px;border-radius:18px;background:var(--paper);border:2px solid var(--line);display:flex;gap:11px;align-items:center}
+.steps .n{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font:700 14px Georgia,serif;background:var(--cream)}
+.steps b{display:block;font-size:16px}
+.steps small{display:block;font-size:12px;font-weight:700;color:var(--ink-soft)}
+.steps button[aria-current="step"]{border-color:var(--terra-dk);background:#FFF8F1}
+.steps button[aria-current="step"] .n{background:var(--terra-dk);color:#fff}
+.steps button.done .n{background:var(--green-dk);color:#fff}
+
+/* 面板 */
+.panel{margin-top:14px;padding:26px;border-radius:24px;background:var(--paper);border:1px solid var(--line);box-shadow:0 8px 18px rgba(91,70,54,.05)}
+.panel[hidden]{display:none}
+.panel h2{margin:0 0 4px;font-size:24px}
+.lead{margin:0 0 18px;font-size:14px;font-weight:700;color:var(--ink-soft)}
+.sub{margin:22px 0 10px;font-size:17px}
+
+/* SDGs 17 項地圖 */
+.goals{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.goal{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;border:2px solid transparent;background:#fff;text-align:left;font-size:13px;font-weight:800;line-height:1.3;box-shadow:0 1px 0 var(--line)}
+.goal .num{flex:none;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:#fff;font:700 14px Georgia,serif}
+.goal.focus{background:#FFF8F1}
+.goal[aria-pressed="true"]{border-color:var(--ink)}
+.goal-info{margin-top:10px;padding:13px 16px;border-radius:14px;background:var(--cream);font-size:14px;font-weight:700;min-height:48px}
+.legend{font-size:12px;font-weight:700;color:var(--ink-soft);margin:6px 0 0}
+.legend span{display:inline-block;width:12px;height:12px;border-radius:3px;background:#FFF8F1;border:1px solid var(--peach);vertical-align:-1px;margin-right:4px}
+
+/* 情境題 */
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.pill{font-size:12px;font-weight:900;padding:5px 11px;border-radius:99px;background:var(--cream)}
+.scene{margin:12px 0 4px;padding:18px 20px;border-radius:18px;background:#FFF8F1;border:1px dashed var(--peach);font-size:18px;font-weight:800;line-height:1.6}
+.scene .emo{font-size:28px;margin-right:6px}
+.hint{font-size:13px;font-weight:700;color:var(--ink-soft);margin:8px 0}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:9px}
+.chip{display:flex;align-items:center;gap:9px;padding:11px 12px;border-radius:14px;background:#fff;border:2px solid var(--line);text-align:left;font-size:14px;font-weight:800;line-height:1.35}
+.chip .num{flex:none;width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:#fff;font:700 14px Georgia,serif}
+.chip[aria-pressed="true"]{border-color:var(--terra-dk);background:#FFF3EA}
+.chip[disabled]{cursor:default}
+.chip .tag{margin-left:auto;font-size:11px;font-weight:900;padding:3px 8px;border-radius:99px;white-space:nowrap}
+.tag.main{background:var(--green-dk);color:#fff}
+.tag.also{background:var(--green-lt);color:var(--green-dk)}
+.tag.weak{background:#EFE9E3;color:var(--ink-soft)}
+.feedback{margin-top:12px;padding:14px 16px;border-radius:14px;background:var(--green-lt);font-size:14px;font-weight:700}
+.feedback ul{margin:6px 0 0;padding-left:20px}
+.feedback li{margin:3px 0}
+
+/* 按鈕 */
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{padding:11px 20px;border-radius:99px;border:0;background:var(--terra-dk);color:#fff;font-size:14px;font-weight:900;box-shadow:0 4px 10px rgba(168,90,60,.2)}
+.btn:hover{background:#934D33}
+.btn.ghost{background:var(--paper);color:var(--ink);border:2px solid var(--line);box-shadow:none}
+.btn.ghost:hover{background:var(--cream)}
+.btn.green{background:var(--green-dk);box-shadow:0 4px 10px rgba(78,107,71,.2)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+/* 兩難選項 */
+.opts{display:grid;gap:10px}
+.opt{padding:14px 16px;border-radius:16px;background:#fff;border:2px solid var(--line);text-align:left;font-size:15px;font-weight:800}
+.opt[aria-pressed="true"]{border-color:var(--terra-dk);background:#FFF3EA}
+.opt[disabled]{cursor:default}
+.opt .detail{display:none;margin-top:10px;font-size:13.5px;font-weight:700;line-height:1.7}
+.opts.revealed .opt .detail{display:block}
+.opts.revealed .opt:not([aria-pressed="true"]){opacity:.82}
+.pro{color:var(--green-dk)}.con{color:var(--terra-dk)}
+.mini-sdg{display:inline-flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.mini-sdg span{font:700 11px Georgia,serif;color:#fff;padding:2px 7px;border-radius:6px}
+.think{margin-top:12px;padding:14px 16px;border-radius:14px;background:var(--cream);font-size:14px;font-weight:700}
+
+/* 表單 */
+.form{display:grid;gap:14px}
+.row3{display:grid;grid-template-columns:1fr 1fr 2fr;gap:10px}
+label{display:block;font-size:14px;font-weight:900;margin-bottom:5px}
+label small{font-weight:700;color:var(--ink-soft)}
+input,textarea,select{width:100%;padding:10px 12px;border-radius:12px;border:2px solid var(--line);background:#fff;font:inherit;font-size:15px;color:var(--ink)}
+textarea{min-height:76px;resize:vertical}
+.actlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.act{padding:11px 13px;border-radius:14px;background:#fff;border:2px solid var(--line);text-align:left;font-size:14px;font-weight:800;line-height:1.4}
+.act[aria-pressed="true"]{border-color:var(--terra-dk);background:#FFF3EA}
+.act small{display:block;font-size:11.5px;font-weight:700;color:var(--ink-soft);margin-top:3px}
+.pick-sdg{display:flex;flex-wrap:wrap;gap:6px}
+.pick-sdg button{display:flex;align-items:center;gap:6px;padding:6px 10px 6px 6px;border-radius:99px;background:#fff;border:2px solid var(--line);font-size:13px;font-weight:800}
+.pick-sdg .num{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:#fff;font:700 12px Georgia,serif}
+.pick-sdg button[aria-pressed="true"]{border-color:var(--terra-dk);background:#FFF3EA}
+.err{color:var(--terra-dk);font-size:13px;font-weight:900;min-height:20px;margin:6px 0 0}
+
+/* 行動卡 */
+.card-out{margin-top:20px;display:grid;justify-items:center;gap:12px}
+.card-out canvas{width:min(100%,420px);height:auto;border-radius:18px;box-shadow:0 10px 26px rgba(91,70,54,.15);background:#fff}
+.card-out[hidden]{display:none}
+.note-sm{font-size:13px;font-weight:700;color:var(--ink-soft);text-align:center;margin:0}
+
+footer{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:11px;opacity:.7}
+
+@media(max-width:760px){
+  .steps{gap:6px}
+  .steps button{flex-direction:column;align-items:center;text-align:center;gap:4px;padding:10px 6px}
+  .steps small{display:none}
+  .steps .n{width:30px;height:30px;font-size:12px}
+  .topics{flex-wrap:nowrap;overflow-x:auto;gap:5px;padding-bottom:2px}
+  .topics a{flex:none;font-size:12.5px;padding:6px 11px}
+  .row3{grid-template-columns:1fr 1fr}.row3 > :last-child{grid-column:span 2}
+  .panel{padding:20px 16px}
+  .head{padding:24px 20px 64px}
+  .head:after{font-size:60px;right:16px;bottom:4px}
+}
+@media(max-width:520px){
+  .wrap{padding:12px}
+  .top img{width:170px}
+  .scene{font-size:16px;padding:15px}
+  .goals{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{
+  body{background:#fff}
+  .wrap > *:not(.print-area){display:none!important}
+  .print-area{display:block!important}
+  .print-area canvas{width:100%;max-width:520px;box-shadow:none}
+}
+.print-area{display:none}
+</style>
+</head>
+<body><div class="wrap">
+
+<header class="top">
+  <a href="index.html" aria-label="生活聆距離，回首頁"><img src="assets/approved-nav-logo.png" alt="生活聆距離" width="235" height="62"/></a>
+  <a class="back" href="index.html">← 回首頁</a>
+</header>
+
+<nav class="topics" aria-label="生活專題">
+  <a href="飲食與營養.dc.html">🍳 飲食</a>
+  <a href="服裝與織品.dc.html">👕 服裝</a>
+  <a href="家庭與生活.dc.html">💬 家庭</a>
+  <a href="消費與管理.dc.html">💰 消費</a>
+  <a href="sdgs.html" aria-current="page">🌱 永續</a>
+</nav>
+
+<section class="head">
+  <div class="kicker">SUSTAINABLE LIVING × SDGs</div>
+  <h1>從日常生活認識 SDGs</h1>
+  <p>不用背 17 個目標。看看身邊的小事跟哪些目標有關，想想自己會怎麼選，再挑一件做得到的事開始。</p>
+</section>
+
+<ol class="steps" id="steps">
+  <li><button type="button" data-step="1" aria-current="step"><span class="n">01</span><span><b>認識</b><small>這和哪個 SDG 有關？</small></span></button></li>
+  <li><button type="button" data-step="2"><span class="n">02</span><span><b>判斷</b><small>如果是我，會怎麼選？</small></span></button></li>
+  <li><button type="button" data-step="3"><span class="n">03</span><span><b>行動</b><small>我能做出什麼改變？</small></span></button></li>
+</ol>
+
+<!-- ========== 01 認識 ========== -->
+<section class="panel" id="p1" aria-labelledby="h1">
+  <h2 id="h1">01｜SDGs 生活探索</h2>
+  <p class="lead">先看看 17 個目標在說什麼，再判斷生活情境跟哪些目標有關。答案不只一個，選出你覺得有關的就好。</p>
+
+  <h3 class="sub">17 項永續發展目標</h3>
+  <div class="goals" id="goals"></div>
+  <p class="legend"><span></span>米色底：和家政課最相關的 6 項，這堂課會常常遇到</p>
+  <div class="goal-info" id="goalInfo" aria-live="polite">點一個目標，看看它跟生活有什麼關係。</div>
+
+  <div id="quiz">
+    <div class="qhead" style="margin-top:26px">
+      <h3 class="sub" style="margin:0">生活情境判斷</h3>
+      <span class="pill" id="qCount"></span>
+    </div>
+    <div class="scene" id="qScene"></div>
+    <p class="hint">這件事和哪些 SDG 有關？可以複選，選好按「看看說明」。</p>
+    <div class="chips" id="qChips"></div>
+    <div class="feedback" id="qFeedback" hidden aria-live="polite"></div>
+    <div class="actions">
+      <button class="btn" type="button" id="qCheck">看看說明</button>
+      <button class="btn green" type="button" id="qNext" hidden>下一題 →</button>
+    </div>
+  </div>
+  <div id="quizDone" hidden>
+    <div class="feedback" id="quizSummary"></div>
+    <div class="actions"><button class="btn" type="button" data-go="2">前往 02 判斷 →</button></div>
+  </div>
+</section>
+
+<!-- ========== 02 判斷 ========== -->
+<section class="panel" id="p2" aria-labelledby="h2" hidden>
+  <h2 id="h2">02｜永續選擇挑戰</h2>
+  <p class="lead">每個選擇都有好處，也有限制。選一個你真的會做的，再看看每個選項背後的代價。</p>
+  <div id="dil">
+    <div class="qhead">
+      <h3 class="sub" style="margin:0" id="dTitle"></h3>
+      <span class="pill" id="dCount"></span>
+    </div>
+    <div class="scene" id="dScene"></div>
+    <div class="opts" id="dOpts"></div>
+    <div class="think" id="dThink" hidden></div>
+    <div class="actions">
+      <button class="btn" type="button" id="dReveal" disabled>選好了，看看結果</button>
+      <button class="btn green" type="button" id="dNext" hidden>下一題 →</button>
+    </div>
+  </div>
+  <div id="dilDone" hidden>
+    <div class="feedback" id="dilSummary"></div>
+    <div class="actions"><button class="btn" type="button" data-go="3">前往 03 行動 →</button></div>
+  </div>
+</section>
+
+<!-- ========== 03 行動 ========== -->
+<section class="panel" id="p3" aria-labelledby="h3" hidden>
+  <h2 id="h3">03｜我的永續行動</h2>
+  <p class="lead">挑一件這星期做得到的小事，寫下計畫，產生你的「永續行動卡」，截圖或列印交給老師。</p>
+  <div class="form">
+    <div class="row3">
+      <div><label for="fClass">班級</label><input id="fClass" inputmode="numeric" maxlength="6" placeholder="例：801"/></div>
+      <div><label for="fSeat">座號</label><input id="fSeat" inputmode="numeric" maxlength="3" placeholder="例：12"/></div>
+      <div><label for="fName">姓名</label><input id="fName" maxlength="12"/></div>
+    </div>
+    <div>
+      <label>我的行動 <small>（選一個，或在下面自己寫）</small></label>
+      <div class="actlist" id="actList"></div>
+      <input id="fAction" maxlength="40" placeholder="也可以自己寫：例如 每天自己洗便當盒" style="margin-top:8px" aria-label="自訂行動"/>
+    </div>
+    <div>
+      <label>相關的 SDGs <small>（會依行動自動帶入，可再調整，最多 3 項）</small></label>
+      <div class="pick-sdg" id="pickSdg"></div>
+    </div>
+    <div><label for="fWhen">什麼時候、在哪裡做？</label><input id="fWhen" maxlength="40" placeholder="例：這週每天午餐時間，在教室"/></div>
+    <div><label for="fHard">可能遇到的困難，我打算怎麼解決？</label><textarea id="fHard" maxlength="80" placeholder="例：會忘記帶餐具 → 前一晚先放進書包"></textarea></div>
+    <div><label for="fWhy">我為什麼想做這件事？</label><textarea id="fWhy" maxlength="80" placeholder="例：午餐時看到垃圾桶裡很多免洗筷"></textarea></div>
+  </div>
+  <p class="err" id="fErr" role="alert"></p>
+  <div class="actions">
+    <button class="btn" type="button" id="makeCard">產生我的永續行動卡</button>
+  </div>
+  <div class="card-out" id="cardOut" hidden>
+    <canvas id="cardCanvas" width="1080" height="1500" aria-label="我的永續行動卡"></canvas>
+    <div class="actions" style="justify-content:center;margin-top:0">
+      <button class="btn green" type="button" id="dlCard">下載圖片</button>
+      <button class="btn ghost" type="button" id="printCard">列印</button>
+    </div>
+    <p class="note-sm">行動卡下方有 7 天打勾格和心得欄，做完一週再補上。</p>
+  </div>
+  <div class="actions" style="justify-content:flex-end;margin-top:24px;border-top:1px dashed var(--line);padding-top:16px">
+    <button class="btn ghost" type="button" id="resetAll">清除資料，換下一位同學</button>
+  </div>
+</section>
+
+<div class="print-area" id="printArea"></div>
+
+<footer><span><b>張鈺聆 製</b>｜生活聆距離</span><span>LIFE · CHOICE · PLAY</span></footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- 資料：17 項 SDGs ---------- */
+var SDG = {
+  1:{n:"消除貧窮",c:"#E5243B",life:"每個人都有基本的生活保障，不會因為沒錢而吃不飽、沒地方住。"},
+  2:{n:"消除飢餓",c:"#DDA63A",life:"人人有足夠又營養的食物，也包括不浪費食物、支持永續農業。"},
+  3:{n:"健康與福祉",c:"#4C9F38",life:"身體和心理都健康：均衡飲食、睡眠、運動、安全的環境。"},
+  4:{n:"優質教育",c:"#C5192D",life:"每個人都能公平地學習，不因家庭或身分被排除在外。"},
+  5:{n:"性別平等",c:"#FF3A21",life:"不因性別限制選擇：家事分工、運動、職業都一樣。"},
+  6:{n:"淨水及衛生",c:"#26BDE2",life:"有乾淨的水可以喝、可以用，也懂得珍惜和保護水資源。"},
+  7:{n:"可負擔的潔淨能源",c:"#FCC30B",life:"用電要可靠又乾淨，也要學會不浪費能源。"},
+  8:{n:"合適的工作及經濟成長",c:"#A21942",life:"工作的人有合理的薪水和安全的環境，包括做衣服、種食物的人。"},
+  9:{n:"工業化、創新及基礎建設",c:"#FD6925",life:"道路、網路、交通這些設施，讓生活更方便也更安全。"},
+  10:{n:"減少不平等",c:"#DD1367",life:"不讓任何人因為經濟、身體狀況、年齡或背景被落下。"},
+  11:{n:"永續城鄉",c:"#FD9D24",life:"讓社區和城市安全、方便、對每個人都友善。"},
+  12:{n:"責任消費及生產",c:"#BF8B2E",life:"買得剛好、用得久、少浪費、做好回收，是家政課最常遇到的目標。"},
+  13:{n:"氣候行動",c:"#3F7E44",life:"減少溫室氣體，面對極端天氣也要有準備。"},
+  14:{n:"保育海洋生態",c:"#0A97D9",life:"減少塑膠垃圾流到海裡，保護海洋生物。"},
+  15:{n:"保育陸域生態",c:"#56C02B",life:"保護森林、土地和陸地上的動植物。"},
+  16:{n:"和平、正義及健全制度",c:"#00689D",life:"社會公平、有制度保護每個人，例如防止詐騙、霸凌。"},
+  17:{n:"夥伴關係",c:"#19486A",life:"大家一起合作：家庭、學校、社區、國家都是夥伴。"}
+};
+var FOCUS = [3,5,6,10,12,13];
+
+/* ---------- 題庫：01 情境（每次隨機抽 6 題） ---------- */
+/* m=主要相關 a=也有關聯 w=關聯較弱 */
+var SCENES = [
+  {e:"🚰",t:"學校飲水機故障一個星期，很多同學改買瓶裝水。",o:[[6,"m","有沒有乾淨、方便的飲水，正是目標 6 關心的事。"],[12,"a","瓶裝水多了，塑膠瓶垃圾也跟著變多。"],[3,"a","喝水不方便，有人就改喝含糖飲料。"],[7,"w","和能源的關係比較遠。"]]},
+  {e:"🍱",t:"營養午餐每天都剩下一大桶，最後直接倒掉。",o:[[12,"m","生產了卻沒吃完，是最典型的資源浪費。"],[2,"a","世界上還有人吃不飽，惜食也是在回應飢餓問題。"],[13,"a","廚餘處理和食物生產都會排放溫室氣體。"],[5,"w","和性別的關係比較遠。"]]},
+  {e:"🧹",t:"家裡的家事幾乎都是媽媽一個人在做。",o:[[5,"m","家事被認為是「女生的事」，是性別分工的問題。"],[10,"a","家人之間的負擔不平均，也是一種不平等。"],[3,"a","一個人做太多，會影響身心健康。"],[13,"w","和氣候的關係比較遠。"]]},
+  {e:"❄️",t:"夏天教室冷氣開到 20 度，門窗卻常常開著。",o:[[13,"m","浪費的電大多來自火力發電，會增加碳排放。"],[7,"a","有效率地使用能源是目標 7 的一部分。"],[12,"a","浪費能源也是一種不負責任的消費。"],[6,"w","和水資源的關係比較遠。"]]},
+  {e:"👚",t:"網路上的衣服很便宜，同學買了一堆，穿兩三次就丟。",o:[[12,"m","快時尚讓衣服變成用完即丟的東西。"],[6,"a","染布和製程會大量用水，也可能汙染河川。"],[8,"a","衣服很便宜，可能代表做衣服的人工資很低。"],[3,"w","關係比較間接。"]]},
+  {e:"🧳",t:"有同學因為家裡經濟狀況，沒辦法參加畢業旅行。",o:[[10,"m","因為家庭經濟而少了參與機會，是不平等的問題。"],[1,"a","和家庭經濟困難直接相關。"],[4,"a","畢業旅行也是學習經驗的一部分。"],[13,"w","和氣候的關係比較遠。"]]},
+  {e:"📱",t:"常常熬夜滑手機，早餐只喝一杯含糖飲料。",o:[[3,"m","睡眠和飲食都會影響身心健康。"],[12,"a","手搖杯的杯子和吸管也是一次性垃圾。"],[10,"w","關係比較遠。"],[13,"w","關係比較遠。"]]},
+  {e:"♿",t:"班上有同學坐輪椅，但專科教室在三樓，學校沒有電梯。",o:[[10,"m","身體狀況不同，就不能用同樣的方式上課，是不平等。"],[4,"a","每個人都應該能公平地學習。"],[11,"a","友善、無障礙的空間是永續城鄉的一部分。"],[12,"w","關係比較遠。"]]},
+  {e:"🚿",t:"洗手、刷牙時，水龍頭一直開著沒關。",o:[[6,"m","珍惜水資源是目標 6 的重點。"],[12,"a","水也是需要負責任使用的資源。"],[7,"w","如果用的是熱水，才會跟能源有關。"],[5,"w","和性別的關係比較遠。"]]},
+  {e:"🥡",t:"點外送時，店家附了一大包免洗餐具和塑膠袋。",o:[[12,"m","用一次就丟的東西，就是不永續的消費。"],[14,"a","很多塑膠垃圾最後會流進海洋。"],[13,"a","製造和焚化塑膠都會排放溫室氣體。"],[5,"w","和性別的關係比較遠。"]]},
+  {e:"⚽",t:"體育課分組時，有男生說「女生不要來踢足球」。",o:[[5,"m","因為性別限制別人的選擇，正是目標 5 要改變的。"],[10,"a","排除某些人參與，也是不平等。"],[3,"a","每個人都該有運動、保持健康的機會。"],[12,"w","和消費的關係比較遠。"]]},
+  {e:"🌀",t:"颱風前家裡買了很多泡麵和罐頭，結果放到過期丟掉。",o:[[12,"m","買太多用不完，是常見的消費浪費。"],[13,"a","極端天氣變多，需要有準備，但要準備得剛好。"],[2,"a","被丟掉的也是食物。"],[6,"w","關係比較遠。"]]},
+  {e:"👵",t:"社區的阿公阿嬤看不懂手機上的訊息，差點被詐騙。",o:[[10,"m","數位能力的落差，讓長輩更容易受到傷害。"],[16,"a","防止詐騙，保護每個人的財產和安全。"],[4,"a","終身學習，任何年齡都需要學新東西。"],[13,"w","和氣候的關係比較遠。"]]},
+  {e:"🚌",t:"上學可以搭公車，但很多人還是習慣讓家人開車接送。",o:[[13,"m","大眾運輸的人均碳排放比較低。"],[11,"a","交通方式會影響城市的空氣和塞車狀況。"],[3,"a","空氣品質會影響健康，走路到公車站也能多動一點。"],[5,"w","和性別的關係比較遠。"]]},
+  {e:"👕",t:"學校辦二手制服交換，學長姐把穿不下的制服捐出來。",o:[[12,"m","讓物品用更久，減少製造新的。"],[10,"a","幫有需要的家庭減輕購買制服的負擔。"],[17,"a","學生、家長、學校一起合作。"],[3,"w","關係比較遠。"]]}
+];
+
+/* ---------- 題庫：02 兩難（每次隨機抽 3 題） ---------- */
+var DILEMMAS = [
+  {title:"一次性餐具",e:"🥢",t:"學校想減少午餐的一次性餐具，但有同學覺得自己帶餐具還要洗，很麻煩。如果你是班代，會提什麼方案？",
+   o:[
+    {t:"全班改成自備餐具，沒帶的人就借公用的",p:"垃圾減少最多，習慣也養得最快。",c:"有人會忘記帶，公用餐具要有人負責清洗。",s:[12,14]},
+    {t:"請學校設洗碗區，提供可重複使用的餐具",p:"大家不用自己帶，方便很多人參與。",c:"需要經費、空間，還有人管理和清潔。",s:[12,6]},
+    {t:"先從每週一天「無免洗日」開始",p:"門檻低，比較容易成功，大家慢慢習慣。",c:"效果比較慢，其他天的垃圾還是很多。",s:[12,17]},
+    {t:"維持現狀，但把免洗餐具確實分類回收",p:"不用改變習慣，大家最容易接受。",c:"沒有減少使用量，回收也要耗費資源。",s:[12]}
+   ],q:"你選的方案，限制要怎麼補足？誰可以幫忙？"},
+  {title:"教室冷氣",e:"❄️",t:"班上有人很怕熱，有人很怕冷，每天都在爭冷氣要開幾度。你會怎麼做？",
+   o:[
+    {t:"固定 26～28 度，再開電風扇幫忙",p:"省電，溫度也不會太冷。",c:"怕熱的同學可能還是覺得不夠涼。",s:[7,13]},
+    {t:"每天依氣溫，由全班投票決定",p:"大家都有參與，比較公平。",c:"多數決可能一直忽略少數人的需要。",s:[10,13]},
+    {t:"座位輪換，怕冷的人坐離出風口遠一點",p:"照顧到每個人的不同感受。",c:"要花時間協調，有些座位大家都不想坐。",s:[3,10]},
+    {t:"盡量不開冷氣，改開窗和電風扇",p:"最省電，碳排放最低。",c:"很熱的日子會影響專心和健康。",s:[13,3]}
+   ],q:"省電和舒服，你怎麼在兩者之間找平衡？"},
+  {title:"段考週家事",e:"🧺",t:"段考前一週，家人希望你照常負責倒垃圾和洗碗，你覺得讀書時間不夠。你會怎麼做？",
+   o:[
+    {t:"照常做，自己調整讀書時間",p:"負起自己的責任，家人的負擔不會增加。",c:"可能睡眠不足，壓力變大。",s:[5,3]},
+    {t:"跟家人討論，段考週換成比較輕的家事",p:"有溝通、有彈性，大家都能接受。",c:"需要好好說明，家人不一定會同意。",s:[5,17]},
+    {t:"請家人先代做，考完再補回來",p:"讀書時間最多。",c:"家人負擔變重，要記得真的補回來。",s:[5,10]},
+    {t:"提議全家一起重新排一張家事表",p:"長期來看分工最公平，每個人都清楚自己的事。",c:"要花時間討論，也要大家願意配合。",s:[5,10]}
+   ],q:"這個選擇，對你和家人分別有什麼影響？"},
+  {title:"破洞的衣服",e:"👕",t:"你有一件很喜歡的衣服，袖口破了一個小洞。下星期要和朋友出門，你會怎麼做？",
+   o:[
+    {t:"買一件新衣服",p:"最快，出門穿得安心。",c:"多花錢，也多製造一件衣服的資源消耗。",s:[12]},
+    {t:"自己動手修補，繼續穿",p:"省錢，衣服用得久，還能練手作。",c:"需要時間和技巧，補得不好可能會在意。",s:[12,13]},
+    {t:"改當居家服，出門穿別件",p:"衣服沒有浪費，還是繼續用。",c:"出門的衣服選擇變少了。",s:[12]},
+    {t:"問朋友或家人能不能借衣服",p:"不用花錢，也不用多買。",c:"尺寸和風格不一定合適，要歸還照顧好。",s:[12,17]}
+   ],q:"如果這件衣服你只穿過三次，你的選擇會不一樣嗎？"},
+  {title:"園遊會飲料杯",e:"🥤",t:"校慶園遊會，你們班要賣飲料。用塑膠杯最方便，但會產生很多垃圾。你會怎麼做？",
+   o:[
+    {t:"照樣用塑膠杯，設回收桶",p:"方便、衛生，客人最容易買。",c:"垃圾量還是很大，回收也不一定做得好。",s:[12,14]},
+    {t:"自備杯折價 5 元，沒帶的才用塑膠杯",p:"鼓勵減塑，客人也能自己選。",c:"收入可能變少，要有人說明活動。",s:[12,8]},
+    {t:"只接受自備杯",p:"幾乎沒有垃圾，最環保。",c:"沒帶杯子的客人買不到，生意可能變差。",s:[12,14]},
+    {t:"改用可重複清洗的杯子，收押金",p:"垃圾少，客人也不用自己帶。",c:"要準備杯子、清洗和管理押金，很花人力。",s:[12,17]}
+   ],q:"環保和賺錢，你們班怎麼取捨？"}
+];
+
+/* ---------- 03 行動選項 ---------- */
+var ACTIONS = [
+  {t:"自備餐具和水壺，一週不用免洗",s:[12,14]},
+  {t:"午餐吃完、不剩飯菜",s:[12,2]},
+  {t:"主動負責一項固定的家事",s:[5,10]},
+  {t:"離開教室或房間時隨手關燈、關冷氣",s:[13,7]},
+  {t:"洗手、刷牙時關水龍頭",s:[6]},
+  {t:"修補或改造一件舊衣物",s:[12,13]},
+  {t:"買東西前先想「我需要嗎？」並記錄",s:[12]},
+  {t:"教家裡長輩一個防詐騙小技巧",s:[10,16]},
+  {t:"早睡、早餐不喝含糖飲料",s:[3]}
+];
+
+/* ---------- 狀態 ---------- */
+var state;
+function fresh(){
+  return {step:1,done:{},q:{list:pick(SCENES,6),i:0,found:0,total:0},
+          d:{list:pick(DILEMMAS,3),i:0,choices:[]},
+          a:{act:null,sdgs:[]}};
+}
+function pick(arr,n){var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a.slice(0,n);}
+function shuffle(a){return pick(a,a.length);}
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function numBox(n,cls){return '<span class="'+(cls||"num")+'" style="background:'+SDG[n].c+'">'+n+'</span>';}
+
+/* ---------- 步驟切換 ---------- */
+function go(step){
+  state.step=step;
+  [1,2,3].forEach(function(s){$("p"+s).hidden=(s!==step);});
+  document.querySelectorAll("#steps button").forEach(function(b){
+    var s=+b.dataset.step;
+    if(s===step)b.setAttribute("aria-current","step");else b.removeAttribute("aria-current");
+    b.classList.toggle("done",!!state.done[s]&&s!==step);
+  });
+  var top=$("steps").getBoundingClientRect().top+window.scrollY-10;
+  if(window.scrollY>top)window.scrollTo(0,top);
+}
+document.querySelectorAll("#steps button").forEach(function(b){b.addEventListener("click",function(){go(+b.dataset.step);});});
+document.querySelectorAll("[data-go]").forEach(function(b){b.addEventListener("click",function(){go(+b.dataset.go);});});
+
+/* ---------- 17 項地圖 ---------- */
+function renderGoals(){
+  var h="";
+  for(var n=1;n<=17;n++){
+    h+='<button type="button" class="goal'+(FOCUS.indexOf(n)>-1?" focus":"")+'" data-n="'+n+'" aria-pressed="false">'+numBox(n)+'<span>'+SDG[n].n+'</span></button>';
+  }
+  $("goals").innerHTML=h;
+  $("goals").addEventListener("click",function(e){
+    var b=e.target.closest(".goal");if(!b)return;
+    var n=+b.dataset.n;
+    document.querySelectorAll(".goal").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false");});
+    $("goalInfo").innerHTML='<b>SDG '+n+'｜'+SDG[n].n+'</b><br>'+SDG[n].life;
+  });
+}
+
+/* ---------- 01 情境題 ---------- */
+function renderQ(){
+  var q=state.q, s=q.list[q.i];
+  $("qCount").textContent="第 "+(q.i+1)+" / "+q.list.length+" 題";
+  $("qScene").innerHTML='<span class="emo" aria-hidden="true">'+s.e+'</span>'+esc(s.t);
+  $("qChips").innerHTML=shuffle(s.o).map(function(o){
+    return '<button type="button" class="chip" data-n="'+o[0]+'" aria-pressed="false">'+numBox(o[0])+'<span>'+SDG[o[0]].n+'</span></button>';
+  }).join("");
+  $("qFeedback").hidden=true;$("qCheck").hidden=false;$("qNext").hidden=true;
+}
+$("qChips").addEventListener("click",function(e){
+  var b=e.target.closest(".chip");if(!b||b.disabled)return;
+  b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true");
+});
+$("qCheck").addEventListener("click",function(){
+  var q=state.q,s=q.list[q.i];
+  var picked=[].slice.call(document.querySelectorAll("#qChips .chip[aria-pressed=true]")).map(function(b){return +b.dataset.n;});
+  if(!picked.length){$("qFeedback").hidden=false;$("qFeedback").textContent="先選至少一個你覺得有關的目標喔！";return;}
+  var LBL={m:"主要相關",a:"也有關聯",w:"關聯較弱"};
+  document.querySelectorAll("#qChips .chip").forEach(function(b){
+    var o=s.o.filter(function(x){return x[0]===+b.dataset.n;})[0];
+    b.disabled=true;
+    b.insertAdjacentHTML("beforeend",'<span class="tag '+({m:"main",a:"also",w:"weak"})[o[1]]+'">'+LBL[o[1]]+'</span>');
+  });
+  var good=s.o.filter(function(o){return o[1]!=="w";});
+  var hit=good.filter(function(o){return picked.indexOf(o[0])>-1;}).length;
+  q.found+=hit;q.total+=good.length;
+  var mainHit=s.o.some(function(o){return o[1]==="m"&&picked.indexOf(o[0])>-1;});
+  var msg=mainHit?"👍 你找到了主要相關的目標！":"💡 這題最主要的是 SDG "+s.o.filter(function(o){return o[1]==="m";})[0][0]+"，看看下面的說明。";
+  $("qFeedback").innerHTML="<b>"+msg+"</b><ul>"+s.o.map(function(o){return "<li><b>SDG "+o[0]+" "+SDG[o[0]].n+"</b>（"+LBL[o[1]]+"）："+o[2]+"</li>";}).join("")+"</ul>";
+  $("qFeedback").hidden=false;$("qCheck").hidden=true;
+  $("qNext").hidden=false;$("qNext").textContent=q.i<q.list.length-1?"下一題 →":"完成 01 →";
+  $("qNext").focus();
+});
+$("qNext").addEventListener("click",function(){
+  var q=state.q;
+  if(q.i<q.list.length-1){q.i++;renderQ();$("qScene").scrollIntoView({block:"center"});return;}
+  state.done[1]=true;
+  $("quiz").hidden=true;$("quizDone").hidden=false;
+  $("quizSummary").innerHTML="<b>🎉 完成 01！</b><br>6 個情境中，你一共找出 "+q.found+" / "+q.total+" 個有關的目標。<br>你會發現，同一件生活小事常常跟好幾個目標都有關，永續不只是環保而已。";
+});
+
+/* ---------- 02 兩難 ---------- */
+function renderD(){
+  var d=state.d,x=d.list[d.i];
+  $("dTitle").textContent=x.e+" "+x.title;
+  $("dCount").textContent="第 "+(d.i+1)+" / "+d.list.length+" 題";
+  $("dScene").textContent=x.t;
+  $("dOpts").className="opts";
+  $("dOpts").innerHTML=x.o.map(function(o,i){
+    return '<button type="button" class="opt" data-i="'+i+'" aria-pressed="false">'+esc(o.t)+
+      '<div class="detail"><div class="pro">✔ 好處：'+esc(o.p)+'</div><div class="con">△ 限制：'+esc(o.c)+'</div>'+
+      '<div class="mini-sdg">'+o.s.map(function(n){return '<span style="background:'+SDG[n].c+'">SDG '+n+'</span>';}).join("")+'</div></div></button>';
+  }).join("");
+  $("dThink").hidden=true;$("dReveal").hidden=false;$("dReveal").disabled=true;$("dNext").hidden=true;
+}
+$("dOpts").addEventListener("click",function(e){
+  var b=e.target.closest(".opt");if(!b||b.disabled)return;
+  document.querySelectorAll("#dOpts .opt").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false");});
+  $("dReveal").disabled=false;
+});
+$("dReveal").addEventListener("click",function(){
+  var d=state.d,x=d.list[d.i];
+  var sel=document.querySelector("#dOpts .opt[aria-pressed=true]");if(!sel)return;
+  d.choices.push({title:x.title,choice:x.o[+sel.dataset.i].t});
+  $("dOpts").classList.add("revealed");
+  document.querySelectorAll("#dOpts .opt").forEach(function(b){b.disabled=true;});
+  $("dThink").innerHTML="🤔 想一想："+esc(x.q)+"<br><span style='font-weight:700;opacity:.8'>每個選項都有好處和限制，沒有標準答案。重點是你知道自己為什麼這樣選。</span>";
+  $("dThink").hidden=false;$("dReveal").hidden=true;
+  $("dNext").hidden=false;$("dNext").textContent=d.i<d.list.length-1?"下一題 →":"完成 02 →";
+  $("dNext").focus();
+});
+$("dNext").addEventListener("click",function(){
+  var d=state.d;
+  if(d.i<d.list.length-1){d.i++;renderD();$("dScene").scrollIntoView({block:"center"});return;}
+  state.done[2]=true;
+  $("dil").hidden=true;$("dilDone").hidden=false;
+  $("dilSummary").innerHTML="<b>🎉 完成 02！你的選擇：</b><ul>"+d.choices.map(function(c){return "<li>"+esc(c.title)+"："+esc(c.choice)+"</li>";}).join("")+"</ul>";
+});
+
+/* ---------- 03 行動 ---------- */
+function renderActions(){
+  $("actList").innerHTML=ACTIONS.map(function(a,i){
+    return '<button type="button" class="act" data-i="'+i+'" aria-pressed="false">'+esc(a.t)+'<small>'+a.s.map(function(n){return "SDG "+n;}).join("・")+'</small></button>';
+  }).join("");
+  var h="";for(var n=1;n<=17;n++)h+='<button type="button" data-n="'+n+'" aria-pressed="false" title="'+SDG[n].n+'">'+numBox(n)+SDG[n].n+'</button>';
+  $("pickSdg").innerHTML=h;
+}
+function setSdgs(list){
+  state.a.sdgs=list.slice(0,3);
+  document.querySelectorAll("#pickSdg button").forEach(function(b){b.setAttribute("aria-pressed",state.a.sdgs.indexOf(+b.dataset.n)>-1?"true":"false");});
+}
+$("actList").addEventListener("click",function(e){
+  var b=e.target.closest(".act");if(!b)return;
+  var a=ACTIONS[+b.dataset.i];
+  document.querySelectorAll("#actList .act").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false");});
+  $("fAction").value=a.t;setSdgs(a.s);$("fErr").textContent="";
+});
+$("fAction").addEventListener("input",function(){
+  document.querySelectorAll("#actList .act").forEach(function(x){
+    x.setAttribute("aria-pressed",ACTIONS[+x.dataset.i].t===$("fAction").value?"true":"false");
+  });
+});
+$("pickSdg").addEventListener("click",function(e){
+  var b=e.target.closest("button");if(!b)return;
+  var n=+b.dataset.n,l=state.a.sdgs.slice(),k=l.indexOf(n);
+  if(k>-1)l.splice(k,1);
+  else{ if(l.length>=3){$("fErr").textContent="相關的 SDGs 最多選 3 項，先取消一個再選。";return;} l.push(n);}
+  $("fErr").textContent="";setSdgs(l);
+});
+
+/* ---------- 行動卡（canvas） ---------- */
+function wrap(ctx,text,x,y,maxW,lh,maxLines){
+  var line="",lines=[];
+  for(var i=0;i<text.length;i++){
+    var t=line+text[i];
+    if(ctx.measureText(t).width>maxW&&line){lines.push(line);line=text[i];}else line=t;
+  }
+  if(line)lines.push(line);
+  if(maxLines&&lines.length>maxLines){lines=lines.slice(0,maxLines);lines[maxLines-1]=lines[maxLines-1].slice(0,-1)+"…";}
+  lines.forEach(function(l,i){ctx.fillText(l,x,y+i*lh);});
+  return lines.length*lh;
+}
+function rr(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+var FONT='"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif';
+function drawCard(d){
+  var c=$("cardCanvas");
+  var tmp=document.createElement("canvas");tmp.width=c.width;tmp.height=2400;
+  var need=paintCard(tmp.getContext("2d"),d,c.width,2400,true);
+  c.height=Math.max(1350,need);
+  paintCard(c.getContext("2d"),d,c.width,c.height,false);
+}
+function paintCard(ctx,d,W,H,measure){
+  var P=70;
+  ctx.fillStyle="#FAF6EF";ctx.fillRect(0,0,W,H);
+  ctx.fillStyle="#FFFDF9";rr(ctx,30,30,W-60,H-60,40);ctx.fill();
+  ctx.strokeStyle="#EBCFB7";ctx.lineWidth=4;ctx.stroke();
+  // 頂部色帶
+  ctx.save();rr(ctx,30,30,W-60,250,40);ctx.clip();ctx.fillStyle="#4E6B47";ctx.fillRect(30,30,W-60,250);ctx.restore();
+  ctx.fillStyle="#E4EBDD";ctx.font="700 26px Georgia,serif";ctx.textBaseline="top";
+  ctx.fillText("MY SUSTAINABLE ACTION",P,76);
+  ctx.fillStyle="#FFFFFF";ctx.font="900 66px "+FONT;ctx.fillText("我的永續行動卡",P,118);
+  ctx.font="700 30px "+FONT;ctx.fillStyle="#F1E3D3";
+  ctx.fillText([d.cls?d.cls+" 班":"",d.seat?d.seat+" 號":"",d.name].filter(Boolean).join("　")||"　",P,206);
+  ctx.font="80px "+FONT;ctx.textAlign="right";ctx.fillText("🌱",W-P,120);ctx.textAlign="left";
+  var y=320;
+  // 行動
+  ctx.fillStyle="#A85A3C";ctx.font="900 28px "+FONT;ctx.fillText("我的行動",P,y);y+=46;
+  ctx.fillStyle="#60483A";ctx.font="900 46px "+FONT;y+=wrap(ctx,d.act,P,y,W-2*P,60,2)+18;
+  // SDGs
+  var x=P;
+  d.sdgs.forEach(function(n){
+    ctx.font="800 26px "+FONT;var label="SDG "+n+" "+SDG[n].n;var w=ctx.measureText(label).width+36;
+    if(x+w>W-P){x=P;y+=58;}
+    ctx.fillStyle=SDG[n].c;rr(ctx,x,y,w,46,23);ctx.fill();
+    ctx.fillStyle="#fff";ctx.fillText(label,x+18,y+8);x+=w+12;
+  });
+  y+=(d.sdgs.length?78:10);
+  function field(title,val){
+    ctx.fillStyle="#A85A3C";ctx.font="900 28px "+FONT;ctx.fillText(title,P,y);y+=44;
+    ctx.fillStyle="#60483A";ctx.font="700 32px "+FONT;y+=wrap(ctx,val||"—",P,y,W-2*P,46,3)+26;
+  }
+  field("什麼時候、在哪裡做",d.when);
+  field("可能的困難與解決方法",d.hard);
+  field("我為什麼想做",d.why);
+  // 7 天打勾
+  y=Math.max(y,860);
+  ctx.strokeStyle="#EBCFB7";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(P,y);ctx.lineTo(W-P,y);ctx.stroke();y+=26;
+  ctx.fillStyle="#4E6B47";ctx.font="900 28px "+FONT;ctx.fillText("7 天行動紀錄（做到就打勾）",P,y);y+=50;
+  var bw=(W-2*P-6*14)/7;
+  for(var i=0;i<7;i++){
+    var bx=P+i*(bw+14);
+    ctx.strokeStyle="#7C9A6B";ctx.lineWidth=3;rr(ctx,bx,y,bw,96,16);ctx.stroke();
+    ctx.fillStyle="#7C9A6B";ctx.font="800 22px "+FONT;ctx.textAlign="center";ctx.fillText("Day "+(i+1),bx+bw/2,y+12);ctx.textAlign="left";
+  }
+  y+=126;
+  ctx.fillStyle="#4E6B47";ctx.font="900 28px "+FONT;ctx.fillText("一週後的心得",P,y);y+=50;
+  ctx.strokeStyle="#D9CBBE";ctx.lineWidth=2;
+  for(var k=0;k<3;k++){ctx.beginPath();ctx.moveTo(P,y+k*58+40);ctx.lineTo(W-P,y+k*58+40);ctx.stroke();}
+  y+=3*58+40;
+  if(measure)return y+130;
+  // 頁尾
+  ctx.fillStyle="#9A8576";ctx.font="700 22px "+FONT;
+  ctx.fillText("生活聆距離｜永續生活",P,H-92);
+  ctx.textAlign="right";ctx.fillText(new Date().toLocaleDateString("zh-TW"),W-P,H-92);ctx.textAlign="left";
+}
+function collect(){
+  return {cls:$("fClass").value.trim(),seat:$("fSeat").value.trim(),name:$("fName").value.trim(),
+          act:$("fAction").value.trim(),sdgs:state.a.sdgs.slice(),
+          when:$("fWhen").value.trim(),hard:$("fHard").value.trim(),why:$("fWhy").value.trim()};
+}
+$("makeCard").addEventListener("click",function(){
+  var d=collect(),miss=[];
+  if(!d.cls||!d.seat)miss.push("班級和座號");
+  if(!d.act)miss.push("我的行動");
+  if(!d.sdgs.length)miss.push("至少一個相關的 SDG");
+  if(!d.when)miss.push("時間和地點");
+  if(miss.length){$("fErr").textContent="還沒填："+miss.join("、");return;}
+  $("fErr").textContent="";
+  var draw=function(){drawCard(d);$("cardOut").hidden=false;state.done[3]=true;$("cardCanvas").scrollIntoView({behavior:"smooth",block:"center"});};
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);else draw();
+});
+$("dlCard").addEventListener("click",function(){
+  var d=collect(),a=document.createElement("a");
+  a.download="永續行動卡_"+(d.cls||"")+"_"+(d.seat||"")+".png";
+  a.href=$("cardCanvas").toDataURL("image/png");
+  document.body.appendChild(a);a.click();a.remove();
+});
+$("printCard").addEventListener("click",function(){
+  var img=new Image();img.src=$("cardCanvas").toDataURL("image/png");img.alt="我的永續行動卡";img.style.width="100%";img.style.maxWidth="520px";
+  $("printArea").innerHTML="";$("printArea").appendChild(img);
+  img.onload=function(){window.print();};
+});
+
+/* ---------- 重設（共用裝置） ---------- */
+function resetAll(){
+  state=fresh();
+  ["fClass","fSeat","fName","fAction","fWhen","fHard","fWhy"].forEach(function(id){$(id).value="";});
+  $("fErr").textContent="";$("cardOut").hidden=true;$("printArea").innerHTML="";
+  document.querySelectorAll("#actList .act").forEach(function(x){x.setAttribute("aria-pressed","false");});
+  setSdgs([]);
+  $("quiz").hidden=false;$("quizDone").hidden=true;$("dil").hidden=false;$("dilDone").hidden=true;
+  $("goalInfo").textContent="點一個目標，看看它跟生活有什麼關係。";
+  document.querySelectorAll(".goal").forEach(function(x){x.setAttribute("aria-pressed","false");});
+  renderQ();renderD();go(1);
+}
+$("resetAll").addEventListener("click",function(){
+  if(window.confirm("確定要清除所有資料嗎？清除後會回到 01，換下一位同學使用。"))resetAll();
+});
+
+/* ---------- 啟動 ---------- */
+state=fresh();
+renderGoals();renderActions();renderQ();renderD();go(1);
+})();
+</script>
+</body></html>
