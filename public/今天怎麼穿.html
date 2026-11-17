@@ -21,49 +21,49 @@ Copyright © 張鈺聆. All rights reserved.
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#27313b; --muted:#6b7280; --card:#ffffffee; --line:#e8e4ef;
-  --green:#6f9d6c; --green2:#eaf4e6; --blue:#d9ebff; --purple:#e8ddff; --pink:#f8dce8;
-  --shadow:0 16px 40px rgba(65,52,82,.10);
+  --ink:#5B4636; --muted:#7A6A5E; --card:#ffffffee; --line:#EFE5DA;
+  --green:#7C9A6B; --green2:#EEF2E8; --blue:#FAF7F2; --purple:#FAF7F2; --pink:#FAF7F2;
+  --shadow:0 16px 40px rgba(91,70,54,.10);
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif,Noto Color Emoji;color:var(--ink);
-background:linear-gradient(135deg,#d8edff 0%,#e7defa 48%,#f5d7e6 100%);min-height:100vh}
+background:linear-gradient(135deg,#FAF7F2 0%,#F7EFE6 55%,#F6E7D8 100%);min-height:100vh}
 button{font:inherit}
 .app{max-width:1180px;margin:0 auto;padding:22px 18px 48px}
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:14px}
 .brand{font-weight:800;font-size:18px}.progress{display:flex;gap:8px;flex-wrap:wrap}
 .pill{background:#ffffffbf;border:1px solid #ffffff;padding:7px 12px;border-radius:999px;font-size:14px}
-.pill.done{background:var(--green2);color:#557c51;font-weight:700}
+.pill.done{background:var(--green2);color:#4E6B47;font-weight:700}
 .screen{display:none}.screen.active{display:block}
 .hero,.panel{background:var(--card);border:1px solid rgba(255,255,255,.8);border-radius:26px;box-shadow:var(--shadow)}
 .hero{padding:54px 38px;text-align:center}.panel{padding:30px}
 h1{font-size:clamp(34px,5vw,58px);margin:0 0 14px}h2{font-size:clamp(28px,4vw,42px);margin:0 0 12px}
 h3{font-size:22px;margin:0 0 8px}
-.lead{font-size:20px;line-height:1.8;color:#4b5563}.small{color:var(--muted);line-height:1.7}
+.lead{font-size:20px;line-height:1.8;color:#5B4636}.small{color:var(--muted);line-height:1.7}
 .btn{border:0;border-radius:16px;padding:14px 22px;cursor:pointer;font-weight:800;transition:.2s;min-height:50px}
 .btn:hover{transform:translateY(-2px)} .btn.primary{background:var(--green);color:white}
-.btn.soft{background:var(--green2);color:#4d784d}.btn.ghost{background:white;border:1px solid var(--line)}
+.btn.soft{background:var(--green2);color:#4E6B47}.btn.ghost{background:white;border:1px solid var(--line)}
 .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
 .grid3,.grid4,.choice-grid{display:grid;gap:16px}.grid3{grid-template-columns:repeat(3,1fr)}.grid4{grid-template-columns:repeat(4,1fr)}
-.card{background:white;border:2px solid transparent;border-radius:20px;padding:18px;box-shadow:0 8px 22px rgba(57,48,73,.07);cursor:pointer;transition:.2s}
-.card:hover{transform:translateY(-3px);border-color:#c6d9bd}.card.selected{border-color:var(--green);box-shadow:0 0 0 4px #dfeeda}
+.card{background:white;border:2px solid transparent;border-radius:20px;padding:18px;box-shadow:0 8px 22px rgba(91,70,54,.07);cursor:pointer;transition:.2s}
+.card:hover{transform:translateY(-3px);border-color:#D5DFCB}.card.selected{border-color:var(--green);box-shadow:0 0 0 4px #EEF2E8}
 .bigicon{font-size:48px}.question{max-width:920px;margin:0 auto}
-.qtitle{font-size:26px;font-weight:850;margin-bottom:10px}.scenario{background:#f8f8fb;border:1px solid var(--line);padding:18px;border-radius:18px;margin:16px 0 20px;font-size:18px;line-height:1.7}
+.qtitle{font-size:26px;font-weight:850;margin-bottom:10px}.scenario{background:#FFFEFA;border:1px solid var(--line);padding:18px;border-radius:18px;margin:16px 0 20px;font-size:18px;line-height:1.7}
 .options{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.option{min-height:126px;text-align:left}
-.feedback{margin-top:18px;border-radius:18px;padding:18px;background:#eef7ea;display:none;line-height:1.7}.feedback.show{display:block}
-.feedback.warn{background:#fff6df}
-.weatherbar{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}.weatherbar span{background:#f6f4fb;padding:9px 13px;border-radius:999px;font-weight:700}
+.feedback{margin-top:18px;border-radius:18px;padding:18px;background:#EEF2E8;display:none;line-height:1.7}.feedback.show{display:block}
+.feedback.warn{background:#FFF6EC}
+.weatherbar{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}.weatherbar span{background:#FFFEFA;padding:9px 13px;border-radius:999px;font-weight:700}
 .activity-wrap{display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:28px;align-items:center}
 .activity-img{width:100%;max-height:500px;object-fit:contain;border-radius:18px;background:#fff}
 .quickbtn{width:100%;font-size:20px;margin:7px 0}
-.missioncards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.missioncard{padding:18px;border-radius:18px;background:#f7f5fb}
+.missioncards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.missioncard{padding:18px;border-radius:18px;background:#FFFEFA}
 .role-grid{display:grid;grid-template-columns:repeat(2,minmax(220px,360px));gap:18px;justify-content:center}
 .role-grid img{width:100%;height:360px;object-fit:contain}
 .selector{margin-top:20px}.selector h3{margin-bottom:12px}.choice-grid{grid-template-columns:repeat(4,1fr)}
 .choice img{width:100%;height:220px;object-fit:contain}.choice strong{display:block;margin-top:8px}.choice small{color:var(--muted)}
 .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.summary .card{cursor:default;text-align:center}
-.checks{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.check{padding:16px;border-radius:16px;background:#f5f5f8}.check.ok{background:#edf7ea}.check.maybe{background:#fff4dd}
-.badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}.badge{background:#f3f6ee;padding:8px 12px;border-radius:999px}
+.checks{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.check{padding:16px;border-radius:16px;background:#FFFEFA}.check.ok{background:#EEF2E8}.check.maybe{background:#FFF6EC}
+.badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}.badge{background:#FFF6EC;padding:8px 12px;border-radius:999px}
 .hidden{display:none!important}
 @media(max-width:850px){.grid3,.grid4,.choice-grid,.missioncards,.summary,.checks{grid-template-columns:repeat(2,1fr)}.activity-wrap{grid-template-columns:1fr}.options{grid-template-columns:1fr}.role-grid{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}}
 @media(max-width:520px){.grid3,.grid4,.choice-grid,.summary,.checks{grid-template-columns:1fr}.hero{padding:36px 20px}.panel{padding:20px}.app{padding:14px 10px 34px}.choice img{height:180px}}
@@ -71,7 +71,7 @@ h3{font-size:22px;margin:0 0 8px}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap"></head>
 <body>
 <div class="app">
-  <p style="text-align:center;margin:0 0 12px;"><a href="服裝與織品.dc.html" style="color:#5b7fb0;text-decoration:none;font-weight:800;">← 回服裝與織品</a></p>
+  <p style="text-align:center;margin:0 0 12px;"><a href="服裝與織品.dc.html" style="color:#C96F4F;text-decoration:none;font-weight:800;">← 回服裝與織品</a></p>
   <div class="topbar">
     <div class="brand">👗 美感穿搭｜今天怎麼穿？</div>
     <div class="progress" id="progress">
@@ -84,7 +84,7 @@ h3{font-size:22px;margin:0 0 8px}
 
   <section class="screen active" id="home">
     <div class="hero">
-      <div class="bigicon">👗</div>
+      <div class="bigicon"><img src="images/style/style-style.webp" alt="衣架上的上衣與裙子，旁邊有色票卡" width="120" height="120" style="width:120px;height:120px;object-fit:contain;display:block;margin:0 auto"></div>
       <h1>今天怎麼穿？</h1>
       <p class="lead">每天打開衣櫃，你都在做選擇。<br>
       <b>今天要去哪裡？　天氣怎麼樣？　會做什麼活動？</b><br>
@@ -252,61 +252,104 @@ function setDone(n){
   const labels={1:'🏫 場合 ✓',2:'☀️ 天氣 ✓',3:'🎒 活動 ✓',4:'🧠 任務 ✓'};
   document.getElementById('p'+n).textContent=labels[n];
 }
+function shuffleOpts(opts){
+ const idx=opts.map((_,i)=>i);for(let i=idx.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]];}
+ return idx.map((o,k)=>({i:o,label:String.fromCharCode(65+k)+'｜'+opts[o].replace(/^[A-Z]｜/,'')}));
+}
 const s1=[
- {t:'🚌 校外參訪',q:'明天要參加學校安排的校外參訪。哪一套穿著比較符合這次活動？',
-  opts:['A｜睡衣＋居家拖鞋','B｜乾淨、自然、方便一般活動的日常穿著','C｜華麗宴會服裝'],
-  a:1,ok:'✓ 很合適！穿搭不一定要非常正式，符合場合、整潔自然，就是很好的選擇。'},
- {t:'🎤 上台報告',q:'輪到你代表小組上台介紹成果。希望看起來整齊、有精神，但不是參加正式宴會。',
-  opts:['A｜乾淨素色上衣＋整齊下身＋整潔鞋款','B｜睡衣＋拖鞋','C｜非常華麗的晚宴服'],
-  a:0,ok:'✓ 很合適！整潔、有精神、符合場合，不代表一定要穿得非常正式。'},
- {t:'🎓 畢業典禮',q:'今天要參加畢業典禮，會和師長、同學參加儀式，也會留下許多照片。',
-  opts:['A｜剛運動完的運動服','B｜整潔、有精神、適度正式的穿著','C｜睡衣造型'],
-  a:1,ok:'✓ 你注意到「場合」了！有些活動具有儀式感，適當整理穿著，也是對場合與他人的尊重。'},
+ {t:'🚌 校外參訪',q:'明天要去博物館參訪，來回還要走一段路。下面三套看起來都還不錯，哪一套最適合？',
+  opts:['A｜襯衫＋新買、還沒穿過的皮鞋，看起來最正式','B｜乾淨的休閒上衣＋長褲＋穿慣的運動鞋','C｜制服上衣＋夾腳拖，走起來很涼快'],a:1,
+  fb:['💡 正式感有了，但新鞋還沒「穿開」，走一整天很容易磨腳起水泡。重要的日子，鞋子最好選穿習慣的。','','💡 夾腳拖走久了腳容易痠、也容易被絆倒；博物館、參訪場所通常也不適合穿拖鞋。'],
+  ok:'✓ 很合適！整潔又方便走路。合宜的穿搭＝符合場合＋適合今天要做的事。'},
+ {t:'🎤 上台報告',q:'你要代表小組上台報告，希望大家專心聽你講的內容。',
+  opts:['A｜印有超大圖案和標語的潮T，看起來很有個性','B｜乾淨的素色上衣＋整齊下身＋整潔鞋款','C｜剛上完體育課的運動服，反正只有五分鐘'],a:1,
+  fb:['💡 有個性很好，但大圖案、大字標語會搶走台下的注意力，大家可能先看衣服、而不是聽你的報告。','','💡 剛運動完可能有汗漬或汗味，站在台上大家都看得到。花一分鐘整理一下，看起來會更有精神。'],
+  ok:'✓ 很合適！素色、整潔的穿著不會搶走焦點，讓聽眾專心在你的內容上。'},
+ {t:'🕯️ 參加告別式',q:'家族長輩過世，你要和家人一起參加告別式。哪一套比較合宜？',
+  opts:['A｜紅色上衣，看起來比較有精神','B｜黑、深藍、灰或白色等素色衣著','C｜亮色印花運動服，比較舒服'],a:1,
+  fb:['💡 在台灣，紅色常代表喜慶，不適合穿到告別式。這種場合要表達的是哀悼與尊重。','','💡 舒服很重要，但亮色、花俏的圖案在告別式會顯得突兀。可以選素色、款式簡單又舒服的衣服。'],
+  ok:'✓ 你注意到場合的意義了！告別式穿素色、樸素的衣著，是對逝者和家屬的尊重。'},
+ {t:'🏥 到醫院探病',q:'週末要去醫院探望住院的親戚。除了整潔，還要特別注意什麼？',
+  opts:['A｜噴上喜歡的香水，讓自己香香的','B｜乾淨簡單，不噴濃烈香水，不戴會叮噹響的飾品','C｜盛裝打扮，讓病人看了心情好'],a:1,
+  fb:['💡 病人身體虛弱，濃烈香味可能讓人頭暈、噁心，有些人也會過敏。醫院裡香味越淡越好。','','💡 心意很好！不過探病的重點是陪伴和安靜，簡單整潔就足夠，過度隆重反而會讓人有壓力。'],
+  ok:'✓ 很體貼！穿搭也要考慮「身邊的人」：醫院需要安靜、氣味清淡的環境。'},
+ {t:'🏅 學校運動會',q:'今天是運動會，你要參加大隊接力，結束後全班還要合照。怎麼穿最好？',
+  opts:['A｜牛仔褲＋皮鞋，拍照比較好看','B｜班服或運動服＋綁好鞋帶的運動鞋','C｜可愛的洋裝＋涼鞋'],a:1,
+  fb:['💡 拍照好看，但牛仔褲又硬又不好跑，皮鞋也容易滑倒，參加接力很危險。','','💡 洋裝不方便跑跳，涼鞋在衝刺和交棒時很容易扭到腳。'],
+  ok:'✓ 很合適！先確保能安全活動，班服整齊一致，合照也很好看。'},
+ {t:'💒 參加親戚婚宴',q:'表哥結婚，全家要去喜宴。哪一套比較合宜？',
+  opts:['A｜全身白色的洋裝，看起來很優雅','B｜整潔、稍微正式、顏色明亮的衣著','C｜全黑的運動服，簡單又方便'],a:1,
+  fb:['💡 婚禮上白色通常是新娘的顏色，全身白容易被認為搶了新娘的風采，一般會避開。','','💡 運動服對喜宴來說太隨便，全身黑色在台灣的喜慶場合也比較少見。'],
+  ok:'✓ 很合宜！喜宴是開心的場合，穿得整潔、有點正式又帶點明亮色彩，是對新人的祝福。'},
+ {t:'🧪 自然科實驗課',q:'今天要在實驗室用酒精燈和化學藥品。哪一種穿著最安全？',
+  opts:['A｜寬鬆的長袖上衣＋垂下來的長項鍊','B｜短褲＋涼鞋，比較涼快','C｜合身的衣服、長髮綁起來、穿包鞋'],a:2,
+  fb:['💡 寬大的袖子和垂下的項鍊，靠近酒精燈時可能被火燒到，也容易勾倒器材。','💡 藥品如果打翻濺出來，短褲和涼鞋會讓腿和腳直接碰到，很危險。',''],
+  ok:'✓ 安全第一！實驗時衣服要合身、頭髮要綁好、穿包鞋，有實驗衣的話也要穿上。'},
  {t:'🍽️ 家庭聚餐',q:'家庭聚餐一定只有一種正確穿法嗎？',
-  opts:['A｜是，一定要穿正式服裝','B｜不是，只要整潔、合宜，可以有不同選擇'],
-  a:1,ok:'💡 沒錯！穿搭不是標準答案題。同一個場合，可以有很多不同但合適的穿法。'}
+  opts:['A｜是，一定要穿正式服裝','B｜不是，只要整潔、合宜，可以有不同選擇'],a:1,fb:['💡 家庭聚餐的正式程度要看餐廳和場合，通常不需要非常正式。',''],
+  ok:'💡 沒錯！穿搭不是標準答案題。同一個場合，可以有很多不同但合適的穿法。'}
 ];
 function startStage1(){state.s1=0;go('stage1');renderS1()}
 function renderS1(){
  const x=s1[state.s1],c=document.getElementById('stage1content');
  c.innerHTML=`<h2>🏫 我要去哪裡？</h2><p class="small">不是越正式越好，而是要穿得合宜。</p>
  <div class="qtitle">${x.t}</div><div class="scenario">${x.q}</div>
- <div class="options">${x.opts.map((o,i)=>`<button class="card option" onclick="answerS1(${i})">${o}</button>`).join('')}</div>
+ <div class="options">${shuffleOpts(x.opts).map(o=>`<button class="card option" onclick="answerS1(${o.i})">${o.label}</button>`).join('')}</div>
  <div id="fb1" class="feedback"></div>`;
 }
 function answerS1(i){
  const x=s1[state.s1],fb=document.getElementById('fb1');
  fb.className='feedback show '+(i===x.a?'':'warn');
- fb.innerHTML=i===x.a?x.ok:'🤔 再想想：這一題的重點是「是否符合今天的場合」。';
+ fb.innerHTML=i===x.a?x.ok:((x.fb&&x.fb[i])||'🤔 再想想：這一題的重點是「是否符合今天的場合」。')+'<br><span class="small">再選一次看看！</span>';
  if(i===x.a){fb.innerHTML+=`<div class="btnrow"><button class="btn primary" onclick="nextS1()">下一題 →</button></div>`}
 }
 function nextS1(){state.s1++; if(state.s1<s1.length)renderS1();else{setDone(1);startStage2()}}
 
 const s2=[
- {t:'☀️ 炎熱＋強日曬',w:['🌡️ 34°C','🌧️ 10%','☀️ 日曬強'],q:'下午要在戶外活動，你會怎麼準備？',
-  opts:['A｜透氣衣著＋遮陽準備','B｜厚帽T＋厚外套','C｜厚圍巾＋鋪棉外套'],a:0,
-  ok:'✓ 很合適！炎熱時要同時考慮透氣、排汗與遮陽／防曬。'},
- {t:'🌡️ 一天溫差',w:['🌅 18°C','☀️ 27°C'],q:'一天溫差這麼大，怎麼穿比較方便？',
-  opts:['A｜輕薄內層＋方便穿脫的薄外套','B｜整天穿厚羽絨外套','C｜只穿短袖、不做任何準備'],a:0,
-  ok:'🧅 洋蔥式穿搭：利用可以穿脫的不同層次，隨環境調整，比一次穿得很厚更有彈性。'},
- {t:'☀️→❄️ 室內外差異',w:['☀️ 室外 32°C','❄️ 教室冷氣較強'],q:'怎麼準備比較有彈性？',
-  opts:['A｜輕薄衣著＋準備薄外套','B｜厚毛衣＋厚外套整天穿著','C｜完全不考慮室內環境'],a:0,
-  ok:'✓ 穿搭不只看出門時的天氣，也要想想今天會待在哪些環境。'},
- {t:'🌧️ 突發天氣',w:['🌧️ 下午降雨機率 80%'],q:'出門前還可以多準備什麼？',
-  opts:['☂️ 摺疊傘','🧣 厚圍巾','🕶️ 太陽眼鏡'],a:0,
-  ok:'✓ 準備好了！看到降雨機率升高，帶上容易攜帶的雨具很實用。'}
+ {t:'☀️ 炎熱＋強日曬',w:['🌡️ 34°C','☀️ 日曬強','🏃 戶外活動'],q:'下午要在操場進行戶外活動，哪一件上衣最適合？',
+  opts:['A｜黑色、貼身的上衣，看起來比較瘦','B｜淺色、寬鬆、透氣的上衣＋遮陽帽','C｜深藍色的厚棉T，比較不怕曬'],a:1,
+  fb:['💡 深色會吸收較多陽光的熱，貼身的衣服又不通風，在大太陽下會更悶熱。','','💡 厚棉T吸汗後乾得慢，深色又容易吸熱。防曬可以靠帽子或薄外套，不一定要穿厚衣服。'],
+  ok:'✓ 很合適！淺色能反射較多陽光、寬鬆讓空氣流通，再加上遮陽帽保護頭部和臉。'},
+ {t:'💦 運動大量流汗',w:['🏀 體育課','💦 流很多汗'],q:'等一下要打籃球，會流很多汗。哪種材質的上衣最快乾、最不黏身？',
+  opts:['A｜純棉T恤','B｜吸濕排汗衣（聚酯纖維機能布料）','C｜牛仔襯衫'],a:1,
+  fb:['💡 純棉很會吸汗、穿起來舒服，但吸了汗之後乾得慢，濕濕地貼在身上。日常穿很好，激烈運動時就不是最佳選擇。','','💡 牛仔布厚、硬、不透氣，流汗後又重又悶，很不適合運動。'],
+  ok:'✓ 答對了！吸濕排汗布料能把汗水帶到表面、快速蒸發，所以運動服常用這種材質。'},
+ {t:'🌡️ 一天溫差大',w:['🌅 早上 18°C','☀️ 中午 27°C'],q:'早上涼、中午熱，怎麼穿最方便？',
+  opts:['A｜一件很厚的帽T，冷熱都穿這件','B｜短袖＋方便穿脫的薄外套','C｜只穿短袖，冷就忍一下'],a:1,
+  fb:['💡 厚帽T早上剛好，但中午 27°C 就太熱了，裡面如果只穿一件，熱了也沒辦法脫。','','💡 早上 18°C 只穿短袖容易著涼。多帶一件薄外套，就能隨時調整。'],
+  ok:'🧅 洋蔥式穿搭：一層一層穿，熱了脫、冷了穿，比只穿一件厚衣服更有彈性。'},
+ {t:'❄️ 寒流來襲',w:['🌡️ 10°C','🌬️ 風很大'],q:'寒流來了，又冷又有風。哪一種穿法最保暖？',
+  opts:['A｜裡面只穿短袖，外面套一件超厚外套','B｜貼身保暖衣＋毛衣或刷毛＋擋風的外套','C｜好幾件薄T恤疊在一起'],a:1,
+  fb:['💡 一進到室內脫掉厚外套，就只剩短袖，忽冷忽熱很容易感冒。','','💡 多層有幫助，但薄T恤擋不住風，冷風一吹就透進來了。最外層要能擋風。'],
+  ok:'✓ 很棒！保暖三層：貼身層保暖、中間層留住溫暖的空氣、最外層擋風擋雨。'},
+ {t:'🌧️ 午後大雨',w:['🌧️ 下午降雨機率 80%','🚶 放學要走路回家'],q:'出門前，怎麼準備最周到？',
+  opts:['A｜白色帆布鞋，雨不一定會下','B｜帶摺疊傘＋穿不怕濕的鞋子','C｜帶了傘，但穿長到拖地的寬褲'],a:1,
+  fb:['💡 降雨機率 80% 很高！帆布鞋一淋濕就會濕一整天，白色也容易弄髒。','','💡 有帶傘很好，但拖地的褲管會吸飽雨水、沾滿泥巴，走路也容易滑。'],
+  ok:'✓ 準備好了！看降雨機率決定要不要帶傘，鞋子和褲長也要一起考慮。'},
+ {t:'❄️ 冷氣很強的室內',w:['☀️ 室外 32°C','❄️ 博物館冷氣很強'],q:'今天要在戶外走一段路，再進博物館參觀兩小時。怎麼準備？',
+  opts:['A｜短袖，包包裡帶一件薄外套','B｜直接穿厚毛衣，怕冷氣太冷','C｜只穿短袖，冷一下就過去了'],a:0,
+  fb:['','💡 室外 32°C 穿厚毛衣會非常熱，還沒進博物館就滿身大汗了。','💡 在冷氣房待兩小時，只穿短袖很容易著涼、肚子不舒服。'],
+  ok:'✓ 很聰明！穿搭不只看出門時的天氣，也要想想今天會待在哪些環境。'},
+ {t:'🌙 晚上走路回家',w:['🌙 補習下課 21:00','🚶 要走一段沒有人行道的路'],q:'晚上要走路回家，路上車子很多。哪一種穿著最安全？',
+  opts:['A｜全身黑色，看起來很酷','B｜深藍色外套＋深色長褲','C｜淺色或亮色衣服，或有反光條的外套、書包'],a:2,
+  fb:['💡 晚上穿全黑，駕駛很難看到你，非常危險。','💡 深藍色在夜裡和黑色差不多，車燈照到時也不容易被注意。',''],
+  ok:'✓ 很重要的觀念！晚上穿淺色、亮色或有反光材質的衣物，駕駛能更早看到你。'},
+ {t:'⛰️ 上山郊遊',w:['🏙️ 平地 28°C','⛰️ 山上比較涼','🌬️ 山頂風大'],q:'班級要去爬山，山上通常比平地冷。怎麼準備最好？',
+  opts:['A｜短袖＋短褲，平地很熱','B｜一件很厚的羽絨外套，到山上再說','C｜透氣短袖＋可以穿脫的長袖＋擋風薄外套'],a:2,
+  fb:['💡 平地雖熱，但山上氣溫比較低（大約每升高 100 公尺下降 0.6°C），山頂風又大，只穿短袖短褲會著涼。','💡 爬山時身體會發熱，穿厚羽絨會滿身大汗，也很重、不好收。',''],
+  ok:'✓ 很好！上山用洋蔥式穿法：爬的時候穿少一點，休息或到山頂吹風時再加上。'}
 ];
 function startStage2(){state.s2=0;go('stage2');renderS2()}
 function renderS2(){
  const x=s2[state.s2],c=document.getElementById('stage2content');
- c.innerHTML=`<h2>☀️ 今天環境怎麼樣？</h2><p class="small">雨、風、日曬和室內外環境，都可能影響穿搭。</p>
+ c.innerHTML=`<h2>☀️ 今天環境怎麼樣？</h2><p class="small">溫度、日曬、下雨，還有衣服的顏色與材質，都會影響今天穿得舒不舒服。</p>
  <div class="qtitle">${x.t}</div><div class="weatherbar">${x.w.map(z=>`<span>${z}</span>`).join('')}</div>
- <div class="scenario">${x.q}</div><div class="options">${x.opts.map((o,i)=>`<button class="card option" onclick="answerS2(${i})">${o}</button>`).join('')}</div>
+ <div class="scenario">${x.q}</div><div class="options">${shuffleOpts(x.opts).map(o=>`<button class="card option" onclick="answerS2(${o.i})">${o.label}</button>`).join('')}</div>
  <div id="fb2" class="feedback"></div>`;
 }
 function answerS2(i){
  const x=s2[state.s2],fb=document.getElementById('fb2');fb.className='feedback show '+(i===x.a?'':'warn');
- fb.innerHTML=i===x.a?x.ok:'🤔 再想想：看看溫度、降雨或室內外環境，哪個選項最能回應今天的狀況？';
+ fb.innerHTML=i===x.a?x.ok:((x.fb&&x.fb[i])||'🤔 再想想：看看溫度、降雨或室內外環境，哪個選項最能回應今天的狀況？')+'<br><span class="small">再選一次看看！</span>';
  if(i===x.a)fb.innerHTML+=`<div class="btnrow"><button class="btn primary" onclick="nextS2()">下一題 →</button></div>`;
 }
 function nextS2(){state.s2++;if(state.s2<s2.length)renderS2();else{setDone(2);startStage3()}}
