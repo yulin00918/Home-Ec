@@ -34,7 +34,7 @@ Copyright © 張鈺聆. All rights reserved.
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif,"Noto Color Emoji";
   color:var(--text);
   background:linear-gradient(180deg,#fbf8f2 0%,#f6f3ec 100%);
 }
@@ -70,11 +70,19 @@ h2{font-size:clamp(28px,4vw,44px);margin:0 0 10px}
 h3{font-size:22px;margin:0 0 10px}
 .lead{font-size:19px;line-height:1.8;color:#5b665f}
 .hero-ill{
-  width:min(360px,80vw);aspect-ratio:1;border-radius:50%;
-  background:#fff;border:16px solid #f1d7c6;display:grid;place-items:center;
-  margin:auto;box-shadow:inset 0 0 0 1px #e0c8bb,0 18px 40px rgba(100,65,45,.1)
+  width:min(430px,82vw);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,#f8e6da 0 58%,rgba(248,230,218,0) 70%);
+  display:grid;place-items:center;margin:auto
 }
-.hero-ill span{font-size:110px}
+.hero-ill img{width:88%;height:auto;display:block;filter:drop-shadow(0 14px 22px rgba(100,65,45,.14))}
+.fb{display:none;margin-top:14px;padding:16px;border-radius:15px;background:#f1f6ef;line-height:1.8}
+.fb.show{display:block}
+.qbtns{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.qbtn{padding:14px;border-radius:14px;border:1px solid #e3ddd2;background:#fff;font:inherit;font-weight:800;cursor:pointer;text-align:left}
+.qbtn.correct{background:#edf5e9;border-color:#9cad8a}.qbtn.wrong{background:#fff0ed;border-color:#d9a69a}
+.deal{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.deal div{padding:14px;border-radius:14px;background:#fffaf5;border:1px dashed #dcb79f;line-height:1.7}
+@media(max-width:720px){.qbtns,.deal{grid-template-columns:1fr}}
 .primary,.secondary{
   border:0;border-radius:16px;padding:13px 20px;font-weight:900;cursor:pointer
 }
@@ -145,6 +153,9 @@ body.teacher-mode .teacher-note{display:block}
   .food-grid,.swap-grid,.status-grid,.meters{grid-template-columns:1fr}
 }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 </head>
 <body>
 <p style="text-align:center;margin:10px 0 0;"><a href="飲食與營養.dc.html" style="color:#537258;text-decoration:none;font-weight:800;">← 回飲食與營養</a></p>
@@ -164,7 +175,7 @@ body.teacher-mode .teacher-note{display:block}
       <button class="primary" onclick="go(2)">開始外食選擇挑戰 →</button>
       <div class="teacher-note"><b>教師提問：</b>「你平常買吃的時，最先考慮的是價格、好吃、份量還是營養？」</div>
     </div>
-    <div class="hero-ill"><span>🛍️</span></div>
+    <div class="hero-ill"><img src="images/food/food-03.webp" alt="裝著麵包、青菜、牛奶和便當盒的購物提袋，旁邊有價格吊牌和硬幣" width="760" height="760"></div>
   </div>
 </section>
 
@@ -204,7 +215,7 @@ body.teacher-mode .teacher-note{display:block}
     <div class="cart-items" id="reviewCart" style="margin:18px 0"></div>
     <div class="status-grid" id="statusGrid"></div>
     <div class="info-box" id="mealComment"></div>
-    <h3 style="margin-top:22px">如果只換掉一樣東西，你想先改哪一個？</h3>
+    <h3 style="margin-top:22px">如果只改一件事（換掉一樣，或用剩下的錢加一樣），你想怎麼做？</h3>
     <div class="swap-grid" id="swapGrid"></div>
     <div class="teacher-note"><b>教師重點：</b>這裡不做「整餐重來」，而是練習「只改一件事」。</div>
     <div class="actions">
@@ -241,14 +252,15 @@ body.teacher-mode .teacher-note{display:block}
 <section class="screen" data-screen="5">
   <div class="screen-head">
     <span class="kicker">STEP 4｜不同地方，不同限制</span>
-    <h2>🏪 外食三大情境</h2>
-    <p>同樣是買吃的，每個情境的時間、預算和需求都不一樣。</p>
+    <h2>🏪 外食情境挑戰</h2>
+    <p>同樣是買吃的，每個情境的時間、預算和需求都不一樣。最後一關，學會看穿促銷！</p>
   </div>
   <div class="panel">
     <div class="scene-tabs">
       <button class="scene-tab active" onclick="switchScene(0,this)">🍳 早餐店</button>
       <button class="scene-tab" onclick="switchScene(1,this)">🍜 晚餐外食</button>
       <button class="scene-tab" onclick="switchScene(2,this)">🎒 放學點心</button>
+      <button class="scene-tab" id="dealTab" onclick="showDeals()">🏷️ 看懂促銷</button>
     </div>
     <div id="sceneContent"></div>
     <div class="teacher-note"><b>教師提問：</b>「如果預算不變，但距離下一餐的時間不同，你的選擇會改嗎？」</div>
@@ -267,9 +279,9 @@ body.teacher-mode .teacher-note{display:block}
   </div>
   <div class="panel">
     <div class="scene-box">
-      <button class="scene-choice" onclick="rolePick(this,'🏀 阿哲：剛打完兩小時籃球，很餓。')"><h3>🏀 阿哲</h3><p>剛打完兩小時籃球，很餓。</p><div class="tagrow"><span class="tag">活動量高</span><span class="tag">需要補充能量</span></div></button>
-      <button class="scene-choice" onclick="rolePick(this,'📚 小晴：晚餐一小時後就要吃，只想墊一下肚子。')"><h3>📚 小晴</h3><p>晚餐一小時後就要吃，只想墊一下肚子。</p><div class="tagrow"><span class="tag">離晚餐近</span><span class="tag">份量可小</span></div></button>
-      <button class="scene-choice" onclick="rolePick(this,'🚌 小宇：等等要坐三小時的車，中午吃得比較少。')"><h3>🚌 小宇</h3><p>等等要坐三小時的車，中午吃得比較少。</p><div class="tagrow"><span class="tag">長時間移動</span><span class="tag">需要較完整補充</span></div></button>
+      <button class="scene-choice" onclick="rolePick(this,'🏀 阿哲：剛打完兩小時籃球，很餓。','<b>優先：</b>補充能量和蛋白質，也別忘了補水。<br><b>可以這樣買：</b>🍙 飯糰 $35 ＋ 🥚 茶葉蛋 $15 ＋ 🥛 鮮奶 $35 ＋ 🍌 香蕉 $25 = $110……超過 100 元了！拿掉香蕉剛好 $85，再配開水。')"><h3>🏀 阿哲</h3><p>剛打完兩小時籃球，很餓。</p><div class="tagrow"><span class="tag">活動量高</span><span class="tag">需要補充能量</span></div></button>
+      <button class="scene-choice" onclick="rolePick(this,'📚 小晴：晚餐一小時後就要吃，只想墊一下肚子。','<b>優先：</b>份量小、不要太撐，留胃口給晚餐。<br><b>可以這樣買：</b>🍌 香蕉 $25 或 🥚 茶葉蛋 $15 就夠了，100 元不用花完。<b>沒花完的錢，也是好選擇！</b>')"><h3>📚 小晴</h3><p>晚餐一小時後就要吃，只想墊一下肚子。</p><div class="tagrow"><span class="tag">離晚餐近</span><span class="tag">份量可小</span></div></button>
+      <button class="scene-choice" onclick="rolePick(this,'🚌 小宇：等等要坐三小時的車，中午吃得比較少。','<b>優先：</b>一份完整、能撐久的正餐，而且在車上方便吃。<br><b>可以這樣買：</b>🥪 三明治 $45 ＋ 🍌 香蕉 $25 ＋ 🍵 無糖茶 $25 = $95，有主食、蛋白質、水果，還能補水。')"><h3>🚌 小宇</h3><p>等等要坐三小時的車，中午吃得比較少。</p><div class="tagrow"><span class="tag">長時間移動</span><span class="tag">需要較完整補充</span></div></button>
       <div class="status-card">
         <h3>💡 關鍵觀念</h3>
         <p style="line-height:1.8">飲食選擇不是找唯一「最健康」的答案，而是：</p>
@@ -361,11 +373,21 @@ function renderReview(){
   ['🥛 乳品',cats.has('乳品'),'是否有乳品']
  ];
  document.getElementById('statusGrid').innerHTML=checks.map(([n,ok,txt])=>`<div class="status-card ${ok?'good':'warn'}"><b>${n}</b><div>${ok?'✅ 有':'○ 可再留意'}</div><div class="small">${txt}</div></div>`).join('');
- document.getElementById('mealComment').innerHTML='💡 先不急著把整餐重選。想想看：<b>如果只能換掉一樣，哪一個改變最有感？</b>';
+ const sweet=selected.filter(i=>['含糖飲品','點心'].some(c=>items[i].cats.includes(c))).map(i=>items[i].name);
+ const miss=['主食','蛋白質','蔬菜'].filter(c=>!cats.has(c));
+ let tip='💡 ';
+ if(miss.length) tip+=`這一餐還少了<b>${miss.join('、')}</b>。補習要撐好幾個小時，主食給能量、蛋白質讓人比較耐餓、蔬菜補充纖維。`;
+ else tip+='主食、蛋白質、蔬菜都有了，這一餐的骨架很完整！';
+ if(sweet.length) tip+=`<br>🍬 <b>${sweet.join('、')}</b>屬於點心或含糖飲品，好吃但不太能「撐」，也容易多喝進糖。`;
+ tip+=`<br>💰 你還剩 <b>$${150-total()}</b>。<b>如果只能改一樣，哪一個改變最有感？</b>`;
+ document.getElementById('mealComment').innerHTML=tip;
  let opts=[];
  if(selected.some(i=>items[i].name==='奶茶')) opts.push({label:'🧋 奶茶 → 🥛 鮮奶',from:'奶茶',to:'鮮奶'});
  if(selected.some(i=>items[i].name==='洋芋片')) opts.push({label:'🍟 洋芋片 → 🍌 香蕉',from:'洋芋片',to:'香蕉'});
  if(selected.some(i=>items[i].name==='布丁')) opts.push({label:'🍮 布丁 → 🥚 茶葉蛋',from:'布丁',to:'茶葉蛋'});
+ const left=150-total();
+ const addIf=(cat,name,emo)=>{const it=items.find(x=>x.name===name);if(!cats.has(cat)&&it&&it.p<=left&&!selected.some(i=>items[i].name===name))opts.push({label:`➕ 加一份${emo} ${name}（$${it.p}）`,from:'',to:name,add:true});};
+ addIf('蔬菜','沙拉','🥗');addIf('蛋白質','茶葉蛋','🥚');addIf('水果','香蕉','🍌');addIf('乳品','鮮奶','🥛');
  if(!opts.length) opts.push({label:'🍵 無糖茶 → 🥛 鮮奶',from:'無糖茶',to:'鮮奶'});
  opts.push({label:'✅ 我想先保留這一餐',from:'',to:''});
  document.getElementById('swapGrid').innerHTML=opts.map((o,idx)=>`<button class="swap" onclick='pickSwap(this,${JSON.stringify(o)})'>${o.label}</button>`).join('');
@@ -380,6 +402,8 @@ function applySwap(){
    const fi=items.findIndex(x=>x.name===swapChoice.from), ti=items.findIndex(x=>x.name===swapChoice.to);
    const pos=afterSelected.indexOf(fi);
    if(pos>=0){afterSelected.splice(pos,1);if(ti>=0&&!afterSelected.includes(ti))afterSelected.push(ti);}
+ }else if(swapChoice.add){
+   const ti=items.findIndex(x=>x.name===swapChoice.to);if(ti>=0)afterSelected.push(ti);
  }
  renderBeforeAfter();go(4);
 }
@@ -390,28 +414,28 @@ function renderBeforeAfter(){
  document.getElementById('beforeMeal').innerHTML=mealRows(selected);
  document.getElementById('afterMeal').innerHTML=mealRows(afterSelected);
  document.getElementById('beforeInfo').innerHTML=`花費：<b>$${total(selected)}</b>`;
- document.getElementById('afterInfo').innerHTML=`花費：<b>$${total(afterSelected)}</b><br>${swapChoice.from?'你只換了一樣東西，整餐的組成就改變了。':'你選擇保留原本搭配，也是一種有理由的決定。'}`;
+ document.getElementById('afterInfo').innerHTML=`花費：<b>$${total(afterSelected)}</b><br>${swapChoice.from?'你只換了一樣東西，整餐的組成就改變了。':swapChoice.add?'你把剩下的預算用來補上缺少的類別，錢花在刀口上！':'你選擇保留原本搭配，也是一種有理由的決定。'}`;
 }
 const scenes=[
  {title:'🍳 早餐店｜預算 70 元',desc:'早上時間不多，希望快速吃完再進教室。',
   choices:[
-   ['蛋餅＋無糖豆漿',['$65','有主食','有蛋白質']],
-   ['蘿蔔糕＋奶茶',['$70','方便','含糖飲品']],
-   ['吐司＋蛋＋豆漿',['$70','主食＋蛋白質','搭配較完整']]
+   ['蛋餅＋無糖豆漿',['$65','有主食','有蛋白質'],'好選擇！蛋餅有主食和蛋，無糖豆漿再補一份蛋白質，又沒有多餘的糖，還省下 5 元。'],
+   ['蘿蔔糕＋奶茶',['$70','方便','含糖飲品'],'吃得飽，但蘿蔔糕主要是澱粉，奶茶又含糖，蛋白質比較少，到第三節可能就餓了。可以把奶茶換成豆漿，或蘿蔔糕加蛋。'],
+   ['吐司＋蛋＋豆漿',['$70','主食＋蛋白質','搭配較完整'],'很完整的一份早餐！主食、蛋、豆漿都有。如果豆漿選無糖或微糖，會更好。']
   ],
   note:'早餐情境可以先看：時間、預算、是否有主食與蛋白質。'},
  {title:'🍜 晚餐外食｜預算 120 元',desc:'今天家裡沒煮，距離睡覺還有幾個小時。',
   choices:[
-   ['乾麵＋燙青菜＋湯',['$110','主食','有蔬菜']],
-   ['炸物拼盤',['$120','份量大','種類較單一']],
-   ['水餃＋青菜',['$115','方便','有主食與蔬菜']]
+   ['乾麵＋燙青菜＋湯',['$110','主食','有蔬菜'],'有主食又有蔬菜，不錯！不過蛋白質少了一點，可以加一顆滷蛋或一份豆干，預算剛好還夠。'],
+   ['炸物拼盤',['$120','份量大','種類較單一'],'份量很大，但幾乎都是油炸食物，油脂多、蔬菜幾乎沒有，還把預算全部花完。偶爾吃可以，當正餐就比較不均衡。'],
+   ['水餃＋青菜',['$115','方便','有主食與蔬菜'],'很好的選擇！水餃皮是主食、內餡有肉和菜，再加一盤青菜，一次就有三類食物。']
   ],
   note:'晚餐可以比較：飽足感、蔬菜、有沒有過度集中某一類食物。'},
  {title:'🎒 放學點心｜預算 60 元',desc:'距離晚餐還有 2 小時，只是有點餓。',
   choices:[
-   ['香蕉＋鮮奶',['$60','水果＋乳品','份量適中']],
-   ['珍珠奶茶',['$60','方便','含糖飲品']],
-   ['茶葉蛋＋無糖茶',['$40','蛋白質','不會太撐']]
+   ['香蕉＋鮮奶',['$60','水果＋乳品','份量適中'],'很棒！水果加乳品，可以墊肚子，又補到平常容易吃不夠的兩類食物。'],
+   ['珍珠奶茶',['$60','方便','含糖飲品'],'好喝，但一大杯全糖珍奶的糖量很高，珍珠也有不少熱量，喝完可能晚餐就吃不下了。真的想喝，可以選小杯、少糖。'],
+   ['茶葉蛋＋無糖茶',['$40','蛋白質','不會太撐'],'很聰明！蛋白質比較耐餓，份量又小，不影響晚餐，還省了 20 元。']
   ],
   note:'如果離下一餐很近，「份量」可能比「吃最多」更重要。'}
 ];
@@ -420,13 +444,46 @@ function switchScene(i,el){
  const d=scenes[i];
  document.getElementById('sceneContent').innerHTML=`
  <h3>${d.title}</h3><p class="lead" style="font-size:17px">${d.desc}</p>
- <div class="scene-box">${d.choices.map(c=>`<button class="scene-choice" onclick="scenePick(this)"><h3>${c[0]}</h3><div class="tagrow">${c[1].map(t=>`<span class="tag">${t}</span>`).join('')}</div></button>`).join('')}</div>
- <div class="info-box">💡 ${d.note}</div>`;
+ <div class="scene-box">${d.choices.map((c,k)=>`<button class="scene-choice" onclick="scenePick(this,${i},${k})"><h3>${c[0]}</h3><div class="tagrow">${c[1].map(t=>`<span class="tag">${t}</span>`).join('')}</div></button>`).join('')}</div>
+ <div class="info-box" id="sceneFb">👆 你會選哪一個？點一下看看。</div>
+ <div class="teacher-note"><b>教師提醒：</b>${d.note}</div>`;
 }
-function scenePick(el){document.querySelectorAll('#sceneContent .scene-choice').forEach(x=>x.classList.remove('active'));el.classList.add('active')}
-function rolePick(el,text){
+function scenePick(el,i,k){document.querySelectorAll('#sceneContent .scene-choice').forEach(x=>x.classList.remove('active'));el.classList.add('active');
+ document.getElementById('sceneFb').innerHTML='💡 '+scenes[i].choices[k][2];}
+function showDeals(){
+ document.querySelectorAll('.scene-tab').forEach(x=>x.classList.remove('active'));document.getElementById('dealTab').classList.add('active');
+ document.getElementById('sceneContent').innerHTML=`
+ <h3>🏷️ 看懂促銷｜便宜，不一定划算</h3>
+ <p class="lead" style="font-size:17px">商店常用「大容量」「第二件半價」吸引你。學會算<b>單位價格</b>，也要問自己：<b>我真的需要嗎？</b></p>
+ <h3 style="font-size:19px">第 1 題｜哪一瓶鮮奶比較便宜？</h3>
+ <div class="deal"><div><b>A 小瓶鮮奶</b><br>290 毫升　$35</div><div><b>B 大瓶鮮奶</b><br>936 毫升　$85</div></div>
+ <div class="qbtns" id="deal1">
+  <button class="qbtn" onclick="dealAns(1,this,false)">A 小瓶比較便宜，因為只要 35 元</button>
+  <button class="qbtn" onclick="dealAns(1,this,true)">B 大瓶比較便宜，每 100 毫升價格較低</button>
+ </div>
+ <div class="fb" id="dealFb1"></div>
+ <h3 style="font-size:19px;margin-top:22px">第 2 題｜奶茶一杯 $45，今天「第二杯半價」</h3>
+ <p style="line-height:1.8">你本來只想喝一杯。店員說：「買兩杯比較划算喔！」</p>
+ <div class="qbtns" id="deal2">
+  <button class="qbtn" onclick="dealAns(2,this,false)">買兩杯，因為省了 22.5 元</button>
+  <button class="qbtn" onclick="dealAns(2,this,true)">只買一杯，因為我只需要一杯</button>
+ </div>
+ <div class="fb" id="dealFb2"></div>
+ <div class="teacher-note"><b>教師提醒：</b>可延伸「單位價格」的計算：總價 ÷ 容量 × 100，並連結消費與管理單元「需要與想要」。</div>`;
+}
+function dealAns(n,btn,ok){
+ const box=document.getElementById('deal'+n);
+ box.querySelectorAll('.qbtn').forEach(b=>b.disabled=true);
+ btn.classList.add(ok?'correct':'wrong');
+ if(!ok) box.querySelectorAll('.qbtn')[1].classList.add('correct');
+ const fb=document.getElementById('dealFb'+n);fb.classList.add('show');
+ fb.innerHTML= n===1
+  ? (ok?'✅ <b>算得好！</b>':'💡 <b>總價便宜，不等於比較划算：</b>')+'A 每 100 毫升約 <b>$12.1</b>（35÷290×100），B 每 100 毫升約 <b>$9.1</b>（85÷936×100），B 的單位價格比較低。<br>⚠️ 但鮮奶要冷藏、開封後要儘快喝完。如果喝不完而過期丟掉，反而最浪費！'
+  : (ok?'✅ <b>很有主見！</b>':'💡 <b>換個角度想：</b>')+'兩杯總共 $67.5，比原本多花了 <b>$22.5</b>，還多喝進一杯含糖飲料。「省錢」的前提是：<b>這是你本來就需要的東西</b>。和朋友一人一杯分攤，才是真的划算。';
+}
+function rolePick(el,text,tip){
  document.querySelectorAll('[data-screen="6"] .scene-choice').forEach(x=>x.classList.remove('active'));el.classList.add('active');
- document.getElementById('roleInfo').innerHTML=`${text}<br><br><b>他的選擇，應該先從自己的狀態開始判斷，而不是直接照別人的答案。</b>`;
+ document.getElementById('roleInfo').innerHTML=`${text}<br><br>${tip}<br><br><b>同樣 100 元，三個人的最佳答案都不一樣。</b>`;
 }
 function go(n){
  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -446,6 +503,7 @@ function renderResult(){
  document.getElementById('varietyResult').textContent=
    chosenCats.length ? `這次有：${chosenCats.join('、')}。` : '這次餐點種類比較集中，可以再觀察。';
  document.getElementById('adjustResult').textContent=
+   (swapChoice&&swapChoice.add) ? `你用剩下的預算加了一份「${swapChoice.to}」。` :
    (swapChoice&&swapChoice.from) ? `你把「${swapChoice.from}」調整成「${swapChoice.to}」。`
                                  : '你選擇保留原本搭配，並為自己的選擇找理由。';
  document.getElementById('resultText').innerHTML=

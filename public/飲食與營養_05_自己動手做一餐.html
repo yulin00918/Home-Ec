@@ -34,7 +34,7 @@ Copyright © 張鈺聆. All rights reserved.
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif,"Noto Color Emoji";
   color:var(--text);
   background:linear-gradient(180deg,#fbf8f2 0%,#f6f3ec 100%);
 }
@@ -70,11 +70,21 @@ h2{font-size:clamp(28px,4vw,44px);margin:0 0 10px}
 h3{font-size:22px;margin:0 0 10px}
 .lead{font-size:19px;line-height:1.8;color:#5b665f}
 .hero-ill{
-  width:min(360px,80vw);aspect-ratio:1;border-radius:50%;
-  background:#fff;border:16px solid #efd8d9;display:grid;place-items:center;
-  margin:auto;box-shadow:inset 0 0 0 1px #dfc8ca,0 18px 40px rgba(100,65,70,.1)
+  width:min(430px,82vw);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,#f6e6e7 0 58%,rgba(246,230,231,0) 70%);
+  display:grid;place-items:center;margin:auto
 }
-.hero-ill span{font-size:110px}
+.hero-ill img{width:90%;height:auto;display:block;filter:drop-shadow(0 14px 22px rgba(100,65,70,.14))}
+.tips3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.tips3 div{padding:16px;border-radius:15px;background:#fff7f4;border:1px solid #efd8d9;line-height:1.75}
+.heat{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.heat div{padding:14px;border-radius:15px;background:#fffaf3;border:1px solid #eadfcf;line-height:1.7}
+.match{display:grid;gap:10px;margin-top:12px}
+.match-row{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center;padding:10px 14px;border-radius:14px;background:#faf8f3;border:1px solid #ebe6dc}
+.match-row .mbtns{display:flex;flex-wrap:wrap;gap:8px}
+.match-row button{padding:8px 14px;border-radius:999px;border:1px solid #e0d6cc;background:#fff;font:inherit;font-weight:800;cursor:pointer}
+.match-row button.correct{background:#edf5e9;border-color:#9cad8a}.match-row button.wrong{background:#fff0ed;border-color:#d9a69a}
+@media(max-width:720px){.tips3,.heat{grid-template-columns:1fr}.match-row{grid-template-columns:1fr}}
 .primary,.secondary{
   border:0;border-radius:16px;padding:13px 20px;font-weight:900;cursor:pointer
 }
@@ -169,6 +179,9 @@ body.teacher-mode .teacher-note{display:block}
   .option-grid,.rating-grid,.badges{grid-template-columns:1fr}
 }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 </head>
 <body>
 <p style="text-align:center;margin:10px 0 0;"><a href="飲食與營養.dc.html" style="color:#537258;text-decoration:none;font-weight:800;">← 回飲食與營養</a></p>
@@ -188,7 +201,7 @@ body.teacher-mode .teacher-note{display:block}
       <button class="primary" onclick="go(2)">進入料理實驗室 →</button>
       <div class="teacher-note"><b>教師提問：</b>「你覺得料理真正開始的第一步，是開火嗎？」</div>
     </div>
-    <div class="hero-ill"><span>🍳</span></div>
+    <div class="hero-ill"><img src="images/food/food-05.webp" alt="平底鍋煎著荷包蛋，旁邊有鍋鏟和放著番茄、青蔥的砧板" width="760" height="760"></div>
   </div>
 </section>
 
@@ -236,6 +249,12 @@ body.teacher-mode .teacher-note{display:block}
       <button class="hotspot" data-n="5" aria-label="危險位置" style="left:79%;top:74%;width:17%;height:20%" onclick="event.stopPropagation();findDanger(this,'刀具清洗後應妥善放置，不要藏在水槽或抹布下。')">5</button>
     </div>
     <div class="info-box">已找到 <b><span id="dangerCount">0</span> / 5</b>｜<span id="dangerInfo">找到一個危險點後，這裡會顯示原因。</span></div>
+    <h3 style="margin-top:24px">🔪 安全用刀三招</h3>
+    <div class="tips3">
+      <div><b>🐾 貓爪手</b><br>扶食材的手指<b>彎曲、指尖往內縮</b>，用指關節靠著刀面，刀子就切不到指尖。</div>
+      <div><b>🧻 砧板不滑動</b><br>砧板下墊<b>濕抹布或止滑墊</b>。圓的食材（番茄、紅蘿蔔）先切一刀做出平面，讓它站穩再切。</div>
+      <div><b>↕️ 放刀與傳刀</b><br>刀子用完放在砧板<b>上方、刀刃朝內</b>。傳刀時刀柄朝向對方，或先放在桌上讓對方自己拿。</div>
+    </div>
     <div class="teacher-note"><b>教師提醒：</b>安全規則要配合實際操作示範，不建議只靠網頁完成。</div>
     <div class="actions"><button class="secondary" onclick="go(3)">← 上一步</button><button class="primary" id="toMethodBtn" onclick="requireDanger()">烹調方式實驗室 →</button></div>
   </div>
@@ -253,6 +272,15 @@ body.teacher-mode .teacher-note{display:block}
       <button class="method" onclick="methodPick(this,'烤','利用熱空氣或烤箱加熱。常見：烤蔬菜、烤地瓜。')"><div class="emo">🔥</div><b>烤</b></button>
     </div>
     <div class="info-box" id="methodInfo">點一種烹調方式看看。</div>
+    <h3 style="margin-top:24px">🔥 火候也是技巧</h3>
+    <div class="heat">
+      <div><b>大火</b>　快速加熱、縮短時間<br><span class="small">例：快炒青菜、煮滾一鍋水</span></div>
+      <div><b>中火</b>　最常用，好控制<br><span class="small">例：煎蛋、炒蛋、炒飯</span></div>
+      <div><b>小火</b>　慢慢加熱、不易燒焦<br><span class="small">例：燉煮、煮好後保溫</span></div>
+    </div>
+    <h3 style="margin-top:24px">🥚 同一顆蛋，配對看看是哪一種做法？</h3>
+    <div class="match" id="eggMatch"></div>
+    <div class="info-box" id="eggInfo">每一道蛋料理，選出它主要的烹調方式。</div>
     <div class="teacher-note"><b>教師提問：</b>「如果今天食材是雞蛋，你想到幾種做法？」</div>
     <div class="actions"><button class="secondary" onclick="go(4)">← 上一步</button><button class="primary" onclick="go(6)">料理順序挑戰 →</button></div>
   </div>
@@ -300,10 +328,12 @@ body.teacher-mode .teacher-note{display:block}
           <div>
             <h3>🍅 番茄炒蛋</h3>
             <div class="ingredients">
-              <div class="row">🍅 番茄</div>
-              <div class="row">🥚 雞蛋</div>
-              <div class="row">🧂 調味料</div>
-              <div class="row">🧅 蔥（可選）</div>
+              <div class="small" style="margin-bottom:6px">約 2 人份</div>
+              <div class="row">🍅 番茄　2 顆</div>
+              <div class="row">🥚 雞蛋　3 顆</div>
+              <div class="row">🧂 鹽　1/4 小匙；糖　1 小匙（可選）</div>
+              <div class="row">🫒 油　1 大匙</div>
+              <div class="row">🌱 蔥　1 支（可選）</div>
             </div>
           </div>
           <div>
@@ -311,6 +341,7 @@ body.teacher-mode .teacher-note{display:block}
               <div class="row">🧼 食安提醒｜處理食材前先洗手</div>
               <div class="row">🔪 安全提醒｜切番茄時先固定食材</div>
               <div class="row">🔥 料理技巧｜先完成備料，再開始加熱</div>
+              <div class="row">🍳 美味關鍵｜蛋炒到半熟先盛起，最後再倒回，口感才會嫩</div>
             </div>
           </div>
         </div>
@@ -346,7 +377,7 @@ body.teacher-mode .teacher-note{display:block}
       <div class="clean-item" style="left:70%;top:60%" onclick="clean(this)">🗑️</div>
       <div class="clean-item" style="left:82%;top:20%" onclick="clean(this)">🧽</div>
     </div>
-    <div class="info-box">已完成清潔：<b><span id="cleanCount">0</span> / 5</b></div>
+    <div class="info-box">已完成清潔：<b><span id="cleanCount">0</span> / 5</b>｜<span id="cleanTip">點每一樣東西，看看怎麼清潔復原。</span></div>
 
     <div class="badges">
       <div class="skill">🧼<br><b>衛生管理</b></div>
@@ -383,12 +414,14 @@ function prepAnswer(btn,ok){
   fb.innerHTML=ok?'✅ <b>對！</b>料理不是從開火開始，而是先把人、環境、材料和器具準備好。':'💡 <b>再想想。</b>如果還沒洗手、沒整理工作區、材料也沒確認，就先開火或切菜，容易手忙腳亂。';
 }
 const toolTasks=[
-  {task:'任務 1：把紅蘿蔔切成細絲。',answer:'菜刀',fb:'✅ 菜刀搭配砧板最適合完成切絲任務。'},
+  {task:'任務 1：把紅蘿蔔切成細絲。',answer:'菜刀',fb:'✅ 菜刀要搭配砧板一起用。小技巧：砧板下面墊一條濕抹布，就不會滑動。'},
   {task:'任務 2：把蛋液攪拌均勻。',answer:'筷子',fb:'✅ 筷子或打蛋器都能完成攪拌蛋液的任務。'},
-  {task:'任務 3：把青菜瀝乾。',answer:'瀝水籃',fb:'✅ 瀝水籃能幫助去除多餘水分。'}
+  {task:'任務 3：把青菜瀝乾。',answer:'瀝水籃',fb:'✅ 瀝水籃能去除多餘水分。青菜太濕下油鍋，油會噴濺！'},
+  {task:'任務 4：加入「1/4 小匙」的鹽。',answer:'量匙',fb:'✅ 量匙能量出準確的份量。1 大匙 = 3 小匙，看清楚食譜寫的是「大匙」還是「小匙」。'},
+  {task:'任務 5：在鍋裡翻炒蛋炒飯。',answer:'鍋鏟',fb:'✅ 鍋鏟可以翻動、鏟起食材。不沾鍋要搭配木頭或矽膠鍋鏟，才不會刮傷鍋面。'}
 ];
 const tools=['菜刀','砧板','筷子','湯匙','瀝水籃','鍋鏟','平底鍋','量匙'];
-const toolEmoji={'菜刀':'🔪','砧板':'🪵','筷子':'🥢','湯匙':'🥄','瀝水籃':'🥗','鍋鏟':'🍳','平底鍋':'🍳','量匙':'🥄'};
+const toolEmoji={'菜刀':'🔪','砧板':'🪵','筷子':'🥢','湯匙':'🥄','瀝水籃':'🧺','鍋鏟':'🍳','平底鍋':'🥘','量匙':'🧂'};
 let toolIndex=0;
 function renderTools(){
   document.getElementById('toolTask').textContent=toolTasks[toolIndex].task;
@@ -402,7 +435,7 @@ function pickTool(el,t){
     fb.innerHTML=task.fb;
     setTimeout(()=>{
       if(toolIndex<toolTasks.length-1){toolIndex++;renderTools();}
-      else fb.innerHTML='🎉 三個工具任務完成！工具要依任務選，不是越多越好。';
+      else fb.innerHTML='🎉 五個工具任務完成！工具要依任務選，不是越多越好。';
     },650);
   }else{
     fb.innerHTML='💡 這個工具不太適合目前的任務，再想想「要完成什麼動作」。';
@@ -426,10 +459,23 @@ function methodPick(el,name,msg){
   document.querySelectorAll('.method').forEach(x=>x.classList.remove('active'));el.classList.add('active');
   document.getElementById('methodInfo').innerHTML=`<b>${name}</b>｜${msg}`;
 }
+const eggDishes=[['🍮 蒸蛋','蒸'],['🍳 荷包蛋','煎'],['🥚 茶葉蛋','煮'],['🍅 番茄炒蛋','炒'],['🥧 烤布丁','烤']];
+let eggDone=0;
+function renderEgg(){
+  eggDone=0;
+  document.getElementById('eggMatch').innerHTML=eggDishes.map((d,i)=>`<div class="match-row"><b>${d[0]}</b><div class="mbtns">${['炒','煮','蒸','煎','烤'].map(m=>`<button onclick="eggPick(this,${i},'${m}')">${m}</button>`).join('')}</div></div>`).join('');
+}
+function eggPick(btn,i,m){
+  const row=btn.parentElement;if(row.dataset.done)return;
+  if(m===eggDishes[i][1]){btn.classList.add('correct');row.dataset.done=1;eggDone++;
+    document.getElementById('eggInfo').innerHTML=eggDone===eggDishes.length?'🎉 全部配對完成！同一顆蛋，可以「炒、煮、蒸、煎、烤」五種做法，口感完全不一樣。':`✅ ${eggDishes[i][0]}用「${m}」。繼續配對下一道！`;}
+  else{btn.classList.add('wrong');setTimeout(()=>btn.classList.remove('wrong'),600);}
+}
+function shuffled(arr){let a;do{a=arr.slice().sort(()=>Math.random()-.5);}while(a.every((x,k)=>x[1]===k));return a;}
 const seqSteps=['洗手與整理工作區','洗菜與備料','切菜與打蛋','先處理需要較久時間的湯','炒飯／炒青菜','盛裝與邊做邊整理'];
 let seqIndex=0;
 function renderSequence(){
-  document.getElementById('sequence').innerHTML=seqSteps.map((s,i)=>`<button class="seq" onclick="pickSeq(this,${i})">${s}</button>`).join('');
+  document.getElementById('sequence').innerHTML=shuffled(seqSteps.map((s,i)=>[s,i])).map(([s,i])=>`<button class="seq" onclick="pickSeq(this,${i})">${s}</button>`).join('');
 }
 function pickSeq(el,i){
   if(el.classList.contains('done'))return;
@@ -437,10 +483,10 @@ function pickSeq(el,i){
   el.classList.add('done');seqIndex++;
   document.getElementById('seqInfo').innerHTML=seqIndex===seqSteps.length?'✅ 流程完成！你已經掌握「先備料、再開火、邊做邊整理」。':`很好，下一步再想想要做什麼。`;
 }
-const simSteps=['洗手','洗番茄','切番茄','打蛋','準備調味','開火','先炒蛋再處理番茄','完成盛裝'];
+const simSteps=['洗手','洗番茄、切塊','打蛋，加一點鹽攪勻','準備調味料','熱鍋加油，倒入蛋液，炒到半熟先盛起','原鍋炒番茄，炒到出汁','蛋倒回鍋中拌勻、調味','關火，盛盤'];
 let simIndex=0;
 function renderSim(){
-  document.getElementById('simSequence').innerHTML=simSteps.map((s,i)=>`<button class="seq" onclick="pickSim(this,${i})">${s}</button>`).join('');
+  document.getElementById('simSequence').innerHTML=shuffled(simSteps.map((s,i)=>[s,i])).map(([s,i])=>`<button class="seq" onclick="pickSim(this,${i})">${s}</button>`).join('');
 }
 function pickSim(el,i){
   if(el.classList.contains('done'))return;
@@ -456,10 +502,12 @@ function rate(btn,n){
   [...box.children].forEach((b,i)=>b.textContent=i<n?'★':'☆');
 }
 let cleanCount=0;
+const cleanTips={'🍳':'鍋子：等稍微降溫再洗，熱鍋直接沖冷水容易變形。','🔪':'刀子：單獨清洗、擦乾後歸位，<b>不要泡在水槽裡</b>，別人伸手會被割到。','🥣':'碗盤：先把殘渣刮進廚餘桶，再用清潔劑清洗、沖乾淨。','🗑️':'垃圾：廚餘、一般垃圾、資源回收要分類。','🧽':'菜瓜布和抹布：洗乾淨、擰乾、晾起來，潮濕的抹布最容易長細菌。'};
 function clean(el){
   if(el.classList.contains('done'))return;
   el.classList.add('done');cleanCount++;
   document.getElementById('cleanCount').textContent=cleanCount;
+  const tip=cleanTips[el.textContent.trim()];if(tip)document.getElementById('cleanTip').innerHTML='🧹 '+tip;
 }
 
 function requireDanger(){
@@ -494,9 +542,9 @@ function resetAll(){
   document.querySelectorAll('.clean-item').forEach(x=>x.classList.remove('done'));
   document.getElementById('cleanCount').textContent='0';
   document.querySelectorAll('.stars').forEach(box=>[...box.children].forEach(b=>b.textContent='☆'));
-  renderTools();renderSequence();renderSim();go(1);
+  renderTools();renderSequence();renderSim();renderEgg();go(1);
 }
-renderTools();renderSequence();renderSim();
+renderTools();renderSequence();renderSim();renderEgg();
 
 function markComplete(num, ability, icon){
   try {

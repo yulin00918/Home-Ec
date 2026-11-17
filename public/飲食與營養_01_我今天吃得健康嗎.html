@@ -36,7 +36,7 @@ Copyright © 張鈺聆. All rights reserved.
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif,"Noto Color Emoji";
   color:var(--text);
   background:linear-gradient(180deg,#fbf8f2 0%,#f7f4ed 100%);
 }
@@ -124,15 +124,14 @@ h2{font-size:clamp(28px,4vw,44px);margin:0 0 10px}
 h3{font-size:22px;margin:0 0 10px}
 p.lead{font-size:20px;line-height:1.8;color:#56645a;margin:0 0 28px}
 .plate-illustration{
-  width:min(380px,85vw);aspect-ratio:1;margin:auto;
+  width:min(440px,85vw);aspect-ratio:1;margin:auto;
   border-radius:50%;
-  background:#fff;
-  border:18px solid #e7eee3;
-  box-shadow:inset 0 0 0 1px #d8dfd6,0 18px 45px rgba(71,92,71,.12);
+  background:radial-gradient(circle at 50% 50%,#eef4ec 0 58%,rgba(238,244,236,0) 70%);
   display:grid;
   place-items:center;
   position:relative;
 }
+.plate-illustration img{width:92%;height:auto;display:block;filter:drop-shadow(0 14px 22px rgba(71,92,71,.14))}
 .plate-illustration .emoji{font-size:100px}
 .plate-dot{position:absolute;width:18px;height:18px;border-radius:50%;background:#d6dfd1}
 .plate-dot:nth-child(2){top:15%;left:18%}.plate-dot:nth-child(3){bottom:16%;right:20%}.plate-dot:nth-child(4){top:22%;right:14%}
@@ -213,6 +212,9 @@ p.lead{font-size:20px;line-height:1.8;color:#56645a;margin:0 0 28px}
   margin-top:18px;padding:16px 18px;border-radius:15px;background:#f3f7f1;display:none;line-height:1.7
 }
 .feedback.show{display:block}
+.plate-viz{display:flex;justify-content:center;margin:4px 0 6px}
+.plate-viz svg{width:min(360px,100%);height:auto}
+.plate-viz text{font-family:inherit;font-weight:700}
 .analysis-grid{
   display:grid;grid-template-columns:.9fr 1.1fr;gap:22px
 }
@@ -266,6 +268,9 @@ body.teacher-mode .teacher-note{display:block}
   h1{font-size:38px}
 }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="app">
@@ -296,7 +301,7 @@ body.teacher-mode .teacher-note{display:block}
           <div class="teacher-note"><b>教師提問：</b>「你覺得一餐吃得健康，最重要的是什麼？」先聽學生的原有想法，不急著訂正。</div>
         </div>
         <div class="plate-illustration" aria-hidden="true">
-          <div class="emoji">🍽️</div><div class="plate-dot"></div><div class="plate-dot"></div><div class="plate-dot"></div>
+          <img src="images/food/food-01.webp" alt="均衡的一餐：白飯、青菜、鮭魚、水煮蛋、水果與一杯牛奶" width="760" height="760">
         </div>
       </div>
     </section>
@@ -375,7 +380,7 @@ body.teacher-mode .teacher-note{display:block}
     <section class="screen" data-screen="5">
       <div class="quiz-wrap">
         <div class="quiz-card">
-          <span class="kicker">STEP 4｜分類挑戰 <span id="qCount">1 / 8</span></span>
+          <span class="kicker">STEP 4｜分類挑戰 <span id="qCount">第 1 題／共 11 題</span></span>
           <div class="quiz-food" id="qEmoji">🍠</div>
           <div class="quiz-title" id="qTitle">地瓜屬於哪一類？</div>
           <div class="answer-grid" id="answers"></div>
@@ -399,7 +404,10 @@ body.teacher-mode .teacher-note{display:block}
         <div class="panel">
           <h3>你剛才選的一餐</h3>
           <div class="plate-items" id="analysisMeal" style="justify-content:flex-start;margin:14px 0 24px"></div>
-          <h3>六大類概況</h3>
+          <h3>對照「我的餐盤」</h3>
+          <p class="small" style="margin:0 0 10px">有吃到的類別會亮起來，灰色虛線是這一餐還沒出現的。</p>
+          <div class="plate-viz" id="plateViz"></div>
+          <h3 style="margin-top:18px">六大類概況</h3>
           <div class="category-list" id="categoryList"></div>
         </div>
         <div class="panel">
@@ -460,6 +468,10 @@ const foods = [
   {name:'香蕉',emoji:'🍌',cat:'水果'},
   {name:'牛奶',emoji:'🥛',cat:'乳品'},
   {name:'優格',emoji:'🥣',cat:'乳品'},
+  {name:'飯糰',emoji:'🍙',cat:'全穀雜糧'},
+  {name:'紅蘿蔔',emoji:'🥕',cat:'蔬菜'},
+  {name:'橘子',emoji:'🍊',cat:'水果'},
+  {name:'起司片',emoji:'🧀',cat:'乳品'},
   {name:'堅果',emoji:'🥜',cat:'油脂與堅果種子'},
   {name:'奶茶',emoji:'🧋',cat:'其他'},
   {name:'薯條',emoji:'🍟',cat:'其他'},
@@ -473,7 +485,10 @@ const quiz = [
   {e:'🥛',n:'無糖豆漿',a:'豆魚蛋肉類',f:'豆漿是黃豆製品，因此歸在豆魚蛋肉類，不是乳品類。'},
   {e:'🥣',n:'優格',a:'乳品類',f:'優格是乳製品，因此歸在乳品類。'},
   {e:'🥔',n:'馬鈴薯',a:'全穀雜糧類',f:'馬鈴薯主要歸在全穀雜糧類。'},
-  {e:'🎃',n:'南瓜',a:'全穀雜糧類',f:'雖然名稱裡有「瓜」，但依本頁採用的營養分類，南瓜歸在全穀雜糧類。'}
+  {e:'🎃',n:'南瓜',a:'全穀雜糧類',f:'雖然名稱裡有「瓜」，但依本頁採用的營養分類，南瓜歸在全穀雜糧類。'},
+  {e:'🍅',n:'小番茄',a:'水果類',f:'小番茄（聖女番茄）通常當水果吃，歸在水果類；大番茄多用來煮菜，歸在蔬菜類。同樣是番茄，分類不一樣！'},
+  {e:'🫘',n:'紅豆',a:'全穀雜糧類',f:'紅豆、綠豆名字裡有「豆」，但它們澱粉多，歸在全穀雜糧類；黃豆、黑豆、毛豆才是豆魚蛋肉類。'},
+  {e:'🫛',n:'毛豆',a:'豆魚蛋肉類',f:'毛豆是還沒成熟的黃豆，蛋白質豐富，所以歸在豆魚蛋肉類，不是蔬菜類。'}
 ];
 const answerCats=['全穀雜糧類','豆魚蛋肉類','乳品類','油脂與堅果種子類','蔬菜類','水果類'];
 
@@ -526,7 +541,7 @@ function startQuiz(){
 }
 function renderQuiz(){
   const q=quiz[qIndex];
-  document.getElementById('qCount').textContent=`${qIndex+1} / ${quiz.length}`;
+  document.getElementById('qCount').textContent=`第 ${qIndex+1} 題／共 ${quiz.length} 題`;
   document.getElementById('qEmoji').textContent=q.e;
   document.getElementById('qTitle').textContent=`${q.n}屬於哪一類？`;
   document.getElementById('answers').innerHTML=answerCats.map(c=>`<button class="answer" onclick="answerQuiz('${c}')">${c}</button>`).join('');
@@ -554,7 +569,38 @@ function nextQuiz(){
   if(qIndex<quiz.length-1){qIndex++;renderQuiz();}
   else{showToast('🎉 分類挑戰完成！');setTimeout(()=>go(6),450);}
 }
+function renderPlateViz(){
+  const has=c=>selected.some(i=>foods[i].cat===c);
+  const cx=150,cy=150,r=118;
+  const parts=[
+    {c:'蔬菜',label:'蔬菜',from:-90,to:18,fill:'#8fb27f'},
+    {c:'水果',label:'水果',from:18,to:90,fill:'#e8a27e'},
+    {c:'豆魚蛋肉',label:'豆魚蛋肉',from:90,to:162,fill:'#d9a07a'},
+    {c:'全穀雜糧',label:'全穀雜糧',from:162,to:270,fill:'#e6cf8f'}
+  ];
+  const pt=(a,rr)=>[cx+rr*Math.cos(a*Math.PI/180),cy+rr*Math.sin(a*Math.PI/180)];
+  let svg=`<svg viewBox="0 0 380 300" role="img" aria-label="我的餐盤對照圖">`;
+  svg+=`<circle cx="${cx}" cy="${cy}" r="${r+14}" fill="#fff" stroke="#e3e9df" stroke-width="3"/>`;
+  parts.forEach(p=>{
+    const on=has(p.c);
+    const [x1,y1]=pt(p.from+1.5,r),[x2,y2]=pt(p.to-1.5,r);
+    const large=(p.to-p.from)>180?1:0;
+    svg+=`<path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${large} 1 ${x2},${y2} Z" fill="${on?p.fill:'#f4f2ee'}" stroke="${on?'#fff':'#c9c4ba'}" stroke-width="${on?3:2}" ${on?'':'stroke-dasharray="6 5"'}/>`;
+    const mid=(p.from+p.to)/2,[tx,ty]=pt(mid,r*0.58);
+    svg+=`<text x="${tx}" y="${ty}" text-anchor="middle" dominant-baseline="middle" font-size="15" fill="${on?'#2f3a35':'#a29d93'}">${p.label}</text>`;
+    if(!on) svg+=`<text x="${tx}" y="${ty+19}" text-anchor="middle" font-size="12" fill="#b0aaa0">還沒有</text>`;
+  });
+  const milk=has('乳品'),nut=has('油脂與堅果種子');
+  svg+=`<rect x="304" y="38" width="50" height="66" rx="10" fill="${milk?'#fdfaf3':'#f4f2ee'}" stroke="${milk?'#9fb7c2':'#c9c4ba'}" stroke-width="3" ${milk?'':'stroke-dasharray="6 5"'}/>`;
+  if(milk) svg+=`<rect x="309" y="56" width="40" height="43" rx="7" fill="#dfecef"/>`;
+  svg+=`<text x="329" y="124" text-anchor="middle" font-size="14" fill="${milk?'#2f3a35':'#a29d93'}">乳品</text>`;
+  svg+=`<circle cx="329" cy="206" r="22" fill="${nut?'#c9a27a':'#f4f2ee'}" stroke="${nut?'#fff':'#c9c4ba'}" stroke-width="3" ${nut?'':'stroke-dasharray="6 5"'}/>`;
+  svg+=`<text x="329" y="246" text-anchor="middle" font-size="14" fill="${nut?'#2f3a35':'#a29d93'}">堅果種子</text>`;
+  svg+=`</svg>`;
+  document.getElementById('plateViz').innerHTML=svg;
+}
 function renderAnalysis(){
+  renderPlateViz();
   document.getElementById('analysisMeal').innerHTML=selected.map(i=>`<span class="chip">${foods[i].emoji} ${foods[i].name}</span>`).join('');
   const cats=[
     ['🌾','全穀雜糧'],['🥩','豆魚蛋肉'],['🥛','乳品'],['🥬','蔬菜'],['🍎','水果'],['🥜','油脂與堅果種子']
@@ -571,6 +617,8 @@ function renderAnalysis(){
   if(!hasFruit) items.push('🍎 加一份水果');
   if(!hasVeg) items.push('🥬 多一點蔬菜');
   if(!hasMilk) items.push('🥛 補充一份乳品');
+  if(!selected.some(i=>foods[i].cat==='豆魚蛋肉')) items.push('🥚 加一份豆魚蛋肉');
+  if(!selected.some(i=>foods[i].cat==='全穀雜糧')) items.push('🍚 加一份主食');
   if(selected.some(i=>foods[i].name==='奶茶')) items.push('💧 把含糖飲料換成水');
   items.push('🍚 調整主食份量');
   items.push('✅ 我覺得這一餐先這樣就好');

@@ -34,7 +34,7 @@ Copyright © 張鈺聆. All rights reserved.
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif,"Noto Color Emoji";
   color:var(--text);
   background:linear-gradient(180deg,#fbf8f2 0%,#f6f3ec 100%);
 }
@@ -70,11 +70,21 @@ h2{font-size:clamp(28px,4vw,44px);margin:0 0 10px}
 h3{font-size:22px;margin:0 0 10px}
 .lead{font-size:19px;line-height:1.8;color:#5b665f}
 .hero-ill{
-  width:min(360px,80vw);aspect-ratio:1;border-radius:50%;
-  background:#fff;border:16px solid #dcece7;display:grid;place-items:center;
-  margin:auto;box-shadow:inset 0 0 0 1px #c8ddd8,0 18px 40px rgba(50,90,82,.1)
+  width:min(430px,82vw);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,#dfeeea 0 58%,rgba(223,238,234,0) 70%);
+  display:grid;place-items:center;margin:auto
 }
-.hero-ill span{font-size:110px}
+.hero-ill img{width:90%;height:auto;display:block;filter:drop-shadow(0 14px 22px rgba(50,90,82,.14))}
+.thermo{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:stretch;margin-top:18px}
+.thermo-bar{width:46px;border-radius:24px;background:linear-gradient(#e58b78 0 30%,#f3d38c 30% 70%,#8fc1d6 70% 100%);position:relative;min-height:260px}
+.thermo-rows{display:grid;grid-template-rows:3fr 4fr 3fr;gap:8px}
+.thermo-rows div{padding:12px 16px;border-radius:14px;line-height:1.7;display:block;align-self:stretch}
+.thermo-rows div>b:first-child{display:block;margin-bottom:2px}
+.t-hot{background:#fbe9e4}.t-danger{background:#fdf3d9;border:2px dashed #e0b85a}.t-cold{background:#e3f0f5}
+.five{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+.five div{padding:14px 8px;background:#fff;border:1px solid #dfe7e3;border-radius:15px;text-align:center;line-height:1.6}
+.qa{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+@media(max-width:720px){.five{grid-template-columns:repeat(2,1fr)}.qa{grid-template-columns:1fr}}
 .primary,.secondary{
   border:0;border-radius:16px;padding:13px 20px;font-weight:900;cursor:pointer
 }
@@ -178,6 +188,9 @@ body.teacher-mode .teacher-note{display:block}
   .time-row{grid-template-columns:1fr}
 }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 </head>
 <body>
 <p style="text-align:center;margin:10px 0 0;"><a href="飲食與營養.dc.html" style="color:#537258;text-decoration:none;font-weight:800;">← 回飲食與營養</a></p>
@@ -197,7 +210,7 @@ body.teacher-mode .teacher-note{display:block}
       <button class="primary" onclick="go(2)">開始食安調查 →</button>
       <div class="teacher-note"><b>教師提問：</b>「你判斷食物能不能吃時，通常先看什麼？」</div>
     </div>
-    <div class="hero-ill"><span>🕵️‍♀️</span></div>
+    <div class="hero-ill"><img src="images/food/food-04.webp" alt="插著溫度計的保鮮盒、打勾的盾牌與冰塊，代表食品安全" width="760" height="760"></div>
   </div>
 </section>
 
@@ -229,7 +242,23 @@ body.teacher-mode .teacher-note{display:block}
       <button class="step" onclick="pickStep(this,2)">③ 隔天食用前充分加熱</button>
     </div>
     <div class="info-box" id="curryInfo" style="margin-top:16px">依序點 ① → ② → ③，建立「快速降溫 × 儘速冷藏 × 再加熱」概念。</div>
-    <div class="teacher-note"><b>教師提醒：</b>實際保存時間與溫度標準可依課程採用的官方指引補充；學生主線先掌握「不要長時間放室溫」。</div>
+    <h3 style="margin-top:28px">🌡️ 為什麼不能放在室溫？認識「溫度危險帶」</h3>
+    <div class="thermo">
+      <div class="thermo-bar" aria-hidden="true"></div>
+      <div class="thermo-rows">
+        <div class="t-hot"><b>🔥 60°C 以上｜熱藏</b>熱騰騰的食物，細菌不容易繁殖。</div>
+        <div class="t-danger"><b>⚠️ 7°C～60°C｜溫度危險帶</b>細菌最容易大量繁殖的溫度，<b>室溫就在這裡</b>！熟食放在室溫，最好不要超過 2 小時。</div>
+        <div class="t-cold"><b>🧊 7°C 以下｜冷藏</b>（冷凍是 −18°C 以下）細菌繁殖變慢，但<b>不會死掉</b>，所以冷藏也不能放太久。</div>
+      </div>
+    </div>
+    <div class="question" style="margin-top:20px;font-weight:900">小測驗：冰箱的冷藏室，溫度應該維持在幾度以下？</div>
+    <div class="qa" id="tempQ">
+      <button class="answer" onclick="tempAns(this,true)">7°C 以下</button>
+      <button class="answer" onclick="tempAns(this,false)">15°C 以下</button>
+      <button class="answer" onclick="tempAns(this,false)">25°C 以下</button>
+    </div>
+    <div class="feedback" id="tempFb"></div>
+    <div class="teacher-note"><b>教師提醒：</b>溫度依「食品良好衛生規範準則」：冷藏 7°C 以下、冷凍 −18°C 以下、熱藏 60°C 以上。可提醒冰箱不要塞太滿，冷空氣才流得動。</div>
     <div class="actions"><button class="secondary" onclick="go(2)">← 上一步</button><button class="primary" onclick="go(4)">整理冰箱 →</button></div>
   </div>
 </section>
@@ -304,11 +333,13 @@ body.teacher-mode .teacher-note{display:block}
     <h2 style="margin-top:14px" id="finalTitle">完成最後判斷，建立你的食安防線</h2>
     <p class="lead" style="font-size:18px">食品安全不是「看起來有沒有壞」，而是從購買、保存、處理到烹調，每一步都在降低風險。</p>
 
-    <div class="badges">
-      <div class="skill">🧼<br><b>清潔</b></div>
-      <div class="skill">↔️<br><b>生熟分開</b></div>
-      <div class="skill">🌡️<br><b>溫度控制</b></div>
-      <div class="skill">🧊<br><b>妥善保存</b></div>
+    <h3 style="margin-top:20px">🛡️ 食品中毒預防「五要」原則</h3>
+    <div class="five">
+      <div>🧼<br><b>要洗手</b><br><span class="small">處理食物前、上廁所後</span></div>
+      <div>🥬<br><b>要新鮮</b><br><span class="small">食材新鮮、看有效日期</span></div>
+      <div>↔️<br><b>要生熟食分開</b><br><span class="small">刀、砧板、存放都分開</span></div>
+      <div>🔥<br><b>要徹底加熱</b><br><span class="small">煮熟煮透、剩菜熱透</span></div>
+      <div>🧊<br><b>要低溫保存</b><br><span class="small">冷藏 7°C 以下</span></div>
     </div>
 
     <h3 style="margin-top:24px">最終案件｜這份便當安全嗎？</h3>
@@ -325,6 +356,15 @@ body.teacher-mode .teacher-note{display:block}
       <button class="decision" onclick="finalDecision(this,'red')">🔴 有食安疑慮</button>
     </div>
     <div class="info-box" id="finalInfo">💡 這一題刻意保留「還需要更多資訊」：資訊不足時，不要硬猜。</div>
+    <div id="fixQ" style="display:none;text-align:left">
+      <h3 style="margin-top:24px">追加任務｜明天開始，怎麼讓便當更安全？</h3>
+      <div class="qa" id="fixBtns">
+        <button class="answer" onclick="fixAns(this,true)">早上放進學校的蒸飯箱，中午蒸熱再吃</button>
+        <button class="answer" onclick="fixAns(this,true)">裝進保冷袋＋冰寶，維持低溫</button>
+        <button class="answer" onclick="fixAns(this,false)">放在教室窗邊通風的地方</button>
+      </div>
+      <div class="feedback" id="fixFb"></div>
+    </div>
 
     <div class="teacher-note"><b>收尾提問：</b>「你現在判斷食物安不安全，會多看哪幾個線索？」</div>
     <div class="actions">
@@ -351,12 +391,19 @@ function case1(btn,ok){
   const fb=document.getElementById('case1fb');
   fb.classList.add('show');
   if(ok){
-    fb.innerHTML='✅ <b>判斷得很好。</b>長時間放在室溫的熟食，即使沒有異味，也不代表一定安全。';
+    fb.innerHTML='✅ <b>判斷得很好。</b>雞排在室溫放了 9 個小時，熟食在室溫下最好不要超過 2 小時。細菌在常溫下繁殖很快，而且很多細菌不會讓食物變臭或變色。';
   }else{
-    fb.innerHTML='💡 <b>要小心。</b>有些食品安全風險不一定會讓食物變臭或變色；重新加熱也不是萬能保證。';
+    fb.innerHTML='💡 <b>要小心。</b>雞排在室溫放了 9 個小時，熟食在室溫下最好不要超過 2 小時。很多細菌不會讓食物變臭；而且有些細菌（例如金黃色葡萄球菌）產生的<b>毒素很耐熱</b>，重新加熱也破壞不了。';
     document.querySelectorAll('[data-screen="2"] .answer')[2].classList.add('correct');
   }
   document.getElementById('case1next').style.display='inline-block';
+}
+function tempAns(btn,ok){
+  document.querySelectorAll('#tempQ .answer').forEach(b=>b.disabled=true);
+  btn.classList.add(ok?'correct':'wrong');
+  if(!ok) document.querySelectorAll('#tempQ .answer')[0].classList.add('correct');
+  const fb=document.getElementById('tempFb');fb.classList.add('show');
+  fb.innerHTML=(ok?'✅ <b>答對了！</b>':'💡 <b>再看一次溫度計：</b>')+'冷藏要在 <b>7°C 以下</b>。15°C、25°C 都還在「溫度危險帶」裡，細菌照樣長得很快。冰箱門常開、塞太滿，溫度都會升高喔！';
 }
 let curryOrder=[];
 function pickStep(el,i){
@@ -374,6 +421,9 @@ function pickStep(el,i){
 }
 const fridgeFoods=[
   {name:'熟食便當',e:'🍱',zone:'ready'},
+  {name:'昨晚的剩菜',e:'🍲',zone:'ready'},
+  {name:'優格',e:'🥣',zone:'dairy'},
+  {name:'生雞腿',e:'🍗',zone:'raw'},
   {name:'鮮奶',e:'🥛',zone:'dairy'},
   {name:'雞蛋',e:'🥚',zone:'dairy'},
   {name:'生肉',e:'🥩',zone:'raw'},
@@ -402,12 +452,14 @@ function placeFood(zone,shelf){
     shelf.innerHTML += `<span>${f.e} ${f.name}</span>`;
     document.getElementById('food'+selectedFood).disabled=true;
     document.getElementById('food'+selectedFood).style.opacity=.35;
-    document.getElementById('fridgeNote').innerHTML=`✅ ${f.name} 放在這裡較合適。`;
+    const why={ready:'熟食和剩菜放上層，不會被生食的汁液滴到；剩菜要加蓋或用保鮮盒裝。',dairy:'乳品和蛋放中層，溫度穩定；蛋建議連盒子一起放，不要放在門邊（開關門溫度變化大）。',raw:'生肉、生魚放最下層，汁液才不會滴到其他食物，記得用盒子裝好。',produce:'蔬果放在蔬果室，濕度較適合；生菜吃之前要洗乾淨。'};
+    document.getElementById('fridgeNote').innerHTML=`✅ <b>${f.name}</b> 放對了！${why[zone]}`;
+    if(document.querySelectorAll('.food:disabled').length===fridgeFoods.length) document.getElementById('fridgeNote').innerHTML+='<br>🎉 <b>全部收納完成！</b>記住口訣：<b>熟上、生下</b>。';
     selectedFood=null;
     document.querySelectorAll('.food').forEach(x=>x.classList.remove('selected'));
   }else{
     if(f.zone==='raw' && zone==='ready'){
-      document.getElementById('fridgeNote').innerHTML='⚠️ 生肉／生魚若放在即食或熟食上方，汁液滴落可能造成交叉污染。';
+      document.getElementById('fridgeNote').innerHTML='⚠️ 生肉／生魚若放在即食或熟食上方，血水滴落會造成<b>交叉污染</b>。生的放下層，而且要用盒子或袋子裝好。';
     }else{
       document.getElementById('fridgeNote').innerHTML='💡 這裡不是最適合的位置，再想想食物特性與交叉污染風險。';
     }
@@ -459,7 +511,15 @@ function finalDecision(el,type){
   }
   document.getElementById('finalKicker').textContent='完成｜食安防護力已探索';
   document.getElementById('finalTitle').textContent='你的食安防線';
-  document.getElementById('finalCompleteBtn').style.display='inline-block';
+  document.getElementById('fixQ').style.display='block';
+}
+function fixAns(btn,ok){
+  document.querySelectorAll('#fixBtns .answer').forEach(b=>b.classList.remove('correct','wrong'));
+  btn.classList.add(ok?'correct':'wrong');
+  const fb=document.getElementById('fixFb');fb.classList.add('show');
+  fb.innerHTML=ok?'✅ <b>好方法！</b>不論是「熱的維持熱（蒸熱）」或「冷的維持冷（保冷）」，都是讓便當<b>避開溫度危險帶</b>。蒸飯時記得要蒸到熱透。'
+    :'💡 <b>窗邊通風，溫度還是室溫，</b>夏天曬到太陽甚至更熱，正好落在溫度危險帶。試試看另外兩個方法？';
+  if(ok) document.getElementById('finalCompleteBtn').style.display='inline-block';
 }
 document.getElementById('teacherBtn').addEventListener('click',()=>{
   document.body.classList.toggle('teacher-mode');
@@ -483,6 +543,8 @@ function resetAll(){
   document.getElementById('finalKicker').textContent='FINAL CASE｜最後一個案件';
   document.getElementById('finalTitle').textContent='完成最後判斷，建立你的食安防線';
   document.getElementById('finalCompleteBtn').style.display='none';
+  document.getElementById('fixQ').style.display='none';
+  document.getElementById('fixFb').className='feedback';document.getElementById('tempFb').className='feedback';
   renderFoodBank();
   document.querySelectorAll('.shelf').forEach((s,idx)=>{
     const labels=['上層｜即食／熟食區','中層｜乳品／蛋類','下層｜生肉／生魚','蔬果區'];

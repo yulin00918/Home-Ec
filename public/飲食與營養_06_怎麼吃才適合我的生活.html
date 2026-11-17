@@ -34,7 +34,7 @@ Copyright © 張鈺聆. All rights reserved.
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif,"Noto Color Emoji";
   color:var(--text);
   background:linear-gradient(180deg,#fbf8f2 0%,#f6f3ec 100%);
 }
@@ -70,11 +70,29 @@ h2{font-size:clamp(28px,4vw,44px);margin:0 0 10px}
 h3{font-size:22px;margin:0 0 10px}
 .lead{font-size:19px;line-height:1.8;color:#5b665f}
 .hero-ill{
-  width:min(360px,80vw);aspect-ratio:1;border-radius:50%;
-  background:#fff;border:16px solid #e6def0;display:grid;place-items:center;
-  margin:auto;box-shadow:inset 0 0 0 1px #d8cde5,0 18px 40px rgba(90,70,120,.1)
+  width:min(440px,84vw);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,#efe9f5 0 58%,rgba(239,233,245,0) 70%);
+  display:grid;place-items:center;margin:auto
 }
-.hero-ill span{font-size:110px}
+.hero-ill img{width:94%;height:auto;display:block;filter:drop-shadow(0 14px 22px rgba(90,70,120,.14))}
+.fbx{display:none;margin-top:14px;padding:16px;border-radius:15px;background:#f4f0f8;border:1px solid #e1d8ec;line-height:1.8}
+.fbx.show{display:block}
+.fbx .link{display:inline-block;margin-top:6px;font-size:14px;color:#6f5d8f;font-weight:800}
+.groups{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:12px}
+.groups div{padding:12px 6px;border-radius:14px;text-align:center;line-height:1.6;background:#f6f4f0;border:1px dashed #cfc8bc;color:#9a948a}
+.groups div.on{background:#eef5ea;border:1px solid #a9bf9b;color:#2f3935}
+.groups b{display:block;font-size:22px}
+.plan-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.plan{padding:14px;border-radius:14px;border:1px solid #e4ded5;background:#fff;font:inherit;font-weight:800;text-align:left;cursor:pointer}
+.plan.active{background:#f2ecf8;border-color:#a998c4}
+.print-btn{background:#fff;border:1px solid #cfc3e0;border-radius:16px;padding:13px 20px;font:inherit;font-weight:900;cursor:pointer}
+@media(max-width:720px){.groups{grid-template-columns:repeat(2,1fr)}.plan-grid{grid-template-columns:1fr}}
+@media print{
+  body *{visibility:hidden}
+  #dayCard,#dayCard *{visibility:visible}
+  #dayCard{position:absolute;left:0;top:0;width:100%}
+  #dayCard .actions,#dayCard .teacher-note,#dayCard .plan:not(.active){display:none!important}
+}
 .primary,.secondary{
   border:0;border-radius:16px;padding:13px 20px;font-weight:900;cursor:pointer
 }
@@ -149,6 +167,9 @@ body.teacher-mode .teacher-note{display:block}
   .options,.reason-grid,.day-summary,.badges{grid-template-columns:1fr}
 }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 </head>
 <body>
 <p style="text-align:center;margin:10px 0 0;"><a href="飲食與營養.dc.html" style="color:#537258;text-decoration:none;font-weight:800;">← 回飲食與營養</a></p>
@@ -168,7 +189,7 @@ body.teacher-mode .teacher-note{display:block}
       <button class="primary" onclick="go(2)">開始我的一天 →</button>
       <div class="teacher-note"><b>教師提問：</b>「同樣一份食物，放在不同情境裡，答案會不會不同？」</div>
     </div>
-    <div class="hero-ill"><span>🗓️</span></div>
+    <div class="hero-ill"><img src="images/food/food-06.webp" alt="時鐘周圍環繞早餐、午餐便當、飲料、晚餐和睡前牛奶，代表一天的飲食" width="760" height="760"></div>
   </div>
 </section>
 
@@ -187,6 +208,7 @@ body.teacher-mode .teacher-note{display:block}
       <button class="reason">方便</button><button class="reason">好吃</button><button class="reason">價格</button>
       <button class="reason">營養</button><button class="reason">習慣</button><button class="reason">時間</button>
     </div>
+    <div class="fbx" id="fbBreakfast"></div>
     <div class="info-box">💡 先記錄你的理由。生活裡的飲食選擇，通常不只受到「營養」影響。</div>
     <div class="teacher-note"><b>教師提醒：</b>這一關不要公布唯一正解，重點是讓學生說出自己的決策依據。</div>
     <div class="actions"><button class="secondary" onclick="go(1)">← 上一步</button><button class="primary" onclick="nextBreakfast()">去學校 →</button></div>
@@ -203,6 +225,7 @@ body.teacher-mode .teacher-note{display:block}
       <button class="option" onclick="simplePick('lunch',this,'能接受的先吃，再想想怎麼補充')">C｜能接受的先吃，再想想怎麼補充</button>
       <button class="option" onclick="simplePick('lunch',this,'去買零食代替')">D｜去買零食代替</button>
     </div>
+    <div class="fbx" id="fbLunch"></div>
     <div class="info-box">💡 遇到不喜歡的食物，不代表只能「全部吃完」或「全部不吃」。你可以先從能接受的部分開始，再想怎麼補足。</div>
     <div class="teacher-note"><b>教師提問：</b>「如果今天真的不喜歡某一道菜，你有哪些『中間選項』？」</div>
     <div class="actions"><button class="secondary" onclick="go(2)">← 上一步</button><button class="primary" onclick="nextLunch()">放學了 →</button></div>
@@ -215,6 +238,7 @@ body.teacher-mode .teacher-note{display:block}
     <h2>你有 60 元，而且有點餓</h2>
     <div class="moneybar"><div>預算：$60</div><div>已選：$<span id="snackSpent">0</span></div><div>剩下：$<span id="snackRemain">60</span></div></div>
     <div class="shop-grid" id="snackGrid"></div>
+    <div class="fbx show" id="fbSnack">🛒 選好之後，這裡會幫你檢查一下。</div>
     <div class="info-box">💡 這題不是找「最健康」；先想：離晚餐多久？等等要不要運動？現在需要補充多少？</div>
     <div class="teacher-note"><b>教師提醒：</b>讓學生把「需求、預算、份量」一起放進來判斷。</div>
     <div class="actions"><button class="secondary" onclick="go(3)">← 上一步</button><button class="primary" onclick="nextSnack()">朋友揪飲料 →</button></div>
@@ -232,6 +256,7 @@ body.teacher-mode .teacher-note{display:block}
       <button class="small-choice" onclick="simplePick('drink',this,'今天不喝')">💧<br>今天不喝</button>
       <button class="small-choice" onclick="simplePick('drink',this,'一起去但選別的')">🤝<br>一起去但選別的</button>
     </div>
+    <div class="fbx" id="fbDrink"></div>
     <div class="info-box">💡 飲食選擇不只有「吃」和「不吃」。<b>份量、頻率與搭配</b>，也都是可以調整的地方。</div>
     <div class="teacher-note"><b>教師提問：</b>「和朋友一起，不一定要點一模一樣的東西嗎？」</div>
     <div class="actions"><button class="secondary" onclick="go(4)">← 上一步</button><button class="primary" onclick="nextDrink()">回家吃晚餐 →</button></div>
@@ -244,6 +269,8 @@ body.teacher-mode .teacher-note{display:block}
     <h2>用現有食材，幫自己搭一餐</h2>
     <div class="foodbank" id="dinnerGrid"></div>
     <div class="info-box" id="dinnerInfo">已選 0 項。這一餐不用追求完美，先看看自己會怎麼搭。</div>
+    <div class="groups" id="dinnerGroups"></div>
+    <div class="fbx show" id="dinnerDish">🍳 選好食材後，看看可以做成什麼料理。</div>
     <div class="teacher-note"><b>教師連結：</b>這一頁可以回扣前面「均衡飲食力」與「料理實作力」。</div>
     <div class="actions"><button class="secondary" onclick="go(5)">← 上一步</button><button class="primary" onclick="nextDinner()">晚上又餓了 →</button></div>
   </div>
@@ -267,6 +294,7 @@ body.teacher-mode .teacher-note{display:block}
       <button class="small-choice" onclick="simplePick('night',this,'吃香蕉')">🍌<br>香蕉</button>
       <button class="small-choice" onclick="simplePick('night',this,'先喝水看看')">💧<br>先喝水看看</button>
     </div>
+    <div class="fbx" id="fbNight"></div>
     <div class="info-box">💡 重點不是「晚上絕對不能吃」，而是先理解自己的狀態，再做決定。</div>
     <div class="teacher-note"><b>教師提醒：</b>避免把學生導向「好／壞食物」的單一判斷。</div>
     <div class="actions"><button class="secondary" onclick="go(6)">← 上一步</button><button class="primary" onclick="nextNight()">看看我的一天 →</button></div>
@@ -274,22 +302,36 @@ body.teacher-mode .teacher-note{display:block}
 </section>
 
 <section class="screen" data-screen="8">
-  <div class="result">
+  <div class="result" id="dayCard">
     <div style="font-size:54px">🌱</div>
     <span class="kicker">完成｜生活決策力已探索</span>
     <h2 style="margin-top:14px">我的飲食生活力</h2>
+    <div style="margin:10px 0 4px"><label style="font-weight:800">班級／座號／姓名：<input id="stuName" style="font:inherit;padding:8px 12px;border:1px solid #d9d0e6;border-radius:10px;width:min(260px,70vw)" placeholder="例如：801 / 12 / 王小明"></label></div>
     <p class="lead" style="font-size:18px">今天沒有唯一的完美路線。你的選擇反映了時間、預算、習慣、需求與生活情境。</p>
 
     <div class="day-summary">
       <div class="summary-card"><b>🌅 早餐</b><div class="small" id="sumBreakfast"></div></div>
+      <div class="summary-card"><b>🏫 午餐</b><div class="small" id="sumLunch"></div></div>
       <div class="summary-card"><b>🎒 放學</b><div class="small" id="sumSnack"></div></div>
       <div class="summary-card"><b>🧋 飲料</b><div class="small" id="sumDrink"></div></div>
       <div class="summary-card"><b>🌙 晚餐</b><div class="small" id="sumDinner"></div></div>
       <div class="summary-card"><b>🌜 睡前</b><div class="small" id="sumNight"></div></div>
-      <div class="summary-card"><b>🎯 今天的重點</b><div class="small">你有練習把時間、預算、需求與情境一起放進飲食決策。</div></div>
+
     </div>
 
     <div class="info-box" id="summaryText"></div>
+    <h3 style="margin-top:24px">🍽️ 一整天下來，五大類吃到了嗎？</h3>
+    <div class="groups" id="dayGroups"></div>
+    <div class="fbx show" id="dayFb"></div>
+    <h3 style="margin-top:24px">🌱 明天，我想試試看的一件事</h3>
+    <div class="plan-grid" id="planGrid">
+      <button class="plan" onclick="pickPlan(this)">🌅 早餐至少吃一點，不空腹上學</button>
+      <button class="plan" onclick="pickPlan(this)">🥬 午餐不喜歡的菜，至少試吃兩口</button>
+      <button class="plan" onclick="pickPlan(this)">🧋 含糖飲料一天最多一杯，或改成微糖</button>
+      <button class="plan" onclick="pickPlan(this)">🍌 點心選水果或乳品，取代零食</button>
+      <button class="plan" onclick="pickPlan(this)">🔍 買包裝食品前，先翻到背面看營養標示</button>
+      <button class="plan" onclick="pickPlan(this)">🌙 睡前想吃東西，先喝水等 10 分鐘</button>
+    </div>
 
     <div class="badges">
       <div class="skill">🥗<br><b>看自己</b></div>
@@ -305,6 +347,7 @@ body.teacher-mode .teacher-note{display:block}
     <div class="teacher-note"><b>收尾提問：</b>「今天哪一個時刻最像你自己的生活？」</div>
     <div class="actions">
       <button class="secondary" onclick="resetAll()">🔄 再過一天</button>
+      <button class="print-btn" onclick="window.print()">🖨️ 列印／存成 PDF</button>
       <button class="primary" onclick="markComplete('06','生活決策力','🍱')">✅ 完成這一關</button>
     </div>
   </div>
@@ -324,9 +367,47 @@ function go(n){
   if(n===8) renderSummary();
   window.scrollTo({top:0,behavior:'smooth'});
 }
+const G={grain:'全穀雜糧',protein:'豆魚蛋肉',dairy:'乳品',veg:'蔬菜',fruit:'水果'};
+const groupOf={
+ '🍞 吐司＋🥚蛋＋🥛鮮奶':['grain','protein','dairy'],'🍙 飯糰＋🥛豆漿':['grain','protein'],'🍩 甜甜圈＋🧋奶茶':['grain','sweet'],'🏃 不吃，直接出門':[],
+ '全部不吃':[],'只吃白飯':['grain'],'能接受的先吃，再想想怎麼補充':['grain','protein','veg'],'去買零食代替':['sweet'],
+ '照喝珍奶':['sweet'],'選小杯':['sweet'],'選低糖／無糖':[],'今天不喝':[],'一起去但選別的':[],
+ '吃泡麵':['grain'],'吃餅乾':['sweet'],'喝牛奶':['dairy'],'吃香蕉':['fruit'],'先喝水看看':[]
+};
+const fbText={
+ breakfast:{
+  '🍞 吐司＋🥚蛋＋🥛鮮奶':'主食、蛋白質、乳品都有，是很完整的早餐！可以撐到午餐。',
+  '🍙 飯糰＋🥛豆漿':'有主食又有蛋白質，方便帶著走。豆漿選無糖或微糖會更好。',
+  '🍩 甜甜圈＋🧋奶茶':'很香很好吃，但糖和油脂都偏多、蛋白質少，第二節課可能就餓了。偶爾吃可以，常吃的話試著把奶茶換成豆漿或鮮奶。',
+  '🏃 不吃，直接出門':'時間真的很趕嗎？不吃早餐，上午容易沒精神、午餐也容易吃過量。就算只有 5 分鐘，一根香蕉或一瓶鮮奶也比空腹好。'},
+ lunch:{
+  '全部不吃':'下午還有課和活動，完全不吃會很容易餓，放學也容易亂買零食。',
+  '只吃白飯':'有主食能量，但少了蛋白質和蔬菜。可以試著配一點能接受的菜，就算只有幾口也好。',
+  '能接受的先吃，再想想怎麼補充':'很成熟的做法！先吃能接受的，再把少掉的部分（例如蔬菜）放到晚餐補回來。',
+  '去買零食代替':'零食可以填肚子，但大多是精製澱粉、糖和油，少了蛋白質和蔬菜，很快又會餓。'},
+ drink:{
+  '照喝珍奶':'中午已經喝過一杯了，再一杯珍奶，今天的糖很容易超標。如果真的很想喝，至少選小杯、微糖。',
+  '選小杯':'很好的調整！份量變小，糖也跟著減少。',
+  '選低糖／無糖':'很棒！還是能和朋友一起喝，但糖少很多。記得：「微糖」不等於「無糖」喔。',
+  '今天不喝':'很有主見！今天已經喝過一次，知道什麼時候停，就是很好的決策力。',
+  '一起去但選別的':'聰明！和朋友一起去，不一定要點一樣的。無糖茶或水一樣能聊天。'},
+ night:{
+  '吃泡麵':'泡麵鈉含量通常很高，湯頭特別鹹。如果真的很餓，可以只吃麵、湯少喝，或改成份量小一點的東西。',
+  '吃餅乾':'一不小心就吃完一整包。如果想吃，先倒出幾片，把其他的收起來。',
+  '喝牛奶':'溫和、份量好控制，還能補充乳品，是睡前不錯的選擇。',
+  '吃香蕉':'份量小、好消化，如果真的有點餓，是很好的選擇。',
+  '先喝水看看':'很好的習慣！有時候「想吃」其實是渴或無聊，喝水等 10 分鐘，再決定要不要吃。'}
+};
+const linkText={breakfast:'↩︎ 回顧：第 1 關「我的餐盤」',lunch:'↩︎ 回顧：第 1 關「均衡飲食」',drink:'↩︎ 回顧：第 2 關「看懂營養標示的糖」',night:'↩︎ 回顧：第 2 關「看份量」'};
+function showFb(type,value){
+  const id={breakfast:'fbBreakfast',lunch:'fbLunch',drink:'fbDrink',night:'fbNight'}[type];
+  const t=fbText[type]&&fbText[type][value];if(!id||!t)return;
+  const el=document.getElementById(id);el.classList.add('show');
+  el.innerHTML=`💬 ${t}<br><span class="link">${linkText[type]}</span>`;
+}
 function chooseMeal(type,el,value){
   el.parentElement.querySelectorAll('.option').forEach(x=>x.classList.remove('active'));
-  el.classList.add('active');state[type]=value;
+  el.classList.add('active');state[type]=value;showFb(type,value);
 }
 document.querySelectorAll('#breakfastReasons .reason').forEach(btn=>{
   btn.addEventListener('click',()=>{
@@ -341,12 +422,12 @@ function nextBreakfast(){
 }
 function simplePick(type,el,value){
   el.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('active'));
-  el.classList.add('active');state[type]=value;
+  el.classList.add('active');state[type]=value;showFb(type,value);
 }
 const snackItems=[
- {n:'香蕉',e:'🍌',p:25},{n:'鮮奶',e:'🥛',p:35},{n:'茶葉蛋',e:'🥚',p:15},
- {n:'地瓜',e:'🍠',p:35},{n:'餅乾',e:'🍪',p:30},{n:'薯條',e:'🍟',p:45},
- {n:'珍珠奶茶',e:'🧋',p:60},{n:'水',e:'💧',p:20}
+ {n:'香蕉',e:'🍌',p:25,g:'fruit'},{n:'鮮奶',e:'🥛',p:35,g:'dairy'},{n:'茶葉蛋',e:'🥚',p:15,g:'protein'},
+ {n:'地瓜',e:'🍠',p:35,g:'grain'},{n:'餅乾',e:'🍪',p:30,g:'sweet'},{n:'薯條',e:'🍟',p:45,g:'sweet'},
+ {n:'珍珠奶茶',e:'🧋',p:60,g:'sweet'},{n:'水',e:'💧',p:20,g:''}
 ];
 function renderSnack(){
   document.getElementById('snackGrid').innerHTML=snackItems.map((x,i)=>`
@@ -356,6 +437,16 @@ function renderSnack(){
   const t=state.snack.reduce((s,i)=>s+snackItems[i].p,0);
   document.getElementById('snackSpent').textContent=t;
   document.getElementById('snackRemain').textContent=60-t;
+  const fb=document.getElementById('fbSnack');if(!fb)return;
+  if(!state.snack.length){fb.innerHTML='🛒 選好之後，這裡會幫你檢查一下。';return;}
+  const names=state.snack.map(i=>snackItems[i].n);
+  let msg=[];
+  if(names.includes('珍珠奶茶')) msg.push('🧋 珍奶一杯就用掉全部預算，糖也很多，等等運動時可能會不舒服。');
+  if(names.includes('薯條')||names.includes('餅乾')) msg.push('🍟 油炸或零食容易吃過量，離晚餐只剩 2 小時，小心晚餐吃不下。');
+  if(['香蕉','茶葉蛋','地瓜','鮮奶'].some(x=>names.includes(x))) msg.push('👍 香蕉、地瓜可以補充運動需要的能量，茶葉蛋、鮮奶比較耐餓，都很適合這個時段。');
+  if(names.includes('水')) msg.push('💧 等等要運動，記得補充水分，很好！');
+  if(t>=50) msg.push(`💰 已經花了 $${t}。只是要墊肚子，其實不一定要把錢花完。`);
+  fb.innerHTML=msg.join('<br>')+'<br><span class="link">↩︎ 回顧：第 3 關「同樣的錢，不同的人怎麼選」</span>';
 }
 function toggleSnack(i){
   const next=state.snack.includes(i)?state.snack.filter(x=>x!==i):[...state.snack,i];
@@ -368,13 +459,24 @@ function nextSnack(){
   go(5);
 }
 const dinnerFoods=[
- {n:'白飯',e:'🍚'},{n:'雞蛋',e:'🥚'},{n:'豬肉',e:'🥩'},{n:'青菜',e:'🥬'},
- {n:'紅蘿蔔',e:'🥕'},{n:'番茄',e:'🍅'},{n:'牛奶',e:'🥛'},{n:'水果',e:'🍎'}
+ {n:'白飯',e:'🍚',g:'grain'},{n:'雞蛋',e:'🥚',g:'protein'},{n:'豬肉',e:'🥩',g:'protein'},{n:'青菜',e:'🥬',g:'veg'},
+ {n:'紅蘿蔔',e:'🥕',g:'veg'},{n:'番茄',e:'🍅',g:'veg'},{n:'牛奶',e:'🥛',g:'dairy'},{n:'水果',e:'🍎',g:'fruit'}
 ];
 function renderDinner(){
   document.getElementById('dinnerGrid').innerHTML=dinnerFoods.map((x,i)=>`
   <button class="food ${state.dinner.includes(i)?'active':''}" onclick="toggleDinner(${i})">${x.e}<br><b>${x.n}</b></button>`).join('');
   document.getElementById('dinnerInfo').innerHTML=`已選 <b>${state.dinner.length}</b> 項。${state.dinner.length>=3?'已經開始有一餐的樣子了，再看看種類是否夠多元。':'可以再挑一些你真的會搭配的食材。'}`;
+  const gs=new Set(state.dinner.map(i=>dinnerFoods[i].g));
+  document.getElementById('dinnerGroups').innerHTML=renderGroups(gs);
+  const has=n=>state.dinner.some(i=>dinnerFoods[i].n===n);
+  const dishes=[];
+  if(has('番茄')&&has('雞蛋')) dishes.push('🍅 番茄炒蛋（第 5 關練習過的！）');
+  if(has('白飯')&&has('雞蛋')) dishes.push('🍳 蛋炒飯'+(has('紅蘿蔔')?'，加紅蘿蔔丁更豐富':''));
+  if(has('豬肉')&&has('青菜')) dishes.push('🥬 青菜炒肉絲');
+  if(has('豬肉')&&has('紅蘿蔔')&&!has('青菜')) dishes.push('🥕 紅蘿蔔炒肉絲');
+  if(has('青菜')&&!has('豬肉')) dishes.push('🥬 燙青菜');
+  if(has('雞蛋')&&!has('番茄')&&!has('白飯')) dishes.push('🥚 蒸蛋或荷包蛋');
+  document.getElementById('dinnerDish').innerHTML=dishes.length?`🍳 <b>可以做成：</b>${dishes.join('、')}<br><span class="link">↩︎ 回顧：第 5 關「料理實作」</span>`:'🍳 選好食材後，看看可以做成什麼料理。';
 }
 function toggleDinner(i){
   state.dinner=state.dinner.includes(i)?state.dinner.filter(x=>x!==i):[...state.dinner,i];
@@ -385,12 +487,19 @@ function nextDinner(){
   go(7);
 }
 function toggleNight(el){el.classList.toggle('active')}
+function renderGroups(gs){
+  return Object.entries(G).map(([k,v])=>`<div class="${gs.has(k)?'on':''}"><b>${gs.has(k)?'✅':'○'}</b>${v}</div>`).join('');
+}
+let plan='';
+function pickPlan(el){document.querySelectorAll('.plan').forEach(x=>x.classList.remove('active'));el.classList.add('active');plan=el.textContent;}
 function renderSummary(){
   const snackNames=state.snack.map(i=>snackItems[i].n).join('、')||'未選';
   const dinnerNames=state.dinner.map(i=>dinnerFoods[i].n).join('、')||'未選';
 
   document.getElementById('sumBreakfast').innerHTML=
     `你選：<b>${state.breakfast||'未選'}</b><br>主要考量：${state.breakfastReason||'未選'}`;
+  document.getElementById('sumLunch').innerHTML=
+    `你選：<b>${state.lunch||'未選'}</b><br>遇到不喜歡的菜，也有中間選項。`;
   document.getElementById('sumSnack').innerHTML=
     `你選：<b>${snackNames}</b><br>有把預算與距離晚餐時間放進考量。`;
   document.getElementById('sumDrink').innerHTML=
@@ -400,6 +509,14 @@ function renderSummary(){
   document.getElementById('sumNight').innerHTML=
     `你最後決定：<b>${state.night||'未選'}</b><br>先理解自己的狀態，再決定要不要吃。`;
 
+  const day=new Set([...(groupOf[state.breakfast]||[]),...(groupOf[state.lunch]||[]),...(groupOf[state.drink]||[]),...(groupOf[state.night]||[]),
+    ...state.snack.map(i=>snackItems[i].g),...state.dinner.map(i=>dinnerFoods[i].g)]);
+  document.getElementById('dayGroups').innerHTML=renderGroups(day);
+  const miss=Object.entries(G).filter(([k])=>!day.has(k)).map(([,v])=>v);
+  const sweetCount=[groupOf[state.breakfast],groupOf[state.drink]].filter(a=>a&&a.includes('sweet')).length+state.snack.filter(i=>snackItems[i].n==='珍珠奶茶').length+1;
+  let msg=miss.length?`今天比較少吃到：<b>${miss.join('、')}</b>。明天可以從其中一類開始補。`:'🎉 五大類今天都有吃到，很均衡！';
+  if(sweetCount>=2) msg+=`<br>🧋 今天喝了大約 <b>${sweetCount}</b> 次含糖飲料（包含中午那杯），可以想想怎麼減少一次。`;
+  document.getElementById('dayFb').innerHTML=msg+'<br><span class="small">（油脂與堅果類常在烹調中就會吃到，這裡先不列入。）</span>';
   document.getElementById('summaryText').innerHTML=
     `今天的選擇沒有被換算成「健康分數」。真正重要的是：<b>你能說出自己的理由，也知道下一次還可以怎麼調整。</b>`;
 }
@@ -430,6 +547,8 @@ function resetAll(){
   document.querySelectorAll('.active').forEach(x=>{
     if(x.classList.contains('option')||x.classList.contains('reason')||x.classList.contains('small-choice')||x.classList.contains('shop-item')||x.classList.contains('food')) x.classList.remove('active');
   });
+  plan='';document.querySelectorAll('.plan').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.fbx').forEach(x=>{if(!['fbSnack','dinnerDish'].includes(x.id)){x.classList.remove('show');x.innerHTML='';}});
   renderSnack();renderDinner();go(1);
 }
 renderSnack();

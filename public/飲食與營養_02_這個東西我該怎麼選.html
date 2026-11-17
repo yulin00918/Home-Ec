@@ -35,7 +35,7 @@ Copyright © 張鈺聆. All rights reserved.
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif,"Noto Color Emoji";
   color:var(--text);
   background:linear-gradient(180deg,#fbf8f2 0%,#f6f3ec 100%);
 }
@@ -71,11 +71,17 @@ h2{font-size:clamp(28px,4vw,44px);margin:0 0 10px}
 h3{font-size:22px;margin:0 0 10px}
 .lead{font-size:19px;line-height:1.8;color:#5b665f}
 .spyglass{
-  width:min(360px,80vw);aspect-ratio:1;border-radius:50%;
-  background:#fff;border:16px solid #efe5a7;display:grid;place-items:center;
-  margin:auto;box-shadow:inset 0 0 0 1px #ded9bb,0 18px 40px rgba(80,70,30,.1)
+  width:min(430px,82vw);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,#f8f1d6 0 58%,rgba(248,241,214,0) 70%);
+  display:grid;place-items:center;margin:auto
 }
-.spyglass span{font-size:110px}
+.spyglass img{width:90%;height:auto;display:block;filter:drop-shadow(0 14px 22px rgba(80,70,30,.14))}
+.ing-card{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ing{background:#fffdf6;border:1px dashed #d9cf9e;border-radius:16px;padding:16px;line-height:1.8;font-size:15px}
+.ing b{display:block;margin-bottom:4px}
+.pk-pick{cursor:pointer}
+.pk-pick.active{background:#f8f5df;border-color:#beb365}
+@media(max-width:720px){.ing-card{grid-template-columns:1fr}}
 .primary,.secondary{
   border:0;border-radius:16px;padding:13px 20px;font-weight:900;cursor:pointer
 }
@@ -161,6 +167,9 @@ body.teacher-mode .teacher-note{display:block}
   .label-row{font-size:14px}
 }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 </head>
 <body>
 <p style="text-align:center;margin:10px 0 0;"><a href="飲食與營養.dc.html" style="color:#537258;text-decoration:none;font-weight:800;">← 回飲食與營養</a></p>
@@ -180,7 +189,7 @@ body.teacher-mode .teacher-note{display:block}
         <button class="primary" onclick="go(2)">開始食品偵探任務 →</button>
         <div class="teacher-note"><b>教師提問：</b>「你買包裝食品時，最常先看哪裡？」</div>
       </div>
-      <div class="spyglass"><span>🕵️</span></div>
+      <div class="spyglass"><img src="images/food/food-02.webp" alt="用放大鏡檢視麥片盒背面的營養標示" width="760" height="760"></div>
     </div>
   </section>
 
@@ -233,13 +242,25 @@ body.teacher-mode .teacher-note{display:block}
       <h2 style="margin-top:14px">📦 別只看正面</h2>
       <p class="lead" style="font-size:17px">點開每個位置，看看食品包裝真正能提供你哪些資訊。</p>
       <div class="clue-grid" id="clueGrid">
-        <button class="clue" onclick="showClue(this,'品名告訴你商品叫什麼，但光靠名稱還不能判斷整體營養。')"><span class="icon">🏷️</span>品名</button>
-        <button class="clue" onclick="showClue(this,'包裝宣稱是商品想讓你先注意的訊息，不能只靠它做決定。')"><span class="icon">📣</span>宣稱文字</button>
-        <button class="clue" onclick="showClue(this,'成分表能幫你了解食品主要由哪些原料組成。')"><span class="icon">📋</span>成分</button>
-        <button class="clue" onclick="showClue(this,'營養標示提供每份量、熱量與多項營養素資訊，是比較食品的重要線索。')"><span class="icon">🔢</span>營養標示</button>
-        <button class="clue" onclick="showClue(this,'有效日期與保存方式關係到食品安全與保存。')"><span class="icon">📅</span>日期／保存</button>
+        <button class="clue" onclick="showClue(this,'<b>品名</b>告訴你商品叫什麼，但名稱不等於內容。像「草莓<b>風味</b>」「水果脆片」，可能只含很少的水果，甚至只是香料調味。名稱只是起點，要往下查證。')"><span class="icon">🏷️</span>品名</button>
+        <button class="clue" onclick="showClue(this,'<b>宣稱文字</b>是商品最想讓你看到的話。「天然」「元氣」「好營養」這類形容詞讓人感覺健康，但不代表糖或鈉比較少。看到宣稱，就翻到背面用營養標示<b>驗證</b>。')"><span class="icon">📣</span>宣稱文字</button>
+        <button class="clue" onclick="showClue(this,'<b>成分</b>依含量<b>由多到少</b>排列，排越前面代表用得越多，前三項最值得注意。糖不一定叫「糖」，也可能寫成<b>砂糖、果糖、葡萄糖漿、麥芽糖、玉米糖漿</b>。')"><span class="icon">📋</span>成分</button>
+        <button class="clue" onclick="showClue(this,'<b>營養標示</b>會列出每一份量、本包裝含幾份，以及熱量、蛋白質、脂肪、飽和脂肪、反式脂肪、碳水化合物、糖、鈉。比較兩個商品時，用「<b>每 100 公克</b>」那一欄比較公平，因為兩包的一份大小可能不一樣。')"><span class="icon">🔢</span>營養標示</button>
+        <button class="clue" onclick="showClue(this,'<b>日期／保存</b>：先看<b>有效日期</b>有沒有過期，再看保存方式（常溫、冷藏或冷凍）。很多食品寫著「開封後請冷藏，並儘速食用」，開封後就不能再照原本的有效日期放。')"><span class="icon">📅</span>日期／保存</button>
       </div>
       <div class="info-box" id="clueInfo">🔎 點一個位置開始調查。</div>
+      <h3 style="margin-top:26px">🔍 偵探小練習：翻到背面看成分</h3>
+      <div class="ing-card">
+        <div class="ing"><b>A｜活力水果脆片</b>穀物粉、砂糖、植物油、草莓乾（3%）、葡萄糖漿、食鹽、香料</div>
+        <div class="ing"><b>B｜原味燕麥片</b>燕麥</div>
+      </div>
+      <div class="question" style="margin-top:16px">A 的成分裡，用量<b>第二多</b>的是什麼？</div>
+      <div class="answers" id="ingAnswers">
+        <button class="answer" onclick="ingAnswer(this,false)">草莓乾</button>
+        <button class="answer" onclick="ingAnswer(this,true)">砂糖</button>
+        <button class="answer" onclick="ingAnswer(this,false)">植物油</button>
+      </div>
+      <div class="feedback" id="ingFb"></div>
       <div class="teacher-note"><b>教師提問：</b>「如果你想知道這包食品『到底用了什麼做成』，應該找哪一欄？」</div>
       <div class="actions"><button class="secondary" onclick="go(2)">← 上一步</button><button class="primary" onclick="go(4)">看營養標示 →</button></div>
     </div>
@@ -257,7 +278,10 @@ body.teacher-mode .teacher-note{display:block}
         <div class="label-row"><div>熱量</div><div>180 kcal</div><div>450 kcal</div></div>
         <div class="label-row"><div>蛋白質</div><div>4 g</div><div>10 g</div></div>
         <div class="label-row"><div>脂肪</div><div>6 g</div><div>15 g</div></div>
-        <div class="label-row"><div>糖</div><div>12 g</div><div>30 g</div></div>
+        <div class="label-row"><div>　飽和脂肪</div><div>2.5 g</div><div>6.3 g</div></div>
+        <div class="label-row"><div>　反式脂肪</div><div>0 g</div><div>0 g</div></div>
+        <div class="label-row"><div>碳水化合物</div><div>27.5 g</div><div>68.8 g</div></div>
+        <div class="label-row"><div>　糖</div><div>12 g</div><div>30 g</div></div>
         <div class="label-row"><div>鈉</div><div>160 mg</div><div>400 mg</div></div>
       </div>
       <div class="question">如果把整包吃完，共吃進多少熱量？</div>
@@ -267,7 +291,16 @@ body.teacher-mode .teacher-note{display:block}
         <button class="answer" onclick="servingAnswer(this,false)">450 kcal</button>
       </div>
       <div class="feedback" id="servingFb"></div>
-      <div class="teacher-note"><b>教學重點：</b>先看「本包裝含幾份」，再判斷整包實際攝取量。</div>
+      <div id="sugarQ" style="display:none">
+        <div class="question" style="margin-top:22px">再來一題：整包吃完，共吃進多少<b>糖</b>？</div>
+        <div class="answers" id="sugarAnswers">
+          <button class="answer" onclick="sugarAnswer(this,false)">12 g</button>
+          <button class="answer" onclick="sugarAnswer(this,true)">24 g</button>
+          <button class="answer" onclick="sugarAnswer(this,false)">30 g</button>
+        </div>
+        <div class="feedback" id="sugarFb"></div>
+      </div>
+      <div class="teacher-note"><b>教學重點：</b>先看「本包裝含幾份」，再判斷整包實際攝取量。可補充：國民健康署建議每日添加糖攝取不超過總熱量 10%，以一天 2000 大卡為例約 50 公克。</div>
       <div class="actions"><button class="secondary" onclick="go(3)">← 上一步</button><button class="primary" id="toCompare" style="display:none" onclick="go(5)">回到早餐 PK →</button></div>
     </div>
   </section>
@@ -371,7 +404,22 @@ function servingAnswer(btn,ok){
     fb.innerHTML='💡 <b>再看一次「本包裝含 2 份」。</b>每份 180 kcal，整包要乘以 2，所以是 360 kcal。';
     document.querySelectorAll('#servingAnswers .answer')[1].classList.add('correct');
   }
+  document.getElementById('sugarQ').style.display='block';
+}
+function sugarAnswer(btn,ok){
+  document.querySelectorAll('#sugarAnswers .answer').forEach(b=>b.disabled=true);
+  btn.classList.add(ok?'correct':'wrong');
+  if(!ok) document.querySelectorAll('#sugarAnswers .answer')[1].classList.add('correct');
+  const fb=document.getElementById('sugarFb');fb.classList.add('show');
+  fb.innerHTML=(ok?'✅ <b>答對了！</b>':'💡 <b>一樣要乘以份數：</b>')+'每份 12 g × 2 份 = 24 g。以一天 2000 大卡來算，添加糖建議不超過約 50 g，<b>這一包就差不多用掉一半</b>。';
   document.getElementById('toCompare').style.display='inline-block';
+}
+function ingAnswer(btn,ok){
+  document.querySelectorAll('#ingAnswers .answer').forEach(b=>b.disabled=true);
+  btn.classList.add(ok?'correct':'wrong');
+  if(!ok) document.querySelectorAll('#ingAnswers .answer')[1].classList.add('correct');
+  const fb=document.getElementById('ingFb');fb.classList.add('show');
+  fb.innerHTML=(ok?'✅ <b>好眼力！</b>':'💡 <b>成分是由多到少排列：</b>')+'砂糖排在第二位，而且後面還有「葡萄糖漿」，也是糖。包裝正面寫「水果好營養」，但草莓乾只佔 3%。';
 }
 function chooseSecond(v,el){
   secondChoice=v;
@@ -395,6 +443,9 @@ const pkData=[
     desc:'你剛運動完，等等還會吃晚餐。你想找一個日常補充水分的選擇。',
     a:{name:'水果風味飲料',tags:['每瓶糖 28g','果汁含量少量','有甜味']},
     b:{name:'無糖茶／水',tags:['無添加糖','補充水分','口味較清淡']},
+    clue:'糖',
+    fa:'可以理解，運動完想喝甜的！不過一瓶就有 28 g 糖，已經超過一天建議量的一半。如果只是要補水，水或無糖茶就夠了；想喝甜的，可以偶爾一次、或和朋友分著喝。',
+    fb:'很好的判斷！現在的主要需求是「補充水分」，水或無糖茶不用多喝進糖，也不會影響等等的晚餐。',
     note:'這個情境可先比較「糖」與「現在主要需求是不是補充水分」。'
   },
   {
@@ -402,6 +453,9 @@ const pkData=[
     desc:'你想找一個能和蛋、鮮奶或豆漿搭配的主食。',
     a:{name:'菠蘿麵包',tags:['甜味明顯','油脂較多','方便']},
     b:{name:'全麥吐司',tags:['可搭配蛋白質食物','膳食纖維較多','方便']},
+    clue:'頻率與搭配',
+    fa:'菠蘿麵包很好吃，偶爾吃沒問題！但如果是「每天」的早餐，它的糖和油脂比較多。可以把它留給週末，平日換成能夾蛋的吐司。',
+    fb:'想得很周到！全麥吐司膳食纖維較多，又可以夾蛋、配鮮奶或豆漿，比較容易組成一份均衡的早餐。',
     note:'如果是「每天」的早餐，頻率與整體搭配比單次享受更值得考慮。'
   },
   {
@@ -409,6 +463,9 @@ const pkData=[
     desc:'你只想墊一下肚子，不希望影響等等的晚餐。',
     a:{name:'餅乾一大包',tags:['份量多','方便','容易一口接一口']},
     b:{name:'小份水果＋無糖飲品',tags:['份量可控','有水果','較不容易吃過量']},
+    clue:'份量與下一餐的時間',
+    fa:'餅乾很方便，但一大包很容易一口接一口吃完，等等晚餐就吃不下了。如果真的想吃，可以先倒出幾片，把其他的收起來。',
+    fb:'聰明的選擇！只是墊肚子，小份量就夠，水果還能補充維生素和膳食纖維，晚餐也照樣吃得下。',
     note:'這題可以比較「份量」與「距離下一餐還有多久」。'
   }
 ];
@@ -420,10 +477,17 @@ function switchPk(i,el){
     <h3>${d.title}</h3>
     <p class="lead" style="font-size:17px">${d.desc}</p>
     <div class="pk-grid">
-      <div class="pk-option"><h3>A｜${d.a.name}</h3><div class="tagrow">${d.a.tags.map(x=>`<span class="tag">${x}</span>`).join('')}</div></div>
-      <div class="pk-option"><h3>B｜${d.b.name}</h3><div class="tagrow">${d.b.tags.map(x=>`<span class="tag">${x}</span>`).join('')}</div></div>
+      <div class="pk-option pk-pick" onclick="pickPk(${i},'a',this)"><h3>A｜${d.a.name}</h3><div class="tagrow">${d.a.tags.map(x=>`<span class="tag">${x}</span>`).join('')}</div></div>
+      <div class="pk-option pk-pick" onclick="pickPk(${i},'b',this)"><h3>B｜${d.b.name}</h3><div class="tagrow">${d.b.tags.map(x=>`<span class="tag">${x}</span>`).join('')}</div></div>
     </div>
-    <div class="info-box">💡 ${d.note}</div>`;
+    <div class="info-box" id="pkFb">👆 你會選哪一個？點一下選擇。</div>
+    <div class="teacher-note"><b>教師提醒：</b>${d.note}</div>`;
+}
+function pickPk(i,k,el){
+  document.querySelectorAll('.pk-pick').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+  const d=pkData[i];
+  document.getElementById('pkFb').innerHTML=`🔎 <b>這題的關鍵線索：${d.clue}</b><br>`+(k==='a'?d.fa:d.fb);
 }
 function go(n){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -456,6 +520,9 @@ function resetAll(){
   });
   document.getElementById('servingFb').className='feedback';
   document.getElementById('toCompare').style.display='none';
+  ['ingAnswers','sugarAnswers'].forEach(id=>document.querySelectorAll('#'+id+' .answer').forEach(b=>{b.disabled=false;b.classList.remove('correct','wrong');}));
+  ['ingFb','sugarFb'].forEach(id=>document.getElementById(id).className='feedback');
+  document.getElementById('sugarQ').style.display='none';
   go(1);
 }
 
