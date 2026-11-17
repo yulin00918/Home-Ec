@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap");
 /* Organic — design-system tokens and component classes. This file is the source of truth for the system's look; retune it here and see readme.md. */
 @import url('https://fonts.googleapis.com/css2?family=Caprasimo:wght@400&family=Figtree:wght@400;600;700&display=swap');
 
@@ -41,9 +42,9 @@
   --color-accent-2-800: #3d472b;
   --color-accent-2-900: #272e1b;
 
-  --font-heading: "Caprasimo", system-ui, sans-serif;
+  --font-heading: "Caprasimo", system-ui, sans-serif, "Noto Color Emoji";
   --font-heading-weight: 400;
-  --font-body: "Figtree", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, sans-serif, "Noto Color Emoji";
 
   --space-1: 4.4px;
   --space-2: 8.8px;
