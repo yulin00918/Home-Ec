@@ -75,6 +75,10 @@ h3{font-size:22px;margin:0 0 10px}
   display:grid;place-items:center;margin:auto
 }
 .hero-ill img{width:90%;height:auto;display:block;filter:drop-shadow(0 14px 22px rgba(100,65,70,.14))}
+.dish-pick{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0 18px}
+.dish{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 8px;border-radius:16px;border:1px solid #ead9da;background:#fff;font:inherit;cursor:pointer}
+.dish .emo{font-size:34px}.dish.active{background:#fbefef;border:2px solid #b77b7d}
+@media(max-width:720px){.dish-pick{grid-template-columns:repeat(2,1fr)}}
 .tips3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
 .tips3 div{padding:16px;border-radius:15px;background:#fff7f4;border:1px solid #efd8d9;line-height:1.75}
 .heat{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
@@ -315,7 +319,9 @@ body.teacher-mode .teacher-note{display:block}
 <section class="screen" data-screen="7">
   <div class="panel">
     <span class="kicker">STEP 6｜開火前先模擬一次</span>
-    <h2 style="margin-top:14px">🎮 番茄炒蛋料理模擬</h2>
+    <h2 style="margin-top:14px">🎮 選一道料理，先在腦中做一次</h2>
+    <p class="lead" style="font-size:17px">選一道你想做、也吃得下的料理。不喜歡番茄？沒關係，換一道！</p>
+    <div class="dish-pick" id="dishPick"></div>
     <div class="sim-grid">
       <div class="sim-box">
         <h3>請依序完成</h3>
@@ -324,30 +330,10 @@ body.teacher-mode .teacher-note{display:block}
       </div>
       <div class="sim-box">
         <h3>今日料理任務</h3>
-        <div class="recipe-card" style="grid-template-columns:1fr">
-          <div>
-            <h3>🍅 番茄炒蛋</h3>
-            <div class="ingredients">
-              <div class="small" style="margin-bottom:6px">約 2 人份</div>
-              <div class="row">🍅 番茄　2 顆</div>
-              <div class="row">🥚 雞蛋　3 顆</div>
-              <div class="row">🧂 鹽　1/4 小匙；糖　1 小匙（可選）</div>
-              <div class="row">🫒 油　1 大匙</div>
-              <div class="row">🌱 蔥　1 支（可選）</div>
-            </div>
-          </div>
-          <div>
-            <div class="steps">
-              <div class="row">🧼 食安提醒｜處理食材前先洗手</div>
-              <div class="row">🔪 安全提醒｜切番茄時先固定食材</div>
-              <div class="row">🔥 料理技巧｜先完成備料，再開始加熱</div>
-              <div class="row">🍳 美味關鍵｜蛋炒到半熟先盛起，最後再倒回，口感才會嫩</div>
-            </div>
-          </div>
-        </div>
+        <div class="recipe-card" style="grid-template-columns:1fr" id="recipeCard"></div>
       </div>
     </div>
-    <div class="teacher-note"><b>教師提醒：</b>正式實作時可把這一頁當作課前檢核，不取代現場示範。</div>
+    <div class="teacher-note"><b>教師提醒：</b>正式實作時可讓各組依口味或飲食限制選不同料理；這一頁當作課前檢核，不取代現場示範。若有學生對蛋過敏，可引導選「蒜炒高麗菜」。</div>
     <div class="actions"><button class="secondary" onclick="go(6)">← 上一步</button><button class="primary" id="toFinishBtn" onclick="requireSim()">完成料理與善後 →</button></div>
   </div>
 </section>
@@ -483,16 +469,52 @@ function pickSeq(el,i){
   el.classList.add('done');seqIndex++;
   document.getElementById('seqInfo').innerHTML=seqIndex===seqSteps.length?'✅ 流程完成！你已經掌握「先備料、再開火、邊做邊整理」。':`很好，下一步再想想要做什麼。`;
 }
-const simSteps=['洗手','洗番茄、切塊','打蛋，加一點鹽攪勻','準備調味料','熱鍋加油，倒入蛋液，炒到半熟先盛起','原鍋炒番茄，炒到出汁','蛋倒回鍋中拌勻、調味','關火，盛盤'];
+const dishes=[
+ {id:'tomato',name:'番茄炒蛋',e:'🍅',tag:'酸甜下飯',
+  ing:['🍅 番茄　2 顆','🥚 雞蛋　3 顆','🧂 鹽　1/4 小匙；糖　1 小匙（可選）','🫒 油　1 大匙','🌱 蔥　1 支（可選）'],
+  steps:['洗手','洗番茄、切塊','打蛋，加一點鹽攪勻','準備調味料','熱鍋加油，倒入蛋液，炒到半熟先盛起','原鍋炒番茄，炒到出汁','蛋倒回鍋中拌勻、調味','關火，盛盤'],
+  tips:['🔪 安全提醒｜番茄圓圓的會滾，先切一刀做出平面再切','🍳 美味關鍵｜蛋炒到半熟先盛起，最後再倒回，口感才會嫩']},
+ {id:'scallion',name:'蔥花煎蛋',e:'🌱',tag:'最簡單入門',
+  ing:['🥚 雞蛋　3 顆','🌱 蔥　2 支','🧂 鹽　1/4 小匙','🫒 油　1 大匙'],
+  steps:['洗手','洗蔥、切成蔥花','打蛋，加鹽和蔥花攪勻','熱鍋加油，轉中火','倒入蛋液，等底部凝固','翻面，煎到兩面金黃','關火，切塊盛盤'],
+  tips:['🔪 安全提醒｜蔥細長容易滑，扶蔥的手用「貓爪手」','🍳 美味關鍵｜底部凝固再翻面，蛋才不會破；中火就好，大火容易焦']},
+ {id:'corn',name:'玉米炒蛋',e:'🌽',tag:'香甜不用切',
+  ing:['🥚 雞蛋　3 顆','🌽 玉米粒　約半杯（80 公克）','🧂 鹽　1/4 小匙','🫒 油　1 大匙','🌱 蔥　1 支（可選）'],
+  steps:['洗手','玉米粒瀝乾水分','打蛋，加鹽攪勻','熱鍋加油，先炒玉米粒約 1 分鐘','倒入蛋液','等蛋液稍微凝固，再輕輕推炒','關火，盛盤'],
+  tips:['🥫 安全提醒｜開玉米罐頭時，罐口邊緣很鋒利，不要用手指去摸','🍳 美味關鍵｜玉米一定要瀝乾，水分太多油會噴、蛋也會水水的']},
+ {id:'cabbage',name:'蒜炒高麗菜',e:'🥬',tag:'不用蛋也可以',
+  ing:['🥬 高麗菜　1/4 顆（約 300 公克）','🧄 蒜頭　2 瓣','🧂 鹽　1/4 小匙','🫒 油　1 大匙','💧 水　2 大匙'],
+  steps:['洗手','高麗菜一片片剝開、洗乾淨','用手撕成小片，瀝乾水分','蒜頭拍碎、切成蒜末','熱鍋加油，小火炒香蒜末','轉大火，加入高麗菜翻炒','加水和鹽，炒到菜變軟','關火，盛盤'],
+  tips:['✋ 安全提醒｜高麗菜用手撕就好，少用一次刀，也更容易入味','🍳 美味關鍵｜蒜末用小火才不會焦苦；菜下鍋再轉大火快炒，口感才會脆']}
+];
+let dishIdx=0;
+let simSteps=dishes[0].steps;
 let simIndex=0;
+function renderDishPick(){
+  document.getElementById('dishPick').innerHTML=dishes.map((d,i)=>`<button class="dish ${i===dishIdx?'active':''}" onclick="pickDish(${i})"><span class="emo">${d.e}</span><b>${d.name}</b><span class="small">${d.tag}</span></button>`).join('');
+}
+function pickDish(i){
+  dishIdx=i;simSteps=dishes[i].steps;renderDishPick();renderSim();
+  document.getElementById('simInfo').innerHTML=`你選了「${dishes[i].name}」！先想清楚順序，再真的進廚房。`;
+}
 function renderSim(){
+  simIndex=0;
+  const d=dishes[dishIdx];
   document.getElementById('simSequence').innerHTML=shuffled(simSteps.map((s,i)=>[s,i])).map(([s,i])=>`<button class="seq" onclick="pickSim(this,${i})">${s}</button>`).join('');
+  document.getElementById('recipeCard').innerHTML=`
+    <div><h3>${d.e} ${d.name}</h3>
+      <div class="ingredients"><div class="small" style="margin-bottom:6px">約 2 人份</div>${d.ing.map(x=>`<div class="row">${x}</div>`).join('')}</div></div>
+    <div><div class="steps">
+      <div class="row">🧼 食安提醒｜處理食材前先洗手</div>
+      ${d.tips.map(x=>`<div class="row">${x}</div>`).join('')}
+      <div class="row">🔥 料理技巧｜先完成備料，再開始加熱</div>
+    </div></div>`;
 }
 function pickSim(el,i){
   if(el.classList.contains('done'))return;
   if(i!==simIndex){document.getElementById('simInfo').innerHTML='💡 還沒備料完成就先開火，可能會手忙腳亂。再想一下順序。';return}
   el.classList.add('done');simIndex++;
-  document.getElementById('simInfo').innerHTML=simIndex===simSteps.length?'🎉 模擬完成！現在才適合進入真正的料理實作。':'✅ 很好，繼續下一步。';
+  document.getElementById('simInfo').innerHTML=simIndex===simSteps.length?`🎉 「${dishes[dishIdx].name}」模擬完成！現在才適合進入真正的料理實作。`:'✅ 很好，繼續下一步。';
 }
 document.querySelectorAll('.stars').forEach(box=>{
   box.innerHTML=[1,2,3,4,5].map(n=>`<button onclick="rate(this,${n})">☆</button>`).join('');
@@ -519,7 +541,7 @@ function requireSequence(){
   go(7);
 }
 function requireSim(){
-  if(simIndex<simSteps.length){showToast('先完成番茄炒蛋料理模擬');return;}
+  if(simIndex<simSteps.length){showToast('先完成料理模擬的步驟排序');return;}
   go(8);
 }
 function requireCleanup(){
@@ -542,9 +564,9 @@ function resetAll(){
   document.querySelectorAll('.clean-item').forEach(x=>x.classList.remove('done'));
   document.getElementById('cleanCount').textContent='0';
   document.querySelectorAll('.stars').forEach(box=>[...box.children].forEach(b=>b.textContent='☆'));
-  renderTools();renderSequence();renderSim();renderEgg();go(1);
+  dishIdx=0;simSteps=dishes[0].steps;renderDishPick();renderTools();renderSequence();renderSim();renderEgg();go(1);
 }
-renderTools();renderSequence();renderSim();renderEgg();
+renderDishPick();renderTools();renderSequence();renderSim();renderEgg();
 
 function markComplete(num, ability, icon){
   try {
