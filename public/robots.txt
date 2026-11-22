@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://home-ec.yulin00918.workers.dev/sitemap.xml
