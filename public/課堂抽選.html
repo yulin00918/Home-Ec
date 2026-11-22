@@ -39,7 +39,8 @@ button,select,input{font:inherit}.shell{max-width:1160px;margin:auto;padding:22p
 .controls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:11px}.start{border:0;border-radius:12px;padding:11px 18px;background:#e98562;color:#fff;font-weight:900;cursor:pointer}.start:disabled{opacity:.45;cursor:not-allowed}.ghost{border:1px solid var(--line);border-radius:12px;padding:10px 13px;background:#fff;color:#72595a;cursor:pointer}
 .section{padding:10px 0;border-bottom:1px solid #eee1d8}.section:last-child{border:0}.section h3{font-size:14px;margin:0 0 8px}.loaded{background:#edf8f4;border:1px solid #c8e8dd;border-radius:12px;padding:10px}.loaded strong{display:block;color:#397667}.loaded.warn{background:#fff3e0;border-color:#f0d7b0}.loaded.warn strong{color:#8a6a3a}.row{display:flex;gap:7px;align-items:center;margin-top:8px}.row select,.row input{width:100%;border:1px solid var(--line);border-radius:9px;padding:8px;background:#fff;color:#674f50}.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.seg button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 5px;font-size:12px;cursor:pointer;color:#765c5d}.seg button.on{background:#f6c0cf;border-color:#efaabd;font-weight:900}.switch{display:flex;justify-content:space-between;align-items:center;margin:8px 0;font-size:13px}.toggle{width:42px;height:24px;background:#ddd3cd;border-radius:99px;position:relative;cursor:pointer}.toggle:after{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}.toggle.on{background:#75cdb9}.toggle.on:after{left:21px}.history{display:flex;gap:5px;flex-wrap:wrap}.chip{font-size:11px;background:#f5eee8;border-radius:999px;padding:5px 7px}.credit{text-align:right;font-size:11px;color:#a1827d;margin-top:10px}
 @media(max-width:800px){.grid{grid-template-columns:1fr}.cardgrid,.spotgrid{grid-template-columns:repeat(5,1fr)}}@media(max-width:520px){.shell{padding:10px}.cardgrid,.spotgrid{padding:13px;grid-template-columns:repeat(4,1fr);gap:7px}.stage{min-height:390px}.num{font-size:17px}}
-</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap"></head>
+</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap"><script src="bigscreen.js" defer></script>
+</head>
 <body><div class="shell">
 <div class="grid"><section class="panel"><div class="title"><h2>🎯 課堂抽選</h2><span class="tiny" id="count"></span></div>
 <div class="mode"><button class="on" data-mode="cards">🎴 幸運翻牌</button><button data-mode="spot">🔦 聚光抽選</button></div>
@@ -83,7 +84,7 @@ button,select,input{font:inherit}.shell{max-width:1160px;margin:auto;padding:22p
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const CLASS_DATA_KEY='teacherToolboxClassData';
 let classes={},classOrder=[],currentClassId='';
-let students=[],mode='cards',show='both',history=[],counts={},busy=false,timerInt=null,manualMode=false;
+let students=[],mode='cards',show='both',history=[],counts={},busy=false,timerInt=null,manualMode=false,roundStart=0;
 const colors=['#f5b6c8','#a9dfd1','#f5dc8d','#cec0eb','#b8dff0','#f5c3a7'];
 
 function readStore(){
@@ -117,7 +118,7 @@ function loadRoster(keepClass){
   sel.innerHTML=classOrder.map(id=>`<option value="${id}"${id===currentClassId?' selected':''}>${(classes[id]&&classes[id].className)||'未命名班級'}</option>`).join('')||'<option>（無班級）</option>';
   const cls=classes[currentClassId];
   students=normalize(cls&&cls.students);
-  history=[];counts={};
+  history=[];counts={};roundStart=0;
   const box=$('#loadedBox');
   if(students.length){
     box.classList.remove('warn');
@@ -148,9 +149,22 @@ function render(){
 }
 function pool(){
   if(!$('#noRepeat').classList.contains('on')) return students;
-  let used=new Set(history.flat());
+  let used=new Set(history.slice(roundStart).flat());
   let p=students.filter(s=>!used.has(s.key));
-  return p.length?p:students
+  if(!p.length){ /* 全班都抽過了：開始新的一輪 */
+    roundStart=history.length;
+    notice('🎉 全班都抽過了，開始新的一輪！');
+    return students;
+  }
+  return p
+}
+function notice(msg){
+  let t=document.getElementById('roundNotice');
+  if(!t){t=document.createElement('div');t.id='roundNotice';
+    t.style.cssText='position:fixed;left:50%;top:18px;transform:translateX(-50%);z-index:9999;background:#fff8e1;color:#5B4636;border:1px solid #f0d98a;box-shadow:0 8px 22px rgba(91,70,54,.16);padding:10px 18px;border-radius:999px;font-weight:900;font-size:15px;transition:opacity .3s;pointer-events:none';
+    document.body.appendChild(t)}
+  t.textContent=msg;t.style.opacity='1';
+  clearTimeout(t._h);t._h=setTimeout(()=>{t.style.opacity='0'},2600)
 }
 function pickCount(){
   let v=$('#pickCount').value;
@@ -201,19 +215,24 @@ function pick(){
   history.push(keys); keys.forEach(k=>counts[k]=(counts[k]||0)+1); hist();
   if(mode==='cards'){
     let cs=$$('.pickcard');cs.forEach(c=>c.classList.add('shake'));
-    setTimeout(()=>{cs.forEach((c,i)=>{c.classList.remove('shake');setTimeout(()=>c.classList.add('flip'),i*18)})},500);
-    setTimeout(()=>{
-      cs.forEach(c=>{if(!keys.includes(c.dataset.key))c.classList.add('dim')});
-      cs.filter(c=>keys.includes(c.dataset.key)).forEach(c=>c.classList.add('win'))
-    },1150);
-    setTimeout(()=>result(chosen),1750)
+    let losers=cs.filter(c=>!keys.includes(c.dataset.key)), winners=cs.filter(c=>keys.includes(c.dataset.key));
+    setTimeout(()=>{cs.forEach(c=>c.classList.remove('shake'));losers.forEach((c,i)=>setTimeout(()=>c.classList.add('flip'),i*18))},500);
+    setTimeout(()=>{losers.forEach(c=>c.classList.add('dim'))},1150);
+    setTimeout(()=>{winners.forEach(c=>c.classList.add('flip','win'))},1500);
+    setTimeout(()=>result(chosen),2250)
   }else{
-    let ps=$$('.spot'),i=0,steps=25;
+    let ps=$$('.spot'),i=0,steps=25,last=-1;
     function tick(){
       ps.forEach(x=>x.classList.remove('hot'));
-      let cur=ps[(i*7+2)%ps.length];cur.classList.add('hot');i++;
+      let j;
+      if(i===steps-1){j=ps.findIndex(x=>x.dataset.key===keys[0])}
+      else{do{j=Math.floor(Math.random()*ps.length)}while(ps.length>1&&j===last)}
+      last=j;let cur=ps[j];cur.classList.add('hot');i++;
       if(i<steps)setTimeout(tick,50+i*4);
-      else{
+      else setTimeout(finish,50+i*4);
+    }
+    function finish(){
+      {
         ps.forEach(x=>{x.classList.remove('hot');x.classList.add('fade')});
         ps.filter(x=>keys.includes(x.dataset.key)).forEach(w=>{w.classList.remove('fade');w.classList.add('final')});
         setTimeout(()=>result(chosen),600)
@@ -226,13 +245,20 @@ $$('.mode button').forEach(b=>b.onclick=()=>{$$('.mode button').forEach(x=>x.cla
 $$('.seg button').forEach(b=>b.onclick=()=>{$$('.seg button').forEach(x=>x.classList.remove('on'));b.classList.add('on');show=b.dataset.show;close();render()});
 $$('.toggle').forEach(t=>t.onclick=()=>t.classList.toggle('on'));
 $('#pick').onclick=pick;$('#again').onclick=()=>{close();setTimeout(pick,100)};$('#done').onclick=()=>close();
-$('#reset').onclick=()=>{history=[];counts={};hist();close()};
-$('#undo').onclick=()=>{let g=history.pop();if(g)g.forEach(k=>counts[k]=Math.max(0,(counts[k]||1)-1));hist();close()};
+$('#reset').onclick=()=>{history=[];counts={};roundStart=0;hist();close()};
+$('#undo').onclick=()=>{let g=history.pop();if(g)g.forEach(k=>counts[k]=Math.max(0,(counts[k]||1)-1));if(roundStart>history.length)roundStart=0;hist();close()};
 $('#classSel').onchange=()=>{currentClassId=$('#classSel').value;loadRoster(true)};
 $('#load').onclick=()=>{loadRoster(true);$('#load').textContent='已載入';setTimeout(()=>$('#load').textContent='重新載入',900)};
 $('#timer').onclick=()=>{if(timerInt){clearInterval(timerInt);timerInt=null;$('#timer').textContent='⏱ 30秒';return}let t=30;$('#timer').textContent='⏱ '+t+'秒';timerInt=setInterval(()=>{t--;$('#timer').textContent=t?'⏱ '+t+'秒':'⏰ 時間到';if(!t){clearInterval(timerInt);timerInt=null}},1000)};
 $('#pickCount').onchange=()=>{$('#customCount').style.display=$('#pickCount').value==='custom'?'block':'none'};
-window.addEventListener('focus',()=>{ if(!manualMode) loadRoster(true); });
+window.addEventListener('focus',()=>{
+  if(manualMode) return;
+  /* 只有學生名單真的有變動才重新載入；名單沒變就保留本輪紀錄 */
+  const st=readStore();
+  const cls=st&&st.classes[currentClassId];
+  const changed=!st||!cls||JSON.stringify(normalize(cls.students))!==JSON.stringify(students)||st.classOrder.join(',')!==classOrder.join(',');
+  if(changed) loadRoster(true);
+});
 
 $('#toggleManual').onclick=()=>{
   const box=$('#manualBox');
@@ -251,7 +277,7 @@ $('#applyManual').onclick=()=>{
     else{num=String(i+1);name=parts.join(' ')}
     return {key:'m'+i,num:num||String(i+1),name:name||('學生'+(i+1))};
   });
-  manualMode=true;history=[];counts={};
+  manualMode=true;history=[];counts={};roundStart=0;
   const box=$('#loadedBox');box.classList.remove('warn');
   $('#loadedTitle').textContent='✓ 使用自行輸入的名單';
   $('#classInfo').textContent=`臨時名單｜${students.length} 人`;
