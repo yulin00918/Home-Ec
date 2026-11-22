@@ -165,10 +165,21 @@ html{scroll-behavior:smooth}
 footer{font-size:13px}
 .card{min-height:250px;padding-bottom:74px}
 </style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap"></head><body><div class="wrap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap"><style id="mobile-hero-fix">
+/* 手機版首頁：橫幅只顯示插圖，避免和上方 Logo 重複、小字看不清 */
+.hero-tagline-m{display:none}
+@media(max-width:620px){
+  .hero.hero-banner>img{aspect-ratio:4/3!important;object-fit:cover!important;object-position:100% 50%!important;height:auto!important}
+  .hero.hero-banner .hero-cat{display:none}
+  .hero-tagline-m{display:block;position:absolute;left:12px;right:12px;bottom:12px;margin:0;padding:9px 14px;border-radius:14px;
+    background:rgba(255,250,243,.92);color:#A9562F;font-size:15px;font-weight:900;letter-spacing:.04em;text-align:center;
+    box-shadow:0 6px 16px rgba(91,70,54,.12)}
+}
+</style>
+</head><body><div class="wrap">
 <nav><a aria-label="生活聆距離，回首頁" class="brand brand-logo-link" href="index.html"><img src="assets/approved-nav-logo.png" alt="生活聆距離" width="235" height="62"/></a><div class="navs"><a href="#life-features"><span>生活專題</span></a><a href="主題互動學習.dc.html"><span>直接玩</span></a><a href="教學百寶箱.dc.html"><span>教師工具</span></a></div><img class="nav-corner-mark" src="assets/approved-corner-house.png" alt="生活聆距離小屋圖示" width="52" height="52"/></nav>
-<section class="hero hero-banner"><img alt="生活聆距離：讓生活零距離，讓學習有溫度。女孩與小狗一起探索飲食、衣著、家庭、消費與永續生活。" loading="eager" src="assets/home-hero-warm.png" width="2109" height="746"/><a class="hero-cat" href="飲食與營養.dc.html" aria-label="飲食生活" style="left:3.6%"></a><a class="hero-cat" href="服裝與織品.dc.html" aria-label="衣著管理" style="left:12.6%"></a><a class="hero-cat" href="家庭與生活.dc.html" aria-label="家庭生活" style="left:21.7%"></a><a class="hero-cat" href="消費與管理.dc.html" aria-label="購物消費" style="left:30.8%"></a><a class="hero-cat" href="sdgs.html" aria-label="永續生活" style="left:39.7%"></a></section><div class="hero-jump-row"><a class="hero-jump" href="#life-features">開始探索生活 ↓</a></div>
-<section class="intro"><div class="quote"><b>「會生活，是慢慢練出自己的選擇。」</b><p>看懂需要、理解條件、動手試試，再替自己做一次決定。</p></div><div class="note"><b>✎ TODAY'S NOTE</b><p>今天最想處理哪一件生活小事？就從那裡開始。</p></div></section>
+<section class="hero hero-banner"><img alt="生活聆距離：讓生活零距離，讓學習有溫度。女孩與小狗一起探索飲食、衣著、家庭、消費與永續生活。" loading="eager" src="assets/home-hero-warm.png" width="2109" height="746"/><a class="hero-cat" href="飲食與營養.dc.html" aria-label="飲食生活" style="left:3.6%"></a><a class="hero-cat" href="服裝與織品.dc.html" aria-label="衣著管理" style="left:12.6%"></a><a class="hero-cat" href="家庭與生活.dc.html" aria-label="家庭生活" style="left:21.7%"></a><a class="hero-cat" href="消費與管理.dc.html" aria-label="購物消費" style="left:30.8%"></a><a class="hero-cat" href="sdgs.html" aria-label="永續生活" style="left:39.7%"></a><p class="hero-tagline-m" aria-hidden="true">讓生活零距離，讓學習有溫度。</p></section><div class="hero-jump-row"><a class="hero-jump" href="#life-features">開始探索生活 ↓</a></div>
+<section class="intro"><div class="quote"><b>「會生活，<span style="display:inline-block">是慢慢練出自己的選擇。」</span></b><p>看懂需要、理解條件、動手試試，再替自己做一次決定。</p></div><div class="note"><b>✎ TODAY'S NOTE</b><p>今天最想處理哪一件生活小事？就從那裡開始。</p></div></section>
 <div class="title" id="life-features"><div><h2>生活專題｜FEATURES</h2><small>把家政放回每天真正會遇到的生活裡</small></div><small>01 — 05</small></div>
 <section class="grid">
 <a class="card c1" href="飲食與營養.dc.html"><div class="num">FEATURE 01 · FOOD</div><h3>今天吃什麼？</h3><div class="en">FOOD &amp; DAILY CHOICE</div><p>從食物選擇、營養判斷到料理實作，讓每一餐多一點自己的判斷。</p><span class="go">飲食與營養 →</span><div class="ico"><img src="images/home/home-food.webp" alt="平底鍋煎蛋" width="360" height="360" loading="lazy"></div></a>
