@@ -138,6 +138,16 @@ const modelsReadyPromise=init();
 
 file.addEventListener('change',e=>loadFile(e.target.files?.[0]));$('#drop').addEventListener('dragover',e=>{e.preventDefault();e.currentTarget.classList.add('drag')});$('#drop').addEventListener('dragleave',e=>e.currentTarget.classList.remove('drag'));$('#drop').addEventListener('drop',e=>{e.preventDefault();e.currentTarget.classList.remove('drag');loadFile(e.dataTransfer.files?.[0])});
 function readFileAsDataURL(f){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(f)})}
+/* 平板照片常是 4000×3000 的大圖：先縮到最長邊 1400px，後面辨識、去背、取樣都用這張，速度快很多，結果幾乎不變 */
+const MAX_PHOTO_SIDE=1400;
+async function shrinkPhoto(dataUrl){
+ const tmp=new Image();await waitImage(tmp,dataUrl);
+ const w=tmp.naturalWidth,h=tmp.naturalHeight,k=Math.min(1,MAX_PHOTO_SIDE/Math.max(w,h));
+ if(k>=1)return dataUrl;
+ const c=document.createElement('canvas');c.width=Math.round(w*k);c.height=Math.round(h*k);
+ c.getContext('2d').drawImage(tmp,0,0,c.width,c.height);
+ return c.toDataURL('image/jpeg',.92);
+}
 function waitImage(el,src){return new Promise((resolve,reject)=>{el.onload=()=>resolve(el);el.onerror=reject;el.src=src})}
 function smoothstep(a,b,x){const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t)}
 async function removeBackground(el){
@@ -182,10 +192,14 @@ async function removeBackground(el){
      }
      for(let i=0;i<soft.length;i++)d[i*4+3]=soft[i];
      cx.putImageData(im,0,0);
-     const png=c.toDataURL('image/png');
-     if(!png.startsWith('data:image/png'))throw new Error('透明 PNG 建立失敗');
      categoryMask.close?.();
-     settled=true;clearTimeout(timer);resolve(png);
+     /* 改用 Blob 網址：試色卡每次重畫都共用同一張已解碼的圖，不會一直重新處理大圖 */
+     c.toBlob(blob=>{
+      if(settled)return;
+      if(!blob){settled=true;clearTimeout(timer);reject(new Error('透明 PNG 建立失敗'));return}
+      if(cutoutDataUrl&&cutoutDataUrl.startsWith('blob:'))URL.revokeObjectURL(cutoutDataUrl);
+      settled=true;clearTimeout(timer);resolve(URL.createObjectURL(blob));
+     },'image/png');
     }catch(err){
      try{result.categoryMask?.close?.();result.confidenceMasks?.forEach(m=>m.close?.())}catch(_){}
      settled=true;clearTimeout(timer);reject(err);
@@ -198,7 +212,7 @@ async function loadFile(f){
  if(!f)return;if(!f.type.startsWith('image/'))return setStatus('請選擇圖片檔。','bad');
  imgReady=false;analyzeBtn.disabled=true;dots.innerHTML='';resetResult();setStatus('照片已讀取，正在用 Image Segmenter 辨識人物並建立透明 PNG…','');
  try{
-  const originalDataUrl=await readFileAsDataURL(f);await waitImage(sourceImg,originalDataUrl);await modelsReadyPromise;
+  const originalDataUrl=await shrinkPhoto(await readFileAsDataURL(f));await waitImage(sourceImg,originalDataUrl);await modelsReadyPromise;
   try{
    cutoutDataUrl=await removeBackground(sourceImg);
    await waitImage(img,cutoutDataUrl);

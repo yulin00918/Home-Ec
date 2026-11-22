@@ -323,7 +323,8 @@ const PRESETS = {
 let state={mode:'custom',size:4,cards:[],items:[],images:[],preview:0,history:[],autoTimer:null,autoPaused:false,wheelAngle:0};
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+/* 公平洗牌（Fisher–Yates）：每一題被排到每個位置的機率都一樣 */
+function shuffle(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]]}return r}
 function escapeHTML(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 
 function initModes(){

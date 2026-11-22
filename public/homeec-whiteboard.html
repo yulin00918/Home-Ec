@@ -598,6 +598,13 @@ button{cursor:pointer}
     showToast('已匯出完整白板 PNG');
   };
 
+  /* 載入儲存的白板：把存下來的畫面畫回畫布（原本缺少這個功能，按「載入」會出錯） */
+  function restoreCanvas(dataUrl){
+    if(!dataUrl)return;
+    const im=new Image();
+    im.onload=()=>{ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(im,0,0);};
+    im.src=dataUrl;
+  }
   function restoreObjects(arr){
     overlay.innerHTML='';
     arr.forEach(o=>{
@@ -637,7 +644,7 @@ button{cursor:pointer}
     const d=JSON.parse(raw);
     document.getElementById('boardTitle').value=d.title||'我的家政白板';
     bg=d.bg||'white';document.getElementById('bgSelect').value=bg;applyBackground();
-    restoreCanvas(d.canvas);restoreObjects(d.objects||[]);
+    saveState();restoreCanvas(d.canvas);restoreObjects(d.objects||[]);
     scores=Array.isArray(d.scores)?d.scores:scores;seatUsed=new Set(d.seatUsed||[]);
     renderScores();updateSeatStatus();showToast('白板已載入');
   };
