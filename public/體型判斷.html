@@ -26,6 +26,7 @@ h1,h2,h3{margin:0}
 .card{background:var(--card);border-radius:26px;box-shadow:0 16px 40px #7b5a4a12;padding:26px;margin-bottom:22px}
 .card h2{font-size:24px}
 .muted{color:var(--muted);line-height:1.8}
+.kind-note{margin:14px auto 0;max-width:460px;padding:10px 14px;border-radius:14px;background:#fff3e0;color:#8a6a3a;font-size:13.5px;line-height:1.7;font-weight:650}
 .field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
 .field{background:#fbfaf8;border:1.5px solid var(--line);border-radius:18px;padding:14px}
 .field label{display:block;font-weight:700;margin-bottom:5px}
@@ -52,7 +53,7 @@ h1,h2,h3{margin:0}
   <a class="back" href="服裝與織品.dc.html">← 回服裝與織品</a>
   <div class="card">
     <h2>① 認識我的身形</h2>
-    <p class="muted">📏 請以公分（cm）輸入。測量時自然站立，不刻意縮小腹。</p>
+    <p class="muted">📏 請以公分（cm）輸入。測量時自然站立，不刻意縮小腹。每個部位建議<strong>量兩次取平均</strong>，結果會更準確。</p>
     <div class="sex-row" id="sexRow">
       <span>性別：</span>
       <button type="button" class="sex-btn" data-sex="boy" onclick="pickSex('boy')">👦 男生</button>
@@ -172,6 +173,7 @@ function showBodyResult(r){
       <h3>${r.type}</h3>
       <p class="muted">${r.alias||''}</p>
       <div style="margin:14px auto 0;max-width:460px;background:#ffffffc0;border-radius:14px;padding:10px 14px;color:#74645f;font-size:13px;">${r.dataText}</div>
+      <div class="kind-note">💡 這是簡化的分類，用來認識適合自己的穿搭技巧。每一種身形都沒有好壞，喜歡自己、穿得自在最重要！</div>
     </div>`;
 }
 
